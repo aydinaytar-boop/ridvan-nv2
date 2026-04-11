@@ -1,0 +1,86 @@
+/* ====================== RIDVAN CAMİİ NAMAZ VAKİTLERİ — TV OPTİMİZASYONU ====================== */
+@import "tailwindcss";
+* {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #0a3d2e;
+}
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.tv-safe-area {
+  width: 1920px;
+  height: 1080px;
+  margin: 0 auto;
+  overflow: hidden;
+  zoom: 0.78;
+  transform-origin: top left;
+}
+@media (max-width: 1920px) {
+  .tv-safe-area {
+    zoom: calc(100vw / 1920);
+  }
+}
+.outer-frame {
+  width: 1920px;
+  height: 1080px;
+  border: 14px solid #c9a66b;
+  background-color: #0a3d2e;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.top-bar {
+  min-height: 92px;
+  max-height: 92px;
+  flex-shrink: 0;
+}
+.bottom-bar {
+  min-height: 82px;
+  max-height: 82px;
+  flex-shrink: 0;
+}
+.main-panels {
+  gap: 18px;
+  padding: 16px 20px;
+  height: calc(1080px - 92px - 82px);
+}
+.panel {
+  border: 6px solid #c9a66b;
+  border-radius: 12px;
+  overflow: hidden;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes rowPulse {
+  0%, 100% {
+    background: rgba(201, 166, 107, 0.22);
+    border-left-color: #c9a66b;
+    box-shadow: inset 0 0 0px #c9a66b00;
+  }
+  50% {
+    background: rgba(201, 166, 107, 0.55);
+    border-left-color: #f5d78e;
+    box-shadow: inset 0 0 24px rgba(201, 166, 107, 0.35);
+  }
+}
+
+.active-vakit-row {
+  animation: rowPulse 1.6s ease-in-out infinite;
+  border-left: 7px solid #c9a66b !important;
+}
+
+.active-vakit-text {
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
