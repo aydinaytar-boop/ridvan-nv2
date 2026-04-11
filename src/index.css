@@ -15,9 +15,12 @@ html, body {
   background: #000;
   touch-action: none;
   user-select: none;
+
+  /* ❗ EN ÖNEMLİSİ: SCALE YOK */
+  transform: none !important;
 }
 
-/* ROOT — TAM EKRAN, HİÇBİR SCALE YOK */
+/* ROOT — TAM EKRAN */
 #root {
   width: 100vw;
   height: 100vh;
@@ -26,21 +29,22 @@ html, body {
   justify-content: center;
   align-items: center;
 
+  /* ❗ SCALE YOK */
   transform: none !important;
   padding: 0;
 }
 
-/* SAFE AREA — 1920x1080 TASARIM ALANI */
+/* SAFE AREA — EKRANI KÜÇÜLTMEYECEK ŞEKİLDE */
 .tv-safe-area {
-  width: 1920px;
-  height: 1080px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
-/* ÇERÇEVE */
+/* ÇERÇEVE — TAM EKRANA UYUM SAĞLASIN */
 .outer-frame {
-  width: 1920px;
-  height: 1080px;
+  width: 100%;
+  height: 100%;
   border: 14px solid #c9a66b;
   background-color: #0a3d2e;
   overflow: hidden;
@@ -65,7 +69,7 @@ html, body {
 .main-panels {
   gap: 18px;
   padding: 16px 20px;
-  height: calc(1080px - 92px - 82px);
+  height: calc(100% - 92px - 82px);
 }
 
 /* PANEL */
