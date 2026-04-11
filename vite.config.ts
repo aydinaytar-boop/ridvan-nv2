@@ -8,13 +8,22 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// https://vite.dev/config/
 export default defineConfig({
-  base: "/ridvan-nv2/",   // <<< GİTHUB PAGES İÇİN ZORUNLU SATIR
-  plugins: [react(), tailwindcss(), viteSingleFile()],
+  base: "/ridvan-nv2/",   // GitHub Pages için zorunlu
+  plugins: [
+    react(),
+    tailwindcss(),
+    viteSingleFile()
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
     },
+  },
+
+  // 🔥 EN KRİTİK KISIM — GitHub Pages cache sorununu çözer
+  build: {
+    outDir: "docs",        // GitHub Pages buradan yayın yapıyor
+    emptyOutDir: true,     // Eski dosyaları tamamen siler (cache sorunu biter)
   },
 });
