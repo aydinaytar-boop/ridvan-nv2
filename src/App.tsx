@@ -224,7 +224,7 @@ export default function App() {
     }
   }, []);
 
-  if (isBlackout) {
+if (isBlackout) {
   return (
     <div style={{ width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }}>
       <img
@@ -243,12 +243,17 @@ export default function App() {
   );
 }
 
-  if (showSettings) {
-    return (
-      <div style={{ width: "100vw", height: "100vh", background: "#0a3d2e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24, padding: 40 }}>
-        <div style={{ color: "#c9a66b", fontSize: 32, fontWeight: "bold", marginBottom: 8 }}>⚙️ {lang === "tr" ? "Ayarlar" : "Einstellungen"}</div>
-        <div style={{ display: "flex", alignItems: "center", gap: 16, width: "100%", maxWidth: 600 }}>
-          <span style={{ color: "#f5d78e", fontSize: 20, flex: 1 }}>{lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit"}</span>
+ if (showSettings) {
+  return (
+    <div style={{ width: "100vw", height: "100vh", background: "#0a3d2e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24, padding: 40 }}>
+      <div style={{ color: "#c9a66b", fontSize: 32, fontWeight: "bold", marginBottom: 8 }}>
+        ⚙️ {lang === "tr" ? "Ayarlar" : "Einstellungen"}
+      </div>
+
+      <div style={{ display: "flex", alignItems: "center", gap: 16, width: "100%", maxWidth: 600 }}>
+        <span style={{ color: "#f5d78e", fontSize: 20, flex: 1 }}>
+          {lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit"}
+        </span>
           <input type="time" value={sabahKametInput} onChange={(e) => setSabahKametInput(e.target.value)} style={{ flex: 1, padding: "8px 12px", borderRadius: 8, border: "2px solid #c9a66b", background: "#1a5c3a", color: "#f5d78e", fontSize: 18 }} />
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8, width: "100%", maxWidth: 600 }}>
@@ -293,22 +298,86 @@ export default function App() {
   }
 
   return (
+  <div
+    style={{
+      width: "100vw",
+      height: "100vh",
+      overflow: "hidden",
+      position: "fixed",
+      top: 0,
+      left: 0,
+      background: "#000"
+    }}
+  >
     <div className="tv-safe-area">
       <div className="outer-frame" style={{ display: "flex", flexDirection: "column" }}>
+        
         {/* ÜST BAR */}
-        <div className="top-bar" style={{ background: "linear-gradient(180deg,#0e5c3a 0%,#0a3d2e 100%)", borderBottom: "4px solid #c9a66b", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px" }}>
+        <div
+          className="top-bar"
+          style={{
+            background: "linear-gradient(180deg,#0e5c3a 0%,#0a3d2e 100%)",
+            borderBottom: "4px solid #c9a66b",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "0 32px"
+          }}
+        >
           <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 260 }}>
-            <div style={{ color: "#c9a66b", fontSize: 22, fontWeight: 500, letterSpacing: 1, lineHeight: 1 }}>{lang === "tr" ? hicriTR : hicriDE}</div>
-            <div style={{ color: "#f5d78e", fontSize: 28, fontWeight: 700, lineHeight: 1 }}>{lang === "tr" ? miladiTR : miladiDE}</div>
+            <div style={{ color: "#c9a66b", fontSize: 22, fontWeight: 500, letterSpacing: 1, lineHeight: 1 }}>
+              {lang === "tr" ? hicriTR : hicriDE}
+            </div>
+            <div style={{ color: "#f5d78e", fontSize: 28, fontWeight: 700, lineHeight: 1 }}>
+              {lang === "tr" ? miladiTR : miladiDE}
+            </div>
           </div>
+
           <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ color: "#f5d78e", fontSize: 52, fontWeight: 900, letterSpacing: 6, textTransform: "uppercase", textAlign: "center", lineHeight: 1, fontFamily: "'Segoe UI', 'Arial', sans-serif" }}>{lang === "tr" ? "RIDVAN CAMİİ — VİYANA" : "RIDVAN MOSCHEE — WIEN"}</div>
+            <div
+              style={{
+                color: "#f5d78e",
+                fontSize: 52,
+                fontWeight: 900,
+                letterSpacing: 6,
+                textTransform: "uppercase",
+                textAlign: "center",
+                lineHeight: 1,
+                fontFamily: "'Segoe UI', 'Arial', sans-serif"
+              }}
+            >
+              {lang === "tr" ? "RIDVAN CAMİİ — VİYANA" : "RIDVAN MOSCHEE — WIEN"}
+            </div>
           </div>
+
           <div style={{ display: "flex", alignItems: "flex-end", minWidth: 220, justifyContent: "flex-end" }}>
             <span style={{ color: "#f5d78e", fontSize: 68, fontWeight: 900, lineHeight: 1, fontFamily: "monospace" }}>{hh}</span>
-            <span style={{ color: "#c9a66b", fontSize: 52, fontWeight: 900, margin: "0 4px", fontFamily: "monospace", animation: "pulse 1s infinite" }}>:</span>
+            <span
+              style={{
+                color: "#c9a66b",
+                fontSize: 52,
+                fontWeight: 900,
+                margin: "0 4px",
+                fontFamily: "monospace",
+                animation: "pulse 1s infinite"
+              }}
+            >
+              :
+            </span>
             <span style={{ color: "#f5d78e", fontSize: 68, fontWeight: 900, lineHeight: 1, fontFamily: "monospace" }}>{mm}</span>
-            <span style={{ color: "#c9a66b", fontSize: 32, fontWeight: 700, marginBottom: 6, marginLeft: 6, fontFamily: "monospace", animation: "pulse 1s infinite" }}>{ss}</span>
+            <span
+              style={{
+                color: "#c9a66b",
+                fontSize: 32,
+                fontWeight: 700,
+                marginBottom: 6,
+                marginLeft: 6,
+                fontFamily: "monospace",
+                animation: "pulse 1s infinite"
+              }}
+            >
+              {ss}
+            </span>
           </div>
         </div>
 
