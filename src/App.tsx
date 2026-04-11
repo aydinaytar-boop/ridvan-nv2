@@ -227,7 +227,7 @@ export default function App() {
   if (isBlackout) {
     return (
       <div style={{ width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }}>
-        <img src="/img/telefonukapat.png" alt="Lütfen telefonunuzu kapatın" style={{ maxWidth: "100%", maxHeight: "95vh", objectFit: "contain" }} onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+        <img src="/img/close.png" alt="Lütfen telefonunuzu kapatın" style={{ maxWidth: "100%", maxHeight: "95vh", objectFit: "contain" }} onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
         <div style={{ color: "#c9a66b", fontSize: 28, fontFamily: "'Segoe UI', Arial, sans-serif", letterSpacing: 2, textAlign: "center" }}>
           {lang === "tr" ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın" : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus"}
         </div>
