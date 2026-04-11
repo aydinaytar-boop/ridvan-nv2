@@ -1,0 +1,20 @@
+{
+  "sabahKamet": "05:30",
+  "hicriOffset": 0,
+  "duyuruTR": "İzine erken gidecek olanlar LÜTFEN KURBAN BAĞIŞLARINIZI YAPMIŞ OLARAK GİDİN! İyi TATİLLER!",
+  "duyuruDE": "An alle, die frühzeitig in den Urlaub fahren: Bitte OPFERSPENDEN Sie vor Ihrer Abreise! Wir wünschen Ihnen schöne Ferien!",
+  "bayramlar": [
+    {
+      "tarih": "2025-03-30",
+      "ad_tr": "Ramazan Bayramı",
+      "ad_de": "Ramadan Fest",
+      "saat": "06:30"
+    },
+    {
+      "tarih": "2025-06-06",
+      "ad_tr": "Kurban Bayramı",
+      "ad_de": "Opferfest",
+      "saat": "06:30"
+    }
+  ]
+}
