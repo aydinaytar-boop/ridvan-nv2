@@ -1,34 +1,45 @@
 /* ====================== RIDVAN CAMİİ NAMAZ VAKİTLERİ — TV OPTİMİZASYONU ====================== */
 @import "tailwindcss";
+
+/* GENEL RESET */
 * {
   box-sizing: border-box;
 }
+
 html, body {
   margin: 0;
   padding: 0;
-  height: 100vh;
   width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  background-color: #0a3d2e;
+  background: #000;        /* TV için en güvenli arka plan */
+  touch-action: none;
+  user-select: none;
 }
+
+/* ROOT — Panasonic S50 için %20 küçültme */
 #root {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transform: scale(0.80);          /* %20 küçültme */
+  transform-origin: center center; /* Ortadan küçültme */
+  padding: 40px;                   /* Overscan güvenlik boşluğu */
+  box-sizing: border-box;
 }
+
+/* SAFE AREA — 1920x1080 tasarım alanı */
 .tv-safe-area {
   width: 1920px;
   height: 1080px;
-  margin: 0 auto;
   overflow: hidden;
-  zoom: 0.78;
-  transform-origin: top left;
 }
-@media (max-width: 1920px) {
-  .tv-safe-area {
-    zoom: calc(100vw / 1920);
-  }
-}
+
+/* ÇERÇEVE */
 .outer-frame {
   width: 1920px;
   height: 1080px;
@@ -37,26 +48,36 @@ html, body {
   overflow: hidden;
   box-sizing: border-box;
 }
+
+/* ÜST BAR */
 .top-bar {
   min-height: 92px;
   max-height: 92px;
   flex-shrink: 0;
 }
+
+/* ALT BAR */
 .bottom-bar {
   min-height: 82px;
   max-height: 82px;
   flex-shrink: 0;
 }
+
+/* ANA PANELLER */
 .main-panels {
   gap: 18px;
   padding: 16px 20px;
   height: calc(1080px - 92px - 82px);
 }
+
+/* PANEL */
 .panel {
   border: 6px solid #c9a66b;
   border-radius: 12px;
   overflow: hidden;
 }
+
+/* ANİMASYONLAR */
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.3; }
@@ -82,15 +103,4 @@ html, body {
 
 .active-vakit-text {
   animation: pulse 1.6s ease-in-out infinite;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
-  background: #000;
-  touch-action: none;
-  user-select: none;
 }
