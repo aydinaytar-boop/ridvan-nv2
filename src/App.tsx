@@ -225,18 +225,23 @@ export default function App() {
   }, []);
 
   if (isBlackout) {
-    return (
-      <div style={{ width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }}>
-        <img src="/img/close.png" alt="Lütfen telefonunuzu kapatın" style={{ maxWidth: "100%", maxHeight: "95vh", objectFit: "contain" }} onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
-        <div style={{ color: "#c9a66b", fontSize: 28, fontFamily: "'Segoe UI', Arial, sans-serif", letterSpacing: 2, textAlign: "center" }}>
-          {lang === "tr" ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın" : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus"}
-        </div>
-        <div style={{ color: "#6a9e78", fontSize: 20 }}>
-          {lang === "tr" ? "Kalan süre" : "Verbleibende Zeit"}: {fmt2(Math.floor(flow.blackoutRemaining / 60))}:{fmt2(flow.blackoutRemaining % 60)}
-        </div>
+  return (
+    <div style={{ width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }}>
+      <img
+        src="img/close.png?v=3"
+        alt="Lütfen telefonunuzu kapatın"
+        style={{ maxWidth: "100%", maxHeight: "95vh", objectFit: "contain" }}
+        onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+      />
+      <div style={{ color: "#c9a66b", fontSize: 28, fontFamily: "'Segoe UI', Arial, sans-serif", letterSpacing: 2, textAlign: "center" }}>
+        {lang === "tr" ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın" : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus"}
       </div>
-    );
-  }
+      <div style={{ color: "#6a9e78", fontSize: 20 }}>
+        {lang === "tr" ? "Kalan süre" : "Verbleibende Zeit"}: {fmt2(Math.floor(flow.blackoutRemaining / 60))}:{fmt2(flow.blackoutRemaining % 60)}
+      </div>
+    </div>
+  );
+}
 
   if (showSettings) {
     return (
