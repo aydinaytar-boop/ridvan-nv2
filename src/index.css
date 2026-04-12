@@ -124,3 +124,18 @@ html, body, #root {
   transform: scale(0.96);
   transform-origin: center;
 }
+/* Varsayılan: PC için normal görünüm */
+.tv-safe-area {
+  position: absolute;
+  inset: 0;
+  transform: none;
+  transform-origin: center;
+}
+
+/* Sadece TV tarayıcıları için güvenli alan */
+@media (min-width: 1000px) and (max-height: 700px) {
+  .tv-safe-area {
+    inset: 3.5%;
+    transform: scale(0.96);
+  }
+}
