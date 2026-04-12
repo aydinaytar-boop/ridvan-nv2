@@ -107,3 +107,20 @@ html, body {
 .active-vakit-text {
   animation: pulse 1.6s ease-in-out infinite;
 }
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+/* TV overscan güvenli alanı */
+.tv-safe-area {
+  position: absolute;
+  inset: 3.5%;          /* gerekirse 4% veya 5% yapabiliriz */
+  transform: scale(0.96);
+  transform-origin: center;
+}
