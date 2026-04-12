@@ -17,12 +17,16 @@ function fmt2(n: number) {
   return String(Math.max(0, n)).padStart(2, "0");
 }
 
-function toHijri(date: Date, offset = 0): { day: number; month: number; year: number } {
+function toHijri(
+  date: Date,
+  offset = 0
+): { day: number; month: number; year: number } {
   const d = new Date(date);
   d.setDate(d.getDate() + offset);
   const JD =
-    Math.floor((d.getTime() - new Date(1970, 0, 1).getTime()) / 86400000) +
-    2440587.5;
+    Math.floor(
+      (d.getTime() - new Date(1970, 0, 1).getTime()) / 86400000
+    ) + 2440587.5;
   const Z = Math.floor(JD);
   const A = Math.floor((Z - 1867216.25) / 36524.25);
   const AA = Z + 1 + A - Math.floor(A / 4);
@@ -31,13 +35,11 @@ function toHijri(date: Date, offset = 0): { day: number; month: number; year: nu
   const D2 = Math.floor(365.25 * C);
   const E = Math.floor((B - D2) / 30.6001);
   const dayG = B - D2 - Math.floor(30.6001 * E);
-  const monthG = E < 14 ? E - 1 : E - 13;
+  const monthG = (E < 14 ? E - 1 : E - 13) as number;
   const yearG = monthG > 2 ? C - 4716 : C - 4715;
   const JDN =
     367 * yearG -
-    Math.floor(
-      (7 * (yearG + Math.floor((monthG + 9) / 12))) / 4
-    ) +
+    Math.floor((7 * (yearG + Math.floor((monthG + 9) / 12))) / 4) +
     Math.floor((275 * monthG) / 9) +
     dayG +
     1721013.5;
@@ -223,7 +225,6 @@ export default function App() {
   const settingsClickCount = useRef(0);
   const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // GitHub config.json'dan ayarları yükle
   useEffect(() => {
     fetch("/config.json")
       .then((res) => res.json())
@@ -239,19 +240,20 @@ export default function App() {
         setBayramInputs(bayramObj);
         setConfigLoaded(true);
       })
-      .catch((err) => {
+      .catch(() => {
         console.warn("config.json yüklenemedi, localStorage'dan okunuyor");
         setSabahKametInput(getSabahKametSaati());
         setDuyuruTR(localStorage.getItem("duyuruTR") || "");
         setDuyuruDE(localStorage.getItem("duyuruDE") || "");
-        setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
+        setHicriOffset(
+          parseInt(localStorage.getItem("hicriOffset") || "0")
+        );
         const savedBayram = localStorage.getItem("bayramInputs");
         if (savedBayram) setBayramInputs(JSON.parse(savedBayram));
         setConfigLoaded(true);
       });
   }, []);
 
-  // localStorage'a kaydet (TV'den değişiklik)
   useEffect(() => {
     if (configLoaded) localStorage.setItem("duyuruTR", duyuruTR);
   }, [duyuruTR, configLoaded]);
@@ -467,9 +469,7 @@ export default function App() {
               flex: 1,
             }}
           >
-            {lang === "tr"
-              ? "Sabah Kamet Saati"
-              : "Fajr Iqâmat-Zeit"}
+            {lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit"}
           </span>
           <input
             type="time"
@@ -762,8 +762,7 @@ export default function App() {
           <div
             className="top-bar"
             style={{
-              background:
-                "linear-gradient(180deg,#0e5c3a 0%,#0a3d2e 100%)",
+              background: "linear-gradient(180deg,#0e5c3a 0%,#0a3d2e 100%)",
               borderBottom: "4px solid #c9a66b",
               display: "flex",
               alignItems: "center",
@@ -888,10 +887,7 @@ export default function App() {
           </div>
 
           {/* ANA PANELLER */}
-          <div
-            className="main-panels"
-            style={{ display: "flex", flex: 1 }}
-          >
+          <div className="main-panels" style={{ display: "flex", flex: 1 }}>
             {/* SOL PANEL */}
             <div
               className="panel"
@@ -915,9 +911,7 @@ export default function App() {
                   lineHeight: 1,
                 }}
               >
-                {lang === "tr"
-                  ? "NAMAZ VAKİTLERİ"
-                  : "GEBETSZEITEN"}
+                {lang === "tr" ? "NAMAZ VAKİTLERİ" : "GEBETSZEITEN"}
               </div>
               <div
                 style={{
@@ -984,8 +978,7 @@ export default function App() {
                         gridTemplateColumns: "1.2fr 1fr 1fr",
                         padding: "0 20px",
                         flex: 1,
-                        borderBottom:
-                          "1px solid #c9a66b33",
+                        borderBottom: "1px solid #c9a66b33",
                         background: isActive
                           ? undefined
                           : isNext
@@ -999,13 +992,9 @@ export default function App() {
                       }}
                     >
                       <span
-                        className={
-                          isActive ? "active-vakit-text" : ""
-                        }
+                        className={isActive ? "active-vakit-text" : ""}
                         style={{
-                          color: isActive
-                            ? "#f5d78e"
-                            : "#a8c8b0",
+                          color: isActive ? "#f5d78e" : "#a8c8b0",
                           fontSize: isActive ? 36 : 32,
                           fontWeight: isActive ? 900 : 600,
                           letterSpacing: 1,
@@ -1015,9 +1004,7 @@ export default function App() {
                         {VAKIT_NAMES[lang][key]}
                       </span>
                       <span
-                        className={
-                          isActive ? "active-vakit-text" : ""
-                        }
+                        className={isActive ? "active-vakit-text" : ""}
                         style={{
                           color: "#f5d78e",
                           fontSize: isActive ? 48 : 44,
@@ -1030,13 +1017,9 @@ export default function App() {
                         {ezan}
                       </span>
                       <span
-                        className={
-                          isActive ? "active-vakit-text" : ""
-                        }
+                        className={isActive ? "active-vakit-text" : ""}
                         style={{
-                          color: isActive
-                            ? "#f5d78e"
-                            : "#a8c8b0",
+                          color: isActive ? "#f5d78e" : "#a8c8b0",
                           fontSize: 40,
                           textAlign: "right",
                           fontFamily: "monospace",
@@ -1174,7 +1157,7 @@ export default function App() {
                 alignItems: "center",
                 justifyContent: "center",
                 background: "#0a3d2e",
-                gap: 28,
+                gap: 20,
               }}
             >
               {isKametAlert ? (
@@ -1202,9 +1185,7 @@ export default function App() {
                       lineHeight: 1,
                     }}
                   >
-                    {kametVakit
-                      ? VAKIT_NAMES[lang][kametVakit]
-                      : ""}
+                    {kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}
                   </div>
                 </div>
               ) : (
@@ -1213,9 +1194,9 @@ export default function App() {
                     style={{
                       background: "#c9a66b",
                       textAlign: "center",
-                      padding: "12px 48px",
+                      padding: "10px 36px",
                       color: "#0a3d2e",
-                      fontSize: 35,
+                      fontSize: 28,
                       fontWeight: 900,
                       letterSpacing: 3,
                       borderRadius: 8,
@@ -1229,13 +1210,11 @@ export default function App() {
                   <div
                     style={{
                       color: "#f5d78e",
-                      fontSize: isEzan ? 108 : 98,
+                      fontSize: isEzan ? 86 : 78,
                       fontWeight: 900,
                       letterSpacing: 3,
                       lineHeight: 1,
-                      animation: isEzan
-                        ? "pulse 1s infinite"
-                        : "none",
+                      animation: isEzan ? "pulse 1s infinite" : "none",
                     }}
                   >
                     {currentLabel}
@@ -1246,9 +1225,9 @@ export default function App() {
                         style={{
                           background: "#c9a66b",
                           textAlign: "center",
-                          padding: "12px 48px",
+                          padding: "10px 36px",
                           color: "#0a3d2e",
-                          fontSize: 30,
+                          fontSize: 24,
                           fontWeight: 900,
                           letterSpacing: 3,
                           borderRadius: 8,
@@ -1263,7 +1242,7 @@ export default function App() {
                       <div
                         style={{
                           color: "#f5d78e",
-                          fontSize: 65,
+                          fontSize: 52,
                           fontWeight: 700,
                           lineHeight: 1,
                         }}
@@ -1283,9 +1262,9 @@ export default function App() {
                         style={{
                           background: "#c9a66b",
                           textAlign: "center",
-                          padding: "12px 48px",
+                          padding: "10px 36px",
                           color: "#0a3d2e",
-                          fontSize: 30,
+                          fontSize: 24,
                           fontWeight: 900,
                           letterSpacing: 3,
                           borderRadius: 8,
@@ -1305,9 +1284,7 @@ export default function App() {
                           lineHeight: 1,
                         }}
                       >
-                        {kametVakit
-                          ? VAKIT_NAMES[lang][kametVakit]
-                          : ""}
+                        {kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}
                       </div>
                     </div>
                   )}
@@ -1316,30 +1293,23 @@ export default function App() {
                       display: "flex",
                       alignItems: "center",
                       gap: 14,
-                      marginTop: 24,
+                      marginTop: 16,
                     }}
                   >
                     {[
                       {
                         val: fmt2(cdH),
-                        label:
-                          lang === "tr" ? "Saat" : "Std.",
+                        label: lang === "tr" ? "Saat" : "Std.",
                       },
                       null,
                       {
                         val: fmt2(cdM),
-                        label:
-                          lang === "tr"
-                            ? "Dakika"
-                            : "Min.",
+                        label: lang === "tr" ? "Dakika" : "Min.",
                       },
                       null,
                       {
                         val: fmt2(cdS),
-                        label:
-                          lang === "tr"
-                            ? "Saniye"
-                            : "Sek.",
+                        label: lang === "tr" ? "Saniye" : "Sek.",
                       },
                     ].map((item, i) =>
                       item === null ? (
@@ -1347,11 +1317,10 @@ export default function App() {
                           key={i}
                           style={{
                             color: "#f5d78e",
-                            fontSize: 61,
+                            fontSize: 48,
                             fontWeight: 900,
                             lineHeight: 1,
-                            animation:
-                              "pulse 1s infinite",
+                            animation: "pulse 1s infinite",
                           }}
                         >
                           :
@@ -1366,14 +1335,14 @@ export default function App() {
                             background: "#0e5c3a",
                             border: "4px solid #c9a66b",
                             borderRadius: 16,
-                            padding: "16px 32px",
-                            minWidth: 125,
+                            padding: "12px 24px",
+                            minWidth: 100,
                           }}
                         >
                           <span
                             style={{
                               color: "#f5d78e",
-                              fontSize: 77,
+                              fontSize: 60,
                               fontWeight: 900,
                               fontFamily: "monospace",
                               lineHeight: 1,
@@ -1402,13 +1371,13 @@ export default function App() {
                       <div
                         style={{
                           textAlign: "center",
-                          marginTop: 24,
+                          marginTop: 16,
                         }}
                       >
                         <div
                           style={{
                             color: "#c9a66b",
-                            fontSize: 30,
+                            fontSize: 24,
                             letterSpacing: 3,
                             lineHeight: 1,
                           }}
@@ -1420,7 +1389,7 @@ export default function App() {
                         <div
                           style={{
                             color: "#a8c8b0",
-                            fontSize: 50,
+                            fontSize: 40,
                             fontWeight: 700,
                             lineHeight: 1,
                           }}
@@ -1436,8 +1405,8 @@ export default function App() {
               {bayram.visible && (
                 <div
                   style={{
-                    marginTop: 28,
-                    padding: "16px 48px",
+                    marginTop: 20,
+                    padding: "12px 36px",
                     background: "#c9a66b22",
                     border: "3px solid #c9a66b",
                     borderRadius: 12,
@@ -1600,9 +1569,7 @@ export default function App() {
                     letterSpacing: 3,
                   }}
                 >
-                  {lang === "tr"
-                    ? "DUYURULAR"
-                    : "ANKÜNDIGUNGEN"}
+                  {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
                 </div>
                 <div
                   style={{
@@ -1636,8 +1603,7 @@ export default function App() {
           <div
             className="bottom-bar"
             style={{
-              background:
-                "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)",
+              background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)",
               borderTop: "4px solid #c9a66b",
               display: "flex",
               alignItems: "center",
