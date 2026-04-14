@@ -1479,7 +1479,7 @@ export default function App() {
         textAlign: "center",
         padding: "10px 0",
         color: "#0a3d2e",
-        fontSize: 30,   // büyütüldü
+        fontSize: 30,   // 20 → 30
         fontWeight: 900,
         letterSpacing: 3,
       }}
@@ -1509,7 +1509,7 @@ export default function App() {
           <div
             style={{
               color: "#f5d78e",
-              fontSize: 54,   // büyütüldü
+              fontSize: 54,   // 36 → 54
               textAlign: "right",
               lineHeight: 1.8,
               direction: "rtl",
@@ -1523,7 +1523,7 @@ export default function App() {
           <div
             style={{
               color: "#a8c8b0",
-              fontSize: 27,   // büyütüldü
+              fontSize: 27,   // 18 → 27
               textAlign: "center",
               lineHeight: 1.6,
             }}
@@ -1541,7 +1541,7 @@ export default function App() {
                 borderRadius: 8,
                 padding: "4px 16px",
                 color: "#c9a66b",
-                fontSize: 21,   // büyütüldü
+                fontSize: 21,   // 14 → 21
                 fontWeight: 700,
                 letterSpacing: 3,
               }}
@@ -1553,7 +1553,7 @@ export default function App() {
           <div
             style={{
               color: "#f5d78e",
-              fontSize: 54,   // büyütüldü
+              fontSize: 54,   // 36 → 54
               textAlign: "right",
               lineHeight: 1.8,
               direction: "rtl",
@@ -1567,7 +1567,7 @@ export default function App() {
           <div
             style={{
               color: "#a8c8b0",
-              fontSize: 27,   // büyütüldü
+              fontSize: 27,   // 18 → 27
               textAlign: "center",
               lineHeight: 1.6,
             }}
@@ -1593,7 +1593,7 @@ export default function App() {
         textAlign: "center",
         padding: "10px 0",
         color: "#0a3d2e",
-        fontSize: 30,   // büyütüldü
+        fontSize: 30,   // 20 → 30
         fontWeight: 900,
         letterSpacing: 3,
       }}
@@ -1613,7 +1613,7 @@ export default function App() {
       <div
         style={{
           color: "#f5d78e",
-          fontSize: 30,   // büyütüldü
+          fontSize: 30,   // 20 → 30
           textAlign: "center",
           lineHeight: 1.6,
           width: "100%",
