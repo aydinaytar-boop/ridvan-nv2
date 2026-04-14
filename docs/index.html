@@ -13232,6 +13232,16 @@ function getDailyDua(date) {
   );
   return DUA_ARCHIVE[dayOfYear % DUA_ARCHIVE.length];
 }
+function applyAutoScale() {
+  const safeArea = document.querySelector(".tv-safe-area");
+  if (!safeArea) return;
+  const vw = window.innerWidth;
+  const scale = vw / 1920;
+  safeArea.setAttribute(
+    "style",
+    `transform: translateX(-50%) scale(${scale}); transform-origin: top center;`
+  );
+}
 function App() {
   const [now, setNow] = reactExports.useState(() => /* @__PURE__ */ new Date());
   const [lang, setLang] = reactExports.useState("tr");
@@ -13247,6 +13257,13 @@ function App() {
   const [configLoaded, setConfigLoaded] = reactExports.useState(false);
   const settingsClickCount = reactExports.useRef(0);
   const settingsTimer = reactExports.useRef(null);
+  reactExports.useEffect(() => {
+    applyAutoScale();
+    window.addEventListener("resize", applyAutoScale);
+    return () => {
+      window.removeEventListener("resize", applyAutoScale);
+    };
+  }, []);
   reactExports.useEffect(() => {
     fetch("/config.json").then((res) => res.json()).then((data) => {
       setSabahKametInput(data.sabahKamet || "05:30");
@@ -13264,9 +13281,7 @@ function App() {
       setSabahKametInput(getSabahKametSaati());
       setDuyuruTR(localStorage.getItem("duyuruTR") || "");
       setDuyuruDE(localStorage.getItem("duyuruDE") || "");
-      setHicriOffset(
-        parseInt(localStorage.getItem("hicriOffset") || "0")
-      );
+      setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
       const savedBayram = localStorage.getItem("bayramInputs");
       if (savedBayram) setBayramInputs(JSON.parse(savedBayram));
       setConfigLoaded(true);
