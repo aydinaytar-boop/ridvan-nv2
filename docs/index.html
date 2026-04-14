@@ -13240,6 +13240,7 @@ function applyAutoScale() {
   if (!scale || scale <= 0 || scale > 2) {
     scale = 1;
   }
+  scale = scale * 0.95;
   safeArea.style.transform = `translateX(-50%) scale(${scale})`;
   safeArea.style.transformOrigin = "top center";
 }
