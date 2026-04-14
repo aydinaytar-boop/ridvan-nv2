@@ -13240,7 +13240,6 @@ function applyAutoScale() {
   if (!scale || scale <= 0 || scale > 2) {
     scale = 1;
   }
-  scale = scale * 0.95;
   safeArea.style.transform = `translateX(-50%) scale(${scale})`;
   safeArea.style.transformOrigin = "top center";
 }
@@ -14595,190 +14594,198 @@ function App() {
                     )
                   ]
                 }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "div",
-                {
-                  className: "panel",
-                  style: {
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    background: "#0a3d2e"
-                  },
-                  children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                      "div",
-                      {
-                        style: {
-                          flex: 1,
-                          display: "flex",
-                          flexDirection: "column",
-                          borderBottom: "3px solid #c9a66b"
-                        },
-                        children: [
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "div",
-                            {
-                              style: {
-                                background: "#c9a66b",
-                                textAlign: "center",
-                                padding: "10px 0",
-                                color: "#0a3d2e",
-                                fontSize: 20,
-                                fontWeight: 900,
-                                letterSpacing: 3
-                              },
-                              children: isEzan ? duaLang === "tr" ? "EZAN DUASI" : "ADHAN-GEBET" : lang === "tr" ? "GÜNÜN DUASI" : "DUA DES TAGES"
-                            }
-                          ),
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "div",
-                            {
-                              style: {
-                                flex: 1,
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                padding: "20px 16px",
-                                gap: 16
-                              },
-                              children: isEzan ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "div",
-                                  {
-                                    style: {
-                                      color: "#f5d78e",
-                                      fontSize: 36,
-                                      textAlign: "right",
-                                      lineHeight: 1.8,
-                                      direction: "rtl",
-                                      fontFamily: "serif",
-                                      width: "100%"
-                                    },
-                                    children: EZAN_DUASI.arabic
-                                  }
-                                ),
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "div",
-                                  {
-                                    style: {
-                                      color: "#a8c8b0",
-                                      fontSize: 18,
-                                      textAlign: "center",
-                                      lineHeight: 1.6
-                                    },
-                                    children: duaLang === "tr" ? EZAN_DUASI.tr : EZAN_DUASI.de
-                                  }
-                                )
-                              ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                                dailyDua.source && /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "div",
-                                  {
-                                    style: {
-                                      background: "transparent",
-                                      border: "2px solid #c9a66b",
-                                      borderRadius: 8,
-                                      padding: "4px 16px",
-                                      color: "#c9a66b",
-                                      fontSize: 14,
-                                      fontWeight: 700,
-                                      letterSpacing: 3
-                                    },
-                                    children: dailyDua.source
-                                  }
-                                ),
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "div",
-                                  {
-                                    style: {
-                                      color: "#f5d78e",
-                                      fontSize: 36,
-                                      textAlign: "right",
-                                      lineHeight: 1.8,
-                                      direction: "rtl",
-                                      fontFamily: "serif",
-                                      width: "100%"
-                                    },
-                                    children: dailyDua.ar
-                                  }
-                                ),
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "div",
-                                  {
-                                    style: {
-                                      color: "#a8c8b0",
-                                      fontSize: 18,
-                                      textAlign: "center",
-                                      lineHeight: 1.6
-                                    },
-                                    children: lang === "tr" ? dailyDua.tr : dailyDua.de
-                                  }
-                                )
-                              ] })
-                            }
-                          )
-                        ]
-                      }
-                    ),
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                      "div",
-                      {
-                        style: {
-                          flex: 1,
-                          display: "flex",
-                          flexDirection: "column"
-                        },
-                        children: [
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "div",
-                            {
-                              style: {
-                                background: "#c9a66b",
-                                textAlign: "center",
-                                padding: "10px 0",
-                                color: "#0a3d2e",
-                                fontSize: 20,
-                                fontWeight: 900,
-                                letterSpacing: 3
-                              },
-                              children: lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"
-                            }
-                          ),
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "div",
-                            {
-                              style: {
-                                flex: 1,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                padding: "20px 16px"
-                              },
-                              children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              )
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "div",
+              {
+                className: "panel",
+                style: {
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  background: "#0a3d2e"
+                },
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    "div",
+                    {
+                      style: {
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        borderBottom: "3px solid #c9a66b"
+                      },
+                      children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "div",
+                          {
+                            style: {
+                              background: "#c9a66b",
+                              textAlign: "center",
+                              padding: "10px 0",
+                              color: "#0a3d2e",
+                              fontSize: 30,
+                              // büyütüldü
+                              fontWeight: 900,
+                              letterSpacing: 3
+                            },
+                            children: isEzan ? duaLang === "tr" ? "EZAN DUASI" : "ADHAN-GEBET" : lang === "tr" ? "GÜNÜN DUASI" : "DUA DES TAGES"
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "div",
+                          {
+                            style: {
+                              flex: 1,
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              padding: "20px 16px",
+                              gap: 16
+                            },
+                            children: isEzan ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                              /* @__PURE__ */ jsxRuntimeExports.jsx(
                                 "div",
                                 {
                                   style: {
                                     color: "#f5d78e",
-                                    fontSize: 20,
-                                    textAlign: "center",
-                                    lineHeight: 1.6,
-                                    width: "100%",
-                                    whiteSpace: "pre-wrap"
+                                    fontSize: 54,
+                                    // büyütüldü
+                                    textAlign: "right",
+                                    lineHeight: 1.8,
+                                    direction: "rtl",
+                                    fontFamily: "serif",
+                                    width: "100%"
                                   },
-                                  children: lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"
+                                  children: EZAN_DUASI.arabic
+                                }
+                              ),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                                "div",
+                                {
+                                  style: {
+                                    color: "#a8c8b0",
+                                    fontSize: 27,
+                                    // büyütüldü
+                                    textAlign: "center",
+                                    lineHeight: 1.6
+                                  },
+                                  children: duaLang === "tr" ? EZAN_DUASI.tr : EZAN_DUASI.de
                                 }
                               )
-                            }
-                          )
-                        ]
-                      }
-                    )
-                  ]
-                }
-              )
-            ] }),
+                            ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                              dailyDua.source && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                                "div",
+                                {
+                                  style: {
+                                    background: "transparent",
+                                    border: "2px solid #c9a66b",
+                                    borderRadius: 8,
+                                    padding: "4px 16px",
+                                    color: "#c9a66b",
+                                    fontSize: 21,
+                                    // büyütüldü
+                                    fontWeight: 700,
+                                    letterSpacing: 3
+                                  },
+                                  children: dailyDua.source
+                                }
+                              ),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                                "div",
+                                {
+                                  style: {
+                                    color: "#f5d78e",
+                                    fontSize: 54,
+                                    // büyütüldü
+                                    textAlign: "right",
+                                    lineHeight: 1.8,
+                                    direction: "rtl",
+                                    fontFamily: "serif",
+                                    width: "100%"
+                                  },
+                                  children: dailyDua.ar
+                                }
+                              ),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                                "div",
+                                {
+                                  style: {
+                                    color: "#a8c8b0",
+                                    fontSize: 27,
+                                    // büyütüldü
+                                    textAlign: "center",
+                                    lineHeight: 1.6
+                                  },
+                                  children: lang === "tr" ? dailyDua.tr : dailyDua.de
+                                }
+                              )
+                            ] })
+                          }
+                        )
+                      ]
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    "div",
+                    {
+                      style: {
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column"
+                      },
+                      children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "div",
+                          {
+                            style: {
+                              background: "#c9a66b",
+                              textAlign: "center",
+                              padding: "10px 0",
+                              color: "#0a3d2e",
+                              fontSize: 30,
+                              // büyütüldü
+                              fontWeight: 900,
+                              letterSpacing: 3
+                            },
+                            children: lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "div",
+                          {
+                            style: {
+                              flex: 1,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              padding: "20px 16px"
+                            },
+                            children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                              "div",
+                              {
+                                style: {
+                                  color: "#f5d78e",
+                                  fontSize: 30,
+                                  // büyütüldü
+                                  textAlign: "center",
+                                  lineHeight: 1.6,
+                                  width: "100%",
+                                  whiteSpace: "pre-wrap"
+                                },
+                                children: lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"
+                              }
+                            )
+                          }
+                        )
+                      ]
+                    }
+                  )
+                ]
+              }
+            ),
             /* @__PURE__ */ jsxRuntimeExports.jsxs(
               "div",
               {
