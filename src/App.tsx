@@ -214,12 +214,14 @@ function applyAutoScale() {
   const safeArea = document.querySelector(".tv-safe-area");
   if (!safeArea) return;
 
-  const vw = window.innerWidth;
+  const vw = window.innerWidth || 1920; // fallback
+  let scale = vw / 1920;
 
-  // TV’de sağ çizgi için %3 güvenlik payı
-  const scale = (vw / 1920) * 0.97;
+  // Güvenlik: scale asla 0 veya NaN olamaz
+  if (!scale || scale <= 0 || scale > 2) {
+    scale = 1;
+  }
 
-  // ❗ Sadece transform’u güncelliyoruz
   safeArea.style.transform = `translateX(-50%) scale(${scale})`;
   safeArea.style.transformOrigin = "top center";
 }
@@ -241,14 +243,14 @@ export default function App() {
   const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-  // DOM tamamen render olduktan sonra çalışması için
-  setTimeout(() => {
+  const timer = setTimeout(() => {
     applyAutoScale();
-  }, 0);
+  }, 50); // 0 değil, 50ms daha güvenli
 
   window.addEventListener("resize", applyAutoScale);
 
   return () => {
+    clearTimeout(timer);
     window.removeEventListener("resize", applyAutoScale);
   };
 }, []);
