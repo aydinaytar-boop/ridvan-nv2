@@ -220,10 +220,8 @@ function applyAutoScale() {
     scale = 1;
   }
 
-  scale = scale * 0.95; // ← %5 küçültme
-
-  safeArea.style.transform = `translateX(-50%) scale(${scale})`;
-  safeArea.style.transformOrigin = "top center";
+  (safeArea as HTMLElement).style.transform = `translateX(-50%) scale(${scale})`;
+  (safeArea as HTMLElement).style.transformOrigin = "top center";
 }
 
 export default function App() {
@@ -1454,6 +1452,7 @@ export default function App() {
                 </div>
               )}
             </div>
+            </div>
 
             {/* SAĞ PANEL - DUA + DUYURULAR */}
 <div
@@ -1480,7 +1479,7 @@ export default function App() {
         textAlign: "center",
         padding: "10px 0",
         color: "#0a3d2e",
-        fontSize: 30,   // ← 20 → 30
+        fontSize: 30,   // büyütüldü
         fontWeight: 900,
         letterSpacing: 3,
       }}
@@ -1510,7 +1509,7 @@ export default function App() {
           <div
             style={{
               color: "#f5d78e",
-              fontSize: 54,   // ← 36 → 54
+              fontSize: 54,   // büyütüldü
               textAlign: "right",
               lineHeight: 1.8,
               direction: "rtl",
@@ -1524,7 +1523,7 @@ export default function App() {
           <div
             style={{
               color: "#a8c8b0",
-              fontSize: 27,   // ← 18 → 27
+              fontSize: 27,   // büyütüldü
               textAlign: "center",
               lineHeight: 1.6,
             }}
@@ -1542,7 +1541,7 @@ export default function App() {
                 borderRadius: 8,
                 padding: "4px 16px",
                 color: "#c9a66b",
-                fontSize: 21,   // ← 14 → 21
+                fontSize: 21,   // büyütüldü
                 fontWeight: 700,
                 letterSpacing: 3,
               }}
@@ -1554,7 +1553,7 @@ export default function App() {
           <div
             style={{
               color: "#f5d78e",
-              fontSize: 54,   // ← 36 → 54
+              fontSize: 54,   // büyütüldü
               textAlign: "right",
               lineHeight: 1.8,
               direction: "rtl",
@@ -1568,7 +1567,7 @@ export default function App() {
           <div
             style={{
               color: "#a8c8b0",
-              fontSize: 27,   // ← 18 → 27
+              fontSize: 27,   // büyütüldü
               textAlign: "center",
               lineHeight: 1.6,
             }}
@@ -1594,7 +1593,7 @@ export default function App() {
         textAlign: "center",
         padding: "10px 0",
         color: "#0a3d2e",
-        fontSize: 30,   // ← 20 → 30
+        fontSize: 30,   // büyütüldü
         fontWeight: 900,
         letterSpacing: 3,
       }}
@@ -1614,7 +1613,7 @@ export default function App() {
       <div
         style={{
           color: "#f5d78e",
-          fontSize: 30,   // ← 20 → 30
+          fontSize: 30,   // büyütüldü
           textAlign: "center",
           lineHeight: 1.6,
           width: "100%",
