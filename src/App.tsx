@@ -209,6 +209,20 @@ function getDailyDua(date: Date) {
   return DUA_ARCHIVE[dayOfYear % DUA_ARCHIVE.length];
 }
 
+// ⬅️ BUNU EN ÜSTE EKLE (importların altına)
+function applyAutoScale() {
+  const safeArea = document.querySelector(".tv-safe-area");
+  if (!safeArea) return;
+
+  const vw = window.innerWidth;
+  const scale = vw / 1920;
+
+  safeArea.setAttribute(
+    "style",
+    `transform: translateX(-50%) scale(${scale}); transform-origin: top center;`
+  );
+}
+
 export default function App() {
   const [now, setNow] = useState(() => new Date());
   const [lang, setLang] = useState<"tr" | "de">("tr");
@@ -225,6 +239,17 @@ export default function App() {
   const settingsClickCount = useRef(0);
   const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // ⬅️ AUTO SCALE BURAYA EKLENİYOR (config yüklemesinden bağımsız)
+  useEffect(() => {
+    applyAutoScale();
+    window.addEventListener("resize", applyAutoScale);
+
+    return () => {
+      window.removeEventListener("resize", applyAutoScale);
+    };
+  }, []);
+
+  // ⬅️ BU SENİN ORİJİNAL CONFIG YÜKLEME BLOĞUN (DEĞİŞMEDİ)
   useEffect(() => {
     fetch("/config.json")
       .then((res) => res.json())
@@ -245,15 +270,12 @@ export default function App() {
         setSabahKametInput(getSabahKametSaati());
         setDuyuruTR(localStorage.getItem("duyuruTR") || "");
         setDuyuruDE(localStorage.getItem("duyuruDE") || "");
-        setHicriOffset(
-          parseInt(localStorage.getItem("hicriOffset") || "0")
-        );
+        setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
         const savedBayram = localStorage.getItem("bayramInputs");
         if (savedBayram) setBayramInputs(JSON.parse(savedBayram));
         setConfigLoaded(true);
       });
   }, []);
-
   useEffect(() => {
     if (configLoaded) localStorage.setItem("duyuruTR", duyuruTR);
   }, [duyuruTR, configLoaded]);
