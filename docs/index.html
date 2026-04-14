@@ -13236,8 +13236,11 @@ function getDailyDua(date) {
 function applyAutoScale() {
   const safeArea = document.querySelector(".tv-safe-area");
   if (!safeArea) return;
-  const vw = window.innerWidth;
-  const scale = vw / 1920 * 0.97;
+  const vw = window.innerWidth || 1920;
+  let scale = vw / 1920;
+  if (!scale || scale <= 0 || scale > 2) {
+    scale = 1;
+  }
   safeArea.style.transform = `translateX(-50%) scale(${scale})`;
   safeArea.style.transformOrigin = "top center";
 }
@@ -13257,11 +13260,12 @@ function App() {
   const settingsClickCount = reactExports.useRef(0);
   const settingsTimer = reactExports.useRef(null);
   reactExports.useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       applyAutoScale();
-    }, 0);
+    }, 50);
     window.addEventListener("resize", applyAutoScale);
     return () => {
+      clearTimeout(timer);
       window.removeEventListener("resize", applyAutoScale);
     };
   }, []);
