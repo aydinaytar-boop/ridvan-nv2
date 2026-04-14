@@ -1456,178 +1456,176 @@ export default function App() {
             </div>
 
             {/* SAĞ PANEL - DUA + DUYURULAR */}
+<div
+  className="panel"
+  style={{
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    background: "#0a3d2e",
+  }}
+>
+  {/* ÜST YARI - DUA */}
+  <div
+    style={{
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      borderBottom: "3px solid #c9a66b",
+    }}
+  >
+    <div
+      style={{
+        background: "#c9a66b",
+        textAlign: "center",
+        padding: "10px 0",
+        color: "#0a3d2e",
+        fontSize: 30,   // ← 20 → 30
+        fontWeight: 900,
+        letterSpacing: 3,
+      }}
+    >
+      {isEzan
+        ? duaLang === "tr"
+          ? "EZAN DUASI"
+          : "ADHAN-GEBET"
+        : lang === "tr"
+        ? "GÜNÜN DUASI"
+        : "DUA DES TAGES"}
+    </div>
+
+    <div
+      style={{
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "20px 16px",
+        gap: 16,
+      }}
+    >
+      {isEzan ? (
+        <>
+          <div
+            style={{
+              color: "#f5d78e",
+              fontSize: 54,   // ← 36 → 54
+              textAlign: "right",
+              lineHeight: 1.8,
+              direction: "rtl",
+              fontFamily: "serif",
+              width: "100%",
+            }}
+          >
+            {EZAN_DUASI.arabic}
+          </div>
+
+          <div
+            style={{
+              color: "#a8c8b0",
+              fontSize: 27,   // ← 18 → 27
+              textAlign: "center",
+              lineHeight: 1.6,
+            }}
+          >
+            {duaLang === "tr" ? EZAN_DUASI.tr : EZAN_DUASI.de}
+          </div>
+        </>
+      ) : (
+        <>
+          {dailyDua.source && (
             <div
-              className="panel"
               style={{
-                flex: 1,
-                display: "flex",
-                flexDirection: "column",
-                background: "#0a3d2e",
+                background: "transparent",
+                border: "2px solid #c9a66b",
+                borderRadius: 8,
+                padding: "4px 16px",
+                color: "#c9a66b",
+                fontSize: 21,   // ← 14 → 21
+                fontWeight: 700,
+                letterSpacing: 3,
               }}
             >
-              {/* ÜST YARI - DUA */}
-              <div
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  borderBottom: "3px solid #c9a66b",
-                }}
-              >
-                <div
-                  style={{
-                    background: "#c9a66b",
-                    textAlign: "center",
-                    padding: "10px 0",
-                    color: "#0a3d2e",
-                    fontSize: 20,
-                    fontWeight: 900,
-                    letterSpacing: 3,
-                  }}
-                >
-                  {isEzan
-                    ? duaLang === "tr"
-                      ? "EZAN DUASI"
-                      : "ADHAN-GEBET"
-                    : lang === "tr"
-                    ? "GÜNÜN DUASI"
-                    : "DUA DES TAGES"}
-                </div>
-                <div
-                  style={{
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "20px 16px",
-                    gap: 16,
-                  }}
-                >
-                  {isEzan ? (
-                    <>
-                      <div
-                        style={{
-                          color: "#f5d78e",
-                          fontSize: 36,
-                          textAlign: "right",
-                          lineHeight: 1.8,
-                          direction: "rtl",
-                          fontFamily: "serif",
-                          width: "100%",
-                        }}
-                      >
-                        {EZAN_DUASI.arabic}
-                      </div>
-                      <div
-                        style={{
-                          color: "#a8c8b0",
-                          fontSize: 18,
-                          textAlign: "center",
-                          lineHeight: 1.6,
-                        }}
-                      >
-                        {duaLang === "tr"
-                          ? EZAN_DUASI.tr
-                          : EZAN_DUASI.de}
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      {dailyDua.source && (
-                        <div
-                          style={{
-                            background: "transparent",
-                            border: "2px solid #c9a66b",
-                            borderRadius: 8,
-                            padding: "4px 16px",
-                            color: "#c9a66b",
-                            fontSize: 14,
-                            fontWeight: 700,
-                            letterSpacing: 3,
-                          }}
-                        >
-                          {dailyDua.source}
-                        </div>
-                      )}
-                      <div
-                        style={{
-                          color: "#f5d78e",
-                          fontSize: 36,
-                          textAlign: "right",
-                          lineHeight: 1.8,
-                          direction: "rtl",
-                          fontFamily: "serif",
-                          width: "100%",
-                        }}
-                      >
-                        {dailyDua.ar}
-                      </div>
-                      <div
-                        style={{
-                          color: "#a8c8b0",
-                          fontSize: 18,
-                          textAlign: "center",
-                          lineHeight: 1.6,
-                        }}
-                      >
-                        {lang === "tr"
-                          ? dailyDua.tr
-                          : dailyDua.de}
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-
-              {/* ALT YARI - DUYURULAR */}
-              <div
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <div
-                  style={{
-                    background: "#c9a66b",
-                    textAlign: "center",
-                    padding: "10px 0",
-                    color: "#0a3d2e",
-                    fontSize: 20,
-                    fontWeight: 900,
-                    letterSpacing: 3,
-                  }}
-                >
-                  {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
-                </div>
-                <div
-                  style={{
-                    flex: 1,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "20px 16px",
-                  }}
-                >
-                  <div
-                    style={{
-                      color: "#f5d78e",
-                      fontSize: 20,
-                      textAlign: "center",
-                      lineHeight: 1.6,
-                      width: "100%",
-                      whiteSpace: "pre-wrap",
-                    }}
-                  >
-                    {lang === "tr"
-                      ? duyuruTR || "—"
-                      : duyuruDE || "—"}
-                  </div>
-                </div>
-              </div>
+              {dailyDua.source}
             </div>
+          )}
+
+          <div
+            style={{
+              color: "#f5d78e",
+              fontSize: 54,   // ← 36 → 54
+              textAlign: "right",
+              lineHeight: 1.8,
+              direction: "rtl",
+              fontFamily: "serif",
+              width: "100%",
+            }}
+          >
+            {dailyDua.ar}
           </div>
+
+          <div
+            style={{
+              color: "#a8c8b0",
+              fontSize: 27,   // ← 18 → 27
+              textAlign: "center",
+              lineHeight: 1.6,
+            }}
+          >
+            {lang === "tr" ? dailyDua.tr : dailyDua.de}
+          </div>
+        </>
+      )}
+    </div>
+  </div>
+
+  {/* ALT YARI - DUYURULAR */}
+  <div
+    style={{
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+    }}
+  >
+    <div
+      style={{
+        background: "#c9a66b",
+        textAlign: "center",
+        padding: "10px 0",
+        color: "#0a3d2e",
+        fontSize: 30,   // ← 20 → 30
+        fontWeight: 900,
+        letterSpacing: 3,
+      }}
+    >
+      {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
+    </div>
+
+    <div
+      style={{
+        flex: 1,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "20px 16px",
+      }}
+    >
+      <div
+        style={{
+          color: "#f5d78e",
+          fontSize: 30,   // ← 20 → 30
+          textAlign: "center",
+          lineHeight: 1.6,
+          width: "100%",
+          whiteSpace: "pre-wrap",
+        }}
+      >
+        {lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"}
+      </div>
+    </div>
+  </div>
+</div>
 
           {/* ALT BAR */}
           <div
