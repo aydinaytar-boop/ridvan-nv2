@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";container
 import {
   getTodayTimes,
   computeFlow,
@@ -215,7 +215,9 @@ function applyAutoScale() {
   if (!safeArea) return;
 
   const vw = window.innerWidth;
-  const scale = vw / 1920;
+
+  // 🔥 TV’de sağ çizginin görünmesi için %3 güvenlik payı
+  const scale = (vw / 1920) * 0.97;
 
   safeArea.setAttribute(
     "style",
