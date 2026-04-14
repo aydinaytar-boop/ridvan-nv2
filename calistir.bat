@@ -2,8 +2,8 @@
 title Ridvan Display Auto Fix + Run
 
 REM 1) Proje klasorunu bul
-set PROJ1=C:\Users\ridva\Desktop\ridvan-nv
-set PROJ2=C:\Users\ridva\Desktop\ridvan-nv
+set PROJ1=C:\Users\ridva\Desktop\ridvan-nv2
+set PROJ2=C:\Users\ridva\Desktop\ridvan-nv2
 
 if exist "%PROJ1%\package.json" (
   set PROJ=%PROJ1%
