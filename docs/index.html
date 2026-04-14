@@ -829,11 +829,11 @@ function requireReactDom_production() {
       return "use-credentials" === input ? input : "";
   }
   reactDom_production.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = Internals;
-  reactDom_production.createPortal = function(children, container) {
+  reactDom_production.createPortal = function(children, container2) {
     var key = 2 < arguments.length && void 0 !== arguments[2] ? arguments[2] : null;
-    if (!container || 1 !== container.nodeType && 9 !== container.nodeType && 11 !== container.nodeType)
+    if (!container2 || 1 !== container2.nodeType && 9 !== container2.nodeType && 11 !== container2.nodeType)
       throw Error(formatProdErrorMessage(299));
-    return createPortal$1(children, container, null, key);
+    return createPortal$1(children, container2, null, key);
   };
   reactDom_production.flushSync = function(fn) {
     var previousTransition = ReactSharedInternals.T, previousUpdatePriority = Internals.p;
@@ -9818,8 +9818,8 @@ function requireReactDomClient_production() {
         if (null === targetInst$jscomp$0) return;
         var nodeTag = targetInst$jscomp$0.tag;
         if (3 === nodeTag || 4 === nodeTag) {
-          var container = targetInst$jscomp$0.stateNode.containerInfo;
-          if (container === targetContainer) break;
+          var container2 = targetInst$jscomp$0.stateNode.containerInfo;
+          if (container2 === targetContainer) break;
           if (4 === nodeTag)
             for (nodeTag = targetInst$jscomp$0.return; null !== nodeTag; ) {
               var grandTag = nodeTag.tag;
@@ -9827,15 +9827,15 @@ function requireReactDomClient_production() {
                 return;
               nodeTag = nodeTag.return;
             }
-          for (; null !== container; ) {
-            nodeTag = getClosestInstanceFromNode(container);
+          for (; null !== container2; ) {
+            nodeTag = getClosestInstanceFromNode(container2);
             if (null === nodeTag) return;
             grandTag = nodeTag.tag;
             if (5 === grandTag || 6 === grandTag || 26 === grandTag || 27 === grandTag) {
               targetInst$jscomp$0 = ancestorInst = nodeTag;
               continue a;
             }
-            container = container.parentNode;
+            container2 = container2.parentNode;
           }
         }
         targetInst$jscomp$0 = targetInst$jscomp$0.return;
@@ -11073,8 +11073,8 @@ function requireReactDomClient_production() {
       node = nextNode;
     } while (node);
   }
-  function clearContainerSparingly(container) {
-    var nextNode = container.firstChild;
+  function clearContainerSparingly(container2) {
+    var nextNode = container2.firstChild;
     nextNode && 10 === nextNode.nodeType && (nextNode = nextNode.nextSibling);
     for (; nextNode; ) {
       var node = nextNode;
@@ -11092,7 +11092,7 @@ function requireReactDomClient_production() {
         case "LINK":
           if ("stylesheet" === node.rel.toLowerCase()) continue;
       }
-      container.removeChild(node);
+      container2.removeChild(node);
     }
   }
   function canHydrateInstance(instance, type, props, inRootOrSingleton) {
@@ -11243,8 +11243,8 @@ function requireReactDomClient_production() {
     detachDeletedInstance(instance);
   }
   var preloadPropsMap = /* @__PURE__ */ new Map(), preconnectsSet = /* @__PURE__ */ new Set();
-  function getHoistableRoot(container) {
-    return "function" === typeof container.getRootNode ? container.getRootNode() : 9 === container.nodeType ? container : container.ownerDocument;
+  function getHoistableRoot(container2) {
+    return "function" === typeof container2.getRootNode ? container2.getRootNode() : 9 === container2.nodeType ? container2 : container2.ownerDocument;
   }
   var previousDispatcher = ReactDOMSharedInternals.d;
   ReactDOMSharedInternals.d = {
@@ -11819,14 +11819,14 @@ function requireReactDomClient_production() {
     parentComponent = emptyContextObject;
     return parentComponent;
   }
-  function updateContainerImpl(rootFiber, lane, element, container, parentComponent, callback) {
+  function updateContainerImpl(rootFiber, lane, element, container2, parentComponent, callback) {
     parentComponent = getContextForSubtree(parentComponent);
-    null === container.context ? container.context = parentComponent : container.pendingContext = parentComponent;
-    container = createUpdate(lane);
-    container.payload = { element };
+    null === container2.context ? container2.context = parentComponent : container2.pendingContext = parentComponent;
+    container2 = createUpdate(lane);
+    container2.payload = { element };
     callback = void 0 === callback ? null : callback;
-    null !== callback && (container.callback = callback);
-    element = enqueueUpdate(rootFiber, container, lane);
+    null !== callback && (container2.callback = callback);
+    element = enqueueUpdate(rootFiber, container2, lane);
     null !== element && (scheduleUpdateOnFiber(element, rootFiber, lane), entangleTransitions(element, rootFiber, lane));
   }
   function markRetryLaneImpl(fiber, retryLane) {
@@ -11857,22 +11857,22 @@ function requireReactDomClient_production() {
     }
   }
   var _enabled = true;
-  function dispatchDiscreteEvent(domEventName, eventSystemFlags, container, nativeEvent) {
+  function dispatchDiscreteEvent(domEventName, eventSystemFlags, container2, nativeEvent) {
     var prevTransition = ReactSharedInternals.T;
     ReactSharedInternals.T = null;
     var previousPriority = ReactDOMSharedInternals.p;
     try {
-      ReactDOMSharedInternals.p = 2, dispatchEvent(domEventName, eventSystemFlags, container, nativeEvent);
+      ReactDOMSharedInternals.p = 2, dispatchEvent(domEventName, eventSystemFlags, container2, nativeEvent);
     } finally {
       ReactDOMSharedInternals.p = previousPriority, ReactSharedInternals.T = prevTransition;
     }
   }
-  function dispatchContinuousEvent(domEventName, eventSystemFlags, container, nativeEvent) {
+  function dispatchContinuousEvent(domEventName, eventSystemFlags, container2, nativeEvent) {
     var prevTransition = ReactSharedInternals.T;
     ReactSharedInternals.T = null;
     var previousPriority = ReactDOMSharedInternals.p;
     try {
-      ReactDOMSharedInternals.p = 8, dispatchEvent(domEventName, eventSystemFlags, container, nativeEvent);
+      ReactDOMSharedInternals.p = 8, dispatchEvent(domEventName, eventSystemFlags, container2, nativeEvent);
     } finally {
       ReactDOMSharedInternals.p = previousPriority, ReactSharedInternals.T = prevTransition;
     }
@@ -12348,10 +12348,10 @@ function requireReactDomClient_production() {
     var root2 = this._internalRoot;
     if (null !== root2) {
       this._internalRoot = null;
-      var container = root2.containerInfo;
+      var container2 = root2.containerInfo;
       updateContainerImpl(root2.current, 2, null, root2, null, null);
       flushSyncWork$1();
-      container[internalContainerInstanceKey] = null;
+      container2[internalContainerInstanceKey] = null;
     }
   };
   function ReactDOMHydrationRoot(internalRoot) {
@@ -12405,12 +12405,12 @@ function requireReactDomClient_production() {
       } catch (err) {
       }
   }
-  reactDomClient_production.createRoot = function(container, options2) {
-    if (!isValidContainer(container)) throw Error(formatProdErrorMessage(299));
+  reactDomClient_production.createRoot = function(container2, options2) {
+    if (!isValidContainer(container2)) throw Error(formatProdErrorMessage(299));
     var isStrictMode = false, identifierPrefix = "", onUncaughtError = defaultOnUncaughtError, onCaughtError = defaultOnCaughtError, onRecoverableError = defaultOnRecoverableError;
     null !== options2 && void 0 !== options2 && (true === options2.unstable_strictMode && (isStrictMode = true), void 0 !== options2.identifierPrefix && (identifierPrefix = options2.identifierPrefix), void 0 !== options2.onUncaughtError && (onUncaughtError = options2.onUncaughtError), void 0 !== options2.onCaughtError && (onCaughtError = options2.onCaughtError), void 0 !== options2.onRecoverableError && (onRecoverableError = options2.onRecoverableError));
     options2 = createFiberRoot(
-      container,
+      container2,
       1,
       false,
       null,
@@ -12423,16 +12423,16 @@ function requireReactDomClient_production() {
       onRecoverableError,
       defaultOnDefaultTransitionIndicator
     );
-    container[internalContainerInstanceKey] = options2.current;
-    listenToAllSupportedEvents(container);
+    container2[internalContainerInstanceKey] = options2.current;
+    listenToAllSupportedEvents(container2);
     return new ReactDOMRoot(options2);
   };
-  reactDomClient_production.hydrateRoot = function(container, initialChildren, options2) {
-    if (!isValidContainer(container)) throw Error(formatProdErrorMessage(299));
+  reactDomClient_production.hydrateRoot = function(container2, initialChildren, options2) {
+    if (!isValidContainer(container2)) throw Error(formatProdErrorMessage(299));
     var isStrictMode = false, identifierPrefix = "", onUncaughtError = defaultOnUncaughtError, onCaughtError = defaultOnCaughtError, onRecoverableError = defaultOnRecoverableError, formState = null;
     null !== options2 && void 0 !== options2 && (true === options2.unstable_strictMode && (isStrictMode = true), void 0 !== options2.identifierPrefix && (identifierPrefix = options2.identifierPrefix), void 0 !== options2.onUncaughtError && (onUncaughtError = options2.onUncaughtError), void 0 !== options2.onCaughtError && (onCaughtError = options2.onCaughtError), void 0 !== options2.onRecoverableError && (onRecoverableError = options2.onRecoverableError), void 0 !== options2.formState && (formState = options2.formState));
     initialChildren = createFiberRoot(
-      container,
+      container2,
       1,
       true,
       initialChildren,
@@ -12456,8 +12456,8 @@ function requireReactDomClient_production() {
     initialChildren.current.lanes = options2;
     markRootUpdated$1(initialChildren, options2);
     ensureRootIsScheduled(initialChildren);
-    container[internalContainerInstanceKey] = initialChildren.current;
-    listenToAllSupportedEvents(container);
+    container2[internalContainerInstanceKey] = initialChildren.current;
+    listenToAllSupportedEvents(container2);
     return new ReactDOMHydrationRoot(initialChildren);
   };
   reactDomClient_production.version = "19.2.3";
@@ -13072,6 +13072,7 @@ const DUA_ARCHIVE = [
   { source: "KURAN", ar: "رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ", tr: "Rabbimiz! Bizi ve bizden önce iman etmiş kardeşlerimizi bağışla.", de: "Unser Herr, vergib uns und unseren Geschwistern, die uns im Glauben vorangegangen sind." },
   { source: "HADIS", ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ", tr: "Allah'ım! Senin sevgini ve Seni sevenlerin sevgisini isterim.", de: "O Allah, ich bitte Dich um Deine Liebe und die Liebe derer, die Dich lieben." }
 ];
+container;
 function fmt2(n) {
   return String(Math.max(0, n)).padStart(2, "0");
 }
@@ -13236,7 +13237,7 @@ function applyAutoScale() {
   const safeArea = document.querySelector(".tv-safe-area");
   if (!safeArea) return;
   const vw = window.innerWidth;
-  const scale = vw / 1920;
+  const scale = vw / 1920 * 0.97;
   safeArea.setAttribute(
     "style",
     `transform: translateX(-50%) scale(${scale}); transform-origin: top center;`

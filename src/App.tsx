@@ -216,13 +216,12 @@ function applyAutoScale() {
 
   const vw = window.innerWidth;
 
-  // 🔥 TV’de sağ çizginin görünmesi için %3 güvenlik payı
+  // TV’de sağ çizgi için %3 güvenlik payı
   const scale = (vw / 1920) * 0.97;
 
-  safeArea.setAttribute(
-    "style",
-    `transform: translateX(-50%) scale(${scale}); transform-origin: top center;`
-  );
+  // ❗ Sadece transform’u güncelliyoruz
+  safeArea.style.transform = `translateX(-50%) scale(${scale})`;
+  safeArea.style.transformOrigin = "top center";
 }
 
 export default function App() {
@@ -241,15 +240,18 @@ export default function App() {
   const settingsClickCount = useRef(0);
   const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // ⬅️ AUTO SCALE BURAYA EKLENİYOR (config yüklemesinden bağımsız)
   useEffect(() => {
+  // DOM tamamen render olduktan sonra çalışması için
+  setTimeout(() => {
     applyAutoScale();
-    window.addEventListener("resize", applyAutoScale);
+  }, 0);
 
-    return () => {
-      window.removeEventListener("resize", applyAutoScale);
-    };
-  }, []);
+  window.addEventListener("resize", applyAutoScale);
+
+  return () => {
+    window.removeEventListener("resize", applyAutoScale);
+  };
+}, []);
 
   // ⬅️ BU SENİN ORİJİNAL CONFIG YÜKLEME BLOĞUN (DEĞİŞMEDİ)
   useEffect(() => {
