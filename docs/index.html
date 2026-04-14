@@ -13238,10 +13238,8 @@ function applyAutoScale() {
   if (!safeArea) return;
   const vw = window.innerWidth;
   const scale = vw / 1920 * 0.97;
-  safeArea.setAttribute(
-    "style",
-    `transform: translateX(-50%) scale(${scale}); transform-origin: top center;`
-  );
+  safeArea.style.transform = `translateX(-50%) scale(${scale})`;
+  safeArea.style.transformOrigin = "top center";
 }
 function App() {
   const [now, setNow] = reactExports.useState(() => /* @__PURE__ */ new Date());
@@ -13259,7 +13257,9 @@ function App() {
   const settingsClickCount = reactExports.useRef(0);
   const settingsTimer = reactExports.useRef(null);
   reactExports.useEffect(() => {
-    applyAutoScale();
+    setTimeout(() => {
+      applyAutoScale();
+    }, 0);
     window.addEventListener("resize", applyAutoScale);
     return () => {
       window.removeEventListener("resize", applyAutoScale);
