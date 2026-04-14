@@ -27,7 +27,6 @@ html, body, #root {
 }
 
 /* ====================== TV & F11 ÖZEL SCALE ====================== */
-/* TV tarayıcıları ve F11 modları geniş ekran + yüksek DPI olarak algılanır */
 @media screen and (min-width: 1400px) and (min-height: 900px) {
   .tv-safe-area {
     transform: translateX(-50%) scale(0.70) !important;
@@ -42,6 +41,7 @@ html, body, #root {
   background-color: #0a3d2e;
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* ← EKLENDİ */
 }
 
 /* ====================== ÜST BAR ====================== */
@@ -66,8 +66,9 @@ html, body, #root {
 .main-panels {
   flex: 1;
   display: flex;
-  gap: 12px;
-  padding: 10px 14px;
+  gap: 8px;              /* 12px → 8px */
+  padding: 6px 8px;      /* 10px 14px → 6px 8px */
+  overflow: hidden;      /* ← EKLENDİ */
 }
 
 /* Her panel eşit genişlikte */

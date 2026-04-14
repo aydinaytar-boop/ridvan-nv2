@@ -914,9 +914,91 @@ export default function App() {
             </div>
           </div>
 
-{/* ANA PANELLER */}
-<div className="main-panels" style={{ display: "flex", flex: 1 }}>
 
+          <span style={{ color: "#a8c8b0", fontSize: 34, textAlign: "right" }}>—</span>
+        </div>
+      )}
+
+      {weekendMsg && (
+        <div
+          style={{
+            padding: "8px 16px",
+            color: "#c9a66b",
+            fontSize: 16,
+            fontStyle: "italic",
+            flexShrink: 0,
+            borderTop: "1px solid #c9a66b33",
+          }}
+        >
+          {lang === "tr"
+            ? "Haftasonu eğitimi sebebiyle öğle namazı 13:00 olarak ayarlanmıştır."
+            : "Das Mittagsgebet ist aufgrund des Wochenendunterrichts auf 13:00 Uhr festgelegt."}
+        </div>
+      )}
+    </div>
+  </div>
+
+  {/* ORTA PANEL */}
+  <div
+    className="panel"
+    style={{
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "#0a3d2e",
+      gap: 20,
+    }}
+  >
+    {isKametAlert ? (
+      <div style={{ textAlign: "center" }}>
+        <div
+          style={{
+            color: "#c9a66b",
+            fontSize: 58,
+            fontWeight: 900,
+            letterSpacing: 6,
+            animation: "pulse 1s infinite",
+            marginBottom: 20,
+          }}
+        >
+          {lang === "tr" ? "KAMET" : "IQÂMAT"}
+        </div>
+
+        <div
+          style={{
+            color: "#f5d78e",
+            fontSize: 108,
+            fontWeight: 900,
+            letterSpacing: 4,
+            animation: "pulse 1s infinite",
+          }}
+        >
+          {kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}
+        </div>
+      </div>
+    ) : (
+      <>
+        <div
+          style={{
+            background: "#c9a66b",
+            textAlign: "center",
+            padding: "10px 36px",
+            color: "#0a3d2e",
+            fontSize: 28,
+            fontWeight: 900,
+            letterSpacing: 3,
+            borderRadius: 8,
+          }}
+          
+          {/* ANA PANELLER */}
+<div className="main-panels" style={{
+  display: "flex",
+  flex: 1,
+  overflow: "hidden"   // ← BU SATIR SORUNU TAMAMEN BİTİRİR
+}}>
+  
   {/* SOL PANEL */}
   <div
     className="panel"
@@ -1065,82 +1147,6 @@ export default function App() {
           <span style={{ color: "#f5d78e", fontSize: 40, fontWeight: 700, textAlign: "center", fontFamily: "monospace" }}>
             {bayram.saat}
           </span>
-          <span style={{ color: "#a8c8b0", fontSize: 34, textAlign: "right" }}>—</span>
-        </div>
-      )}
-
-      {weekendMsg && (
-        <div
-          style={{
-            padding: "8px 16px",
-            color: "#c9a66b",
-            fontSize: 16,
-            fontStyle: "italic",
-            flexShrink: 0,
-            borderTop: "1px solid #c9a66b33",
-          }}
-        >
-          {lang === "tr"
-            ? "Haftasonu eğitimi sebebiyle öğle namazı 13:00 olarak ayarlanmıştır."
-            : "Das Mittagsgebet ist aufgrund des Wochenendunterrichts auf 13:00 Uhr festgelegt."}
-        </div>
-      )}
-    </div>
-  </div>
-
-  {/* ORTA PANEL */}
-  <div
-    className="panel"
-    style={{
-      flex: 1,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      background: "#0a3d2e",
-      gap: 20,
-    }}
-  >
-    {isKametAlert ? (
-      <div style={{ textAlign: "center" }}>
-        <div
-          style={{
-            color: "#c9a66b",
-            fontSize: 58,
-            fontWeight: 900,
-            letterSpacing: 6,
-            animation: "pulse 1s infinite",
-            marginBottom: 20,
-          }}
-        >
-          {lang === "tr" ? "KAMET" : "IQÂMAT"}
-        </div>
-
-        <div
-          style={{
-            color: "#f5d78e",
-            fontSize: 108,
-            fontWeight: 900,
-            letterSpacing: 4,
-            animation: "pulse 1s infinite",
-          }}
-        >
-          {kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}
-        </div>
-      </div>
-    ) : (
-      <>
-        <div
-          style={{
-            background: "#c9a66b",
-            textAlign: "center",
-            padding: "10px 36px",
-            color: "#0a3d2e",
-            fontSize: 28,
-            fontWeight: 900,
-            letterSpacing: 3,
-            borderRadius: 8,
-          }}
         >
           {lang === "tr" ? "GÜNÜN VAKTİ" : "AKTUELLE GEBETSZEIT"}
         </div>
@@ -1475,91 +1481,101 @@ export default function App() {
   </div>
 </div>   {/* ← SAĞ PANELİN TAM KAPANIŞI */}
           
-          {/* ALT BAR */}
-          <div
-            className="bottom-bar"
-            style={{
-              background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)",
-              borderTop: "4px solid #c9a66b",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "0 32px",
-              cursor: "default",
-              position: "relative",
-            }}
-          >
-            <div
-              style={{
-                color: "#c9a66b",
-                fontSize: 16,
-                letterSpacing: 1,
-              }}
-              onClick={handleBottomClick}
-            >
-              Bu uygulama <strong>AyTa®</strong> tarafından
-              hazırlanmıştır
-            </div>
-            <button
-              onClick={() => setShowSettings(true)}
-              title="Ayarlar"
-              style={{
-                position: "absolute",
-                left: "50%",
-                transform: "translateX(-50%)",
-                background: "transparent",
-                border: "1px solid #c9a66b44",
-                borderRadius: 6,
-                padding: "4px 10px",
-                color: "#c9a66b77",
-                fontSize: 16,
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: 4,
-                transition: "all 0.2s",
-                lineHeight: 1,
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.color =
-                  "#c9a66b";
-                (e.currentTarget as HTMLButtonElement).style.borderColor =
-                  "#c9a66b";
-                (e.currentTarget as HTMLButtonElement).style.background =
-                  "#c9a66b11";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.color =
-                  "#c9a66b77";
-                (e.currentTarget as HTMLButtonElement).style.borderColor =
-                  "#c9a66b44";
-                (e.currentTarget as HTMLButtonElement).style.background =
-                  "transparent";
-              }}
-            >
-              ⚙️
-            </button>
-            <div
-              style={{
-                border: "3px solid #c9a66b",
-                borderRadius: 8,
-                padding: "6px 12px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#ffffff",
-                boxShadow: "0 0 0 1px #c9a66b",
-              }}
-            >
-              <img
-                src="img/logo.png?v=5"
-                alt="Ridvan Camii Logo"
-                style={{ height: 52, objectFit: "contain" }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+          {/* AYARLAR PANELİ (ALT BARIN ÜSTÜNDE DURUR) */}
+{showSettings && (
+  <div
+    className="settings-panel"
+    style={{
+      position: "absolute",
+      left: 0,
+      top: 0,
+      width: "100%",
+      height: "100%",
+      background: "#000000cc",
+      display: "flex",
+      flexDirection: "column",
+      overflowY: "auto"   // ← FİNAL DÜZELTME (2. düzeltme)
+    }}
+  >
+    {/* Ayarlar içeriği buraya geliyor */}
+  </div>
+)}
+
+{/* ALT BAR */}
+<div
+  className="bottom-bar"
+  style={{
+    background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)",
+    borderTop: "4px solid #c9a66b",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "0 32px",
+    cursor: "default",
+    position: "relative",
+  }}
+>
+  <div
+    style={{
+      color: "#c9a66b",
+      fontSize: 16,
+      letterSpacing: 1,
+    }}
+    onClick={handleBottomClick}
+  >
+    Bu uygulama <strong>AyTa®</strong> tarafından hazırlanmıştır
+  </div>
+
+  <button
+    onClick={() => setShowSettings(true)}
+    title="Ayarlar"
+    style={{
+      position: "absolute",
+      left: "50%",
+      transform: "translateX(-50%)",
+      background: "transparent",
+      border: "1px solid #c9a66b44",
+      borderRadius: 6,
+      padding: "4px 10px",
+      color: "#c9a66b77",
+      fontSize: 16,
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      gap: 4,
+      transition: "all 0.2s",
+      lineHeight: 1,
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.color = "#c9a66b";
+      e.currentTarget.style.borderColor = "#c9a66b";
+      e.currentTarget.style.background = "#c9a66b11";
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.color = "#c9a66b77";
+      e.currentTarget.style.borderColor = "#c9a66b44";
+      e.currentTarget.style.background = "transparent";
+    }}
+  >
+    ⚙️
+  </button>
+
+  <div
+    style={{
+      border: "3px solid #c9a66b",
+      borderRadius: 8,
+      padding: "6px 12px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "#ffffff",
+      boxShadow: "0 0 0 1px #c9a66b",
+    }}
+  >
+    <img
+      src="img/logo.png?v=5"
+      alt="Ridvan Camii Logo"
+      style={{ height: 52, objectFit: "contain" }}
+    />
+  </div>
+</div>
