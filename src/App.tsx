@@ -220,8 +220,10 @@ function applyAutoScale() {
     scale = 1;
   }
 
-  (safeArea as HTMLElement).style.transform = `translateX(-50%) scale(${scale})`;
-  (safeArea as HTMLElement).style.transformOrigin = "top center";
+  scale = scale * 0.95; // ← %5 küçültme
+
+  safeArea.style.transform = `translateX(-50%) scale(${scale})`;
+  safeArea.style.transformOrigin = "top center";
 }
 
 export default function App() {
