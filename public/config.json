@@ -1,0 +1,32 @@
+{
+  "mosqueName": "RIDVAN CAMİİ — VİYANA",
+  "showLogo": true,
+  "logo": "/logo.png",
+
+  "panels": {
+    "left": true,
+    "center": true,
+    "right": true
+  },
+
+  "safeArea": {
+    "scale": 0.90,
+    "overscan": true
+  },
+
+  "theme": {
+    "frameColor": "#c9a66b",
+    "backgroundColor": "#0a3d2e",
+    "textColor": "#e5e7eb"
+  },
+
+  "prayerTimes": {
+    "showSeconds": true,
+    "highlightActive": true
+  },
+
+  "announcements": {
+    "enabled": true,
+    "scrollSpeed": 1
+  }
+}
