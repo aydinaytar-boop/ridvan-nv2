@@ -914,395 +914,567 @@ export default function App() {
             </div>
           </div>
 
-          {/* ANA PANELLER */}
-          <div className="main-panels" style={{ display: "flex", flex: 1 }}>
-            
-            {/* SOL PANEL */}
-<div
-  className="panel"
-  style={{
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    background: "#0a3d2e",
-  }}
->
+{/* ANA PANELLER */}
+<div className="main-panels" style={{ display: "flex", flex: 1 }}>
+
+  {/* SOL PANEL */}
   <div
+    className="panel"
     style={{
-      background: "#c9a66b",
-      textAlign: "center",
-      padding: "12px 0",
-      color: "#0a3d2e",
-      fontSize: 36,
-      fontWeight: 900,
-      letterSpacing: 3,
-      flexShrink: 0,
-      lineHeight: 1,
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      background: "#0a3d2e",
     }}
   >
-    {lang === "tr" ? "NAMAZ VAKİTLERİ" : "GEBETSZEITEN"}
-  </div>
-
-  <div
-    style={{
-      display: "grid",
-      gridTemplateColumns: "1.2fr 1fr 1fr",
-      padding: "8px 20px",
-      borderBottom: "2px solid #c9a66b",
-      background: "#072d20",
-      flexShrink: 0,
-    }}
-  >
-    <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, lineHeight: 1 }}>
-      {lang === "tr" ? "VAKİT" : "GEBET"}
-    </span>
-    <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, textAlign: "center", lineHeight: 1 }}>
-      {lang === "tr" ? "EZAN" : "ADHAN"}
-    </span>
-    <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, textAlign: "right", lineHeight: 1 }}>
-      {lang === "tr" ? "KAMET" : "IQÂMAT"}
-    </span>
-  </div>
-
-  <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-    {vakitList.map(({ key, ezan, kamet }) => {
-      const isActive = flow.currentVakit === key;
-      const isNext = flow.nextVakit === key;
-      return (
-        <div
-          key={key}
-          className={isActive ? "active-vakit-row" : ""}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.2fr 1fr 1fr",
-            padding: "0 20px",
-            flex: 1,
-            borderBottom: "1px solid #c9a66b33",
-            background: isActive ? undefined : isNext ? "rgba(201,166,107,0.07)" : "transparent",
-            borderLeft: isActive ? "7px solid #c9a66b" : "7px solid transparent",
-            alignItems: "center",
-            transition: "background 0.3s",
-          }}
-        >
-          <span
-            style={{
-              color: isActive ? "#f5d78e" : "#a8c8b0",
-              fontSize: isActive ? 36 : 32,
-              fontWeight: isActive ? 900 : 600,
-              letterSpacing: 1,
-              lineHeight: 1,
-            }}
-          >
-            {VAKIT_NAMES[lang][key]}
-          </span>
-
-          <span
-            style={{
-              color: "#f5d78e",
-              fontSize: isActive ? 48 : 44,
-              fontWeight: 700,
-              textAlign: "center",
-              fontFamily: "monospace",
-              lineHeight: 1,
-            }}
-          >
-            {ezan}
-          </span>
-
-          <span
-            style={{
-              color: isActive ? "#f5d78e" : "#a8c8b0",
-              fontSize: 40,
-              textAlign: "right",
-              fontFamily: "monospace",
-              lineHeight: 1,
-            }}
-          >
-            {kamet || "—"}
-          </span>
-        </div>
-      );
-    })}
+    <div
+      style={{
+        background: "#c9a66b",
+        textAlign: "center",
+        padding: "12px 0",
+        color: "#0a3d2e",
+        fontSize: 36,
+        fontWeight: 900,
+        letterSpacing: 3,
+        flexShrink: 0,
+        lineHeight: 1,
+      }}
+    >
+      {lang === "tr" ? "NAMAZ VAKİTLERİ" : "GEBETSZEITEN"}
+    </div>
 
     <div
       style={{
         display: "grid",
         gridTemplateColumns: "1.2fr 1fr 1fr",
-        padding: "0 20px",
-        flex: 1,
-        background: "#c9a66b",
-        alignItems: "center",
-        borderLeft: "7px solid #a07d3a",
-        lineHeight: 1,
+        padding: "8px 20px",
+        borderBottom: "2px solid #c9a66b",
+        background: "#072d20",
+        flexShrink: 0,
       }}
     >
-      <span style={{ color: "#0a3d2e", fontSize: 34, fontWeight: 900, letterSpacing: 1 }}>
-        {lang === "tr" ? "CUMA" : "DSCHUM'A"}
+      <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, lineHeight: 1 }}>
+        {lang === "tr" ? "VAKİT" : "GEBET"}
       </span>
-      <span style={{ color: "#0a3d2e", fontSize: 46, fontWeight: 700, textAlign: "center", fontFamily: "monospace" }}>
-        {SETTINGS.cuma.ezan}
+      <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, textAlign: "center", lineHeight: 1 }}>
+        {lang === "tr" ? "EZAN" : "ADHAN"}
       </span>
-      <span style={{ color: "#0a3d2e", fontSize: 40, textAlign: "right", fontFamily: "monospace" }}>
-        {SETTINGS.cuma.kamet}
+      <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, textAlign: "right", lineHeight: 1 }}>
+        {lang === "tr" ? "KAMET" : "IQÂMAT"}
       </span>
     </div>
 
-    {bayram.visible && bayram.bayram && (
+    <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+      {vakitList.map(({ key, ezan, kamet }) => {
+        const isActive = flow.currentVakit === key;
+        const isNext = flow.nextVakit === key;
+        return (
+          <div
+            key={key}
+            className={isActive ? "active-vakit-row" : ""}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1.2fr 1fr 1fr",
+              padding: "0 20px",
+              flex: 1,
+              borderBottom: "1px solid #c9a66b33",
+              background: isActive ? undefined : isNext ? "rgba(201,166,107,0.07)" : "transparent",
+              borderLeft: isActive ? "7px solid #c9a66b" : "7px solid transparent",
+              alignItems: "center",
+              transition: "background 0.3s",
+            }}
+          >
+            <span
+              style={{
+                color: isActive ? "#f5d78e" : "#a8c8b0",
+                fontSize: isActive ? 36 : 32,
+                fontWeight: isActive ? 900 : 600,
+                letterSpacing: 1,
+                lineHeight: 1,
+              }}
+            >
+              {VAKIT_NAMES[lang][key]}
+            </span>
+
+            <span
+              style={{
+                color: "#f5d78e",
+                fontSize: isActive ? 48 : 44,
+                fontWeight: 700,
+                textAlign: "center",
+                fontFamily: "monospace",
+                lineHeight: 1,
+              }}
+            >
+              {ezan}
+            </span>
+
+            <span
+              style={{
+                color: isActive ? "#f5d78e" : "#a8c8b0",
+                fontSize: 40,
+                textAlign: "right",
+                fontFamily: "monospace",
+                lineHeight: 1,
+              }}
+            >
+              {kamet || "—"}
+            </span>
+          </div>
+        );
+      })}
+
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "1.2fr 1fr 1fr",
           padding: "0 20px",
           flex: 1,
-          background: "rgba(201,166,107,0.15)",
-          borderTop: "2px solid #c9a66b66",
+          background: "#c9a66b",
           alignItems: "center",
+          borderLeft: "7px solid #a07d3a",
+          lineHeight: 1,
         }}
       >
-        <span style={{ color: "#f5d78e", fontSize: 26, fontWeight: 700 }}>
-          {lang === "tr" ? bayram.bayram.ad_tr : bayram.bayram.ad_de}
+        <span style={{ color: "#0a3d2e", fontSize: 34, fontWeight: 900 }}>
+          {lang === "tr" ? "CUMA" : "DSCHUM'A"}
         </span>
-        <span style={{ color: "#f5d78e", fontSize: 40, fontWeight: 700, textAlign: "center", fontFamily: "monospace" }}>
-          {bayram.saat}
+        <span style={{ color: "#0a3d2e", fontSize: 46, fontWeight: 700, textAlign: "center", fontFamily: "monospace" }}>
+          {SETTINGS.cuma.ezan}
         </span>
-        <span style={{ color: "#a8c8b0", fontSize: 34, textAlign: "right" }}>—</span>
+        <span style={{ color: "#0a3d2e", fontSize: 40, textAlign: "right", fontFamily: "monospace" }}>
+          {SETTINGS.cuma.kamet}
+        </span>
       </div>
+
+      {bayram.visible && bayram.bayram && (
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1.2fr 1fr 1fr",
+            padding: "0 20px",
+            flex: 1,
+            background: "rgba(201,166,107,0.15)",
+            borderTop: "2px solid #c9a66b66",
+            alignItems: "center",
+          }}
+        >
+          <span style={{ color: "#f5d78e", fontSize: 26, fontWeight: 700 }}>
+            {lang === "tr" ? bayram.bayram.ad_tr : bayram.bayram.ad_de}
+          </span>
+          <span style={{ color: "#f5d78e", fontSize: 40, fontWeight: 700, textAlign: "center", fontFamily: "monospace" }}>
+            {bayram.saat}
+          </span>
+          <span style={{ color: "#a8c8b0", fontSize: 34, textAlign: "right" }}>—</span>
+        </div>
+      )}
+
+      {weekendMsg && (
+        <div
+          style={{
+            padding: "8px 16px",
+            color: "#c9a66b",
+            fontSize: 16,
+            fontStyle: "italic",
+            flexShrink: 0,
+            borderTop: "1px solid #c9a66b33",
+          }}
+        >
+          {lang === "tr"
+            ? "Haftasonu eğitimi sebebiyle öğle namazı 13:00 olarak ayarlanmıştır."
+            : "Das Mittagsgebet ist aufgrund des Wochenendunterrichts auf 13:00 Uhr festgelegt."}
+        </div>
+      )}
+    </div>
+  </div>
+
+  {/* ORTA PANEL */}
+  <div
+    className="panel"
+    style={{
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "#0a3d2e",
+      gap: 20,
+    }}
+  >
+    {isKametAlert ? (
+      <div style={{ textAlign: "center" }}>
+        <div
+          style={{
+            color: "#c9a66b",
+            fontSize: 58,
+            fontWeight: 900,
+            letterSpacing: 6,
+            animation: "pulse 1s infinite",
+            marginBottom: 20,
+          }}
+        >
+          {lang === "tr" ? "KAMET" : "IQÂMAT"}
+        </div>
+
+        <div
+          style={{
+            color: "#f5d78e",
+            fontSize: 108,
+            fontWeight: 900,
+            letterSpacing: 4,
+            animation: "pulse 1s infinite",
+          }}
+        >
+          {kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}
+        </div>
+      </div>
+    ) : (
+      <>
+        <div
+          style={{
+            background: "#c9a66b",
+            textAlign: "center",
+            padding: "10px 36px",
+            color: "#0a3d2e",
+            fontSize: 28,
+            fontWeight: 900,
+            letterSpacing: 3,
+            borderRadius: 8,
+          }}
+        >
+          {lang === "tr" ? "GÜNÜN VAKTİ" : "AKTUELLE GEBETSZEIT"}
+        </div>
+
+        <div
+          style={{
+            color: "#f5d78e",
+            fontSize: isEzan ? 86 : 78,
+            fontWeight: 900,
+            letterSpacing: 3,
+            animation: isEzan ? "pulse 1s infinite" : "none",
+          }}
+        >
+          {currentLabel}
+        </div>
+
+        {!isKametCountdown && (
+          <>
+            <div
+              style={{
+                background: "#c9a66b",
+                textAlign: "center",
+                padding: "10px 36px",
+                color: "#0a3d2e",
+                fontSize: 24,
+                fontWeight: 900,
+                letterSpacing: 3,
+                borderRadius: 8,
+                marginTop: 8,
+              }}
+            >
+              {lang === "tr" ? "SONRAKI VAKİT" : "NÄCHSTE GEBETSZEIT"}
+            </div>
+
+            <div
+              style={{
+                color: "#f5d78e",
+                fontSize: 52,
+                fontWeight: 700,
+              }}
+            >
+              {nextLabel} — {nextTime}
+            </div>
+          </>
+        )}
+
+        {isKametCountdown && (
+          <div style={{ textAlign: "center", marginTop: 8 }}>
+            <div
+              style={{
+                background: "#c9a66b",
+                textAlign: "center",
+                padding: "10px 36px",
+                color: "#0a3d2e",
+                fontSize: 24,
+                fontWeight: 900,
+                letterSpacing: 3,
+                borderRadius: 8,
+              }}
+            >
+              {lang === "tr" ? "KAMETE KALAN SÜRE" : "ZEIT BIS ZUM IQÂMAT"}
+            </div>
+
+            <div
+              style={{
+                color: "#f5d78e",
+                fontSize: 60,
+                fontWeight: 700,
+                marginTop: 16,
+              }}
+            >
+              {kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}
+            </div>
+          </div>
+        )}
+
+        <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 16 }}>
+          {[
+            { val: fmt2(cdH), label: lang === "tr" ? "Saat" : "Std." },
+            null,
+            { val: fmt2(cdM), label: lang === "tr" ? "Dakika" : "Min." },
+            null,
+            { val: fmt2(cdS), label: lang === "tr" ? "Saniye" : "Sek." },
+          ].map((item, i) =>
+            item === null ? (
+              <span
+                key={i}
+                style={{
+                  color: "#f5d78e",
+                  fontSize: 48,
+                  fontWeight: 900,
+                  animation: "pulse 1s infinite",
+                }}
+              >
+                :
+              </span>
+            ) : (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  background: "#0e5c3a",
+                  border: "4px solid #c9a66b",
+                  borderRadius: 16,
+                  padding: "12px 24px",
+                  minWidth: 100,
+                }}
+              >
+                <span
+                  style={{
+                    color: "#f5d78e",
+                    fontSize: 60,
+                    fontWeight: 900,
+                    fontFamily: "monospace",
+                  }}
+                >
+                  {item.val}
+                </span>
+                <span style={{ color: "#c9a66b", fontSize: 18, marginTop: 8 }}>
+                  {item.label}
+                </span>
+              </div>
+            )
+          )}
+        </div>
+
+        {flow.currentVakit === "sabah" && !isEzan && !isKametCountdown && (
+          <div style={{ textAlign: "center", marginTop: 16 }}>
+            <div style={{ color: "#c9a66b", fontSize: 24, letterSpacing: 3 }}>
+              {lang === "tr" ? "GÜNEŞE KALAN" : "BIS SCHURUQ"}
+            </div>
+
+            <div style={{ color: "#a8c8b0", fontSize: 40, fontWeight: 700 }}>
+              {fmt2(gunesKalanH)}:{fmt2(gunesKalanM)}:{fmt2(gunesKalanS)}
+            </div>
+          </div>
+        )}
+      </>
     )}
 
-    {weekendMsg && (
+    {bayram.visible && (
       <div
         style={{
-          padding: "8px 16px",
-          color: "#c9a66b",
-          fontSize: 16,
-          fontStyle: "italic",
-          flexShrink: 0,
-          borderTop: "1px solid #c9a66b33",
+          marginTop: 20,
+          padding: "12px 36px",
+          background: "#c9a66b22",
+          border: "3px solid #c9a66b",
+          borderRadius: 12,
+          color: "#f5d78e",
+          fontSize: 35,
+          fontWeight: 700,
+          textAlign: "center",
         }}
       >
-        {lang === "tr"
-          ? "Haftasonu eğitimi sebebiyle öğle namazı 13:00 olarak ayarlanmıştır."
-          : "Das Mittagsgebet ist aufgrund des Wochenendunterrichts auf 13:00 Uhr festgelegt."}
+        🎉 {lang === "tr" ? bayram.bayram?.ad_tr : bayram.bayram?.ad_de}
       </div>
     )}
   </div>
-</div>
 
-{/* ORTA PANEL */}
-<div
-  className="panel"
-  style={{
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "#0a3d2e",
-    gap: 20,
-  }}
->
-  {isKametAlert ? (
-    <div style={{ textAlign: "center" }}>
-      <div
-        style={{
-          color: "#c9a66b",
-          fontSize: 58,
-          fontWeight: 900,
-          letterSpacing: 6,
-          animation: "pulse 1s infinite",
-          marginBottom: 20,
-        }}
-      >
-        {lang === "tr" ? "KAMET" : "IQÂMAT"}
-      </div>
-
-      <div
-        style={{
-          color: "#f5d78e",
-          fontSize: 108,
-          fontWeight: 900,
-          letterSpacing: 4,
-          animation: "pulse 1s infinite",
-        }}
-      >
-        {kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}
-      </div>
-    </div>
-  ) : (
-    <>
+  {/* SAĞ PANEL */}
+  <div
+    className="panel"
+    style={{
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      background: "#0a3d2e",
+    }}
+  >
+    {/* ÜST YARI */}
+    <div
+      style={{
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        borderBottom: "3px solid #c9a66b",
+      }}
+    >
       <div
         style={{
           background: "#c9a66b",
           textAlign: "center",
-          padding: "10px 36px",
+          padding: "10px 0",
           color: "#0a3d2e",
-          fontSize: 28,
+          fontSize: 20,
           fontWeight: 900,
           letterSpacing: 3,
-          borderRadius: 8,
         }}
       >
-        {lang === "tr" ? "GÜNÜN VAKTİ" : "AKTUELLE GEBETSZEIT"}
+        {isEzan
+          ? duaLang === "tr"
+            ? "EZAN DUASI"
+            : "ADHAN-GEBET"
+          : lang === "tr"
+          ? "GÜNÜN DUASI"
+          : "DUA DES TAGES"}
       </div>
 
       <div
         style={{
-          color: "#f5d78e",
-          fontSize: isEzan ? 86 : 78,
-          fontWeight: 900,
-          letterSpacing: 3,
-          animation: isEzan ? "pulse 1s infinite" : "none",
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "20px 16px",
+          gap: 16,
         }}
       >
-        {currentLabel}
-      </div>
-
-      {!isKametCountdown && (
-        <>
-          <div
-            style={{
-              background: "#c9a66b",
-              textAlign: "center",
-              padding: "10px 36px",
-              color: "#0a3d2e",
-              fontSize: 24,
-              fontWeight: 900,
-              letterSpacing: 3,
-              borderRadius: 8,
-              marginTop: 8,
-            }}
-          >
-            {lang === "tr" ? "SONRAKI VAKİT" : "NÄCHSTE GEBETSZEIT"}
-          </div>
-
-          <div
-            style={{
-              color: "#f5d78e",
-              fontSize: 52,
-              fontWeight: 700,
-            }}
-          >
-            {nextLabel} — {nextTime}
-          </div>
-        </>
-      )}
-
-      {isKametCountdown && (
-        <div style={{ textAlign: "center", marginTop: 8 }}>
-          <div
-            style={{
-              background: "#c9a66b",
-              textAlign: "center",
-              padding: "10px 36px",
-              color: "#0a3d2e",
-              fontSize: 24,
-              fontWeight: 900,
-              letterSpacing: 3,
-              borderRadius: 8,
-            }}
-          >
-            {lang === "tr" ? "KAMETE KALAN SÜRE" : "ZEIT BIS ZUM IQÂMAT"}
-          </div>
-
-          <div
-            style={{
-              color: "#f5d78e",
-              fontSize: 60,
-              fontWeight: 700,
-              marginTop: 16,
-            }}
-          >
-            {kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}
-          </div>
-        </div>
-      )}
-
-      <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 16 }}>
-        {[
-          { val: fmt2(cdH), label: lang === "tr" ? "Saat" : "Std." },
-          null,
-          { val: fmt2(cdM), label: lang === "tr" ? "Dakika" : "Min." },
-          null,
-          { val: fmt2(cdS), label: lang === "tr" ? "Saniye" : "Sek." },
-        ].map((item, i) =>
-          item === null ? (
-            <span
-              key={i}
+        {isEzan ? (
+          <>
+            <div
               style={{
                 color: "#f5d78e",
-                fontSize: 48,
-                fontWeight: 900,
-                animation: "pulse 1s infinite",
+                fontSize: 54,
+                textAlign: "right",
+                lineHeight: 1.8,
+                direction: "rtl",
+                fontFamily: "serif",
+                width: "100%",
               }}
             >
-              :
-            </span>
-          ) : (
+              {EZAN_DUASI.arabic}
+            </div>
+
             <div
-              key={i}
               style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                background: "#0e5c3a",
-                border: "4px solid #c9a66b",
-                borderRadius: 16,
-                padding: "12px 24px",
-                minWidth: 100,
+                color: "#a8c8b0",
+                fontSize: 27,
+                textAlign: "center",
+                lineHeight: 1.6,
               }}
             >
-              <span
+              {duaLang === "tr" ? EZAN_DUASI.tr : EZAN_DUASI.de}
+            </div>
+          </>
+        ) : (
+          <>
+            {dailyDua.source && (
+              <div
                 style={{
-                  color: "#f5d78e",
-                  fontSize: 60,
-                  fontWeight: 900,
-                  fontFamily: "monospace",
+                  background: "transparent",
+                  border: "2px solid #c9a66b",
+                  borderRadius: 8,
+                  padding: "4px 16px",
+                  color: "#c9a66b",
+                  fontSize: 21,
+                  fontWeight: 700,
+                  letterSpacing: 3,
                 }}
               >
-                {item.val}
-              </span>
-              <span style={{ color: "#c9a66b", fontSize: 18, marginTop: 8 }}>
-                {item.label}
-              </span>
+                {dailyDua.source}
+              </div>
+            )}
+
+            <div
+              style={{
+                color: "#f5d78e",
+                fontSize: 54,
+                textAlign: "right",
+                lineHeight: 1.8,
+                direction: "rtl",
+                fontFamily: "serif",
+                width: "100%",
+              }}
+            >
+              {dailyDua.ar}
             </div>
-          )
+
+            <div
+              style={{
+                color: "#a8c8b0",
+                fontSize: 27,
+                textAlign: "center",
+                lineHeight: 1.6,
+              }}
+            >
+              {lang === "tr" ? dailyDua.tr : dailyDua.de}
+            </div>
+          </>
         )}
       </div>
+    </div>
 
-      {flow.currentVakit === "sabah" && !isEzan && !isKametCountdown && (
-        <div style={{ textAlign: "center", marginTop: 16 }}>
-          <div style={{ color: "#c9a66b", fontSize: 24, letterSpacing: 3 }}>
-            {lang === "tr" ? "GÜNEŞE KALAN" : "BIS SCHURUQ"}
-          </div>
-
-          <div style={{ color: "#a8c8b0", fontSize: 40, fontWeight: 700 }}>
-            {fmt2(gunesKalanH)}:{fmt2(gunesKalanM)}:{fmt2(gunesKalanS)}
-          </div>
-        </div>
-      )}
-    </>
-  )}
-
-  {bayram.visible && (
+    {/* ALT YARI */}
     <div
       style={{
-        marginTop: 20,
-        padding: "12px 36px",
-        background: "#c9a66b22",
-        border: "3px solid #c9a66b",
-        borderRadius: 12,
-        color: "#f5d78e",
-        fontSize: 35,
-        fontWeight: 700,
-        textAlign: "center",
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      🎉 {lang === "tr" ? bayram.bayram?.ad_tr : bayram.bayram?.ad_de}
+            <div
+        style={{
+          background: "#c9a66b",
+          textAlign: "center",
+          padding: "10px 0",
+          color: "#0a3d2e",
+          fontSize: 20,
+          fontWeight: 900,
+          letterSpacing: 3,
+        }}
+      >
+        {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
+      </div>
+
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "20px 16px",
+        }}
+      >
+        <div
+          style={{
+            color: "#f5d78e",
+            fontSize: 30, // 20 → 30
+            textAlign: "center",
+            lineHeight: 1.6,
+            width: "100%",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"}
+        </div>
+      </div>
     </div>
-  )}
-</div>
-
-
+  </div>
+</div>   {/* ← SAĞ PANELİN TAM KAPANIŞI */}
+          
           {/* ALT BAR */}
           <div
             className="bottom-bar"
