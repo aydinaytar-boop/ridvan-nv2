@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";container
+import { useState, useEffect, useRef, useCallback } from "react";
 import {
   getTodayTimes,
   computeFlow,
@@ -209,21 +209,19 @@ function getDailyDua(date: Date) {
   return DUA_ARCHIVE[dayOfYear % DUA_ARCHIVE.length];
 }
 
-// ⬅️ BUNU EN ÜSTE EKLE (importların altına)
 function applyAutoScale() {
   const safeArea = document.querySelector(".tv-safe-area");
   if (!safeArea) return;
 
-  const vw = window.innerWidth || 1920; // fallback
+  const vw = window.innerWidth || 1920;
   let scale = vw / 1920;
 
-  // Güvenlik: scale asla 0 veya NaN olamaz
   if (!scale || scale <= 0 || scale > 2) {
     scale = 1;
   }
 
-  safeArea.style.transform = `translateX(-50%) scale(${scale})`;
-  safeArea.style.transformOrigin = "top center";
+  (safeArea as HTMLElement).style.transform = `translateX(-50%) scale(${scale})`;
+  (safeArea as HTMLElement).style.transformOrigin = "top center";
 }
 
 export default function App() {
@@ -243,19 +241,19 @@ export default function App() {
   const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-  const timer = setTimeout(() => {
-    applyAutoScale();
-  }, 50); // 0 değil, 50ms daha güvenli
+    const timer = setTimeout(() => {
+      applyAutoScale();
+    }, 50);
 
-  window.addEventListener("resize", applyAutoScale);
+    window.addEventListener("resize", applyAutoScale);
 
-  return () => {
-    clearTimeout(timer);
-    window.removeEventListener("resize", applyAutoScale);
-  };
-}, []);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", applyAutoScale);
+    };
+  }, []);
 
-  // ⬅️ BU SENİN ORİJİNAL CONFIG YÜKLEME BLOĞUN (DEĞİŞMEDİ)
+  // config.json yükleme
   useEffect(() => {
     fetch("/config.json")
       .then((res) => res.json())
@@ -282,6 +280,7 @@ export default function App() {
         setConfigLoaded(true);
       });
   }, []);
+
   useEffect(() => {
     if (configLoaded) localStorage.setItem("duyuruTR", duyuruTR);
   }, [duyuruTR, configLoaded]);
@@ -779,6 +778,7 @@ export default function App() {
         top: 0,
         left: 0,
         background: "#000",
+        zIndex: 0,
       }}
     >
       <div className="tv-safe-area">
