@@ -1439,9 +1439,9 @@ export default function App() {
     🎉 {lang === "tr" ? bayram.bayram?.ad_tr : bayram.bayram?.ad_de}
   </div>
 )}
-</div>  {/* ← ORTA PANEL KAPANIŞI DOĞRU YERİ BURASI */}
+</div> {/* ← ORTA PANEL KAPANIŞI */}
 
-{/* SAĞ PANEL - DUA + DUYURULAR */}
+{/* SAĞ PANEL */}
 <div
   className="panel"
   style={{
@@ -1451,7 +1451,7 @@ export default function App() {
     background: "#0a3d2e",
   }}
 >
-  {/* ÜST YARI - DUA */}
+  {/* ÜST YARI */}
   <div
     style={{
       flex: 1,
@@ -1565,7 +1565,7 @@ export default function App() {
     </div>
   </div>
 
-  {/* ALT YARI - DUYURULAR */}
+  {/* ALT YARI */}
   <div
     style={{
       flex: 1,
@@ -1610,9 +1610,9 @@ export default function App() {
       </div>
     </div>
   </div>
-</div>  {/* ← SAĞ PANEL KAPANIŞI */}
+</div> {/* ← SAĞ PANEL KAPANIŞI */}
 
-</div>  {/* ← main-panels DOĞRU KAPANIŞ */}
+</div> {/* ← main-panels KAPANIŞI DOĞRU YERİ */}
 
 {/* ALT BAR */}
 <div
