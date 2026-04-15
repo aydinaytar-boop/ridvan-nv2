@@ -445,7 +445,7 @@ export default function App() {
             ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın!"
             : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus!"}
         </div>
-        <div style={{ color: "#6a9e78", fontSize: 20 }}>
+        <div style={{ color: "#6a9e78", fontSize: 22 }}>
           {lang === "tr" ? "Kalan süre" : "Verbleibende Zeit"}:{" "}
           {fmt2(Math.floor(flow.blackoutRemaining / 60))}:
           {fmt2(flow.blackoutRemaining % 60)}
@@ -472,7 +472,7 @@ export default function App() {
         <div
           style={{
             color: "#c9a66b",
-            fontSize: 32,
+            fontSize: 22,
             fontWeight: "bold",
             marginBottom: 8,
           }}
@@ -544,7 +544,7 @@ export default function App() {
               onClick={() => setHicriOffset((o) => o - 1)}
               style={{
                 padding: "8px 20px",
-                fontSize: 24,
+                fontSize: 22,
                 background: "#1a5c3a",
                 color: "#c9a66b",
                 border: "2px solid #c9a66b",
@@ -673,7 +673,7 @@ export default function App() {
                 <span
                   style={{
                     color: "#f5d78e",
-                    fontSize: 16,
+                    fontSize: 22,
                   }}
                 >
                   {lang === "tr"
@@ -690,7 +690,7 @@ export default function App() {
                     border: "2px solid #c9a66b",
                     background: "#0a3d2e",
                     color: "#f5d78e",
-                    fontSize: 16,
+                    fontSize: 22,
                     minHeight: 80,
                     resize: "vertical",
                   }}
@@ -723,7 +723,7 @@ export default function App() {
                     border: "2px solid #c9a66b",
                     background: "#0a3d2e",
                     color: "#f5d78e",
-                    fontSize: 16,
+                    fontSize: 22,
                     minHeight: 80,
                     resize: "vertical",
                   }}
@@ -736,7 +736,7 @@ export default function App() {
         <div
           style={{
             color: "#6a9e78",
-            fontSize: 14,
+            fontSize: 22,
             textAlign: "center",
             maxWidth: 600,
             marginTop: 8,
@@ -1224,7 +1224,7 @@ export default function App() {
                       textAlign: "center",
                       padding: "10px 36px",
                       color: "#0a3d2e",
-                      fontSize: 28,
+                      fontSize: 36,
                       fontWeight: 900,
                       letterSpacing: 3,
                       borderRadius: 8,
@@ -1255,7 +1255,7 @@ export default function App() {
                           textAlign: "center",
                           padding: "10px 36px",
                           color: "#0a3d2e",
-                          fontSize: 24,
+                          fontSize: 36,
                           fontWeight: 900,
                           letterSpacing: 3,
                           borderRadius: 8,
@@ -1292,7 +1292,7 @@ export default function App() {
                           textAlign: "center",
                           padding: "10px 36px",
                           color: "#0a3d2e",
-                          fontSize: 24,
+                          fontSize: 36,
                           fontWeight: 900,
                           letterSpacing: 3,
                           borderRadius: 8,
@@ -1405,7 +1405,7 @@ export default function App() {
                         <div
                           style={{
                             color: "#c9a66b",
-                            fontSize: 24,
+                            fontSize: 36,
                             letterSpacing: 3,
                             lineHeight: 1,
                           }}
@@ -1520,7 +1520,7 @@ export default function App() {
                       <div
                         style={{
                           color: "#a8c8b0",
-                          fontSize: 18,
+                          fontSize: 22,
                           textAlign: "center",
                           lineHeight: 1.6,
                         }}
@@ -1540,7 +1540,7 @@ export default function App() {
                             borderRadius: 8,
                             padding: "4px 16px",
                             color: "#c9a66b",
-                            fontSize: 14,
+                            fontSize: 22,
                             fontWeight: 700,
                             letterSpacing: 3,
                           }}
@@ -1564,7 +1564,7 @@ export default function App() {
                       <div
                         style={{
                           color: "#a8c8b0",
-                          fontSize: 18,
+                          fontSize: 22,
                           textAlign: "center",
                           lineHeight: 1.6,
                         }}
@@ -1592,7 +1592,7 @@ export default function App() {
                     textAlign: "center",
                     padding: "10px 0",
                     color: "#0a3d2e",
-                    fontSize: 20,
+                    fontSize: 22,
                     fontWeight: 900,
                     letterSpacing: 3,
                   }}
@@ -1611,7 +1611,7 @@ export default function App() {
                   <div
                     style={{
                       color: "#f5d78e",
-                      fontSize: 20,
+                      fontSize: 22,
                       textAlign: "center",
                       lineHeight: 1.6,
                       width: "100%",
@@ -1644,7 +1644,7 @@ export default function App() {
             <div
               style={{
                 color: "#c9a66b",
-                fontSize: 16,
+                fontSize: 14,
                 letterSpacing: 1,
               }}
               onClick={handleBottomClick}
