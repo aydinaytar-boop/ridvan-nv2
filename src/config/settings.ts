@@ -6,19 +6,19 @@ export const SETTINGS = {
   },
   // Her vakit için ezandan kaç dk sonra kamet?
   kametSureleri: {
-    ogle: 8,
-    ikindi: 8,
+    ogle: 9,
+    ikindi: 9,
     aksam: 3,
-    yatsi: 8,
+    yatsi: 9,
     cuma: 20,
   },
   // usePrayerFlow.ts için kametOffsets (kametSureleri ile aynı değerler)
   kametOffsets: {
     sabah: 0,
-    ogle: 8,
-    ikindi: 8,
+    ogle: 9,
+    ikindi: 9,
     aksam: 3,
-    yatsi: 8,
+    yatsi: 9,
     cuma: 20,
   } as Record<string, number>,
   // Cuma namazı sabit saatleri
