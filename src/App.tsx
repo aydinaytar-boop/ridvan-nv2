@@ -421,8 +421,8 @@ export default function App() {
         }}
       >
         <img
-          src="img/telefonukapat.png?v=5"
-          alt="Lütfen telefonunuzu kapatın"
+          src="img/close.png?v=5"
+          alt="Lütfen telefonunuzu kapatın!"
           style={{
             maxWidth: "100%",
             maxHeight: "95vh",
@@ -442,8 +442,8 @@ export default function App() {
           }}
         >
           {lang === "tr"
-            ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın"
-            : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus"}
+            ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın!"
+            : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus!"}
         </div>
         <div style={{ color: "#6a9e78", fontSize: 20 }}>
           {lang === "tr" ? "Kalan süre" : "Verbleibende Zeit"}:{" "}
