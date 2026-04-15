@@ -1478,7 +1478,7 @@ export default function App() {
                     textAlign: "center",
                     padding: "10px 0",
                     color: "#0a3d2e",
-                    fontSize: 20,
+                    fontSize: 36,
                     fontWeight: 900,
                     letterSpacing: 3,
                   }}
@@ -1551,7 +1551,7 @@ export default function App() {
                       <div
                         style={{
                           color: "#f5d78e",
-                          fontSize: 36,
+                          fontSize: 22,
                           textAlign: "right",
                           lineHeight: 1.8,
                           direction: "rtl",
@@ -1592,7 +1592,7 @@ export default function App() {
                     textAlign: "center",
                     padding: "10px 0",
                     color: "#0a3d2e",
-                    fontSize: 22,
+                    fontSize: 36,
                     fontWeight: 900,
                     letterSpacing: 3,
                   }}
