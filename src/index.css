@@ -95,20 +95,20 @@ html, body, #root {
 
 .current-vakit {
   color: #f5d78e;
-  font-size: 94px;       /* %7 büyütme */
+  font-size: 94px;
   font-weight: 900;
   letter-spacing: 3;
   line-height: 1;
 }
 
 .current-vakit.ezan {
-  font-size: 103px;      /* %7 büyütme */
+  font-size: 103px;
   animation: pulse 1s infinite;
 }
 
 .next-vakit {
   color: #f5d78e;
-  font-size: 64px;       /* %7 büyütme */
+  font-size: 64px;
   font-weight: 700;
   line-height: 1;
 }
@@ -120,40 +120,45 @@ html, body, #root {
   margin-top: 20px;
 }
 
-/* %7 yatay + %15 dikey büyütme */
+/* ====================== SADECE DİKEY %15 BÜYÜTME ====================== */
 .countdown-box {
   background: #0e5c3a;
   border: 4px solid #c9a66b;
   border-radius: 16px;
-  padding: 23px 34px;     /* 20px → 23px (dikey %15) */
-  min-width: 128px;       /* yatay %7 */
+
+  /* DİKEY BÜYÜTME */
+  padding-top: 23px;     /* 20 → 23 */
+  padding-bottom: 23px;  /* 20 → 23 */
+
+  /* ENİNE SABİT */
+  padding-left: 24px;    /* orijinal */
+  padding-right: 24px;   /* orijinal */
+  min-width: 100px;      /* orijinal */
+
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* %15 dikey büyütme */
 .countdown-value {
   color: #f5d78e;
-  font-size: 88px;        /* 77px → 88px */
+  font-size: 88px;        /* 77 → %15 büyütme */
   font-weight: 900;
   font-family: monospace;
   line-height: 1;
 }
 
-/* %15 dikey büyütme */
 .countdown-label {
   color: #c9a66b;
-  font-size: 24.6px;      /* 21.4px → 24.6px */
+  font-size: 24.6px;      /* 21.4 → %15 büyütme */
   margin-top: 8px;
   letter-spacing: 1;
   line-height: 1;
 }
 
-/* %15 dikey büyütme */
 .countdown-separator {
   color: #f5d78e;
-  font-size: 69px;        /* 60px → 69px */
+  font-size: 69px;        /* 60 → %15 büyütme */
   font-weight: 900;
   line-height: 1;
   animation: pulse 1s infinite;
