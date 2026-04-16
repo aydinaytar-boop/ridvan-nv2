@@ -14,11 +14,10 @@ html, body, #root {
   touch-action: none;
 }
 
-/* ====================== SAFE AREA (PC NORMAL) ====================== */
+/* ====================== SAFE AREA ====================== */
 .tv-safe-area {
   width: 1920px;
   height: 1080px;
-
   position: absolute;
   left: 50%;
   top: 0;
@@ -26,7 +25,7 @@ html, body, #root {
   transform-origin: top center;
 }
 
-/* ====================== TV & F11 ÖZEL SCALE ====================== */
+/* ====================== TV SCALE ====================== */
 @media screen and (min-width: 1400px) and (min-height: 900px) {
   .tv-safe-area {
     transform: translateX(-50%) scale(0.70) !important;
@@ -41,7 +40,7 @@ html, body, #root {
   background-color: #0a3d2e;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* ← EKLENDİ */
+  overflow: hidden;
 }
 
 /* ====================== ÜST BAR ====================== */
@@ -66,12 +65,11 @@ html, body, #root {
 .main-panels {
   flex: 1;
   display: flex;
-  gap: 8px;              /* 12px → 8px */
-  padding: 6px 8px;      /* 10px 14px → 6px 8px */
-  overflow: hidden;      /* ← EKLENDİ */
+  gap: 8px;
+  padding: 6px 8px;
+  overflow: hidden;
 }
 
-/* Her panel eşit genişlikte */
 .panel {
   flex: 1;
   border: 4px solid #c9a66b;
@@ -81,10 +79,80 @@ html, body, #root {
   flex-direction: column;
 }
 
-/* Panel içi */
-.panel-body {
-  flex: 1;
-  overflow: hidden;
+/* ====================== ORTA PANEL – FINAL ====================== */
+
+.panel-title {
+  background: #c9a66b;
+  text-align: center;
+  padding: 14px 40px;
+  color: #0a3d2e;
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: 3;
+  border-radius: 8px;
+  line-height: 1;
+}
+
+.current-vakit {
+  color: #f5d78e;
+  font-size: 88px;
+  font-weight: 900;
+  letter-spacing: 3;
+  line-height: 1;
+}
+
+.current-vakit.ezan {
+  font-size: 96px;
+  animation: pulse 1s infinite;
+}
+
+.next-vakit {
+  color: #f5d78e;
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.countdown-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.countdown-box {
+  background: #0e5c3a;
+  border: 4px solid #c9a66b;
+  border-radius: 16px;
+  padding: 18px 30px;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-value {
+  color: #f5d78e;
+  font-size: 72px;
+  font-weight: 900;
+  font-family: monospace;
+  line-height: 1;
+}
+
+.countdown-label {
+  color: #c9a66b;
+  font-size: 20px;
+  margin-top: 8px;
+  letter-spacing: 1;
+  line-height: 1;
+}
+
+.countdown-separator {
+  color: #f5d78e;
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1;
+  animation: pulse 1s infinite;
 }
 
 /* ====================== ANİMASYONLAR ====================== */
