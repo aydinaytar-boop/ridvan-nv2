@@ -14336,240 +14336,76 @@ function App() {
                         }
                       )
                     ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx(
-                        "div",
-                        {
-                          style: {
-                            background: "#c9a66b",
-                            textAlign: "center",
-                            padding: "10px 36px",
-                            color: "#0a3d2e",
-                            fontSize: 36,
-                            fontWeight: 900,
-                            letterSpacing: 3,
-                            borderRadius: 8,
-                            lineHeight: 1
-                          },
-                          children: lang === "tr" ? "GÜNÜN VAKTİ" : "AKTUELLE GEBETSZEIT"
-                        }
-                      ),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx(
-                        "div",
-                        {
-                          style: {
-                            color: "#f5d78e",
-                            fontSize: isEzan ? 86 : 78,
-                            fontWeight: 900,
-                            letterSpacing: 3,
-                            lineHeight: 1,
-                            animation: isEzan ? "pulse 1s infinite" : "none"
-                          },
-                          children: currentLabel
-                        }
-                      ),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", children: lang === "tr" ? "GÜNÜN VAKTİ" : "AKTUELLE GEBETSZEIT" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `current-vakit ${isEzan ? "ezan" : ""}`, children: currentLabel }),
                       !isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", style: { marginTop: 8 }, children: lang === "tr" ? "SONRAKI VAKİT" : "NÄCHSTE GEBETSZEIT" }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "next-vakit", children: [
+                          nextLabel,
+                          " — ",
+                          nextTime
+                        ] })
+                      ] }),
+                      isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { textAlign: "center", marginTop: 8 }, children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", children: lang === "tr" ? "KAMETE KALAN SÜRE" : "ZEIT BIS ZUM IQÂMAT" }),
                         /* @__PURE__ */ jsxRuntimeExports.jsx(
                           "div",
                           {
                             style: {
-                              background: "#c9a66b",
-                              textAlign: "center",
-                              padding: "10px 36px",
-                              color: "#0a3d2e",
-                              fontSize: 36,
-                              fontWeight: 900,
-                              letterSpacing: 3,
-                              borderRadius: 8,
-                              lineHeight: 1,
-                              marginTop: 8
+                              color: "#f5d78e",
+                              fontSize: 70,
+                              fontWeight: 700,
+                              marginTop: 16,
+                              lineHeight: 1
                             },
-                            children: lang === "tr" ? "SONRAKI VAKİT" : "NÄCHSTE GEBETSZEIT"
+                            children: kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""
+                          }
+                        )
+                      ] }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "countdown-row", children: [
+                        { val: fmt2(cdH), label: lang === "tr" ? "Saat" : "Std." },
+                        null,
+                        { val: fmt2(cdM), label: lang === "tr" ? "Dakika" : "Min." },
+                        null,
+                        { val: fmt2(cdS), label: lang === "tr" ? "Saniye" : "Sek." }
+                      ].map(
+                        (item, i) => item === null ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "countdown-separator", children: ":" }, i) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "countdown-box", children: [
+                          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "countdown-value", children: item.val }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "countdown-label", children: item.label })
+                        ] }, i)
+                      ) }),
+                      flow.currentVakit === "sabah" && !isEzan && !isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { textAlign: "center", marginTop: 16 }, children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "div",
+                          {
+                            style: {
+                              color: "#c9a66b",
+                              fontSize: 36,
+                              letterSpacing: 3,
+                              lineHeight: 1
+                            },
+                            children: lang === "tr" ? "GÜNEŞE KALAN" : "BIS SCHURUQ"
                           }
                         ),
                         /* @__PURE__ */ jsxRuntimeExports.jsxs(
                           "div",
                           {
                             style: {
-                              color: "#f5d78e",
-                              fontSize: 52,
+                              color: "#a8c8b0",
+                              fontSize: 40,
                               fontWeight: 700,
                               lineHeight: 1
                             },
                             children: [
-                              nextLabel,
-                              " — ",
-                              nextTime
+                              fmt2(gunesKalanH),
+                              ":",
+                              fmt2(gunesKalanM),
+                              ":",
+                              fmt2(gunesKalanS)
                             ]
                           }
                         )
-                      ] }),
-                      isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                        "div",
-                        {
-                          style: {
-                            textAlign: "center",
-                            marginTop: 8
-                          },
-                          children: [
-                            /* @__PURE__ */ jsxRuntimeExports.jsx(
-                              "div",
-                              {
-                                style: {
-                                  background: "#c9a66b",
-                                  textAlign: "center",
-                                  padding: "10px 36px",
-                                  color: "#0a3d2e",
-                                  fontSize: 36,
-                                  fontWeight: 900,
-                                  letterSpacing: 3,
-                                  borderRadius: 8,
-                                  lineHeight: 1
-                                },
-                                children: lang === "tr" ? "KAMETE KALAN SÜRE" : "ZEIT BIS ZUM IQÂMAT"
-                              }
-                            ),
-                            /* @__PURE__ */ jsxRuntimeExports.jsx(
-                              "div",
-                              {
-                                style: {
-                                  color: "#f5d78e",
-                                  fontSize: 60,
-                                  fontWeight: 700,
-                                  marginTop: 16,
-                                  lineHeight: 1
-                                },
-                                children: kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""
-                              }
-                            )
-                          ]
-                        }
-                      ),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx(
-                        "div",
-                        {
-                          style: {
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 14,
-                            marginTop: 16
-                          },
-                          children: [
-                            {
-                              val: fmt2(cdH),
-                              label: lang === "tr" ? "Saat" : "Std."
-                            },
-                            null,
-                            {
-                              val: fmt2(cdM),
-                              label: lang === "tr" ? "Dakika" : "Min."
-                            },
-                            null,
-                            {
-                              val: fmt2(cdS),
-                              label: lang === "tr" ? "Saniye" : "Sek."
-                            }
-                          ].map(
-                            (item, i) => item === null ? /* @__PURE__ */ jsxRuntimeExports.jsx(
-                              "span",
-                              {
-                                style: {
-                                  color: "#f5d78e",
-                                  fontSize: 48,
-                                  fontWeight: 900,
-                                  lineHeight: 1,
-                                  animation: "pulse 1s infinite"
-                                },
-                                children: ":"
-                              },
-                              i
-                            ) : /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                              "div",
-                              {
-                                style: {
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  alignItems: "center",
-                                  background: "#0e5c3a",
-                                  border: "4px solid #c9a66b",
-                                  borderRadius: 16,
-                                  padding: "12px 24px",
-                                  minWidth: 100
-                                },
-                                children: [
-                                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                    "span",
-                                    {
-                                      style: {
-                                        color: "#f5d78e",
-                                        fontSize: 60,
-                                        fontWeight: 900,
-                                        fontFamily: "monospace",
-                                        lineHeight: 1
-                                      },
-                                      children: item.val
-                                    }
-                                  ),
-                                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                    "span",
-                                    {
-                                      style: {
-                                        color: "#c9a66b",
-                                        fontSize: 18,
-                                        marginTop: 8,
-                                        letterSpacing: 1,
-                                        lineHeight: 1
-                                      },
-                                      children: item.label
-                                    }
-                                  )
-                                ]
-                              },
-                              i
-                            )
-                          )
-                        }
-                      ),
-                      flow.currentVakit === "sabah" && !isEzan && !isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                        "div",
-                        {
-                          style: {
-                            textAlign: "center",
-                            marginTop: 16
-                          },
-                          children: [
-                            /* @__PURE__ */ jsxRuntimeExports.jsx(
-                              "div",
-                              {
-                                style: {
-                                  color: "#c9a66b",
-                                  fontSize: 36,
-                                  letterSpacing: 3,
-                                  lineHeight: 1
-                                },
-                                children: lang === "tr" ? "GÜNEŞE KALAN" : "BIS SCHURUQ"
-                              }
-                            ),
-                            /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                              "div",
-                              {
-                                style: {
-                                  color: "#a8c8b0",
-                                  fontSize: 40,
-                                  fontWeight: 700,
-                                  lineHeight: 1
-                                },
-                                children: [
-                                  fmt2(gunesKalanH),
-                                  ":",
-                                  fmt2(gunesKalanM),
-                                  ":",
-                                  fmt2(gunesKalanS)
-                                ]
-                              }
-                            )
-                          ]
-                        }
-                      )
+                      ] })
                     ] }),
                     bayram.visible && /* @__PURE__ */ jsxRuntimeExports.jsxs(
                       "div",
@@ -14587,8 +14423,7 @@ function App() {
                           lineHeight: 1
                         },
                         children: [
-                          "🎉",
-                          " ",
+                          "🎉 ",
                           lang === "tr" ? bayram.bayram?.ad_tr : bayram.bayram?.ad_de
                         ]
                       }
@@ -14896,11 +14731,10 @@ html, body, #root {
   touch-action: none;
 }
 
-/* ====================== SAFE AREA (PC NORMAL) ====================== */
+/* ====================== SAFE AREA ====================== */
 .tv-safe-area {
   width: 1920px;
   height: 1080px;
-
   position: absolute;
   left: 50%;
   top: 0;
@@ -14908,7 +14742,7 @@ html, body, #root {
   transform-origin: top center;
 }
 
-/* ====================== TV & F11 ÖZEL SCALE ====================== */
+/* ====================== TV SCALE ====================== */
 @media screen and (min-width: 1400px) and (min-height: 900px) {
   .tv-safe-area {
     transform: translateX(-50%) scale(0.70) !important;
@@ -14923,7 +14757,7 @@ html, body, #root {
   background-color: #0a3d2e;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* ← EKLENDİ */
+  overflow: hidden;
 }
 
 /* ====================== ÜST BAR ====================== */
@@ -14948,12 +14782,11 @@ html, body, #root {
 .main-panels {
   flex: 1;
   display: flex;
-  gap: 8px;              /* 12px → 8px */
-  padding: 6px 8px;      /* 10px 14px → 6px 8px */
-  overflow: hidden;      /* ← EKLENDİ */
+  gap: 8px;
+  padding: 6px 8px;
+  overflow: hidden;
 }
 
-/* Her panel eşit genişlikte */
 .panel {
   flex: 1;
   border: 4px solid #c9a66b;
@@ -14963,10 +14796,80 @@ html, body, #root {
   flex-direction: column;
 }
 
-/* Panel içi */
-.panel-body {
-  flex: 1;
-  overflow: hidden;
+/* ====================== ORTA PANEL – FINAL ====================== */
+
+.panel-title {
+  background: #c9a66b;
+  text-align: center;
+  padding: 14px 40px;
+  color: #0a3d2e;
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: 3;
+  border-radius: 8px;
+  line-height: 1;
+}
+
+.current-vakit {
+  color: #f5d78e;
+  font-size: 88px;
+  font-weight: 900;
+  letter-spacing: 3;
+  line-height: 1;
+}
+
+.current-vakit.ezan {
+  font-size: 96px;
+  animation: pulse 1s infinite;
+}
+
+.next-vakit {
+  color: #f5d78e;
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.countdown-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.countdown-box {
+  background: #0e5c3a;
+  border: 4px solid #c9a66b;
+  border-radius: 16px;
+  padding: 18px 30px;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-value {
+  color: #f5d78e;
+  font-size: 72px;
+  font-weight: 900;
+  font-family: monospace;
+  line-height: 1;
+}
+
+.countdown-label {
+  color: #c9a66b;
+  font-size: 20px;
+  margin-top: 8px;
+  letter-spacing: 1;
+  line-height: 1;
+}
+
+.countdown-separator {
+  color: #f5d78e;
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1;
+  animation: pulse 1s infinite;
 }
 
 /* ====================== ANİMASYONLAR ====================== */
