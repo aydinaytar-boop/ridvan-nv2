@@ -1176,282 +1176,161 @@ export default function App() {
             </div>
 
             {/* ORTA PANEL */}
+<div
+  className="panel"
+  style={{
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "#0a3d2e",
+    gap: 20,
+  }}
+>
+  {isKametAlert ? (
+    <div style={{ textAlign: "center" }}>
+      <div
+        style={{
+          color: "#c9a66b",
+          fontSize: 58,
+          fontWeight: 900,
+          letterSpacing: 6,
+          animation: "pulse 1s infinite",
+          marginBottom: 20,
+          lineHeight: 1,
+        }}
+      >
+        {lang === "tr" ? "KAMET" : "IQÂMAT"}
+      </div>
+
+      <div
+        style={{
+          color: "#f5d78e",
+          fontSize: 108,
+          fontWeight: 900,
+          letterSpacing: 4,
+          animation: "pulse 1s infinite",
+          lineHeight: 1,
+        }}
+      >
+        {kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}
+      </div>
+    </div>
+  ) : (
+    <>
+      <div className="panel-title">
+        {lang === "tr" ? "GÜNÜN VAKTİ" : "AKTUELLE GEBETSZEIT"}
+      </div>
+
+      <div className={`current-vakit ${isEzan ? "ezan" : ""}`}>
+        {currentLabel}
+      </div>
+
+      {!isKametCountdown && (
+        <>
+          <div className="panel-title" style={{ marginTop: 8 }}>
+            {lang === "tr" ? "SONRAKI VAKİT" : "NÄCHSTE GEBETSZEIT"}
+          </div>
+
+          <div className="next-vakit">
+            {nextLabel} — {nextTime}
+          </div>
+        </>
+      )}
+
+      {isKametCountdown && (
+        <div style={{ textAlign: "center", marginTop: 8 }}>
+          <div className="panel-title">
+            {lang === "tr"
+              ? "KAMETE KALAN SÜRE"
+              : "ZEIT BIS ZUM IQÂMAT"}
+          </div>
+
+          <div
+            style={{
+              color: "#f5d78e",
+              fontSize: 70,
+              fontWeight: 700,
+              marginTop: 16,
+              lineHeight: 1,
+            }}
+          >
+            {kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}
+          </div>
+        </div>
+      )}
+
+      {/* GERİ SAYIM */}
+      <div className="countdown-row">
+        {[
+          { val: fmt2(cdH), label: lang === "tr" ? "Saat" : "Std." },
+          null,
+          { val: fmt2(cdM), label: lang === "tr" ? "Dakika" : "Min." },
+          null,
+          { val: fmt2(cdS), label: lang === "tr" ? "Saniye" : "Sek." },
+        ].map((item, i) =>
+          item === null ? (
+            <span key={i} className="countdown-separator">:</span>
+          ) : (
+            <div key={i} className="countdown-box">
+              <span className="countdown-value">{item.val}</span>
+              <span className="countdown-label">{item.label}</span>
+            </div>
+          )
+        )}
+      </div>
+
+      {/* SABAH → GÜNEŞE KALAN */}
+      {flow.currentVakit === "sabah" &&
+        !isEzan &&
+        !isKametCountdown && (
+          <div style={{ textAlign: "center", marginTop: 16 }}>
             <div
-              className="panel"
               style={{
-                flex: 1,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "#0a3d2e",
-                gap: 20,
+                color: "#c9a66b",
+                fontSize: 36,
+                letterSpacing: 3,
+                lineHeight: 1,
               }}
             >
-              {isKametAlert ? (
-                <div style={{ textAlign: "center" }}>
-                  <div
-                    style={{
-                      color: "#c9a66b",
-                      fontSize: 58,
-                      fontWeight: 900,
-                      letterSpacing: 6,
-                      animation: "pulse 1s infinite",
-                      marginBottom: 20,
-                      lineHeight: 1,
-                    }}
-                  >
-                    {lang === "tr" ? "KAMET" : "IQÂMAT"}
-                  </div>
-                  <div
-                    style={{
-                      color: "#f5d78e",
-                      fontSize: 108,
-                      fontWeight: 900,
-                      letterSpacing: 4,
-                      animation: "pulse 1s infinite",
-                      lineHeight: 1,
-                    }}
-                  >
-                    {kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div
-                    style={{
-                      background: "#c9a66b",
-                      textAlign: "center",
-                      padding: "10px 36px",
-                      color: "#0a3d2e",
-                      fontSize: 36,
-                      fontWeight: 900,
-                      letterSpacing: 3,
-                      borderRadius: 8,
-                      lineHeight: 1,
-                    }}
-                  >
-                    {lang === "tr"
-                      ? "GÜNÜN VAKTİ"
-                      : "AKTUELLE GEBETSZEIT"}
-                  </div>
-                  <div
-                    style={{
-                      color: "#f5d78e",
-                      fontSize: isEzan ? 86 : 78,
-                      fontWeight: 900,
-                      letterSpacing: 3,
-                      lineHeight: 1,
-                      animation: isEzan ? "pulse 1s infinite" : "none",
-                    }}
-                  >
-                    {currentLabel}
-                  </div>
-                  {!isKametCountdown && (
-                    <>
-                      <div
-                        style={{
-                          background: "#c9a66b",
-                          textAlign: "center",
-                          padding: "10px 36px",
-                          color: "#0a3d2e",
-                          fontSize: 36,
-                          fontWeight: 900,
-                          letterSpacing: 3,
-                          borderRadius: 8,
-                          lineHeight: 1,
-                          marginTop: 8,
-                        }}
-                      >
-                        {lang === "tr"
-                          ? "SONRAKI VAKİT"
-                          : "NÄCHSTE GEBETSZEIT"}
-                      </div>
-                      <div
-                        style={{
-                          color: "#f5d78e",
-                          fontSize: 52,
-                          fontWeight: 700,
-                          lineHeight: 1,
-                        }}
-                      >
-                        {nextLabel} — {nextTime}
-                      </div>
-                    </>
-                  )}
-                  {isKametCountdown && (
-                    <div
-                      style={{
-                        textAlign: "center",
-                        marginTop: 8,
-                      }}
-                    >
-                      <div
-                        style={{
-                          background: "#c9a66b",
-                          textAlign: "center",
-                          padding: "10px 36px",
-                          color: "#0a3d2e",
-                          fontSize: 36,
-                          fontWeight: 900,
-                          letterSpacing: 3,
-                          borderRadius: 8,
-                          lineHeight: 1,
-                        }}
-                      >
-                        {lang === "tr"
-                          ? "KAMETE KALAN SÜRE"
-                          : "ZEIT BIS ZUM IQÂMAT"}
-                      </div>
-                      <div
-                        style={{
-                          color: "#f5d78e",
-                          fontSize: 60,
-                          fontWeight: 700,
-                          marginTop: 16,
-                          lineHeight: 1,
-                        }}
-                      >
-                        {kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}
-                      </div>
-                    </div>
-                  )}
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 14,
-                      marginTop: 16,
-                    }}
-                  >
-                    {[
-                      {
-                        val: fmt2(cdH),
-                        label: lang === "tr" ? "Saat" : "Std.",
-                      },
-                      null,
-                      {
-                        val: fmt2(cdM),
-                        label: lang === "tr" ? "Dakika" : "Min.",
-                      },
-                      null,
-                      {
-                        val: fmt2(cdS),
-                        label: lang === "tr" ? "Saniye" : "Sek.",
-                      },
-                    ].map((item, i) =>
-                      item === null ? (
-                        <span
-                          key={i}
-                          style={{
-                            color: "#f5d78e",
-                            fontSize: 48,
-                            fontWeight: 900,
-                            lineHeight: 1,
-                            animation: "pulse 1s infinite",
-                          }}
-                        >
-                          :
-                        </span>
-                      ) : (
-                        <div
-                          key={i}
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            background: "#0e5c3a",
-                            border: "4px solid #c9a66b",
-                            borderRadius: 16,
-                            padding: "12px 24px",
-                            minWidth: 100,
-                          }}
-                        >
-                          <span
-                            style={{
-                              color: "#f5d78e",
-                              fontSize: 60,
-                              fontWeight: 900,
-                              fontFamily: "monospace",
-                              lineHeight: 1,
-                            }}
-                          >
-                            {item.val}
-                          </span>
-                          <span
-                            style={{
-                              color: "#c9a66b",
-                              fontSize: 18,
-                              marginTop: 8,
-                              letterSpacing: 1,
-                              lineHeight: 1,
-                            }}
-                          >
-                            {item.label}
-                          </span>
-                        </div>
-                      )
-                    )}
-                  </div>
-                  {flow.currentVakit === "sabah" &&
-                    !isEzan &&
-                    !isKametCountdown && (
-                      <div
-                        style={{
-                          textAlign: "center",
-                          marginTop: 16,
-                        }}
-                      >
-                        <div
-                          style={{
-                            color: "#c9a66b",
-                            fontSize: 36,
-                            letterSpacing: 3,
-                            lineHeight: 1,
-                          }}
-                        >
-                          {lang === "tr"
-                            ? "GÜNEŞE KALAN"
-                            : "BIS SCHURUQ"}
-                        </div>
-                        <div
-                          style={{
-                            color: "#a8c8b0",
-                            fontSize: 40,
-                            fontWeight: 700,
-                            lineHeight: 1,
-                          }}
-                        >
-                          {fmt2(gunesKalanH)}:
-                          {fmt2(gunesKalanM)}:
-                          {fmt2(gunesKalanS)}
-                        </div>
-                      </div>
-                    )}
-                </>
-              )}
-              {bayram.visible && (
-                <div
-                  style={{
-                    marginTop: 20,
-                    padding: "12px 36px",
-                    background: "#c9a66b22",
-                    border: "3px solid #c9a66b",
-                    borderRadius: 12,
-                    color: "#f5d78e",
-                    fontSize: 35,
-                    fontWeight: 700,
-                    textAlign: "center",
-                    lineHeight: 1,
-                  }}
-                >
-                  🎉{" "}
-                  {lang === "tr"
-                    ? bayram.bayram?.ad_tr
-                    : bayram.bayram?.ad_de}
-                </div>
-              )}
+              {lang === "tr" ? "GÜNEŞE KALAN" : "BIS SCHURUQ"}
             </div>
+
+            <div
+              style={{
+                color: "#a8c8b0",
+                fontSize: 40,
+                fontWeight: 700,
+                lineHeight: 1,
+              }}
+            >
+              {fmt2(gunesKalanH)}:{fmt2(gunesKalanM)}:{fmt2(gunesKalanS)}
+            </div>
+          </div>
+        )}
+    </>
+  )}
+
+  {bayram.visible && (
+    <div
+      style={{
+        marginTop: 20,
+        padding: "12px 36px",
+        background: "#c9a66b22",
+        border: "3px solid #c9a66b",
+        borderRadius: 12,
+        color: "#f5d78e",
+        fontSize: 35,
+        fontWeight: 700,
+        textAlign: "center",
+        lineHeight: 1,
+      }}
+    >
+      🎉 {lang === "tr" ? bayram.bayram?.ad_tr : bayram.bayram?.ad_de}
+    </div>
+  )}
+</div>
 
             {/* SAĞ PANEL - DUA + DUYURULAR */}
             <div
