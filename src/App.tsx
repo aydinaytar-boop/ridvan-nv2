@@ -70,6 +70,7 @@ function App() {
     initFirebaseSync();
   }, []);
 
+
 const HICRI_AYLAR_TR = [
   "",
   "Muharrem",
