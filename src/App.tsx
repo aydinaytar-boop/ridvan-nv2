@@ -70,7 +70,6 @@ function App() {
     initFirebaseSync();
   }, []);
 
-
 const HICRI_AYLAR_TR = [
   "",
   "Muharrem",
@@ -1601,3 +1600,94 @@ export default function App() {
     </div>
   );
 }
+
+{/* ALT BAR */}
+          <div
+            className="bottom-bar"
+            style={{
+              background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)",
+              borderTop: "4px solid #c9a66b",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "0 32px",
+              cursor: "default",
+              position: "relative",
+            }}
+          >
+            <div
+              style={{
+                color: "#c9a66b",
+                fontSize: 14,
+                letterSpacing: 1,
+              }}
+              onClick={handleBottomClick}
+            >
+              Bu uygulama <strong>AyTa®</strong> tarafından
+              hazırlanmıştır
+            </div>
+            <button
+              onClick={() => setShowSettings(true)}
+              title="Ayarlar"
+              style={{
+                position: "absolute",
+                left: "50%",
+                transform: "translateX(-50%)",
+                background: "transparent",
+                border: "1px solid #c9a66b44",
+                borderRadius: 6,
+                padding: "4px 10px",
+                color: "#c9a66b77",
+                fontSize: 16,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                transition: "all 0.2s",
+                lineHeight: 1,
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color =
+                  "#c9a66b";
+                (e.currentTarget as HTMLButtonElement).style.borderColor =
+                  "#c9a66b";
+                (e.currentTarget as HTMLButtonElement).style.background =
+                  "#c9a66b11";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color =
+                  "#c9a66b77";
+                (e.currentTarget as HTMLButtonElement).style.borderColor =
+                  "#c9a66b44";
+                (e.currentTarget as HTMLButtonElement).style.background =
+                  "transparent";
+              }}
+            >
+              ⚙️
+            </button>
+            <div
+              style={{
+                border: "3px solid #c9a66b",
+                borderRadius: 8,
+                padding: "6px 12px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#ffffff",
+                boxShadow: "0 0 0 1px #c9a66b",
+              }}
+            >
+              <img
+                src="img/logo.png?v=5"
+                alt="Ridvan Camii Logo"
+                style={{ height: 52, objectFit: "contain" }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
