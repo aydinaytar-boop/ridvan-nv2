@@ -230,7 +230,7 @@ function applyAutoScale() {
   safeArea.style.transformOrigin = "top center";
 }
 
-export default function App() {
+ function App() {
   const [now, setNow] = useState(() => new Date());
   const [lang, setLang] = useState<"tr" | "de">("tr");
   const [hicriOffset, setHicriOffset] = useState(0);
