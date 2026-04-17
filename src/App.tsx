@@ -1,3 +1,4 @@
+import SettingsPanel from "./components/SettingsPanel";
 import { useState, useEffect, useRef, useCallback } from "react";
 import {
   getTodayTimes,
@@ -1505,6 +1506,8 @@ export default function App() {
               </div>
             </div>
           </div>
+
+{showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
 
           {/* ALT BAR */}
           <div
