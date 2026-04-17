@@ -2,31 +2,16 @@
   "mosqueName": "RIDVAN CAMİİ — VİYANA",
   "showLogo": true,
   "logo": "/logo.png",
-
-  "panels": {
-    "left": true,
-    "center": true,
-    "right": true
-  },
-
-  "safeArea": {
-    "scale": 0.90,
-    "overscan": true
-  },
-
-  "theme": {
-    "frameColor": "#c9a66b",
-    "backgroundColor": "#0a3d2e",
-    "textColor": "#e5e7eb"
-  },
-
-  "prayerTimes": {
-    "showSeconds": true,
-    "highlightActive": true
-  },
-
-  "announcements": {
-    "enabled": true,
-    "scrollSpeed": 1
+  "panels": { "left": true, "center": true, "right": true },
+  "safeArea": { "scale": 0.90, "overscan": true },
+  "theme": { "frameColor": "#c9a66b", "backgroundColor": "#0a3d2e", "textColor": "#e5e7eb" },
+  "prayerTimes": { "showSeconds": true, "highlightActive": true },
+  "announcements": { "enabled": true, "scrollSpeed": 1 },
+  "dynamic": {
+    "sabahKamet": "06:15",
+    "hicriTakvim": "1447",
+    "duyurular": "Cuma namazı 13:30'da başlayacaktır.",
+    "ramazanBayrami": "2026-03-20",
+    "kurbanBayrami": "2026-05-27"
   }
 }

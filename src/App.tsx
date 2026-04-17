@@ -12,6 +12,7 @@ import {
   type VakitKey,
 } from "./utils/timeEngine";
 import { DUA_ARCHIVE, EZAN_DUASI } from "./data/duaArchive";
+import { initFirebaseSync } from "./config/settings";
 
 function fmt2(n: number) {
   return String(Math.max(0, n)).padStart(2, "0");
@@ -63,6 +64,11 @@ function toHijri(
   const year = 30 * n + j - 30;
   return { day, month, year };
 }
+
+function App() {
+  useEffect(() => {
+    initFirebaseSync();
+  }, []);
 
 const HICRI_AYLAR_TR = [
   "",
