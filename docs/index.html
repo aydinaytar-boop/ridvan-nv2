@@ -13270,27 +13270,13 @@ function App() {
     };
   }, []);
   reactExports.useEffect(() => {
-    fetch("/config.json").then((res) => res.json()).then((data) => {
-      setSabahKametInput(data.sabahKamet || "05:30");
-      setHicriOffset(data.hicriOffset || 0);
-      setDuyuruTR(data.duyuruTR || "");
-      setDuyuruDE(data.duyuruDE || "");
-      const bayramObj = {};
-      data.bayramlar?.forEach((b) => {
-        bayramObj[b.tarih] = b.saat || "09:00";
-      });
-      setBayramInputs(bayramObj);
-      setConfigLoaded(true);
-    }).catch(() => {
-      console.warn("config.json yüklenemedi, localStorage'dan okunuyor");
-      setSabahKametInput(getSabahKametSaati());
-      setDuyuruTR(localStorage.getItem("duyuruTR") || "");
-      setDuyuruDE(localStorage.getItem("duyuruDE") || "");
-      setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
-      const savedBayram = localStorage.getItem("bayramInputs");
-      if (savedBayram) setBayramInputs(JSON.parse(savedBayram));
-      setConfigLoaded(true);
-    });
+    setSabahKametInput(getSabahKametSaati());
+    setDuyuruTR(localStorage.getItem("duyuruTR") || "");
+    setDuyuruDE(localStorage.getItem("duyuruDE") || "");
+    setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
+    const savedBayram = localStorage.getItem("bayramInputs");
+    if (savedBayram) setBayramInputs(JSON.parse(savedBayram));
+    setConfigLoaded(true);
   }, []);
   reactExports.useEffect(() => {
     if (configLoaded) localStorage.setItem("duyuruTR", duyuruTR);
