@@ -253,33 +253,18 @@ export default function App() {
     };
   }, []);
 
-  // config.json yükleme
-  useEffect(() => {
-    fetch("/config.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setSabahKametInput(data.sabahKamet || "05:30");
-        setHicriOffset(data.hicriOffset || 0);
-        setDuyuruTR(data.duyuruTR || "");
-        setDuyuruDE(data.duyuruDE || "");
-        const bayramObj: Record<string, string> = {};
-        data.bayramlar?.forEach((b: any) => {
-          bayramObj[b.tarih] = b.saat || "09:00";
-        });
-        setBayramInputs(bayramObj);
-        setConfigLoaded(true);
-      })
-      .catch(() => {
-        console.warn("config.json yüklenemedi, localStorage'dan okunuyor");
-        setSabahKametInput(getSabahKametSaati());
-        setDuyuruTR(localStorage.getItem("duyuruTR") || "");
-        setDuyuruDE(localStorage.getItem("duyuruDE") || "");
-        setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
-        const savedBayram = localStorage.getItem("bayramInputs");
-        if (savedBayram) setBayramInputs(JSON.parse(savedBayram));
-        setConfigLoaded(true);
-      });
-  }, []);
+  // config.json yerine localStorage'dan yükle
+useEffect(() => {
+  setSabahKametInput(getSabahKametSaati());
+  setDuyuruTR(localStorage.getItem("duyuruTR") || "");
+  setDuyuruDE(localStorage.getItem("duyuruDE") || "");
+  setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
+
+  const savedBayram = localStorage.getItem("bayramInputs");
+  if (savedBayram) setBayramInputs(JSON.parse(savedBayram));
+
+  setConfigLoaded(true);
+}, []);
 
   useEffect(() => {
     if (configLoaded) localStorage.setItem("duyuruTR", duyuruTR);
