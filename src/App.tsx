@@ -1565,54 +1565,58 @@ export default function App() {
                   )}
                 </div>
               </div>
+              
+{/* ALT YARI - DUYURULAR */}
+<div
+  style={{
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+  }}
+>
+  <div
+    style={{
+      background: "#c9a66b",
+      textAlign: "center",
+      padding: "10px 0",
+      color: "#0a3d2e",
+      fontSize: 36,
+      fontWeight: 900,
+      letterSpacing: 3,
+    }}
+  >
+    {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
+  </div>
 
-              {/* ALT YARI - DUYURULAR */}
-              <div
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <div
-                  style={{
-                    background: "#c9a66b",
-                    textAlign: "center",
-                    padding: "10px 0",
-                    color: "#0a3d2e",
-                    fontSize: 36,
-                    fontWeight: 900,
-                    letterSpacing: 3,
-                  }}
-                >
-                  {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
-                </div>
+  <div
+    style={{
+      flex: 1,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "20px 16px",
+    }}
+  >
+    <div
+      style={{
+        color: "#f5d78e",
+        fontSize: 22,
+        textAlign: "center",
+        lineHeight: 1.6,
+        width: "100%",
+        whiteSpace: "pre-wrap",
+      }}
+    >
+      {lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"}
+    </div>
+  </div>
+</div>   {/* ALT YARI - DUYURULAR KAPANIŞI */}
 
-                <div
-                  style={{
-                    flex: 1,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "20px 16px",
-                  }}
-                >
-                  <div
-                    style={{
-                      color: "#f5d78e",
-                      fontSize: 22,
-                      textAlign: "center",
-                      lineHeight: 1.6,
-                      width: "100%",
-                      whiteSpace: "pre-wrap",
-                    }}
-                  >
-                    {lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+</div>   {/* SAĞ PANEL KAPANIŞI */}
+</div>   {/* MAIN-PANELS KAPANIŞI */}
+</div>   {/* OUTER-FRAME KAPANIŞI */}
+</div>   {/* TV-SAFE-AREA KAPANIŞI */}
+</div>   {/* ANA CONTAINER KAPANIŞI */}
 
           {/* ALT BAR */}
 <div
