@@ -8,7 +8,7 @@ import {
   showWeekendOgleMsg,
   setSabahKametSaati,
   getSabahKametSaati,
-  getDailyDua,   // ← ZORUNLU
+  getDailyDua,
   SETTINGS,
   type VakitKey,
 } from "./utils/timeEngine";
@@ -131,7 +131,6 @@ const HICRI_AYLAR_DE = [
   "Dhu al-Qa'da",
   "Dhu al-Hijja",
 ];
-
 function hicriStrTR(h) {
   return `${h.day} ${HICRI_AYLAR_TR[h.month]} ${h.year}`;
 }
@@ -278,37 +277,36 @@ export default function App() {
     localStorage.getItem("duyuruDE") || ""
   );
 
- /* --- AYAR MENÜLERİ --- */
+  /* --- AYAR MENÜLERİ --- */
 
-const [showSettings, setShowSettings] = useState(false);
-const [showBayramForm, setShowBayramForm] = useState(false);
-const [showDuyuruForm, setShowDuyuruForm] = useState(false);
-const [duaLang, setDuaLang] = useState<"tr" | "de">("tr");
+  const [showSettings, setShowSettings] = useState(false);
+  const [showBayramForm, setShowBayramForm] = useState(false);
+  const [showDuyuruForm, setShowDuyuruForm] = useState(false);
+  const [duaLang, setDuaLang] = useState<"tr" | "de">("tr");
 
-const settingsClickCount = useRef(0);
-const settingsTimer = useRef<any>(null);
+  const settingsClickCount = useRef(0);
+  const settingsTimer = useRef<any>(null);
 
-// --- AYARLARI KAYDETME FONKSİYONU ---
-const saveSettings = () => {
-  const settings = {
-    sabahKamet: sabahKamet,
-    ogleKamet: ogleKamet,
-    ikindiKamet: ikindiKamet,
-    aksamKamet: aksamKamet,
-    yatsiKamet: yatsiKamet,
-    hicriOffset: hicriOffset,
-    bayram1: bayram1,
-    bayram2: bayram2,
-    duyurular: duyurular,
+  // --- AYARLARI KAYDETME FONKSİYONU ---
+  const saveSettings = () => {
+    const settings = {
+      sabahKamet: sabahKamet,
+      ogleKamet: ogleKamet,
+      ikindiKamet: ikindiKamet,
+      aksamKamet: aksamKamet,
+      yatsiKamet: yatsiKamet,
+      hicriOffset: hicriOffset,
+      bayram1: bayram1,
+      bayram2: bayram2,
+      duyurular: duyurular,
+    };
+
+    localStorage.setItem("mosqueSettings", JSON.stringify(settings));
+    setShowSettings(false);
   };
-
-  localStorage.setItem("mosqueSettings", JSON.stringify(settings));
-  setShowSettings(false);
-};
-
-/* -------------------------------------------------------
-   CONFIG.JSON YÜKLEME
-   ------------------------------------------------------- */
+  /* -------------------------------------------------------
+     CONFIG.JSON YÜKLEME
+     ------------------------------------------------------- */
 
   useEffect(() => {
     (async () => {
@@ -332,7 +330,7 @@ const saveSettings = () => {
     })();
   }, []);
 
-    /* -------------------------------------------------------
+  /* -------------------------------------------------------
      CONFIG.JSON DEĞİŞİKLİKLERİNİ KAYDETME (PC MODU)
      ------------------------------------------------------- */
 
@@ -376,6 +374,7 @@ const saveSettings = () => {
       setSabahKametSaati(sabahKametInput);
     }
   }, [sabahKametInput, configLoaded]);
+
   /* -------------------------------------------------------
      HESAPLAMALAR
      ------------------------------------------------------- */
@@ -460,7 +459,6 @@ const saveSettings = () => {
     { key: "aksam", ezan: times.aksam, kamet: getKametTime("aksam", times.aksam) },
     { key: "yatsi", ezan: times.yatsi, kamet: getKametTime("yatsi", times.yatsi) },
   ];
-
   /* -------------------------------------------------------
      ALT BAR TIKLAMA (GİZLİ AYARLAR)
      ------------------------------------------------------- */
@@ -531,6 +529,7 @@ const saveSettings = () => {
       </div>
     );
   }
+
   return (
     <div
       style={{
@@ -683,6 +682,10 @@ const saveSettings = () => {
                   </button>
                 </div>
 
+                <div style={{ color: "#6a9e78", fontSize: 16 }}>
+                  {lang === "tr" ? `Şu an: ${hicriTR}` : `Aktuell: ${hicriDE}`}
+                </div>
+              </div>
                 <div style={{ color: "#6a9e78", fontSize: 16 }}>
                   {lang === "tr" ? `Şu an: ${hicriTR}` : `Aktuell: ${hicriDE}`}
                 </div>
@@ -881,141 +884,6 @@ const saveSettings = () => {
               </button>
             </div>
           )}
-          {/* ÜST BAR */}
-          <div
-            className="top-bar"
-            style={{
-              background: "linear-gradient(180deg,#0e5c3a 0%,#0a3d2e 100%)",
-              borderBottom: "4px solid #c9a66b",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "0 32px",
-            }}
-          >
-            {/* TARİH BLOĞU */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 2,
-                minWidth: 260,
-              }}
-            >
-              <div
-                style={{
-                  color: "#c9a66b",
-                  fontSize: 22,
-                  fontWeight: 500,
-                  letterSpacing: 1,
-                  lineHeight: 1,
-                }}
-              >
-                {lang === "tr" ? hicriTR : hicriDE}
-              </div>
-
-              <div
-                style={{
-                  color: "#f5d78e",
-                  fontSize: 28,
-                  fontWeight: 700,
-                  lineHeight: 1,
-                }}
-              >
-                {lang === "tr" ? miladiTR : miladiDE}
-              </div>
-            </div>
-
-            {/* CAMİ ADI */}
-            <div
-              style={{
-                flex: 1,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div
-                style={{
-                  color: "#f5d78e",
-                  fontSize: 52,
-                  fontWeight: 900,
-                  letterSpacing: 6,
-                  textTransform: "uppercase",
-                  textAlign: "center",
-                  lineHeight: 1,
-                  fontFamily: "'Segoe UI', 'Arial', sans-serif",
-                }}
-              >
-                {lang === "tr"
-                  ? "RIDVAN CAMİİ — VİYANA"
-                  : "RIDVAN MOSCHEE — WIEN"}
-              </div>
-            </div>
-
-            {/* SAAT */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "flex-end",
-                minWidth: 220,
-                justifyContent: "flex-end",
-              }}
-            >
-              <span
-                style={{
-                  color: "#f5d78e",
-                  fontSize: 68,
-                  fontWeight: 900,
-                  lineHeight: 1,
-                  fontFamily: "monospace",
-                }}
-              >
-                {hh}
-              </span>
-
-              <span
-                style={{
-                  color: "#c9a66b",
-                  fontSize: 52,
-                  fontWeight: 900,
-                  margin: "0 4px",
-                  fontFamily: "monospace",
-                  animation: "pulse 1s infinite",
-                }}
-              >
-                :
-              </span>
-
-              <span
-                style={{
-                  color: "#f5d78e",
-                  fontSize: 68,
-                  fontWeight: 900,
-                  lineHeight: 1,
-                  fontFamily: "monospace",
-                }}
-              >
-                {mm}
-              </span>
-
-              <span
-                style={{
-                  color: "#c9a66b",
-                  fontSize: 32,
-                  fontWeight: 700,
-                  marginBottom: 6,
-                  marginLeft: 6,
-                  fontFamily: "monospace",
-                  animation: "pulse 1s infinite",
-                }}
-              >
-                {ss}
-              </span>
-            </div>
-          </div>
-
           {/* ANA PANELLER */}
           <div className="main-panels" style={{ display: "flex", flex: 1 }}>
             {/* SOL PANEL */}
@@ -1165,6 +1033,7 @@ const saveSettings = () => {
                     </div>
                   );
                 })}
+
                 {/* CUMA SATIRI */}
                 <div
                   style={{
@@ -1289,7 +1158,6 @@ const saveSettings = () => {
                 )}
               </div>
             </div>
-
             {/* ORTA PANEL */}
             <div
               className="panel"
@@ -1454,6 +1322,7 @@ const saveSettings = () => {
                 </div>
               )}
             </div>
+
             {/* SAĞ PANEL - DUA + DUYURULAR */}
             <div
               className="panel"
@@ -1582,127 +1451,128 @@ const saveSettings = () => {
                   )}
                 </div>
               </div>
+
               {/* ALT YARI - DUYURULAR */}
-<div
-  style={{
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-  }}
->
-  <div
-    style={{
-      background: "#c9a66b",
-      textAlign: "center",
-      padding: "10px 0",
-      color: "#0a3d2e",
-      fontSize: 36,
-      fontWeight: 900,
-      letterSpacing: 3,
-    }}
-  >
-    {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
-  </div>
+              <div
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <div
+                  style={{
+                    background: "#c9a66b",
+                    textAlign: "center",
+                    padding: "10px 0",
+                    color: "#0a3d2e",
+                    fontSize: 36,
+                    fontWeight: 900,
+                    letterSpacing: 3,
+                  }}
+                >
+                  {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
+                </div>
 
-  <div
-    style={{
-      flex: 1,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "20px 16px",
-    }}
-  >
-    <div
-      style={{
-        color: "#f5d78e",
-        fontSize: 22,
-        textAlign: "center",
-        lineHeight: 1.6,
-        width: "100%",
-        whiteSpace: "pre-wrap",
-      }}
-    >
-      {lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"}
-    </div>
-  </div>
-</div>   {/* ALT YARI - DUYURULAR KAPANIŞI */}
+                <div
+                  style={{
+                    flex: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "20px 16px",
+                  }}
+                >
+                  <div
+                    style={{
+                      color: "#f5d78e",
+                      fontSize: 22,
+                      textAlign: "center",
+                      lineHeight: 1.6,
+                      width: "100%",
+                      whiteSpace: "pre-wrap",
+                    }}
+                  >
+                    {lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"}
+                  </div>
+                </div>
+              </div>
+            </div>
 
-{/* ALT BAR — DOĞRU YER */}
-<div
-  className="bottom-bar"
-  style={{
-    background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)",
-    borderTop: "4px solid #c9a66b",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "0 32px",
-    cursor: "default",
-    position: "relative",
-  }}
->
-  <div
-    style={{
-      color: "#c9a66b",
-      fontSize: 14,
-      letterSpacing: 1,
-    }}
-    onClick={handleBottomClick}
-  >
-    Bu uygulama <strong>AyTa®</strong> tarafından hazırlanmıştır
-  </div>
+            {/* ALT BAR — DOĞRU YER */}
+            <div
+              className="bottom-bar"
+              style={{
+                background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)",
+                borderTop: "4px solid #c9a66b",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "0 32px",
+                cursor: "default",
+                position: "relative",
+              }}
+            >
+              <div
+                style={{
+                  color: "#c9a66b",
+                  fontSize: 14,
+                  letterSpacing: 1,
+                }}
+                onClick={handleBottomClick}
+              >
+                Bu uygulama <strong>AyTa®</strong> tarafından hazırlanmıştır
+              </div>
 
-  <button
-    onClick={() => setShowSettings(true)}
-    title="Ayarlar"
-    style={{
-      position: "absolute",
-      left: "50%",
-      transform: "translateX(-50%)",
-      background: "transparent",
-      border: "1px solid #c9a66b44",
-      borderRadius: 6,
-      padding: "4px 10px",
-      color: "#c9a66b77",
-      fontSize: 16,
-      cursor: "pointer",
-      display: "flex",
-      alignItems: "center",
-      gap: 4,
-      transition: "all 0.2s",
-      lineHeight: 1,
-    }}
-  >
-    ⚙️
-  </button>
+              <button
+                onClick={() => setShowSettings(true)}
+                title="Ayarlar"
+                style={{
+                  position: "absolute",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  background: "transparent",
+                  border: "1px solid #c9a66b44",
+                  borderRadius: 6,
+                  padding: "4px 10px",
+                  color: "#c9a66b77",
+                  fontSize: 16,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 4,
+                  transition: "all 0.2s",
+                  lineHeight: 1,
+                }}
+              >
+                ⚙️
+              </button>
 
-  <div
-    style={{
-      border: "3px solid #c9a66b",
-      borderRadius: 8,
-      padding: "6px 12px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: "#ffffff",
-      boxShadow: "0 0 0 1px #c9a66b",
-    }}
-  >
-    <img
-      src="img/logo.png?v=5"
-      alt="Ridvan Camii Logo"
-      style={{ height: 52, objectFit: "contain" }}
-    />
-  </div>
-</div>   {/* ALT BAR KAPANIŞI */}
-</div>   {/* panel (sağ panel) */}
-</div>   {/* main-panels */}
-</div>   {/* outer-frame */}
-</div>   {/* tv-safe-area */}
-</div>   {/* ana container */}
-</div>   {/* en dış container */}
-);
-}
+              <div
+                style={{
+                  border: "3px solid #c9a66b",
+                  borderRadius: 8,
+                  padding: "6px 12px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#ffffff",
+                  boxShadow: "0 0 0 1px #c9a66b",
+                }}
+              >
+                <img
+                  src="img/logo.png?v=5"
+                  alt="Ridvan Camii Logo"
+                  style={{ height: 52, objectFit: "contain" }}
+                />
+              </div>
+            </div>
+
+          </div> {/* main-panels */}
+        </div>   {/* outer-frame */}
+      </div>   {/* tv-safe-area */}
+    </div>   {/* ana container */}
+  );          {/* return kapanışı */}
+}             {/* App fonksiyonu kapanışı */}
 
 export default App;
