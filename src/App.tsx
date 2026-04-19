@@ -1611,7 +1611,6 @@ export default function App() {
   </div>
 </div>   {/* ALT YARI - DUYURULAR KAPANIŞI */}
 
-
 {/* ALT BAR — DOĞRU YER */}
 <div
   className="bottom-bar"
@@ -1681,7 +1680,6 @@ export default function App() {
   </div>
 </div>   {/* ALT BAR KAPANIŞI */}
 
-
 </div>   {/* panel (sağ panel) */}
 </div>   {/* main-panels */}
 </div>   {/* outer-frame */}
@@ -1690,3 +1688,4 @@ export default function App() {
 </div>   {/* en dış container */}
 );
 }
+export default App;
