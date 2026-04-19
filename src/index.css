@@ -21,7 +21,9 @@ html, body, #root {
   position: absolute;
   left: 50%;
   top: 0;
-  transform: translateX(-50%) scale(1);
+
+  /* B SİSTEMİ DÜZELTMESİ → scale(1) kaldırıldı */
+  transform: translateX(-50%);
   transform-origin: top center;
 }
 
@@ -36,8 +38,10 @@ html, body, #root {
 .outer-frame {
   width: 100%;
   height: 100%;
-  border: 10px solid #c9a66b;
+
+  /* B SİSTEMİ DÜZELTMESİ → border kaldırıldı (çift border olmaması için) */
   background-color: #0a3d2e;
+
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -126,14 +130,12 @@ html, body, #root {
   border: 4px solid #c9a66b;
   border-radius: 16px;
 
-  /* DİKEY BÜYÜTME */
-  padding-top: 23px;     /* 20 → 23 */
-  padding-bottom: 23px;  /* 20 → 23 */
+  padding-top: 23px;
+  padding-bottom: 23px;
 
-  /* ENİNE SABİT */
-  padding-left: 24px;    /* orijinal */
-  padding-right: 24px;   /* orijinal */
-  min-width: 100px;      /* orijinal */
+  padding-left: 24px;
+  padding-right: 24px;
+  min-width: 100px;
 
   display: flex;
   flex-direction: column;
@@ -142,7 +144,7 @@ html, body, #root {
 
 .countdown-value {
   color: #f5d78e;
-  font-size: 88px;        /* 77 → %15 büyütme */
+  font-size: 88px;
   font-weight: 900;
   font-family: monospace;
   line-height: 1;
@@ -150,7 +152,7 @@ html, body, #root {
 
 .countdown-label {
   color: #c9a66b;
-  font-size: 24.6px;      /* 21.4 → %15 büyütme */
+  font-size: 24.6px;
   margin-top: 8px;
   letter-spacing: 1;
   line-height: 1;
@@ -158,7 +160,7 @@ html, body, #root {
 
 .countdown-separator {
   color: #f5d78e;
-  font-size: 69px;        /* 60 → %15 büyütme */
+  font-size: 69px;
   font-weight: 900;
   line-height: 1;
   animation: pulse 1s infinite;
