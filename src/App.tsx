@@ -1565,8 +1565,7 @@ export default function App() {
                   )}
                 </div>
               </div>
-              
-{/* ALT YARI - DUYURULAR */}
+              {/* ALT YARI - DUYURULAR */}
 <div
   style={{
     flex: 1,
@@ -1612,13 +1611,8 @@ export default function App() {
   </div>
 </div>   {/* ALT YARI - DUYURULAR KAPANIŞI */}
 
-</div>   {/* SAĞ PANEL KAPANIŞI */}
-</div>   {/* MAIN-PANELS KAPANIŞI */}
-</div>   {/* OUTER-FRAME KAPANIŞI */}
-</div>   {/* TV-SAFE-AREA KAPANIŞI */}
-</div>   {/* ANA CONTAINER KAPANIŞI */}
 
-          {/* ALT BAR */}
+{/* ALT BAR — DOĞRU YER */}
 <div
   className="bottom-bar"
   style={{
@@ -1695,7 +1689,8 @@ export default function App() {
       style={{ height: 52, objectFit: "contain" }}
     />
   </div>
-</div>
+</div>   {/* ALT BAR KAPANIŞI */}
+
 
 </div>   {/* panel (sağ panel) */}
 </div>   {/* main-panels */}
