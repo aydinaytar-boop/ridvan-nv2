@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-
 import {
   getTodayTimes,
   computeFlow,
@@ -243,6 +242,7 @@ const VAKIT_LABEL = {
     yatsi: "Ischaa",
   },
 };
+
 /* -------------------------------------------------------
    APP BAŞLANGICI
    ------------------------------------------------------- */
@@ -255,11 +255,30 @@ export default function App() {
   const [centralConfig, setCentralConfig] = useState<any>(null);
   const [configLoaded, setConfigLoaded] = useState(false);
 
-  const [hicriOffset, setHicriOffset] = useState(0);
-  const [sabahKametInput, setSabahKametInput] = useState("05:30");
-  const [bayramInputs, setBayramInputs] = useState({});
-  const [duyuruTR, setDuyuruTR] = useState("");
-  const [duyuruDE, setDuyuruDE] = useState("");
+  /* --- KALICI AYARLAR (localStorage ÖNCELİKLİ) --- */
+
+  const [sabahKametInput, setSabahKametInput] = useState(() =>
+    localStorage.getItem("manuelSabahKamet") || "05:30"
+  );
+
+  const [hicriOffset, setHicriOffset] = useState(() =>
+    Number(localStorage.getItem("hicriOffset") || 0)
+  );
+
+  const [bayramInputs, setBayramInputs] = useState(() => {
+    const raw = localStorage.getItem("bayramInputs");
+    return raw ? JSON.parse(raw) : {};
+  });
+
+  const [duyuruTR, setDuyuruTR] = useState(() =>
+    localStorage.getItem("duyuruTR") || ""
+  );
+
+  const [duyuruDE, setDuyuruDE] = useState(() =>
+    localStorage.getItem("duyuruDE") || ""
+  );
+
+  /* --- AYAR MENÜLERİ --- */
 
   const [showSettings, setShowSettings] = useState(false);
   const [showBayramForm, setShowBayramForm] = useState(false);
@@ -268,6 +287,7 @@ export default function App() {
 
   const settingsClickCount = useRef(0);
   const settingsTimer = useRef<any>(null);
+}
 
   /* -------------------------------------------------------
      CONFIG.JSON YÜKLEME
