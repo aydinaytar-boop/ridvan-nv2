@@ -1696,7 +1696,6 @@ const saveSettings = () => {
     />
   </div>
 </div>   {/* ALT BAR KAPANIŞI */}
-
 </div>   {/* panel (sağ panel) */}
 </div>   {/* main-panels */}
 </div>   {/* outer-frame */}
@@ -1705,4 +1704,5 @@ const saveSettings = () => {
 </div>   {/* en dış container */}
 );
 }
+
 export default App;
