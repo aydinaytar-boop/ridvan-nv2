@@ -13357,16 +13357,6 @@ function App() {
       setConfigLoaded(true);
     })();
   }, []);
-  reactExports.useEffect(() => {
-    const timer = setTimeout(() => {
-      applyAutoScale();
-    }, 50);
-    window.addEventListener("resize", applyAutoScale);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("resize", applyAutoScale);
-    };
-  }, []);
   reactExports.useCallback(() => {
     const base = centralConfig || {};
     const updated = {
