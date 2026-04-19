@@ -1657,16 +1657,6 @@ export default function App() {
       transition: "all 0.2s",
       lineHeight: 1,
     }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.color = "#c9a66b";
-      e.currentTarget.style.borderColor = "#c9a66b";
-      e.currentTarget.style.background = "#c9a66b11";
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.color = "#c9a66b77";
-      e.currentTarget.style.borderColor = "#c9a66b44";
-      e.currentTarget.style.background = "transparent";
-    }}
   >
     ⚙️
   </button>
