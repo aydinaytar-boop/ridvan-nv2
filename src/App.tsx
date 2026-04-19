@@ -1693,9 +1693,11 @@ export default function App() {
   </div>
 </div>
 
+</div>   {/* panel (sağ panel) */}
+</div>   {/* main-panels */}
 </div>   {/* outer-frame */}
 </div>   {/* tv-safe-area */}
 </div>   {/* ana container */}
 </div>   {/* en dış container */}
 );
-}        {/* function App kapanışı */}
+}
