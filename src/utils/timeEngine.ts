@@ -139,6 +139,19 @@ export function getBayramVisibility(now: Date): {
   }
   return { visible: false };
 }
+import { DUA_ARCHIVE } from "../data/duaArchive";
+
+export function getDailyDua(date: Date) {
+  const index = date.getDate() % DUA_ARCHIVE.length;
+  return DUA_ARCHIVE[index];
+}
+
+import { DUA_ARCHIVE } from "../data/duaArchive";
+
+export function getDailyDua(date: Date) {
+  const index = date.getDate() % DUA_ARCHIVE.length;
+  return DUA_ARCHIVE[index];
+}
 
 export function computeFlow(now: Date, times: TodayTimes): FlowState {
   const vakit_order: VakitKey[] = ["sabah", "gunes", "ogle", "ikindi", "aksam", "yatsi"];
