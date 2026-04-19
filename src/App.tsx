@@ -1706,13 +1706,8 @@ export default function App() {
       </div>
     </div>
   );
-}
-t: 1,
-                    }}
-                  >
-                    {lang === "tr" ? "KAMET" : "IQÂMAT"}
-                  </div>
-
+}                  
+                    {lang === "tr" ? "KAMET" : "IQÂMAT"}                 
                   <div
                     style={{
                       color: "#f5d78e",
