@@ -295,24 +295,7 @@ export default function App() {
     })();
   }, []);
 
-  /* -------------------------------------------------------
-     AUTO SCALE
-     ------------------------------------------------------- */
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      applyAutoScale();
-    }, 50);
-
-    window.addEventListener("resize", applyAutoScale);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("resize", applyAutoScale);
-    };
-  }, []);
-
-  /* -------------------------------------------------------
+    /* -------------------------------------------------------
      CONFIG.JSON DEĞİŞİKLİKLERİNİ KAYDETME (PC MODU)
      ------------------------------------------------------- */
 
