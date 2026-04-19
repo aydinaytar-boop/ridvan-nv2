@@ -278,20 +278,37 @@ export default function App() {
     localStorage.getItem("duyuruDE") || ""
   );
 
-  /* --- AYAR MENÜLERİ --- */
+ /* --- AYAR MENÜLERİ --- */
 
-  const [showSettings, setShowSettings] = useState(false);
-  const [showBayramForm, setShowBayramForm] = useState(false);
-  const [showDuyuruForm, setShowDuyuruForm] = useState(false);
-  const [duaLang, setDuaLang] = useState<"tr" | "de">("tr");
+const [showSettings, setShowSettings] = useState(false);
+const [showBayramForm, setShowBayramForm] = useState(false);
+const [showDuyuruForm, setShowDuyuruForm] = useState(false);
+const [duaLang, setDuaLang] = useState<"tr" | "de">("tr");
 
-  const settingsClickCount = useRef(0);
-  const settingsTimer = useRef<any>(null);
-}
+const settingsClickCount = useRef(0);
+const settingsTimer = useRef<any>(null);
 
-  /* -------------------------------------------------------
-     CONFIG.JSON YÜKLEME
-     ------------------------------------------------------- */
+// --- AYARLARI KAYDETME FONKSİYONU ---
+const saveSettings = () => {
+  const settings = {
+    sabahKamet: sabahKamet,
+    ogleKamet: ogleKamet,
+    ikindiKamet: ikindiKamet,
+    aksamKamet: aksamKamet,
+    yatsiKamet: yatsiKamet,
+    hicriOffset: hicriOffset,
+    bayram1: bayram1,
+    bayram2: bayram2,
+    duyurular: duyurular,
+  };
+
+  localStorage.setItem("mosqueSettings", JSON.stringify(settings));
+  setShowSettings(false);
+};
+
+/* -------------------------------------------------------
+   CONFIG.JSON YÜKLEME
+   ------------------------------------------------------- */
 
   useEffect(() => {
     (async () => {
