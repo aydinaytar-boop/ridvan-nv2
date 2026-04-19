@@ -1,3 +1,5 @@
+import { useState, useEffect, useRef, useCallback } from "react";
+
 import {
   getTodayTimes,
   computeFlow,
@@ -7,10 +9,12 @@ import {
   showWeekendOgleMsg,
   setSabahKametSaati,
   getSabahKametSaati,
-  getDailyDua,   // ← BU SATIR ZORUNLU
+  getDailyDua,   // ← ZORUNLU
   SETTINGS,
   type VakitKey,
 } from "./utils/timeEngine";
+
+import { DUA_ARCHIVE, EZAN_DUASI } from "./data/duaArchive";
 
 /* -------------------------------------------------------
    CONFIG.JSON MERKEZİ AYAR SİSTEMİ

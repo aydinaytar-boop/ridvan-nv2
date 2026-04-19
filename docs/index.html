@@ -12859,6 +12859,11 @@ const prayerTimes2026 = [
   { "t": "2026-12-30", "i": "06:29", "g": "08:52", "o": "13:06", "k": "15:09", "a": "17:36", "y": "19:10" },
   { "t": "2026-12-31", "i": "06:30", "g": "08:53", "o": "13:06", "k": "15:10", "a": "17:37", "y": "19:11" }
 ];
+const EZAN_DUASI = {
+  arabic: `اللّٰهُمَّ رَبَّ هٰذِهِ الدَّعْوَةِ التَّامَّةِ وَالصَّلاَةِ الْقَائِمَةِ آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ`,
+  tr: `Allah'ım! Bu eksiksiz davetin ve kılınacak namazın Rabbi! Muhammed (s.a.v.)'e vesileyi ve fazileti ver. Onu, kendisine va'dettiğin Makam-ı Mahmud'a ulaştır.`,
+  de: `O Allah, Herr dieses vollkommenen Rufes und des bevorstehenden Gebets, gewähre Muhammad die Wasīla und die Vortrefflichkeit und erwecke ihn zu dem gelobten Rang, den Du ihm versprochen hast.`
+};
 const DUA_ARCHIVE = [
   { source: "KURAN", ar: "رَبِّ زِدْنِي عِلْمًا", tr: "Rabbim! İlmimi artır.", de: "Mein Herr, mehre mein Wissen." },
   { source: "HADIS", ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى", tr: "Allah'ım! Senden hidayet, takva, iffet ve gönül zenginliği isterim.", de: "O Allah, ich bitte Dich um Rechtleitung, Gottesfurcht, Keuschheit und Genügsamkeit." },
@@ -13320,22 +13325,22 @@ const VAKIT_LABEL = {
   }
 };
 function App() {
-  const [now, setNow] = useState(() => /* @__PURE__ */ new Date());
-  const [lang, setLang] = useState("tr");
-  const [centralConfig, setCentralConfig] = useState(null);
-  const [configLoaded, setConfigLoaded] = useState(false);
-  const [hicriOffset, setHicriOffset] = useState(0);
-  const [sabahKametInput, setSabahKametInput] = useState("05:30");
-  const [bayramInputs, setBayramInputs] = useState({});
-  const [duyuruTR, setDuyuruTR] = useState("");
-  const [duyuruDE, setDuyuruDE] = useState("");
-  const [showSettings, setShowSettings] = useState(false);
-  const [showBayramForm, setShowBayramForm] = useState(false);
-  const [showDuyuruForm, setShowDuyuruForm] = useState(false);
-  const [duaLang, setDuaLang] = useState("tr");
-  const settingsClickCount = useRef(0);
-  const settingsTimer = useRef(null);
-  useEffect(() => {
+  const [now, setNow] = reactExports.useState(() => /* @__PURE__ */ new Date());
+  const [lang, setLang] = reactExports.useState("tr");
+  const [centralConfig, setCentralConfig] = reactExports.useState(null);
+  const [configLoaded, setConfigLoaded] = reactExports.useState(false);
+  const [hicriOffset, setHicriOffset] = reactExports.useState(0);
+  const [sabahKametInput, setSabahKametInput] = reactExports.useState("05:30");
+  const [bayramInputs, setBayramInputs] = reactExports.useState({});
+  const [duyuruTR, setDuyuruTR] = reactExports.useState("");
+  const [duyuruDE, setDuyuruDE] = reactExports.useState("");
+  const [showSettings, setShowSettings] = reactExports.useState(false);
+  const [showBayramForm, setShowBayramForm] = reactExports.useState(false);
+  const [showDuyuruForm, setShowDuyuruForm] = reactExports.useState(false);
+  const [duaLang, setDuaLang] = reactExports.useState("tr");
+  const settingsClickCount = reactExports.useRef(0);
+  const settingsTimer = reactExports.useRef(null);
+  reactExports.useEffect(() => {
     (async () => {
       let cfg = await loadConfig();
       if (!cfg) {
@@ -13352,7 +13357,7 @@ function App() {
       setConfigLoaded(true);
     })();
   }, []);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     const timer = setTimeout(() => {
       applyAutoScale();
     }, 50);
@@ -13362,7 +13367,7 @@ function App() {
       window.removeEventListener("resize", applyAutoScale);
     };
   }, []);
-  useCallback(() => {
+  reactExports.useCallback(() => {
     const base = centralConfig || {};
     const updated = {
       ...base,
@@ -13375,17 +13380,17 @@ function App() {
     saveConfigToLocal(updated);
     setCentralConfig(updated);
   }, [centralConfig, sabahKametInput, hicriOffset, bayramInputs, duyuruTR, duyuruDE]);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     const id = setInterval(() => setNow(/* @__PURE__ */ new Date()), 1e3);
     return () => clearInterval(id);
   }, []);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     const id = setInterval(() => {
       setLang((l) => l === "tr" ? "de" : "tr");
     }, 2e4);
     return () => clearInterval(id);
   }, []);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     if (configLoaded) {
       setSabahKametSaati(sabahKametInput);
     }
@@ -13441,7 +13446,7 @@ function App() {
     { key: "aksam", ezan: times.aksam, kamet: getKametTime("aksam", times.aksam) },
     { key: "yatsi", ezan: times.yatsi, kamet: getKametTime("yatsi", times.yatsi) }
   ];
-  const handleBottomClick = useCallback(() => {
+  const handleBottomClick = reactExports.useCallback(() => {
     settingsClickCount.current += 1;
     if (settingsTimer.current) clearTimeout(settingsTimer.current);
     settingsTimer.current = setTimeout(() => {
