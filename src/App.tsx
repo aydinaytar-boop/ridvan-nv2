@@ -1,17 +1,16 @@
-import { useState, useEffect, useRef, useCallback } from "react";
 import {
-  getTodayTimes,
-  computeFlow,
-  getKametTime,
-  getBayramVisibility,
-  isCumaGunu,
-  showWeekendOgleMsg,
-  setSabahKametSaati,
-  getSabahKametSaati,
-  SETTINGS,
-  type VakitKey,
+    getTodayTimes,
+    computeFlow,
+    getKametTime,
+    getBayramVisibility,
+    isCumaGunu,
+    showWeekendOgleMsg,   // ← DÜZELTİLMİŞ
+    setSabahKametSaati,
+    getSabahKametSaati,
+    getDailyDua,          // ← DOĞRU
+    SETTINGS,
+    type VakitKey,
 } from "./utils/timeEngine";
-import { DUA_ARCHIVE, EZAN_DUASI } from "./data/duaArchive";
 
 /* -------------------------------------------------------
    CONFIG.JSON MERKEZİ AYAR SİSTEMİ
