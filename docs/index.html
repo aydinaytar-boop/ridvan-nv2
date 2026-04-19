@@ -12859,6 +12859,11 @@ const prayerTimes2026 = [
   { "t": "2026-12-30", "i": "06:29", "g": "08:52", "o": "13:06", "k": "15:09", "a": "17:36", "y": "19:10" },
   { "t": "2026-12-31", "i": "06:30", "g": "08:53", "o": "13:06", "k": "15:10", "a": "17:37", "y": "19:11" }
 ];
+const EZAN_DUASI = {
+  arabic: `اللّٰهُمَّ رَبَّ هٰذِهِ الدَّعْوَةِ التَّامَّةِ وَالصَّلاَةِ الْقَائِمَةِ آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ`,
+  tr: `Allah'ım! Bu eksiksiz davetin ve kılınacak namazın Rabbi! Muhammed (s.a.v.)'e vesileyi ve fazileti ver. Onu, kendisine va'dettiğin Makam-ı Mahmud'a ulaştır.`,
+  de: `O Allah, Herr dieses vollkommenen Rufes und des bevorstehenden Gebets, gewähre Muhammad die Wasīla und die Vortrefflichkeit und erwecke ihn zu dem gelobten Rang, den Du ihm versprochen hast.`
+};
 const SETTINGS = {
   sabahKamet: "06:15",
   kametSureleri: {
@@ -12873,8 +12878,18 @@ const SETTINGS = {
     kamet: "13:30"
   },
   bayramlar: [
-    { ad_tr: "Ramazan Bayramı", ad_de: "Eid al-Fitr", tarih: "2026-03-20", tarih2: "2026-03-22" },
-    { ad_tr: "Kurban Bayramı", ad_de: "Eid al-Adha", tarih: "2026-05-27", tarih2: "2026-05-30" }
+    {
+      ad_tr: "Ramazan Bayramı",
+      ad_de: "Eid al-Fitr",
+      tarih: "2026-03-20",
+      tarih2: "2026-03-22"
+    },
+    {
+      ad_tr: "Kurban Bayramı",
+      ad_de: "Eid al-Adha",
+      tarih: "2026-05-27",
+      tarih2: "2026-05-30"
+    }
   ]
 };
 let _sabahKametSaati = SETTINGS.sabahKamet;
@@ -12940,7 +12955,14 @@ function getTodayTimes(date = /* @__PURE__ */ new Date()) {
   const dd = String(date.getDate()).padStart(2, "0");
   const key = `${yyyy}-${mm}-${dd}`;
   const found = prayerTimes2026.find((r) => r.t === key);
-  const times = found ? { sabah: found.i, gunes: found.g, ogle: found.o, ikindi: found.k, aksam: found.a, yatsi: found.y } : fallbackTimes;
+  const times = found ? {
+    sabah: found.i,
+    gunes: found.g,
+    ogle: found.o,
+    ikindi: found.k,
+    aksam: found.a,
+    yatsi: found.y
+  } : fallbackTimes;
   const ogleResolved = resolveOgleTime(times.ogle, date);
   return {
     sabah: times.sabah,
@@ -13020,26 +13042,76 @@ function computeFlow(now, times) {
     const blackoutEnd = new Date(kametAlertEnd.getTime() + SETTINGS.blackoutSuresi * 1e3);
     const secSinceEzan = diffSeconds(ezanDate, now);
     if (secSinceEzan >= 0 && secSinceEzan < 60) {
-      return { phase: "ezan", currentVakit: vakit, nextVakit: next, nextVakitTime: nextTime, countdownSeconds: 0, ezanElapsed: secSinceEzan, blackoutRemaining: 0, activeEzanVakit: vakit, kametCountdown: 0, kametAlertActive: false };
+      return {
+        phase: "ezan",
+        currentVakit: vakit,
+        nextVakit: next,
+        nextVakitTime: nextTime,
+        countdownSeconds: 0,
+        ezanElapsed: secSinceEzan,
+        blackoutRemaining: 0,
+        activeEzanVakit: vakit,
+        kametCountdown: 0,
+        kametAlertActive: false
+      };
     }
     if (now >= ezanDate && secSinceEzan >= 60 && now < kametDate) {
-      return { phase: "kamet_countdown", currentVakit: vakit, nextVakit: next, nextVakitTime: nextTime, countdownSeconds: 0, ezanElapsed: secSinceEzan, blackoutRemaining: 0, activeEzanVakit: vakit, kametCountdown: diffSeconds(now, kametDate), kametAlertActive: false };
+      return {
+        phase: "kamet_countdown",
+        currentVakit: vakit,
+        nextVakit: next,
+        nextVakitTime: nextTime,
+        countdownSeconds: 0,
+        ezanElapsed: secSinceEzan,
+        blackoutRemaining: 0,
+        activeEzanVakit: vakit,
+        kametCountdown: diffSeconds(now, kametDate),
+        kametAlertActive: false
+      };
     }
     if (now >= kametDate && now < kametAlertEnd) {
-      return { phase: "kamet_alert", currentVakit: vakit, nextVakit: next, nextVakitTime: nextTime, countdownSeconds: 0, ezanElapsed: secSinceEzan, blackoutRemaining: 0, activeEzanVakit: vakit, kametCountdown: 0, kametAlertActive: true };
+      return {
+        phase: "kamet_alert",
+        currentVakit: vakit,
+        nextVakit: next,
+        nextVakitTime: nextTime,
+        countdownSeconds: 0,
+        ezanElapsed: secSinceEzan,
+        blackoutRemaining: 0,
+        activeEzanVakit: vakit,
+        kametCountdown: 0,
+        kametAlertActive: true
+      };
     }
     if (now >= kametAlertEnd && now < blackoutEnd) {
-      return { phase: "blackout", currentVakit: vakit, nextVakit: next, nextVakitTime: nextTime, countdownSeconds: 0, ezanElapsed: secSinceEzan, blackoutRemaining: diffSeconds(now, blackoutEnd), activeEzanVakit: vakit, kametCountdown: 0, kametAlertActive: false };
+      return {
+        phase: "blackout",
+        currentVakit: vakit,
+        nextVakit: next,
+        nextVakitTime: nextTime,
+        countdownSeconds: 0,
+        ezanElapsed: secSinceEzan,
+        blackoutRemaining: diffSeconds(now, blackoutEnd),
+        activeEzanVakit: vakit,
+        kametCountdown: 0,
+        kametAlertActive: false
+      };
     }
   }
   const countdown = next ? diffSeconds(now, timeToDate(nextTime, now)) : 0;
-  return { phase: "normal", currentVakit: current, nextVakit: next, nextVakitTime: nextTime, countdownSeconds: Math.max(0, countdown), ezanElapsed: 0, blackoutRemaining: 0, activeEzanVakit: null, kametCountdown: 0, kametAlertActive: false };
+  return {
+    phase: "normal",
+    currentVakit: current,
+    nextVakit: next,
+    nextVakitTime: nextTime,
+    countdownSeconds: Math.max(0, countdown),
+    ezanElapsed: 0,
+    blackoutRemaining: 0,
+    activeEzanVakit: null,
+    kametCountdown: 0,
+    kametAlertActive: false
+  };
 }
-const EZAN_DUASI = {
-  arabic: `اللّٰهُمَّ رَبَّ هٰذِهِ الدَّعْوَةِ التَّامَّةِ وَالصَّلاَةِ الْقَائِمَةِ آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ`,
-  tr: `Allah'ım! Bu eksiksiz davetin ve kılınacak namazın Rabbi! Muhammed (s.a.v.)'e vesileyi ve fazileti ver. Onu, kendisine va'dettiğin Makam-ı Mahmud'a ulaştır.`,
-  de: `O Allah, Herr dieses vollkommenen Rufes und des bevorstehenden Gebets, gewähre Muhammad die Wasīla und die Vortrefflichkeit und erwecke ihn zu dem gelobten Rang, den Du ihm versprochen hast.`
-};
 async function loadConfig() {
   try {
     const res = await fetch("config.json?v=" + Date.now());
