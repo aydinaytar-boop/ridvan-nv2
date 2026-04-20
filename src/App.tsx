@@ -465,7 +465,7 @@ export default function App() {
                   marginBottom: 8,
                 }}
               >
-                & {lang === "tr" ? "Ayarlar" : "Einstellungen"}
+                ⚙️ {lang === "tr" ? "Ayarlar" : "Einstellungen"}
               </div>
 
               <div
@@ -1547,7 +1547,7 @@ export default function App() {
                   "transparent";
               }}
             >
-              &
+             ⚙️
             </button>
             <div
               style={{
