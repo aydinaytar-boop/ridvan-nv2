@@ -13146,36 +13146,41 @@ function computeFlow(now, times) {
 }
 const SETTINGS = {
   // ✨ DUYURULAR (TR ve DE olarak iki dil)
-  // DİKKAT: 'get' kullanılmadı, doğrudan değer atandı. Sonsuz döngü olmaz.
+  // DÜZELTME: Veriyi okurken hem string hem obje kontrolü yapıyoruz.
   duyurular: (() => {
-    const saved = localStorage.getItem("duyurular_metni");
-    if (!saved) {
-      return {
-        tr: "İzine erken gidecek olanlar LÜTFEN Kurban bağışlarını yapmış olarak gidin. İyi Tatiller!",
-        de: "Willkommen! Schöne Feiertage!"
-      };
-    }
-    if (typeof saved === "string") {
-      const eskiVeri = saved;
-      localStorage.setItem("duyurular_metni", JSON.stringify({ tr: eskiVeri, de: "" }));
-      return { tr: eskiVeri, de: "" };
-    }
     try {
-      const data = JSON.parse(saved);
-      if (!data.tr) data.tr = "";
-      if (!data.de) data.de = "";
-      return data;
-    } catch {
+      const saved = localStorage.getItem("duyurular_metni");
+      if (!saved) {
+        return { tr: "Hoş geldiniz! İyi Tatiller!", de: "Willkommen! Schöne Feiertage!" };
+      }
+      if (typeof saved === "object") {
+        return {
+          tr: saved.tr || "",
+          de: saved.de || ""
+        };
+      }
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed && (parsed.tr || parsed.de)) {
+          return { tr: parsed.tr || "", de: parsed.de || "" };
+        }
+      } catch (e) {
+        return { tr: saved, de: "" };
+      }
+      return { tr: "", de: "" };
+    } catch (error) {
+      console.error("Duyuru okuma hatası:", error);
       return { tr: "", de: "" };
     }
   })()
 };
 function getDuyurular(lang) {
   const duyuruObj = SETTINGS.duyurular;
+  if (!duyuruObj) return "";
   if (typeof duyuruObj === "string") {
     return duyuruObj;
   }
-  return duyuruObj[lang] || duyuruObj["tr"];
+  return duyuruObj[lang] || duyuruObj["tr"] || "";
 }
 function setDuyurular(data) {
   localStorage.setItem("duyurular_metni", JSON.stringify(data));
