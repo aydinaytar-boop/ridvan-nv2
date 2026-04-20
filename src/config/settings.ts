@@ -21,12 +21,11 @@ export const SETTINGS = {
     { ad_tr: "Kurban Bayramı", ad_de: "Opferfest", tarih: "2026-05-27", tarih2: "2026-05-30", saat: "05:35" },
   ],
 
-  // ✨ DUYURULAR (TR ve DE olarak iki dil eklendi)
-  get duyurular() {
-    // Hafızada kayıtlı bir duyuru var mı bak
+  // ✨ DUYURULAR (TR ve DE olarak iki dil)
+  // DİKKAT: 'get' kullanılmadı, doğrudan değer atandı. Sonsuz döngü olmaz.
+  duyurular: (() => {
     const saved = localStorage.getItem("duyurular_metni");
     
-    // 1. DURUM: Hiç kayıt yoksa -> Varsayılanı göster
     if (!saved) {
       return {
         tr: "Hoş geldiniz! İyi Tatiller!", 
@@ -34,29 +33,21 @@ export const SETTINGS = {
       };
     }
 
-    // 2. DURUM: Kayıt var ama eski tip (Düz yazı) ise -> Dönüştür ve Kaydet
-    // Eğer JSON değilse (eski sistemden kalma), bunu Türkçe kabul et
     if (typeof saved === "string") {
       const eskiVeri = saved;
-      // Hemen yeni formatta kaydedelim ki bir daha bozulmasın
       localStorage.setItem("duyurular_metni", JSON.stringify({ tr: eskiVeri, de: "" }));
       return { tr: eskiVeri, de: "" };
     }
 
-    // 3. DURUM: Kayıt var ve Kutu (JSON) ise -> İçini kontrol et
     try {
       const data = JSON.parse(saved);
-      
-      // Eğer kutunun içinde 'tr' veya 'de' yoksa boşlukları doldur
       if (!data.tr) data.tr = "";
       if (!data.de) data.de = "";
-      
       return data;
     } catch {
-      // Her şeye rağmen hata olursa
       return { tr: "", de: "" };
     }
-  }
+  })(),
 };
 
 // --- 2. OKUMA FONKSİYONLARI ---
@@ -68,32 +59,26 @@ export function getBayramSaati(tarih: string): string {
   return localStorage.getItem(`bayramSaati_${tarih}`) || "06:30"; 
 }
 
-// ✨ Duyuruyu Okuma Fonksiyonu (Artık dil seçimi yapıyor)
-// lang parametresi "tr" veya "de" olmalı
+// ✨ Duyuruyu Okuma (Dil seçimi yapıyor)
 export function getDuyurular(lang: "tr" | "de"): string {
   const duyuruObj = SETTINGS.duyurular;
   
-  // Eğer duyuru bir obje değil de tek bir yazıysa (eski tip), direkt onu döndür
   if (typeof duyuruObj === "string") {
     return duyuruObj;
   }
   
-  // Hangi dil seçiliyse onu getirir, yoksa Türkçe varsayılanı basar
   return duyuruObj[lang] || duyuruObj["tr"];
 }
 
 // --- 3. KAYDETME FONKSİYONLARI ---
 
-// Genel Ayar Kaydetme (Sadece LocalStorage kullanır)
+// Genel Ayar Kaydetme
 export function saveSettingToFirebase(key: string, value: string) {
   localStorage.setItem(key, value);
 }
 
-// ✨ Duyuruyu Kaydetme Fonksiyonu
-// Buraya hem tr hem de de metnini içeren bir obje gönderilmeli
+// ✨ Duyuruyu Kaydetme
 export function setDuyurular(data: { tr: string, de: string }) {
-  // 1. Hemen ekranda görünmesi için hafızaya yaz (JSON formatında)
   localStorage.setItem("duyurular_metni", JSON.stringify(data));
-  
   console.log("Duyuru güncellendi:", data);
 }

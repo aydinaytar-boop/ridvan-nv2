@@ -13148,17 +13148,24 @@ const SETTINGS = {
   // ✨ DUYURULAR (TR ve DE olarak iki dil eklendi)
   get duyurular() {
     const saved = localStorage.getItem("duyurular_metni");
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch {
-        return saved;
-      }
-    } else {
+    if (!saved) {
       return {
-        tr: "İzine erken gidecek olanlar LÜTFEN Kurban bağışlarınızı yapmış olarak gidin! İyi Tatiller!",
-        de: "“Wer früher in den Urlaub fährt, wird gebeten, seine **Kurban-Spenden bereits im Voraus geleistet zu haben**. Schöne Feiertage!”"
+        tr: "Hoş geldiniz! İyi Tatiller!",
+        de: "Willkommen! Schöne Feiertage!"
       };
+    }
+    if (typeof saved === "string") {
+      const eskiVeri = saved;
+      localStorage.setItem("duyurular_metni", JSON.stringify({ tr: eskiVeri, de: "" }));
+      return { tr: eskiVeri, de: "" };
+    }
+    try {
+      const data = JSON.parse(saved);
+      if (!data.tr) data.tr = "";
+      if (!data.de) data.de = "";
+      return data;
+    } catch {
+      return { tr: "", de: "" };
     }
   }
 };
