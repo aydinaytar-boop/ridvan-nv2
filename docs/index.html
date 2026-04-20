@@ -13145,8 +13145,9 @@ function computeFlow(now, times) {
   };
 }
 const SETTINGS = {
-  // ✨ DUYURULAR (TR ve DE olarak iki dil eklendi)
-  get duyurular() {
+  // ✨ DUYURULAR (TR ve DE olarak iki dil)
+  // DİKKAT: 'get' kullanılmadı, doğrudan değer atandı. Sonsuz döngü olmaz.
+  duyurular: (() => {
     const saved = localStorage.getItem("duyurular_metni");
     if (!saved) {
       return {
@@ -13167,7 +13168,7 @@ const SETTINGS = {
     } catch {
       return { tr: "", de: "" };
     }
-  }
+  })()
 };
 function getDuyurular(lang) {
   const duyuruObj = SETTINGS.duyurular;
