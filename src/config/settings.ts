@@ -28,7 +28,7 @@ export const SETTINGS = {
     
     if (!saved) {
       return {
-        tr: "Hoş geldiniz! İyi Tatiller!", 
+        tr: "İzine erken gidecek olanlar LÜTFEN Kurban bağışlarını yapmış olarak gidin. İyi Tatiller!", 
         de: "Willkommen! Schöne Feiertage!"
       };
     }
