@@ -12896,7 +12896,7 @@ const DUA_ARCHIVE = [
   { source: "KURAN", ar: "رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ", tr: "Rabbimiz! Bizi ve bizden önce iman etmiş kardeşlerimizi bağışla.", de: "Unser Herr, vergib uns und unseren Geschwistern, die uns im Glauben vorangegangen sind." },
   { source: "HADIS", ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ", tr: "Allah'ım! Senin sevgini ve Seni sevenlerin sevgisini isterim.", de: "O Allah, ich bitte Dich um Deine Liebe und die Liebe derer, die Dich lieben." }
 ];
-const SETTINGS$1 = {
+const SETTINGS = {
   sabahKamet: "06:15",
   kametSureleri: {
     ogle: 8,
@@ -12924,7 +12924,7 @@ const SETTINGS$1 = {
     }
   ]
 };
-let _sabahKametSaati = SETTINGS$1.sabahKamet;
+let _sabahKametSaati = SETTINGS.sabahKamet;
 function getSabahKametSaati() {
   return _sabahKametSaati;
 }
@@ -13009,12 +13009,12 @@ function getTodayTimes(date = /* @__PURE__ */ new Date()) {
 function getKametTime(vakit, ezanTime) {
   if (vakit === "gunes") return null;
   if (vakit === "sabah") return getSabahKametSaati();
-  const kametDk = SETTINGS$1.kametSureleri[vakit];
+  const kametDk = SETTINGS.kametSureleri[vakit];
   if (kametDk === void 0) return null;
   return addMinutes(ezanTime, kametDk);
 }
 function getBayramVisibility(now) {
-  for (const b of SETTINGS$1.bayramlar) {
+  for (const b of SETTINGS.bayramlar) {
     const bayramStart = /* @__PURE__ */ new Date(b.tarih + "T00:00:00");
     const bayramEnd = /* @__PURE__ */ new Date(b.tarih2 + "T11:00:00");
     const showStart = new Date(bayramStart);
@@ -13028,8 +13028,8 @@ function getBayramVisibility(now) {
 function computeFlow(now, times) {
   const vakit_order = ["sabah", "gunes", "ogle", "ikindi", "aksam", "yatsi"];
   const isCuma = isCumaGunu(now);
-  const cumaEzan = SETTINGS$1.cuma.ezan;
-  const cumaKamet = SETTINGS$1.cuma.kamet;
+  const cumaEzan = SETTINGS.cuma.ezan;
+  const cumaKamet = SETTINGS.cuma.kamet;
   const timeMap = {
     sabah: times.sabah,
     gunes: times.gunes,
@@ -13071,7 +13071,7 @@ function computeFlow(now, times) {
     if (!kametStr) continue;
     const kametDate = timeToDate(kametStr, now);
     const kametAlertEnd = new Date(kametDate.getTime() + 60 * 1e3);
-    const blackoutEnd = new Date(kametAlertEnd.getTime() + SETTINGS$1.blackoutSuresi * 1e3);
+    const blackoutEnd = new Date(kametAlertEnd.getTime() + SETTINGS.blackoutSuresi * 1e3);
     const secSinceEzan = diffSeconds(ezanDate, now);
     if (secSinceEzan >= 0 && secSinceEzan < 60) {
       return {
@@ -13143,48 +13143,6 @@ function computeFlow(now, times) {
     kametCountdown: 0,
     kametAlertActive: false
   };
-}
-const SETTINGS = {
-  // ✨ DUYURULAR (TR ve DE olarak iki dil)
-  // DÜZELTME: Veriyi okurken hem string hem obje kontrolü yapıyoruz.
-  duyurular: (() => {
-    try {
-      const saved = localStorage.getItem("duyurular_metni");
-      if (!saved) {
-        return { tr: "İzine erken gidecek olanlar LÜTFEN Kurban bağışlarınızı yapmış olarak gidin! İyi Tatiller!", de: "“Wer früher in den Urlaub fährt, wird gebeten, seine Kurban-Spenden bereits im Voraus geleistet zu haben. Schöne Feiertage!”" };
-      }
-      if (typeof saved === "object") {
-        return {
-          tr: saved.tr || "",
-          de: saved.de || ""
-        };
-      }
-      try {
-        const parsed = JSON.parse(saved);
-        if (parsed && (parsed.tr || parsed.de)) {
-          return { tr: parsed.tr || "", de: parsed.de || "" };
-        }
-      } catch (e) {
-        return { tr: saved, de: "" };
-      }
-      return { tr: "", de: "" };
-    } catch (error) {
-      console.error("Duyuru okuma hatası:", error);
-      return { tr: "", de: "" };
-    }
-  })()
-};
-function getDuyurular(lang) {
-  const duyuruObj = SETTINGS.duyurular;
-  if (!duyuruObj) return "";
-  if (typeof duyuruObj === "string") {
-    return duyuruObj;
-  }
-  return duyuruObj[lang] || duyuruObj["tr"] || "";
-}
-function setDuyurular(data) {
-  localStorage.setItem("duyurular_metni", JSON.stringify(data));
-  console.log("Duyuru güncellendi:", data);
 }
 function fmt2(n) {
   return String(Math.max(0, n)).padStart(2, "0");
@@ -13351,7 +13309,9 @@ function applyAutoScale() {
   if (!safeArea) return;
   const vw = window.innerWidth || 1920;
   let scale = vw / 1920;
-  if (!scale || scale <= 0 || scale > 2) scale = 1;
+  if (!scale || scale <= 0 || scale > 2) {
+    scale = 1;
+  }
   scale = scale * 0.95;
   safeArea.style.transform = `translateX(-50%) scale(${scale})`;
   safeArea.style.transformOrigin = "top center";
@@ -13360,50 +13320,20 @@ function App() {
   const [now, setNow] = reactExports.useState(() => /* @__PURE__ */ new Date());
   const [lang, setLang] = reactExports.useState("tr");
   const [hicriOffset, setHicriOffset] = reactExports.useState(0);
-  const [sabahKametInput, setSabahKametInput] = reactExports.useState("05:15");
+  const [sabahKametInput, setSabahKametInput] = reactExports.useState("05:30");
   const [showSettings, setShowSettings] = reactExports.useState(false);
-  const [bayramInputs, setBayramInputs] = reactExports.useState({});
+  const [bayramInputs, setBayramInputs] = reactExports.useState(
+    {}
+  );
   const [showBayramForm, setShowBayramForm] = reactExports.useState(false);
   const [duaLang, setDuaLang] = reactExports.useState("tr");
-  const [duyuruTR, setDuyuruTR] = reactExports.useState("");
-  const [duyuruDE, setDuyuruDE] = reactExports.useState("");
+  const [duyuruTR, setDuyuruTR] = reactExports.useState(SETTINGS.duyurular.tr);
+  const [duyuruDE, setDuyuruDE] = reactExports.useState(SETTINGS.duyurular.de);
   const [showDuyuruForm, setShowDuyuruForm] = reactExports.useState(false);
   const [configLoaded, setConfigLoaded] = reactExports.useState(false);
+  const [saveMsg, setSaveMsg] = reactExports.useState(false);
   const settingsClickCount = reactExports.useRef(0);
   const settingsTimer = reactExports.useRef(null);
-  reactExports.useEffect(() => {
-    const savedKamet = localStorage.getItem("manuelSabahKamet");
-    if (savedKamet) setSabahKametInput(savedKamet);
-    const savedDuyuruTR = localStorage.getItem("duyurular_metni");
-    if (savedDuyuruTR) {
-      try {
-        const parsed = JSON.parse(savedDuyuruTR);
-        if (parsed.tr) setDuyuruTR(parsed.tr);
-        if (parsed.de) setDuyuruDE(parsed.de);
-      } catch {
-        setDuyuruTR(savedDuyuruTR);
-      }
-    }
-    const savedBayram = localStorage.getItem("ridvan_bayram_inputs");
-    if (savedBayram) {
-      try {
-        setBayramInputs(JSON.parse(savedBayram));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    setConfigLoaded(true);
-  }, []);
-  reactExports.useEffect(() => {
-    if (configLoaded) {
-      localStorage.setItem("manuelSabahKamet", sabahKametInput);
-      setDuyurular({ tr: duyuruTR, de: duyuruDE });
-      localStorage.setItem("ridvan_bayram_inputs", JSON.stringify(bayramInputs));
-    }
-  }, [sabahKametInput, duyuruTR, duyuruDE, bayramInputs, configLoaded]);
-  reactExports.useEffect(() => {
-    setSabahKametSaati(sabahKametInput);
-  }, [sabahKametInput]);
   reactExports.useEffect(() => {
     const timer = setTimeout(() => {
       applyAutoScale();
@@ -13415,13 +13345,24 @@ function App() {
     };
   }, []);
   reactExports.useEffect(() => {
-    const id = setInterval(() => {
-      setLang((l) => l === "tr" ? "de" : "tr");
-    }, 2e4);
-    return () => clearInterval(id);
+    setSabahKametInput(getSabahKametSaati());
+    setDuyuruTR(localStorage.getItem("duyuruTR") || SETTINGS.duyurular.tr);
+    setDuyuruDE(localStorage.getItem("duyuruDE") || SETTINGS.duyurular.de);
+    setHicriOffset(
+      parseInt(localStorage.getItem("hicriOffset") || "0")
+    );
+    const savedBayram = localStorage.getItem("bayramInputs");
+    if (savedBayram) setBayramInputs(JSON.parse(savedBayram));
+    setConfigLoaded(true);
   }, []);
   reactExports.useEffect(() => {
     const id = setInterval(() => setNow(/* @__PURE__ */ new Date()), 1e3);
+    return () => clearInterval(id);
+  }, []);
+  reactExports.useEffect(() => {
+    const id = setInterval(() => {
+      setLang((l) => l === "tr" ? "de" : "tr");
+    }, 2e4);
     return () => clearInterval(id);
   }, []);
   const times = getTodayTimes(now);
@@ -13432,11 +13373,11 @@ function App() {
   const hicri = toHijri(now, hicriOffset);
   const hicriTR = hicriStrTR(hicri);
   const hicriDE = hicriStrDE(hicri);
-  miladiTRStr(now);
-  miladiDEStr(now);
-  fmt2(now.getHours());
-  fmt2(now.getMinutes());
-  fmt2(now.getSeconds());
+  const miladiTR = miladiTRStr(now);
+  const miladiDE = miladiDEStr(now);
+  const hh = fmt2(now.getHours());
+  const mm = fmt2(now.getMinutes());
+  const ss = fmt2(now.getSeconds());
   const isEzan = flow.phase === "ezan";
   const isKametCountdown = flow.phase === "kamet_countdown";
   const isKametAlert = flow.phase === "kamet_alert";
@@ -13468,16 +13409,8 @@ function App() {
   const nextTime = flow.nextVakitTime;
   const kametVakit = flow.activeEzanVakit;
   const vakitList = [
-    {
-      key: "sabah",
-      ezan: times.sabah,
-      kamet: times.sabahKamet
-    },
-    {
-      key: "gunes",
-      ezan: times.gunes,
-      kamet: null
-    },
+    { key: "sabah", ezan: times.sabah, kamet: times.sabahKamet },
+    { key: "gunes", ezan: times.gunes, kamet: null },
     {
       key: "ogle",
       ezan: times.ogle,
@@ -13510,10 +13443,23 @@ function App() {
       setShowSettings(true);
     }
   }, []);
-  const handleSaveAndClose = () => {
-    setShowSettings(false);
-    console.log("Ayarlar kapatıldı.");
-  };
+  const handleSave = reactExports.useCallback(() => {
+    setSabahKametSaati(sabahKametInput);
+    localStorage.setItem("manuelSabahKamet", sabahKametInput);
+    localStorage.setItem("hicriOffset", String(hicriOffset));
+    localStorage.setItem(
+      "bayramInputs",
+      JSON.stringify(bayramInputs)
+    );
+    localStorage.setItem("duyuruTR", duyuruTR);
+    localStorage.setItem("duyuruDE", duyuruDE);
+    console.log("Tum ayarlar kaydedildi");
+    setSaveMsg(true);
+    setTimeout(() => {
+      setSaveMsg(false);
+      setShowSettings(false);
+    }, 1500);
+  }, [sabahKametInput, hicriOffset, bayramInputs, duyuruTR, duyuruDE]);
   if (isBlackout) {
     return /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "div",
@@ -13575,15 +13521,12 @@ function App() {
       style: {
         width: "100vw",
         height: "100vh",
-        background: "#000",
-        display: "flex",
-        flexDirection: "column",
         overflow: "hidden",
         position: "fixed",
         top: 0,
         left: 0,
-        zIndex: 0,
-        userSelect: "none"
+        background: "#000",
+        zIndex: 0
       },
       children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "tv-safe-area", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
         "div",
@@ -13622,7 +13565,7 @@ function App() {
                         marginBottom: 8
                       },
                       children: [
-                        "& ",
+                        "⚙️ ",
                         lang === "tr" ? "Ayarlar" : "Einstellungen"
                       ]
                     }
@@ -13771,11 +13714,12 @@ function App() {
                         },
                         children: [
                           lang === "tr" ? "Bayram Saatleri" : "Feiertagszeiten",
-                          " ▾"
+                          " ",
+                          "▾"
                         ]
                       }
                     ),
-                    showBayramForm && SETTINGS$1.bayramlar.map((b) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    showBayramForm && SETTINGS.bayramlar.map((b) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
                       "div",
                       {
                         style: {
@@ -13795,7 +13739,8 @@ function App() {
                               },
                               children: [
                                 lang === "tr" ? b.ad_tr : b.ad_de,
-                                " — ",
+                                " —",
+                                " ",
                                 b.tarih
                               ]
                             }
@@ -13947,24 +13892,172 @@ function App() {
                       ]
                     }
                   ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
                     "button",
                     {
-                      onClick: handleSaveAndClose,
+                      onClick: handleSave,
                       style: {
                         marginTop: 16,
                         padding: "12px 40px",
                         fontSize: 20,
-                        background: "#c9a66b",
-                        color: "#0a3d2e",
+                        background: saveMsg ? "#2ecc71" : "#c9a66b",
+                        color: saveMsg ? "#fff" : "#0a3d2e",
                         border: "none",
                         borderRadius: 10,
                         cursor: "pointer",
-                        fontWeight: "bold"
+                        fontWeight: "bold",
+                        transition: "all 0.3s"
+                      },
+                      children: saveMsg ? "Kaydedildi!" : `✓ ${lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"}`
+                    }
+                  )
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "div",
+              {
+                className: "top-bar",
+                style: {
+                  background: "linear-gradient(180deg,#0e5c3a 0%,#0a3d2e 100%)",
+                  borderBottom: "4px solid #c9a66b",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "0 32px"
+                },
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    "div",
+                    {
+                      style: {
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 2,
+                        minWidth: 260
                       },
                       children: [
-                        "✓ ",
-                        lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "div",
+                          {
+                            style: {
+                              color: "#c9a66b",
+                              fontSize: 22,
+                              fontWeight: 500,
+                              letterSpacing: 1,
+                              lineHeight: 1
+                            },
+                            children: lang === "tr" ? hicriTR : hicriDE
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "div",
+                          {
+                            style: {
+                              color: "#f5d78e",
+                              fontSize: 28,
+                              fontWeight: 700,
+                              lineHeight: 1
+                            },
+                            children: lang === "tr" ? miladiTR : miladiDE
+                          }
+                        )
+                      ]
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "div",
+                    {
+                      style: {
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center"
+                      },
+                      children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "div",
+                        {
+                          style: {
+                            color: "#f5d78e",
+                            fontSize: 52,
+                            fontWeight: 900,
+                            letterSpacing: 6,
+                            textTransform: "uppercase",
+                            textAlign: "center",
+                            lineHeight: 1,
+                            fontFamily: "'Segoe UI', 'Arial', sans-serif"
+                          },
+                          children: lang === "tr" ? "RIDVAN CAMİİ — VİYANA" : "RIDVAN MOSCHEE — WIEN"
+                        }
+                      )
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    "div",
+                    {
+                      style: {
+                        display: "flex",
+                        alignItems: "flex-end",
+                        minWidth: 220,
+                        justifyContent: "flex-end"
+                      },
+                      children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "span",
+                          {
+                            style: {
+                              color: "#f5d78e",
+                              fontSize: 68,
+                              fontWeight: 900,
+                              lineHeight: 1,
+                              fontFamily: "monospace"
+                            },
+                            children: hh
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "span",
+                          {
+                            style: {
+                              color: "#c9a66b",
+                              fontSize: 52,
+                              fontWeight: 900,
+                              margin: "0 4px",
+                              fontFamily: "monospace",
+                              animation: "pulse 1s infinite"
+                            },
+                            children: ":"
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "span",
+                          {
+                            style: {
+                              color: "#f5d78e",
+                              fontSize: 68,
+                              fontWeight: 900,
+                              lineHeight: 1,
+                              fontFamily: "monospace"
+                            },
+                            children: mm
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "span",
+                          {
+                            style: {
+                              color: "#c9a66b",
+                              fontSize: 32,
+                              fontWeight: 700,
+                              marginBottom: 6,
+                              marginLeft: 6,
+                              fontFamily: "monospace",
+                              animation: "pulse 1s infinite"
+                            },
+                            children: ss
+                          }
+                        )
                       ]
                     }
                   )
@@ -14175,7 +14268,7 @@ function App() {
                                           fontFamily: "monospace",
                                           lineHeight: 1
                                         },
-                                        children: SETTINGS$1.cuma.ezan
+                                        children: SETTINGS.cuma.ezan
                                       }
                                     ),
                                     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -14188,7 +14281,7 @@ function App() {
                                           fontFamily: "monospace",
                                           lineHeight: 1
                                         },
-                                        children: SETTINGS$1.cuma.kamet
+                                        children: SETTINGS.cuma.kamet
                                       }
                                     )
                                   ]
@@ -14316,7 +14409,13 @@ function App() {
                           )
                         ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
                           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", children: lang === "tr" ? "GÜNÜN VAKTİ" : "AKTUELLE GEBETSZEIT" }),
-                          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `current-vakit ${isEzan ? "ezan" : ""}`, children: currentLabel }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(
+                            "div",
+                            {
+                              className: `current-vakit ${isEzan ? "ezan" : ""}`,
+                              children: currentLabel
+                            }
+                          ),
                           !isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
                             /* @__PURE__ */ jsxRuntimeExports.jsx(
                               "div",
@@ -14332,22 +14431,31 @@ function App() {
                               nextTime
                             ] })
                           ] }),
-                          isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { textAlign: "center", marginTop: 8 }, children: [
-                            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", children: lang === "tr" ? "KAMETE KALAN SÜRE" : "ZEIT BIS ZUM IQÂMAT" }),
-                            /* @__PURE__ */ jsxRuntimeExports.jsx(
-                              "div",
-                              {
-                                style: {
-                                  color: "#f5d78e",
-                                  fontSize: 70,
-                                  fontWeight: 700,
-                                  marginTop: 16,
-                                  lineHeight: 1
-                                },
-                                children: kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""
-                              }
-                            )
-                          ] }),
+                          isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                            "div",
+                            {
+                              style: {
+                                textAlign: "center",
+                                marginTop: 8
+                              },
+                              children: [
+                                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", children: lang === "tr" ? "KAMETE KALAN SÜRE" : "ZEIT BIS ZUM IQÂMAT" }),
+                                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                                  "div",
+                                  {
+                                    style: {
+                                      color: "#f5d78e",
+                                      fontSize: 70,
+                                      fontWeight: 700,
+                                      marginTop: 16,
+                                      lineHeight: 1
+                                    },
+                                    children: kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""
+                                  }
+                                )
+                              ]
+                            }
+                          ),
                           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "countdown-row", children: [
                             {
                               val: fmt2(cdH),
@@ -14379,7 +14487,10 @@ function App() {
                           flow.currentVakit === "sabah" && !isEzan && !isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs(
                             "div",
                             {
-                              style: { textAlign: "center", marginTop: 16 },
+                              style: {
+                                textAlign: "center",
+                                marginTop: 16
+                              },
                               children: [
                                 /* @__PURE__ */ jsxRuntimeExports.jsx(
                                   "div",
@@ -14611,7 +14722,7 @@ function App() {
                                         width: "100%",
                                         whiteSpace: "pre-wrap"
                                       },
-                                      children: getDuyurular(lang)
+                                      children: lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"
                                     }
                                   )
                                 }
@@ -14688,7 +14799,7 @@ function App() {
                         e.currentTarget.style.borderColor = "#c9a66b44";
                         e.currentTarget.style.background = "transparent";
                       },
-                      children: "&"
+                      children: "⚙️"
                     }
                   ),
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -14708,7 +14819,7 @@ function App() {
                         "img",
                         {
                           src: "img/logo.png?v=5",
-                          alt: "Logo",
+                          alt: "Ridvan Camii Logo",
                           style: { height: 52, objectFit: "contain" }
                         }
                       )
