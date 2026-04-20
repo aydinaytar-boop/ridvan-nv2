@@ -22,29 +22,42 @@ export const SETTINGS = {
   ],
 
   // ✨ DUYURULAR (TR ve DE olarak iki dil)
-  // DİKKAT: 'get' kullanılmadı, doğrudan değer atandı. Sonsuz döngü olmaz.
+  // DÜZELTME: Veriyi okurken hem string hem obje kontrolü yapıyoruz.
   duyurular: (() => {
-    const saved = localStorage.getItem("duyurular_metni");
-    
-    if (!saved) {
-      return {
-        tr: "İzine erken gidecek olanlar LÜTFEN Kurban bağışlarını yapmış olarak gidin. İyi Tatiller!", 
-        de: "Willkommen! Schöne Feiertage!"
-      };
-    }
-
-    if (typeof saved === "string") {
-      const eskiVeri = saved;
-      localStorage.setItem("duyurular_metni", JSON.stringify({ tr: eskiVeri, de: "" }));
-      return { tr: eskiVeri, de: "" };
-    }
-
     try {
-      const data = JSON.parse(saved);
-      if (!data.tr) data.tr = "";
-      if (!data.de) data.de = "";
-      return data;
-    } catch {
+      const saved = localStorage.getItem("duyurular_metni");
+      
+      // 1. Durum: Kayıt yoksa varsayılanı ver
+      if (!saved) {
+        return { tr: "Hoş geldiniz! İyi Tatiller!", de: "Willkommen! Schöne Feiertage!" };
+      }
+
+      // 2. Durum: Veri zaten bir Obje ise (Doğru format)
+      if (typeof saved === "object") {
+        return {
+          tr: saved.tr || "",
+          de: saved.de || ""
+        };
+      }
+
+      // 3. Durum: Veri String ise (Eski format veya bozuk veri)
+      // Önce bunun düz yazı mı yoksa JSON mu olduğuna bakıyoruz
+      try {
+        const parsed = JSON.parse(saved);
+        // Eğer JSON parse edilebildiyse ve içi doluysa onu kullan
+        if (parsed && (parsed.tr || parsed.de)) {
+           return { tr: parsed.tr || "", de: parsed.de || "" };
+        }
+      } catch (e) {
+        // JSON parse hatası verirse, bu düz bir yazıdır (Eski tip duyuru)
+        return { tr: saved, de: "" };
+      }
+
+      // Hiçbiri değilse boş döndür
+      return { tr: "", de: "" };
+
+    } catch (error) {
+      console.error("Duyuru okuma hatası:", error);
       return { tr: "", de: "" };
     }
   })(),
@@ -59,15 +72,20 @@ export function getBayramSaati(tarih: string): string {
   return localStorage.getItem(`bayramSaati_${tarih}`) || "06:30"; 
 }
 
-// ✨ Duyuruyu Okuma (Dil seçimi yapıyor)
+// ✨ Duyuruyu Okuma Fonksiyonu
 export function getDuyurular(lang: "tr" | "de"): string {
   const duyuruObj = SETTINGS.duyurular;
   
+  // Güvenlik kontrolü
+  if (!duyuruObj) return "";
+
+  // Eğer obje değilse string'dir
   if (typeof duyuruObj === "string") {
     return duyuruObj;
   }
   
-  return duyuruObj[lang] || duyuruObj["tr"];
+  // Hangi dil seçiliyse onu getirir
+  return duyuruObj[lang] || duyuruObj["tr"] || "";
 }
 
 // --- 3. KAYDETME FONKSİYONLARI ---
@@ -77,8 +95,9 @@ export function saveSettingToFirebase(key: string, value: string) {
   localStorage.setItem(key, value);
 }
 
-// ✨ Duyuruyu Kaydetme
+// ✨ Duyuruyu Kaydetme Fonksiyonu
 export function setDuyurular(data: { tr: string, de: string }) {
+  // Veriyi her zaman temiz bir JSON string olarak kaydet
   localStorage.setItem("duyurular_metni", JSON.stringify(data));
   console.log("Duyuru güncellendi:", data);
 }
