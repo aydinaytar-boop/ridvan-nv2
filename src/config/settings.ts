@@ -26,19 +26,35 @@ export const SETTINGS = {
     // Hafızada kayıtlı bir duyuru var mı bak
     const saved = localStorage.getItem("duyurular_metni");
     
-    if (saved) {
-      // Eğer kayıt varsa onu kullan (Eski sistemden kalan veri uyumu için)
-      try {
-        return JSON.parse(saved); 
-      } catch {
-        return saved; // Eski formatlıysa olduğu gibi döndür
-      }
-    } else {
-      // Kayıt yoksa varsayılan mesajları göster
+    // 1. DURUM: Hiç kayıt yoksa -> Varsayılanı göster
+    if (!saved) {
       return {
-        tr: "İzine erken gidecek olanlar LÜTFEN Kurban bağışlarınızı yapmış olarak gidin! İyi Tatiller!", 
-        de: "“Wer früher in den Urlaub fährt, wird gebeten, seine **Kurban-Spenden bereits im Voraus geleistet zu haben**. Schöne Feiertage!”"
+        tr: "Hoş geldiniz! İyi Tatiller!", 
+        de: "Willkommen! Schöne Feiertage!"
       };
+    }
+
+    // 2. DURUM: Kayıt var ama eski tip (Düz yazı) ise -> Dönüştür ve Kaydet
+    // Eğer JSON değilse (eski sistemden kalma), bunu Türkçe kabul et
+    if (typeof saved === "string") {
+      const eskiVeri = saved;
+      // Hemen yeni formatta kaydedelim ki bir daha bozulmasın
+      localStorage.setItem("duyurular_metni", JSON.stringify({ tr: eskiVeri, de: "" }));
+      return { tr: eskiVeri, de: "" };
+    }
+
+    // 3. DURUM: Kayıt var ve Kutu (JSON) ise -> İçini kontrol et
+    try {
+      const data = JSON.parse(saved);
+      
+      // Eğer kutunun içinde 'tr' veya 'de' yoksa boşlukları doldur
+      if (!data.tr) data.tr = "";
+      if (!data.de) data.de = "";
+      
+      return data;
+    } catch {
+      // Her şeye rağmen hata olursa
+      return { tr: "", de: "" };
     }
   }
 };
