@@ -8,7 +8,7 @@
   "prayerTimes": { "showSeconds": true, "highlightActive": true },
   "announcements": { "enabled": true, "scrollSpeed": 1 },
   "dynamic": {
-    "sabahKamet": "05:15"
+    "sabahKamet": "06:15",
     "hicriTakvim": "1447",
     "duyurular": "Cuma namazı 13:30'da başlayacaktır.",
     "ramazanBayrami": "2026-03-20",
