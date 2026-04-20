@@ -269,8 +269,7 @@ export default function App() {
         console.error(e);
       }
     }
-
-    // Firebase Senkronizasyonunu Başlat
+    
        setConfigLoaded(true);
   }, []);
 
