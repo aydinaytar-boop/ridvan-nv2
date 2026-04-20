@@ -416,6 +416,42 @@ export default function App() {
   };
 
   return (
+    // ✨ BLACKOUT EKRANI BURADA BAŞLIYOR (Bunu return'dan hemen sonra yapıştır)
+    {isBlackout && (
+      <div style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        background: "#000",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 32,
+        zIndex: 99999 // En üstte kalsın diye
+      }}>
+        <img
+          src="img/close.png?v=5"
+          alt="Lütfen telefonunuzu kapatın!"
+          style={{
+            maxWidth: "100%",
+            maxHeight: "95vh",
+            objectFit: "contain",
+          }}
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).style.display = "none";
+          }}
+        />
+        <div style={{ color: "#c9a66b", fontSize: 28, fontFamily: "'Segoe UI', Arial, sans-serif", letterSpacing: 2, textAlign: "center" }}>
+          {lang === "tr" ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın!" : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus!"}
+        </div>
+        <div style={{ color: "#6a9e78", fontSize: 22 }}>
+          {lang === "tr" ? "Kalan süre" : "Verbleibende Zeit"}: {fmt2(Math.floor(flow.blackoutRemaining / 60))}:{fmt2(flow.blackoutRemaining % 60)}
+        </div>
+      </div>
+    )}
     <div
       style={{
         width: "100vw",
