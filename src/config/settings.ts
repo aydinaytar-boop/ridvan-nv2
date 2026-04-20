@@ -1,6 +1,4 @@
 // src/config/settings.ts
-import { db } from "../utils/firebase"; 
-import { ref, onValue, update } from "firebase/database";
 
 // --- 1. AYARLAR VE VERİLER (SETTINGS) ---
 export const SETTINGS = {
@@ -30,7 +28,11 @@ export const SETTINGS = {
     
     if (saved) {
       // Eğer kayıt varsa onu kullan (Eski sistemden kalan veri uyumu için)
-      return JSON.parse(saved); 
+      try {
+        return JSON.parse(saved); 
+      } catch {
+        return saved; // Eski formatlıysa olduğu gibi döndür
+      }
     } else {
       // Kayıt yoksa varsayılan mesajları göster
       return {
@@ -66,13 +68,9 @@ export function getDuyurular(lang: "tr" | "de"): string {
 
 // --- 3. KAYDETME FONKSİYONLARI ---
 
-// Genel Ayar Kaydetme
+// Genel Ayar Kaydetme (Sadece LocalStorage kullanır)
 export function saveSettingToFirebase(key: string, value: string) {
   localStorage.setItem(key, value);
-  // Firebase varsa oraya da yaz, yoksa bu satırı atla (Hata vermez)
-  if (db) {
-    update(ref(db, 'settings'), { [key]: value });
-  }
 }
 
 // ✨ Duyuruyu Kaydetme Fonksiyonu
@@ -81,29 +79,5 @@ export function setDuyurular(data: { tr: string, de: string }) {
   // 1. Hemen ekranda görünmesi için hafızaya yaz (JSON formatında)
   localStorage.setItem("duyurular_metni", JSON.stringify(data));
   
-  // 2. Uzaktan güncelleme için Firebase'e yaz
-  if (db) {
-    update(ref(db, 'settings'), { duyurular_metni: JSON.stringify(data) });
-  }
-  
   console.log("Duyuru güncellendi:", data);
-}
-
-// --- 4. FIREBASE SENKRONİZASYONU ---
-export function initFirebaseSync() {
-  // Firebase bağlantısı yoksa bu fonksiyon hiçbir şey yapmaz
-  if (!db) return;
-
-  const settingsRef = ref(db, 'settings');
-  
-  onValue(settingsRef, (snapshot) => {
-    const data = snapshot.val();
-    if (data) {
-      Object.keys(data).forEach((key) => {
-        localStorage.setItem(key, data[key]);
-        window.dispatchEvent(new Event('storage-updated')); 
-      });
-      console.log("Firebase verileri senkronize edildi.");
-    }
-  });
 }
