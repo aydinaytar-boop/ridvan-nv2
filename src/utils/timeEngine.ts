@@ -1,3 +1,5 @@
+// src/utils/timeEngine.ts
+
 import { prayerTimes2026, fallbackTimes } from "../data/prayerTimes2026";
 import { DUA_ARCHIVE } from "../data/duaArchive";
 
@@ -251,6 +253,7 @@ export function computeFlow(now: Date, times: TodayTimes): FlowState {
     const blackoutEnd = new Date(kametAlertEnd.getTime() + SETTINGS.blackoutSuresi * 1000);
     const secSinceEzan = diffSeconds(ezanDate, now);
 
+    // EZAN OKUNUYOR (ilk 60 saniye)
     if (secSinceEzan >= 0 && secSinceEzan < 60) {
       return {
         phase: "ezan",
@@ -266,6 +269,7 @@ export function computeFlow(now: Date, times: TodayTimes): FlowState {
       };
     }
 
+    // KAMET SAYIMI (Ezan 60sn geçti, Kamet başlamadı)
     if (now >= ezanDate && secSinceEzan >= 60 && now < kametDate) {
       return {
         phase: "kamet_countdown",
@@ -281,6 +285,7 @@ export function computeFlow(now: Date, times: TodayTimes): FlowState {
       };
     }
 
+    // KAMET OKUNUYOR (ilk 60 saniye)
     if (now >= kametDate && now < kametAlertEnd) {
       return {
         phase: "kamet_alert",
@@ -296,6 +301,7 @@ export function computeFlow(now: Date, times: TodayTimes): FlowState {
       };
     }
 
+    // BLACKOUT (Kamet 60sn geçti, 10dk boyunca ekran kararır)
     if (now >= kametAlertEnd && now < blackoutEnd) {
       return {
         phase: "blackout",
