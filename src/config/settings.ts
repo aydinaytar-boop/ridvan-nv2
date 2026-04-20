@@ -49,7 +49,7 @@ export function getSabahKametSaati(): string {
 }
 
 export function getBayramSaati(tarih: string): string { 
-  return localStorage.getItem(`bayramSaati_${tarih}`) || "06:00"; 
+  return localStorage.getItem(`bayramSaati_${tarih}`) || "06:30"; 
 }
 
 // ✨ Duyuruyu Okuma Fonksiyonu (Artık dil seçimi yapıyor)
