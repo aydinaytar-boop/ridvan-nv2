@@ -29,7 +29,7 @@ export const SETTINGS = {
       
       // 1. Durum: Kayıt yoksa varsayılanı ver
       if (!saved) {
-        return { tr: "Hoş geldiniz! İyi Tatiller!", de: "Willkommen! Schöne Feiertage!" };
+        return { tr: "İzine erken gidecek olanlar LÜTFEN Kurban bağışlarınızı yapmış olarak gidin! İyi Tatiller!", de: "“Wer früher in den Urlaub fährt, wird gebeten, seine Kurban-Spenden bereits im Voraus geleistet zu haben. Schöne Feiertage!”" };
       }
 
       // 2. Durum: Veri zaten bir Obje ise (Doğru format)
