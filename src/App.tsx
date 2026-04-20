@@ -8,19 +8,51 @@ import {
   showWeekendOgleMsg,
   setSabahKametSaati,
   getSabahKametSaati,
+  getDailyDua,
   SETTINGS,
   type VakitKey,
 } from "./utils/timeEngine";
+
 import { DUA_ARCHIVE, EZAN_DUASI } from "./data/duaArchive";
+
+/* -------------------------------------------------------
+   CONFIG.JSON MERKEZİ AYAR SİSTEMİ
+   ------------------------------------------------------- */
+
+async function loadConfig() {
+  try {
+    const res = await fetch("config.json?v=" + Date.now());
+    if (!res.ok) throw new Error("Config yüklenemedi");
+    return await res.json();
+  } catch (e) {
+    console.warn("config.json okunamadı, localStorage kullanılacak:", e);
+    return null;
+  }
+}
+
+function saveConfigToLocal(config: any) {
+  localStorage.setItem("centralConfig", JSON.stringify(config));
+}
+
+function loadConfigFromLocal() {
+  const raw = localStorage.getItem("centralConfig");
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+/* -------------------------------------------------------
+   YARDIMCI FONKSİYONLAR
+   ------------------------------------------------------- */
 
 function fmt2(n: number) {
   return String(Math.max(0, n)).padStart(2, "0");
 }
 
-function toHijri(
-  date: Date,
-  offset = 0
-): { day: number; month: number; year: number } {
+function toHijri(date: Date, offset = 0) {
   const d = new Date(date);
   d.setDate(d.getDate() + offset);
   const JD =
@@ -64,6 +96,10 @@ function toHijri(
   return { day, month, year };
 }
 
+/* -------------------------------------------------------
+   HİCRİ / MİLADİ METİNLER
+   ------------------------------------------------------- */
+
 const HICRI_AYLAR_TR = [
   "",
   "Muharrem",
@@ -79,6 +115,7 @@ const HICRI_AYLAR_TR = [
   "Zilkade",
   "Zilhicce",
 ];
+
 const HICRI_AYLAR_DE = [
   "",
   "Muharram",
@@ -94,12 +131,10 @@ const HICRI_AYLAR_DE = [
   "Dhu al-Qa'da",
   "Dhu al-Hijja",
 ];
-
-function hicriStrTR(h: { day: number; month: number; year: number }) {
+function hicriStrTR(h) {
   return `${h.day} ${HICRI_AYLAR_TR[h.month]} ${h.year}`;
 }
-
-function hicriStrDE(h: { day: number; month: number; year: number }) {
+function hicriStrDE(h) {
   return `${h.day}. ${HICRI_AYLAR_DE[h.month]} ${h.year}`;
 }
 
@@ -112,6 +147,7 @@ const GUNLER_TR = [
   "Cuma",
   "Cumartesi",
 ];
+
 const GUNLER_DE = [
   "Sonntag",
   "Montag",
@@ -121,6 +157,7 @@ const GUNLER_DE = [
   "Freitag",
   "Samstag",
 ];
+
 const AYLAR_TR = [
   "Ocak",
   "Şubat",
@@ -135,6 +172,7 @@ const AYLAR_TR = [
   "Kasım",
   "Aralık",
 ];
+
 const AYLAR_DE = [
   "Januar",
   "Februar",
@@ -162,7 +200,11 @@ function miladiDEStr(d: Date) {
   } ${d.getFullYear()}`;
 }
 
-const VAKIT_NAMES: Record<string, Record<VakitKey, string>> = {
+/* -------------------------------------------------------
+   VAKİT İSİMLERİ
+   ------------------------------------------------------- */
+
+const VAKIT_NAMES = {
   tr: {
     sabah: "SABAH",
     gunes: "GÜNEŞ",
@@ -181,7 +223,7 @@ const VAKIT_NAMES: Record<string, Record<VakitKey, string>> = {
   },
 };
 
-const VAKIT_LABEL: Record<string, Record<VakitKey, string>> = {
+const VAKIT_LABEL = {
   tr: {
     sabah: "Sabah",
     gunes: "Güneş",
@@ -200,6 +242,7 @@ const VAKIT_LABEL: Record<string, Record<VakitKey, string>> = {
   },
 };
 
+<<<<<<< HEAD
 function getDailyDua(date: Date) {
   const dayOfYear = Math.floor(
     (date.getTime() -
@@ -223,11 +266,17 @@ function applyAutoScale() {
   (safeArea as HTMLElement).style.transform = `translateX(-50%) scale(${scale})`;
   (safeArea as HTMLElement).style.transformOrigin = "top center";
 }
+=======
+/* -------------------------------------------------------
+   APP BAŞLANGICI
+   ------------------------------------------------------- */
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
 
 export default function App() {
   // --- STATE TANIMLAMALARI ---
   const [now, setNow] = useState(() => new Date());
   const [lang, setLang] = useState<"tr" | "de">("tr");
+<<<<<<< HEAD
   const [hicriOffset, setHicriOffset] = useState(0);
   
   // Ayarlar State'leri
@@ -241,9 +290,47 @@ export default function App() {
   const [showDuyuruForm, setShowDuyuruForm] = useState(false);
   const [configLoaded, setConfigLoaded] = useState(false);
   
-  const settingsClickCount = useRef(0);
-  const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+=======
 
+  /* MERKEZİ CONFIG AYARLARI */
+  const [centralConfig, setCentralConfig] = useState<any>(null);
+  const [configLoaded, setConfigLoaded] = useState(false);
+
+  /* --- KALICI AYARLAR (localStorage ÖNCELİKLİ) --- */
+
+  const [sabahKametInput, setSabahKametInput] = useState(() =>
+    localStorage.getItem("manuelSabahKamet") || "05:30"
+  );
+
+  const [hicriOffset, setHicriOffset] = useState(() =>
+    Number(localStorage.getItem("hicriOffset") || 0)
+  );
+
+  const [bayramInputs, setBayramInputs] = useState(() => {
+    const raw = localStorage.getItem("bayramInputs");
+    return raw ? JSON.parse(raw) : {};
+  });
+
+  const [duyuruTR, setDuyuruTR] = useState(() =>
+    localStorage.getItem("duyuruTR") || ""
+  );
+
+  const [duyuruDE, setDuyuruDE] = useState(() =>
+    localStorage.getItem("duyuruDE") || ""
+  );
+
+  /* --- AYAR MENÜLERİ --- */
+
+  const [showSettings, setShowSettings] = useState(false);
+  const [showBayramForm, setShowBayramForm] = useState(false);
+  const [showDuyuruForm, setShowDuyuruForm] = useState(false);
+  const [duaLang, setDuaLang] = useState<"tr" | "de">("tr");
+
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
+  const settingsClickCount = useRef(0);
+  const settingsTimer = useRef<any>(null);
+
+<<<<<<< HEAD
   // --- 1. SAYFA AÇILIŞINDA VERİLERİ YÜKLE (LOAD) ---
   useEffect(() => {
     // Sabah Kamet Saati
@@ -305,9 +392,82 @@ export default function App() {
     return () => {
       clearTimeout(timer);
       window.removeEventListener("resize", applyAutoScale);
+=======
+  // --- AYARLARI KAYDETME FONKSİYONU ---
+  const saveSettings = () => {
+    const settings = {
+      sabahKamet: sabahKamet,
+      ogleKamet: ogleKamet,
+      ikindiKamet: ikindiKamet,
+      aksamKamet: aksamKamet,
+      yatsiKamet: yatsiKamet,
+      hicriOffset: hicriOffset,
+      bayram1: bayram1,
+      bayram2: bayram2,
+      duyurular: duyurular,
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
     };
+
+    localStorage.setItem("mosqueSettings", JSON.stringify(settings));
+    setShowSettings(false);
+  };
+  /* -------------------------------------------------------
+     CONFIG.JSON YÜKLEME
+     ------------------------------------------------------- */
+
+  useEffect(() => {
+    (async () => {
+      let cfg = await loadConfig();
+
+      if (!cfg) {
+        cfg = loadConfigFromLocal();
+      }
+
+      if (cfg) {
+        setCentralConfig(cfg);
+
+        setSabahKametInput(cfg.sabahKamet || "05:30");
+        setHicriOffset(cfg.hicriOffset || 0);
+        setBayramInputs(cfg.bayramInputs || {});
+        setDuyuruTR(cfg.duyuruTR || "");
+        setDuyuruDE(cfg.duyuruDE || "");
+      }
+
+      setConfigLoaded(true);
+    })();
   }, []);
 
+<<<<<<< HEAD
+=======
+  /* -------------------------------------------------------
+     CONFIG.JSON DEĞİŞİKLİKLERİNİ KAYDETME (PC MODU)
+     ------------------------------------------------------- */
+
+  const saveCentralConfig = useCallback(() => {
+    const base = centralConfig || {};
+    const updated = {
+      ...base,
+      sabahKamet: sabahKametInput,
+      hicriOffset,
+      bayramInputs,
+      duyuruTR,
+      duyuruDE,
+    };
+
+    saveConfigToLocal(updated);
+    setCentralConfig(updated);
+  }, [centralConfig, sabahKametInput, hicriOffset, bayramInputs, duyuruTR, duyuruDE]);
+
+  /* -------------------------------------------------------
+     SAAT TİMERLERİ
+     ------------------------------------------------------- */
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
   useEffect(() => {
     const id = setInterval(() => {
       setLang((l) => (l === "tr" ? "de" : "tr"));
@@ -315,10 +475,25 @@ export default function App() {
     return () => clearInterval(id);
   }, []);
 
+  /* -------------------------------------------------------
+     SABAH KAMET SAATİ (MERKEZİ)
+     ------------------------------------------------------- */
+
   useEffect(() => {
+<<<<<<< HEAD
     const id = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(id);
   }, []);
+=======
+    if (configLoaded) {
+      setSabahKametSaati(sabahKametInput);
+    }
+  }, [sabahKametInput, configLoaded]);
+
+  /* -------------------------------------------------------
+     HESAPLAMALAR
+     ------------------------------------------------------- */
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
 
   // --- HESAPLAMALAR ---
   const times = getTodayTimes(now);
@@ -326,22 +501,29 @@ export default function App() {
   const bayram = getBayramVisibility(now);
   const weekendMsg = showWeekendOgleMsg(now);
   const dailyDua = getDailyDua(now);
+
   const hicri = toHijri(now, hicriOffset);
   const hicriTR = hicriStrTR(hicri);
   const hicriDE = hicriStrDE(hicri);
+
   const miladiTR = miladiTRStr(now);
   const miladiDE = miladiDEStr(now);
+
   const hh = fmt2(now.getHours());
   const mm = fmt2(now.getMinutes());
   const ss = fmt2(now.getSeconds());
+
   const isEzan = flow.phase === "ezan";
   const isKametCountdown = flow.phase === "kamet_countdown";
   const isKametAlert = flow.phase === "kamet_alert";
   const isBlackout = flow.phase === "blackout";
 
-  let cdH = 0,
-    cdM = 0,
-    cdS = 0;
+  /* -------------------------------------------------------
+     GERİ SAYIM
+     ------------------------------------------------------- */
+
+  let cdH = 0, cdM = 0, cdS = 0;
+
   if (isKametCountdown) {
     const total = flow.kametCountdown;
     cdH = Math.floor(total / 3600);
@@ -354,64 +536,66 @@ export default function App() {
     cdS = total % 60;
   }
 
+  /* -------------------------------------------------------
+     GÜNEŞE KALAN SÜRE
+     ------------------------------------------------------- */
+
   const gunesDate = new Date(now);
   const [gh, gm] = times.gunes.split(":").map(Number);
   gunesDate.setHours(gh, gm, 0, 0);
+
   const gunesKalanSec = Math.max(
     0,
     Math.floor((gunesDate.getTime() - now.getTime()) / 1000)
   );
+
   const gunesKalanH = Math.floor(gunesKalanSec / 3600);
   const gunesKalanM = Math.floor((gunesKalanSec % 3600) / 60);
   const gunesKalanS = gunesKalanSec % 60;
 
+  /* -------------------------------------------------------
+     VAKİT LİSTESİ
+     ------------------------------------------------------- */
+
   const currentLabel = flow.currentVakit
     ? VAKIT_LABEL[lang][flow.currentVakit]
     : "—";
+
   const nextLabel = flow.nextVakit
     ? VAKIT_LABEL[lang][flow.nextVakit]
     : "—";
+
   const nextTime = flow.nextVakitTime;
   const kametVakit = flow.activeEzanVakit;
 
-  const vakitList: { key: VakitKey; ezan: string; kamet: string | null }[] =
-    [
-      { key: "sabah", ezan: times.sabah, kamet: times.sabahKamet },
-      { key: "gunes", ezan: times.gunes, kamet: null },
-      {
-        key: "ogle",
-        ezan: times.ogle,
-        kamet: getKametTime("ogle", times.ogle),
-      },
-      {
-        key: "ikindi",
-        ezan: times.ikindi,
-        kamet: getKametTime("ikindi", times.ikindi),
-      },
-      {
-        key: "aksam",
-        ezan: times.aksam,
-        kamet: getKametTime("aksam", times.aksam),
-      },
-      {
-        key: "yatsi",
-        ezan: times.yatsi,
-        kamet: getKametTime("yatsi", times.yatsi),
-      },
-    ];
+  const vakitList = [
+    { key: "sabah", ezan: times.sabah, kamet: times.sabahKamet },
+    { key: "gunes", ezan: times.gunes, kamet: null },
+    { key: "ogle", ezan: times.ogle, kamet: getKametTime("ogle", times.ogle) },
+    { key: "ikindi", ezan: times.ikindi, kamet: getKametTime("ikindi", times.ikindi) },
+    { key: "aksam", ezan: times.aksam, kamet: getKametTime("aksam", times.aksam) },
+    { key: "yatsi", ezan: times.yatsi, kamet: getKametTime("yatsi", times.yatsi) },
+  ];
+  /* -------------------------------------------------------
+     ALT BAR TIKLAMA (GİZLİ AYARLAR)
+     ------------------------------------------------------- */
 
   const handleBottomClick = useCallback(() => {
     settingsClickCount.current += 1;
+
     if (settingsTimer.current) clearTimeout(settingsTimer.current);
+
     settingsTimer.current = setTimeout(() => {
       settingsClickCount.current = 0;
     }, 1000);
+
     if (settingsClickCount.current >= 3) {
       settingsClickCount.current = 0;
       setShowSettings(true);
     }
   }, []);
 
+<<<<<<< HEAD
   // --- KAYDETME FONKSİYONU (MANUAL SAVE BUTTONU İÇİN) ---
   // Not: Yukarıdaki useEffect otomatik kaydediyor, 
   // bu fonksiyon butona basılınca ek işlem yapmak (örn: uyarı vermek) için.
@@ -425,6 +609,60 @@ export default function App() {
   };
 
   // --- RENDER ---
+=======
+  /* -------------------------------------------------------
+     BLACKOUT EKRANI
+     ------------------------------------------------------- */
+
+  if (isBlackout) {
+    return (
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          background: "#000",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 32,
+        }}
+      >
+        <img
+          src="img/close.png?v=5"
+          alt="Lütfen telefonunuzu kapatın!"
+          style={{
+            maxWidth: "100%",
+            maxHeight: "95vh",
+            objectFit: "contain",
+          }}
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).style.display = "none";
+          }}
+        />
+        <div
+          style={{
+            color: "#c9a66b",
+            fontSize: 28,
+            fontFamily: "'Segoe UI', Arial, sans-serif",
+            letterSpacing: 2,
+            textAlign: "center",
+          }}
+        >
+          {lang === "tr"
+            ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın!"
+            : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus!"}
+        </div>
+        <div style={{ color: "#6a9e78", fontSize: 22 }}>
+          {lang === "tr" ? "Kalan süre" : "Verbleibende Zeit"}:{" "}
+          {fmt2(Math.floor(flow.blackoutRemaining / 60))}:
+          {fmt2(flow.blackoutRemaining % 60)}
+        </div>
+      </div>
+    );
+  }
+
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
   return (
     <div
       style={{
@@ -448,6 +686,7 @@ export default function App() {
         >
           {/* AYARLAR OVERLAY */}
           {showSettings && (
+<<<<<<< HEAD
             <div
               style={{
                 position: "absolute",
@@ -773,122 +1012,342 @@ export default function App() {
               padding: "0 32px",
             }}
           >
+=======
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
             <div
               style={{
+                position: "absolute",
+                inset: 0,
+                background: "#0a3d2e",
                 display: "flex",
                 flexDirection: "column",
-                gap: 2,
-                minWidth: 260,
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 24,
+                padding: 40,
+                overflowY: "auto",
+                zIndex: 10,
               }}
             >
               <div
                 style={{
                   color: "#c9a66b",
                   fontSize: 22,
-                  fontWeight: 500,
-                  letterSpacing: 1,
-                  lineHeight: 1,
+                  fontWeight: "bold",
+                  marginBottom: 8,
                 }}
               >
-                {lang === "tr" ? hicriTR : hicriDE}
+                ⚙️ {lang === "tr" ? "Ayarlar" : "Einstellungen"}
               </div>
-              <div
-                style={{
-                  color: "#f5d78e",
-                  fontSize: 28,
-                  fontWeight: 700,
-                  lineHeight: 1,
-                }}
-              >
-                {lang === "tr" ? miladiTR : miladiDE}
-              </div>
-            </div>
 
-            <div
-              style={{
-                flex: 1,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
+              {/* SABAH KAMET */}
               <div
                 style={{
-                  color: "#f5d78e",
-                  fontSize: 52,
-                  fontWeight: 900,
-                  letterSpacing: 6,
-                  textTransform: "uppercase",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 16,
+                  width: "100%",
+                  maxWidth: 600,
+                }}
+              >
+                <span
+                  style={{
+                    color: "#f5d78e",
+                    fontSize: 20,
+                    flex: 1,
+                  }}
+                >
+                  {lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit"}
+                </span>
+                <input
+                  type="time"
+                  value={sabahKametInput}
+                  onChange={(e) => setSabahKametInput(e.target.value)}
+                  style={{
+                    flex: 1,
+                    padding: "8px 12px",
+                    borderRadius: 8,
+                    border: "2px solid #c9a66b",
+                    background: "#1a5c3a",
+                    color: "#f5d78e",
+                    fontSize: 18,
+                  }}
+                />
+              </div>
+
+              {/* HİCRİ TAKVİM */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 8,
+                  width: "100%",
+                  maxWidth: 600,
+                }}
+              >
+                <span
+                  style={{
+                    color: "#f5d78e",
+                    fontSize: 20,
+                  }}
+                >
+                  {lang === "tr"
+                    ? "Hicri Takvim Düzeltmesi"
+                    : "Hidschra-Kalender Korrektur"}
+                </span>
+
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 12,
+                    alignItems: "center",
+                  }}
+                >
+                  <button
+                    onClick={() => setHicriOffset((o) => o - 1)}
+                    style={{
+                      padding: "8px 20px",
+                      fontSize: 22,
+                      background: "#1a5c3a",
+                      color: "#c9a66b",
+                      border: "2px solid #c9a66b",
+                      borderRadius: 8,
+                      cursor: "pointer",
+                    }}
+                  >
+                    −
+                  </button>
+
+                  <span
+                    style={{
+                      color: "#f5d78e",
+                      fontSize: 22,
+                      minWidth: 60,
+                      textAlign: "center",
+                    }}
+                  >
+                    {hicriOffset > 0 ? `+${hicriOffset}` : hicriOffset}{" "}
+                    {lang === "tr" ? "gün" : "Tage"}
+                  </span>
+
+                  <button
+                    onClick={() => setHicriOffset((o) => o + 1)}
+                    style={{
+                      padding: "8px 20px",
+                      fontSize: 24,
+                      background: "#1a5c3a",
+                      color: "#c9a66b",
+                      border: "2px solid #c9a66b",
+                      borderRadius: 8,
+                      cursor: "pointer",
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+
+                <div style={{ color: "#6a9e78", fontSize: 16 }}>
+                  {lang === "tr" ? `Şu an: ${hicriTR}` : `Aktuell: ${hicriDE}`}
+                </div>
+              </div>
+                <div style={{ color: "#6a9e78", fontSize: 16 }}>
+                  {lang === "tr" ? `Şu an: ${hicriTR}` : `Aktuell: ${hicriDE}`}
+                </div>
+              </div>
+
+              {/* BAYRAM SAATLERİ */}
+              <div style={{ width: "100%", maxWidth: 600 }}>
+                <button
+                  onClick={() => setShowBayramForm((v) => !v)}
+                  style={{
+                    padding: "8px 20px",
+                    fontSize: 18,
+                    background: "#1a5c3a",
+                    color: "#c9a66b",
+                    border: "2px solid #c9a66b",
+                    borderRadius: 8,
+                    cursor: "pointer",
+                    marginBottom: 12,
+                  }}
+                >
+                  {lang === "tr" ? "Bayram Saatleri" : "Feiertagszeiten"} ▾
+                </button>
+
+                {showBayramForm &&
+                  SETTINGS.bayramlar.map((b) => (
+                    <div
+                      key={b.tarih}
+                      style={{
+                        display: "flex",
+                        gap: 12,
+                        alignItems: "center",
+                        marginBottom: 8,
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: "#f5d78e",
+                          flex: 1,
+                          fontSize: 16,
+                        }}
+                      >
+                        {lang === "tr" ? b.ad_tr : b.ad_de} — {b.tarih}
+                      </span>
+
+                      <input
+                        type="time"
+                        value={bayramInputs[b.tarih] || "09:00"}
+                        onChange={(e) =>
+                          setBayramInputs((prev) => ({
+                            ...prev,
+                            [b.tarih]: e.target.value,
+                          }))
+                        }
+                        style={{
+                          flex: 1,
+                          padding: "6px 10px",
+                          borderRadius: 6,
+                          border: "2px solid #c9a66b",
+                          background: "#0a3d2e",
+                          color: "#f5d78e",
+                          fontSize: 16,
+                        }}
+                      />
+                    </div>
+                  ))}
+              </div>
+
+              {/* DUYURULAR */}
+              <div style={{ width: "100%", maxWidth: 600 }}>
+                <button
+                  onClick={() => setShowDuyuruForm((v) => !v)}
+                  style={{
+                    padding: "8px 20px",
+                    fontSize: 18,
+                    background: "#1a5c3a",
+                    color: "#c9a66b",
+                    border: "2px solid #c9a66b",
+                    borderRadius: 8,
+                    cursor: "pointer",
+                    marginBottom: 12,
+                  }}
+                >
+                  {lang === "tr" ? "Duyurular" : "Ankündigungen"} ▾
+                </button>
+
+                {showDuyuruForm && (
+                  <>
+                    {/* TR DUYURU */}
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 8,
+                        marginBottom: 12,
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: "#f5d78e",
+                          fontSize: 22,
+                        }}
+                      >
+                        {lang === "tr"
+                          ? "Türkçe Duyuru"
+                          : "Türkische Ankündigung"}
+                      </span>
+
+                      <textarea
+                        value={duyuruTR}
+                        onChange={(e) => setDuyuruTR(e.target.value)}
+                        style={{
+                          width: "100%",
+                          padding: "8px 12px",
+                          borderRadius: 6,
+                          border: "2px solid #c9a66b",
+                          background: "#0a3d2e",
+                          color: "#f5d78e",
+                          fontSize: 22,
+                          minHeight: 80,
+                          resize: "vertical",
+                        }}
+                      />
+                    </div>
+
+                    {/* DE DUYURU */}
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 8,
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: "#f5d78e",
+                          fontSize: 16,
+                        }}
+                      >
+                        {lang === "tr"
+                          ? "Almanca Duyuru"
+                          : "Deutsche Ankündigung"}
+                      </span>
+
+                      <textarea
+                        value={duyuruDE}
+                        onChange={(e) => setDuyuruDE(e.target.value)}
+                        style={{
+                          width: "100%",
+                          padding: "8px 12px",
+                          borderRadius: 6,
+                          border: "2px solid #c9a66b",
+                          background: "#0a3d2e",
+                          color: "#f5d78e",
+                          fontSize: 22,
+                          minHeight: 80,
+                          resize: "vertical",
+                        }}
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* BİLGİ NOTU */}
+              <div
+                style={{
+                  color: "#6a9e78",
+                  fontSize: 22,
                   textAlign: "center",
-                  lineHeight: 1,
-                  fontFamily: "'Segoe UI', 'Arial', sans-serif",
+                  maxWidth: 600,
+                  marginTop: 8,
                 }}
               >
+                ℹ️{" "}
                 {lang === "tr"
-                  ? "RIDVAN CAMİİ — VİYANA"
-                  : "RIDVAN MOSCHEE — WIEN"}
+                  ? "TV'den yapılan değişiklikler bu cihazda saklanır. Tüm TV'ler için GitHub'da public/config.json dosyasını güncelleyin."
+                  : "Änderungen von TV werden auf diesem Gerät gespeichert. Für alle TVs aktualisieren Sie public/config.json auf GitHub."}
               </div>
-            </div>
 
-            <div
-              style={{
-                display: "flex",
-                alignItems: "flex-end",
-                minWidth: 220,
-                justifyContent: "flex-end",
-              }}
-            >
-              <span
+              {/* KAPAT */}
+              <button
+                onClick={() => setShowSettings(false)}
                 style={{
-                  color: "#f5d78e",
-                  fontSize: 68,
-                  fontWeight: 900,
-                  lineHeight: 1,
-                  fontFamily: "monospace",
+                  marginTop: 16,
+                  padding: "12px 40px",
+                  fontSize: 20,
+                  background: "#c9a66b",
+                  color: "#0a3d2e",
+                  border: "none",
+                  borderRadius: 10,
+                  cursor: "pointer",
+                  fontWeight: "bold",
                 }}
               >
-                {hh}
-              </span>
-              <span
-                style={{
-                  color: "#c9a66b",
-                  fontSize: 52,
-                  fontWeight: 900,
-                  margin: "0 4px",
-                  fontFamily: "monospace",
-                  animation: "pulse 1s infinite",
-                }}
-              >
-                :
-              </span>
-              <span
-                style={{
-                  color: "#f5d78e",
-                  fontSize: 68,
-                  fontWeight: 900,
-                  lineHeight: 1,
-                  fontFamily: "monospace",
-                }}
-              >
-                {mm}
-              </span>
-              <span
-                style={{
-                  color: "#c9a66b",
-                  fontSize: 32,
-                  fontWeight: 700,
-                  marginBottom: 6,
-                  marginLeft: 6,
-                  fontFamily: "monospace",
-                  animation: "pulse 1s infinite",
-                }}
-              >
-                {ss}
-              </span>
+                ✓ {lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"}
+              </button>
             </div>
-          </div>
-
+          )}
           {/* ANA PANELLER */}
           <div className="main-panels" style={{ display: "flex", flex: 1 }}>
             {/* SOL PANEL */}
@@ -916,6 +1375,8 @@ export default function App() {
               >
                 {lang === "tr" ? "NAMAZ VAKİTLERİ" : "GEBETSZEITEN"}
               </div>
+
+              {/* TABLO BAŞLIKLARI */}
               <div
                 style={{
                   display: "grid",
@@ -937,6 +1398,7 @@ export default function App() {
                 >
                   {lang === "tr" ? "VAKİT" : "GEBET"}
                 </span>
+
                 <span
                   style={{
                     color: "#c9a66b",
@@ -949,6 +1411,7 @@ export default function App() {
                 >
                   {lang === "tr" ? "EZAN" : "ADHAN"}
                 </span>
+
                 <span
                   style={{
                     color: "#c9a66b",
@@ -962,6 +1425,8 @@ export default function App() {
                   {lang === "tr" ? "KAMET" : "IQÂMAT"}
                 </span>
               </div>
+
+              {/* VAKİT SATIRLARI */}
               <div
                 style={{
                   flex: 1,
@@ -972,6 +1437,7 @@ export default function App() {
                 {vakitList.map(({ key, ezan, kamet }) => {
                   const isActive = flow.currentVakit === key;
                   const isNext = flow.nextVakit === key;
+
                   return (
                     <div
                       key={key}
@@ -1004,28 +1470,25 @@ export default function App() {
                           lineHeight: 1,
                         }}
                       >
-                        {VAKIT_NAMES[lang][key]}
+                        {VAKIT_LABEL[lang][key]}
                       </span>
+
                       <span
-                        className={isActive ? "active-vakit-text" : ""}
                         style={{
                           color: "#f5d78e",
-                          fontSize: isActive ? 48 : 44,
-                          fontWeight: 700,
+                          fontSize: 32,
                           textAlign: "center",
-                          fontFamily: "monospace",
                           lineHeight: 1,
                         }}
                       >
                         {ezan}
                       </span>
+
                       <span
-                        className={isActive ? "active-vakit-text" : ""}
                         style={{
-                          color: isActive ? "#f5d78e" : "#a8c8b0",
-                          fontSize: 40,
+                          color: "#f5d78e",
+                          fontSize: 32,
                           textAlign: "right",
-                          fontFamily: "monospace",
                           lineHeight: 1,
                         }}
                       >
@@ -1034,6 +1497,8 @@ export default function App() {
                     </div>
                   );
                 })}
+
+                {/* CUMA SATIRI */}
                 <div
                   style={{
                     display: "grid",
@@ -1057,6 +1522,7 @@ export default function App() {
                   >
                     {lang === "tr" ? "CUMA" : "DSCHUM'A"}
                   </span>
+
                   <span
                     style={{
                       color: "#0a3d2e",
@@ -1069,6 +1535,7 @@ export default function App() {
                   >
                     {SETTINGS.cuma.ezan}
                   </span>
+
                   <span
                     style={{
                       color: "#0a3d2e",
@@ -1081,6 +1548,8 @@ export default function App() {
                     {SETTINGS.cuma.kamet}
                   </span>
                 </div>
+
+                {/* BAYRAM SATIRI */}
                 {bayram.visible && bayram.bayram && (
                   <div
                     style={{
@@ -1106,6 +1575,7 @@ export default function App() {
                         ? bayram.bayram.ad_tr
                         : bayram.bayram.ad_de}
                     </span>
+
                     <span
                       style={{
                         color: "#f5d78e",
@@ -1118,6 +1588,7 @@ export default function App() {
                     >
                       {bayram.saat}
                     </span>
+
                     <span
                       style={{
                         color: "#a8c8b0",
@@ -1130,6 +1601,8 @@ export default function App() {
                     </span>
                   </div>
                 )}
+
+                {/* HAFTA SONU ÖĞLE MESAJI */}
                 {weekendMsg && (
                   <div
                     style={{
@@ -1149,7 +1622,6 @@ export default function App() {
                 )}
               </div>
             </div>
-
             {/* ORTA PANEL */}
             <div
               className="panel"
@@ -1194,6 +1666,10 @@ export default function App() {
                 </div>
               ) : (
                 <>
+<<<<<<< HEAD
+=======
+                  {/* GÜNÜN VAKTİ */}
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
                   <div className="panel-title">
                     {lang === "tr" ? "GÜNÜN VAKTİ" : "AKTUELLE GEBETSZEIT"}
                   </div>
@@ -1202,6 +1678,10 @@ export default function App() {
                     {currentLabel}
                   </div>
 
+<<<<<<< HEAD
+=======
+                  {/* SONRAKİ VAKİT */}
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
                   {!isKametCountdown && (
                     <>
                       <div className="panel-title" style={{ marginTop: 8 }}>
@@ -1216,6 +1696,10 @@ export default function App() {
                     </>
                   )}
 
+<<<<<<< HEAD
+=======
+                  {/* KAMETE KALAN SÜRE */}
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
                   {isKametCountdown && (
                     <div style={{ textAlign: "center", marginTop: 8 }}>
                       <div className="panel-title">
@@ -1241,6 +1725,7 @@ export default function App() {
                   {/* GERİ SAYIM */}
                   <div className="countdown-row">
                     {[
+<<<<<<< HEAD
                       {
                         val: fmt2(cdH),
                         label: lang === "tr" ? "Saat" : "Std.",
@@ -1271,6 +1756,20 @@ export default function App() {
                           <span className="countdown-label">
                             {item.label}
                           </span>
+=======
+                      { val: fmt2(cdH), label: lang === "tr" ? "Saat" : "Std." },
+                      null,
+                      { val: fmt2(cdM), label: lang === "tr" ? "Dakika" : "Min." },
+                      null,
+                      { val: fmt2(cdS), label: lang === "tr" ? "Saniye" : "Sek." },
+                    ].map((item, i) =>
+                      item === null ? (
+                        <span key={i} className="countdown-separator">:</span>
+                      ) : (
+                        <div key={i} className="countdown-box">
+                          <span className="countdown-value">{item.val}</span>
+                          <span className="countdown-label">{item.label}</span>
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
                         </div>
                       )
                     )}
@@ -1280,9 +1779,13 @@ export default function App() {
                   {flow.currentVakit === "sabah" &&
                     !isEzan &&
                     !isKametCountdown && (
+<<<<<<< HEAD
                       <div
                         style={{ textAlign: "center", marginTop: 16 }}
                       >
+=======
+                      <div style={{ textAlign: "center", marginTop: 16 }}>
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
                         <div
                           style={{
                             color: "#c9a66b",
@@ -1291,9 +1794,13 @@ export default function App() {
                             lineHeight: 1,
                           }}
                         >
+<<<<<<< HEAD
                           {lang === "tr"
                             ? "GÜNEŞE KALAN"
                             : "BIS SCHURUQ"}
+=======
+                          {lang === "tr" ? "GÜNEŞE KALAN" : "BIS SCHURUQ"}
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
                         </div>
 
                         <div
@@ -1313,6 +1820,10 @@ export default function App() {
                 </>
               )}
 
+<<<<<<< HEAD
+=======
+              {/* BAYRAM KUTUSU */}
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
               {bayram.visible && (
                 <div
                   style={{
@@ -1328,10 +1839,14 @@ export default function App() {
                     lineHeight: 1,
                   }}
                 >
+<<<<<<< HEAD
                   🎉{" "}
                   {lang === "tr"
                     ? bayram.bayram?.ad_tr
                     : bayram.bayram?.ad_de}
+=======
+                  🎉 {lang === "tr" ? bayram.bayram?.ad_tr : bayram.bayram?.ad_de}
+>>>>>>> 7e0e7736c7e4c83f0cfa5cb4a5091ad3a3cec2b2
                 </div>
               )}
             </div>
@@ -1374,6 +1889,7 @@ export default function App() {
                     ? "GÜNÜN DUASI"
                     : "DUA DES TAGES"}
                 </div>
+
                 <div
                   style={{
                     flex: 1,
@@ -1400,6 +1916,7 @@ export default function App() {
                       >
                         {EZAN_DUASI.arabic}
                       </div>
+
                       <div
                         style={{
                           color: "#a8c8b0",
@@ -1431,6 +1948,7 @@ export default function App() {
                           {dailyDua.source}
                         </div>
                       )}
+
                       <div
                         style={{
                           color: "#f5d78e",
@@ -1444,6 +1962,7 @@ export default function App() {
                       >
                         {dailyDua.ar}
                       </div>
+
                       <div
                         style={{
                           color: "#a8c8b0",
@@ -1482,6 +2001,7 @@ export default function App() {
                 >
                   {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
                 </div>
+
                 <div
                   style={{
                     flex: 1,
@@ -1501,100 +2021,86 @@ export default function App() {
                       whiteSpace: "pre-wrap",
                     }}
                   >
-                    {lang === "tr"
-                      ? duyuruTR || "—"
-                      : duyuruDE || "—"}
+                    {lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"}
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* ALT BAR */}
-          <div
-            className="bottom-bar"
-            style={{
-              background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)",
-              borderTop: "4px solid #c9a66b",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "0 32px",
-              cursor: "default",
-              position: "relative",
-            }}
-          >
+            {/* ALT BAR — DOĞRU YER */}
             <div
+              className="bottom-bar"
               style={{
-                color: "#c9a66b",
-                fontSize: 14,
-                letterSpacing: 1,
-              }}
-              onClick={handleBottomClick}
-            >
-              Bu uygulama <strong>AyTa®</strong> tarafından
-              hazırlanmıştır
-            </div>
-            <button
-              onClick={() => setShowSettings(true)}
-              title="Ayarlar"
-              style={{
-                position: "absolute",
-                left: "50%",
-                transform: "translateX(-50%)",
-                background: "transparent",
-                border: "1px solid #c9a66b44",
-                borderRadius: 6,
-                padding: "4px 10px",
-                color: "#c9a66b77",
-                fontSize: 16,
-                cursor: "pointer",
+                background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)",
+                borderTop: "4px solid #c9a66b",
                 display: "flex",
                 alignItems: "center",
-                gap: 4,
-                transition: "all 0.2s",
-                lineHeight: 1,
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.color =
-                  "#c9a66b";
-                (e.currentTarget as HTMLButtonElement).style.borderColor =
-                  "#c9a66b";
-                (e.currentTarget as HTMLButtonElement).style.background =
-                  "#c9a66b11";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.color =
-                  "#c9a66b77";
-                (e.currentTarget as HTMLButtonElement).style.borderColor =
-                  "#c9a66b44";
-                (e.currentTarget as HTMLButtonElement).style.background =
-                  "transparent";
+                justifyContent: "space-between",
+                padding: "0 32px",
+                cursor: "default",
+                position: "relative",
               }}
             >
-              ⚙️
-            </button>
-            <div
-              style={{
-                border: "3px solid #c9a66b",
-                borderRadius: 8,
-                padding: "6px 12px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#ffffff",
-                boxShadow: "0 0 0 1px #c9a66b",
-              }}
-            >
-              <img
-                src="img/logo.png?v=5"
-                alt="Ridvan Camii Logo"
-                style={{ height: 52, objectFit: "contain" }}
-              />
+              <div
+                style={{
+                  color: "#c9a66b",
+                  fontSize: 14,
+                  letterSpacing: 1,
+                }}
+                onClick={handleBottomClick}
+              >
+                Bu uygulama <strong>AyTa®</strong> tarafından hazırlanmıştır
+              </div>
+
+              <button
+                onClick={() => setShowSettings(true)}
+                title="Ayarlar"
+                style={{
+                  position: "absolute",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  background: "transparent",
+                  border: "1px solid #c9a66b44",
+                  borderRadius: 6,
+                  padding: "4px 10px",
+                  color: "#c9a66b77",
+                  fontSize: 16,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 4,
+                  transition: "all 0.2s",
+                  lineHeight: 1,
+                }}
+              >
+                ⚙️
+              </button>
+
+              <div
+                style={{
+                  border: "3px solid #c9a66b",
+                  borderRadius: 8,
+                  padding: "6px 12px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#ffffff",
+                  boxShadow: "0 0 0 1px #c9a66b",
+                }}
+              >
+                <img
+                  src="img/logo.png?v=5"
+                  alt="Ridvan Camii Logo"
+                  style={{ height: 52, objectFit: "contain" }}
+                />
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+
+          </div> {/* main-panels */}
+        </div>   {/* outer-frame */}
+      </div>   {/* tv-safe-area */}
+    </div>   {/* ana container */}
+  );          {/* return kapanışı */}
+}             {/* App fonksiyonu kapanışı */}
+
+export default App;
