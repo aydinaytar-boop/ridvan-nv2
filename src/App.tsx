@@ -13,11 +13,11 @@ import {
 } from "./utils/timeEngine";
 import { DUA_ARCHIVE, EZAN_DUASI } from "./data/duaArchive";
 
-// ⚠️ ÖNEMLİ: Ayarlar dosyasından yeni fonksiyonları içe aktarıyoruz
+// Ayarlar dosyasından fonksiyonları alıyoruz
 import { 
   getDuyurular, 
-  setDuyurular, 
-  } from "./config/settings"; 
+  setDuyurular 
+} from "./config/settings"; 
 
 function fmt2(n: number) {
   return String(Math.max(0, n)).padStart(2, "0");
@@ -251,12 +251,10 @@ export default function App() {
     const savedDuyuruTR = localStorage.getItem("duyurular_metni");
     if (savedDuyuruTR) {
         try {
-            // Yeni formatta kayıt var mı diye bak
             const parsed = JSON.parse(savedDuyuruTR);
             if (parsed.tr) setDuyuruTR(parsed.tr);
             if (parsed.de) setDuyuruDE(parsed.de);
         } catch {
-            // Eski tip tek yazıysa onu TR kabul et
             setDuyuruTR(savedDuyuruTR);
         }
     }
@@ -269,18 +267,15 @@ export default function App() {
         console.error(e);
       }
     }
-    
-       setConfigLoaded(true);
+
+    setConfigLoaded(true);
   }, []);
 
   // Her şey değiştiğinde otomatik kaydet
   useEffect(() => {
     if (configLoaded) {
       localStorage.setItem("manuelSabahKamet", sabahKametInput);
-      
-      // Duyuruları yeni formatta kaydet
       setDuyurular({ tr: duyuruTR, de: duyuruDE });
-      
       localStorage.setItem("ridvan_bayram_inputs", JSON.stringify(bayramInputs));
     }
   }, [sabahKametInput, duyuruTR, duyuruDE, bayramInputs, configLoaded]);
@@ -328,11 +323,12 @@ export default function App() {
   const isEzan = flow.phase === "ezan";
   const isKametCountdown = flow.phase === "kamet_countdown";
   const isKametAlert = flow.phase === "kamet_alert";
+  
+  // ✨ BLACKOUT DURUMU (Eski çalışan koddan alındı)
   const isBlackout = flow.phase === "blackout";
 
-  let cdH = 0,
-    cdM = 0,
-    cdS = 0;
+  // Geri sayım hesaplamaları
+  let cdH = 0, cdM = 0, cdS = 0;
   if (isKametCountdown) {
     const total = flow.kametCountdown;
     cdH = Math.floor(total / 3600);
@@ -415,23 +411,22 @@ export default function App() {
     console.log("Ayarlar kapatıldı.");
   };
 
-  return (
-    // ✨ BLACKOUT EKRANI BURADA BAŞLIYOR (Bunu return'dan hemen sonra yapıştır)
-    {isBlackout && (
-      <div style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-        background: "#000",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 32,
-        zIndex: 99999 // En üstte kalsın diye
-      }}>
+  // ✨✨✨ BLACKOUT EKRANI (ESKİSİ GİBİ ÇALIŞIR) ✨✨✨
+  // Eğer isBlackout true ise, tüm ekranı kapla ve sadece bunu göster.
+  if (isBlackout) {
+    return (
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          background: "#000",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 32,
+        }}
+      >
         <img
           src="img/close.png?v=5"
           alt="Lütfen telefonunuzu kapatın!"
@@ -444,14 +439,30 @@ export default function App() {
             (e.currentTarget as HTMLImageElement).style.display = "none";
           }}
         />
-        <div style={{ color: "#c9a66b", fontSize: 28, fontFamily: "'Segoe UI', Arial, sans-serif", letterSpacing: 2, textAlign: "center" }}>
-          {lang === "tr" ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın!" : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus!"}
+        <div
+          style={{
+            color: "#c9a66b",
+            fontSize: 28,
+            fontFamily: "'Segoe UI', Arial, sans-serif",
+            letterSpacing: 2,
+            textAlign: "center",
+          }}
+        >
+          {lang === "tr"
+            ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın!"
+            : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus!"}
         </div>
         <div style={{ color: "#6a9e78", fontSize: 22 }}>
-          {lang === "tr" ? "Kalan süre" : "Verbleibende Zeit"}: {fmt2(Math.floor(flow.blackoutRemaining / 60))}:{fmt2(flow.blackoutRemaining % 60)}
+          {lang === "tr" ? "Kalan süre" : "Verbleibende Zeit"}:{" "}
+          {fmt2(Math.floor(flow.blackoutRemaining / 60))}:
+          {fmt2(flow.blackoutRemaining % 60)}
         </div>
       </div>
-    )}
+    );
+  }
+
+  // Normal Ekran (Blackout değilse burası çalışır)
+  return (
     <div
       style={{
         width: "100vw",
@@ -501,7 +512,7 @@ export default function App() {
                   marginBottom: 8,
                 }}
               >
-                ⚙️ {lang === "tr" ? "Ayarlar" : "Einstellungen"}
+                & {lang === "tr" ? "Ayarlar" : "Einstellungen"}
               </div>
 
               <div
@@ -766,10 +777,10 @@ export default function App() {
                   marginTop: 8,
                 }}
               >
-                !{" "}
+                ℹ️{" "}
                 {lang === "tr"
-                  ? "Değişiklikler otomatik olarak bu cihazda saklanır."
-                  : "Änderungen werden automatisch auf diesem Gerät gespeichert."}
+                  ? "TV'den yapılan değişiklikler bu cihazda saklanır. Tüm TV'ler için GitHub'da public/config.json dosyasını güncelleyin."
+                  : "Änderungen von TV werden auf diesem Gerät gespeichert. Für alle TVs aktualisieren Sie public/config.json auf GitHub."}
               </div>
 
               <button
@@ -786,136 +797,10 @@ export default function App() {
                   fontWeight: "bold",
                 }}
               >
-                ✓ {lang === "tr" ? "Kapat" : "Schließen"}
+                ✓ {lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"}
               </button>
             </div>
           )}
-
-          {/* ÜST BAR */}
-          <div
-            className="top-bar"
-            style={{
-              background: "linear-gradient(180deg,#0e5c3a 0%,#0a3d2e 100%)",
-              borderBottom: "4px solid #c9a66b",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "0 32px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 2,
-                minWidth: 260,
-              }}
-            >
-              <div
-                style={{
-                  color: "#c9a66b",
-                  fontSize: 22,
-                  fontWeight: 500,
-                  letterSpacing: 1,
-                  lineHeight: 1,
-                }}
-              >
-                {lang === "tr" ? hicriTR : hicriDE}
-              </div>
-              <div
-                style={{
-                  color: "#f5d78e",
-                  fontSize: 28,
-                  fontWeight: 700,
-                  lineHeight: 1,
-                }}
-              >
-                {lang === "tr" ? miladiTR : miladiDE}
-              </div>
-            </div>
-            <div
-              style={{
-                flex: 1,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div
-                style={{
-                  color: "#f5d78e",
-                  fontSize: 52,
-                  fontWeight: 900,
-                  letterSpacing: 6,
-                  textTransform: "uppercase",
-                  textAlign: "center",
-                  lineHeight: 1,
-                  fontFamily: "'Segoe UI', 'Arial', sans-serif",
-                }}
-              >
-                {lang === "tr"
-                  ? "RIDVAN CAMİİ — VİYANA"
-                  : "RIDVAN MOSCHEE — WIEN"}
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "flex-end",
-                minWidth: 220,
-                justifyContent: "flex-end",
-              }}
-            >
-              <span
-                style={{
-                  color: "#f5d78e",
-                  fontSize: 68,
-                  fontWeight: 900,
-                  lineHeight: 1,
-                  fontFamily: "monospace",
-                }}
-              >
-                {hh}
-              </span>
-              <span
-                style={{
-                  color: "#c9a66b",
-                  fontSize: 52,
-                  fontWeight: 900,
-                  margin: "0 4px",
-                  fontFamily: "monospace",
-                  animation: "pulse 1s infinite",
-                }}
-              >
-                :
-              </span>
-              <span
-                style={{
-                  color: "#f5d78e",
-                  fontSize: 68,
-                  fontWeight: 900,
-                  lineHeight: 1,
-                  fontFamily: "monospace",
-                }}
-              >
-                {mm}
-              </span>
-              <span
-                style={{
-                  color: "#c9a66b",
-                  fontSize: 32,
-                  fontWeight: 700,
-                  marginBottom: 6,
-                  marginLeft: 6,
-                  fontFamily: "monospace",
-                  animation: "pulse 1s infinite",
-                }}
-              >
-                {ss}
-              </span>
-            </div>
-          </div>
 
           {/* ANA PANELLER */}
           <div
@@ -1358,7 +1243,7 @@ export default function App() {
               )}
             </div>
 
-            {/* SAĞ PANEL - DUA + DUYURULAR */}
+            {/* SAĞ PANEL */}
             <div
               className="panel"
               style={{
@@ -1500,10 +1385,6 @@ export default function App() {
                     padding: "20px 16px",
                   }}
                 >
-                  {/* 
-                     BURASI ÖNEMLİ: 
-                     Ayarlar sayfasında girdiğin Türkçe ve Almancayı burada ekrana basıyoruz.
-                  */}
                   <div
                     style={{
                       color: "#f5d78e",
@@ -1583,7 +1464,7 @@ export default function App() {
                   "transparent";
               }}
             >
-             ⚙️
+              &
             </button>
             <div
               style={{
