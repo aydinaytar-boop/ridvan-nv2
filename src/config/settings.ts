@@ -1,5 +1,5 @@
 // src/config/settings.ts
-import { db } from "../utils/firebase"; // Firebase dosyan varsa buradan gelir, yoksa hata vermez
+import { db } from "../utils/firebase"; 
 import { ref, onValue, update } from "firebase/database";
 
 // --- 1. AYARLAR VE VERİLER (SETTINGS) ---
@@ -19,58 +19,77 @@ export const SETTINGS = {
   
   // Bayramlar
   bayramlar: [
-    { ad_tr: "Ramazan Bayramı", ad_de: "Bayram", tarih: "2026-03-20", tarih2: "2026-03-22", saat: "09:00" },
-    { ad_tr: "Kurban Bayramı", ad_de: "Opferfest", tarih: "2026-05-27", tarih2: "2026-05-30", saat: "09:00" },
+    { ad_tr: "Ramazan Bayramı", ad_de: "Bayram", tarih: "2026-03-20", tarih2: "2026-03-22", saat: "06:30" },
+    { ad_tr: "Kurban Bayramı", ad_de: "Opferfest", tarih: "2026-05-27", tarih2: "2026-05-30", saat: "05:35" },
   ],
 
-  // ✨ DUYURULAR (Buradan güncelleyebilirsin)
+  // ✨ DUYURULAR (TR ve DE olarak iki dil eklendi)
   get duyurular() {
-    // Önce hafızada (localStorage) var mı bak, yoksa varsayılanı göster
-    return localStorage.getItem("duyurular_metni") || "Hoş geldiniz! Cuma namazı saati 13:10'dur.";
+    // Hafızada kayıtlı bir duyuru var mı bak
+    const saved = localStorage.getItem("duyurular_metni");
+    
+    if (saved) {
+      // Eğer kayıt varsa onu kullan (Eski sistemden kalan veri uyumu için)
+      return JSON.parse(saved); 
+    } else {
+      // Kayıt yoksa varsayılan mesajları göster
+      return {
+        tr: "İzine erken gidecek olanlar LÜTFEN Kurban bağışlarınızı yapmış olarak gidin! İyi Tatiller!", 
+        de: "“Wer früher in den Urlaub fährt, wird gebeten, seine **Kurban-Spenden bereits im Voraus geleistet zu haben**. Schöne Feiertage!”"
+      };
+    }
   }
 };
 
 // --- 2. OKUMA FONKSİYONLARI ---
 export function getSabahKametSaati(): string { 
-  return localStorage.getItem("manuelSabahKamet") || "06:15"; 
+  return localStorage.getItem("manuelSabahKamet") || "05:15"; 
 }
 
 export function getBayramSaati(tarih: string): string { 
-  return localStorage.getItem(`bayramSaati_${tarih}`) || "09:00"; 
+  return localStorage.getItem(`bayramSaati_${tarih}`) || "06:00"; 
 }
 
-// ✨ Duyuruyu Okuma Fonksiyonu
-export function getDuyurular(): string {
-  return SETTINGS.duyurular;
+// ✨ Duyuruyu Okuma Fonksiyonu (Artık dil seçimi yapıyor)
+// lang parametresi "tr" veya "de" olmalı
+export function getDuyurular(lang: "tr" | "de"): string {
+  const duyuruObj = SETTINGS.duyurular;
+  
+  // Eğer duyuru bir obje değil de tek bir yazıysa (eski tip), direkt onu döndür
+  if (typeof duyuruObj === "string") {
+    return duyuruObj;
+  }
+  
+  // Hangi dil seçiliyse onu getirir, yoksa Türkçe varsayılanı basar
+  return duyuruObj[lang] || duyuruObj["tr"];
 }
 
-// --- 3. KAYDETME FONKSİYONLARI (LocalStorage + Firebase) ---
+// --- 3. KAYDETME FONKSİYONLARI ---
 
 // Genel Ayar Kaydetme
 export function saveSettingToFirebase(key: string, value: string) {
   localStorage.setItem(key, value);
-  // Firebase varsa oraya da yaz, yoksa bu satırı atla (Hata vermez)
   if (db) {
     update(ref(db, 'settings'), { [key]: value });
   }
 }
 
 // ✨ Duyuruyu Kaydetme Fonksiyonu
-export function setDuyurular(text: string) {
-  // 1. Hemen ekranda görünmesi için hafızaya yaz
-  localStorage.setItem("duyurular_metni", text);
+// Buraya hem tr hem de de metnini içeren bir obje gönderilmeli
+export function setDuyurular(data: { tr: string, de: string }) {
+  // 1. Hemen ekranda görünmesi için hafızaya yaz (JSON formatında)
+  localStorage.setItem("duyurular_metni", JSON.stringify(data));
   
-  // 2. Uzaktan güncelleme için Firebase'e yaz (Firebase yoksa sessizce geçer)
+  // 2. Uzaktan güncelleme için Firebase'e yaz
   if (db) {
-    update(ref(db, 'settings'), { duyurular_metni: text });
+    update(ref(db, 'settings'), { duyurular_metni: JSON.stringify(data) });
   }
   
-  console.log("Duyuru güncellendi:", text);
+  console.log("Duyuru güncellendi:", data);
 }
 
-// --- 4. FIREBASE SENKRONİZASYONU (Uzaktan Güncelleme Motoru) ---
+// --- 4. FIREBASE SENKRONİZASYONU ---
 export function initFirebaseSync() {
-  // Firebase bağlantısı yoksa bu fonksiyon hiçbir şey yapmaz
   if (!db) return;
 
   const settingsRef = ref(db, 'settings');
@@ -78,10 +97,8 @@ export function initFirebaseSync() {
   onValue(settingsRef, (snapshot) => {
     const data = snapshot.val();
     if (data) {
-      // Firebase'den gelen veriyi hafızaya al
       Object.keys(data).forEach((key) => {
         localStorage.setItem(key, data[key]);
-        // Sayfa yenilenince değişikliği algılamak için tetikleme (Opsiyonel)
         window.dispatchEvent(new Event('storage-updated')); 
       });
       console.log("Firebase verileri senkronize edildi.");
