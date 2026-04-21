@@ -24,7 +24,7 @@ export default defineConfig({
   },
 
   build: {
-    outDir: "docs",
+    outDir: "dist",
     emptyOutDir: true,
 
     /** 🔥 EN KRİTİK KISIM — HTML OPTİMİZASYONUNU KAPATIYORUZ */
