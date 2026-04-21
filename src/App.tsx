@@ -4,11 +4,11 @@ import {
   computeFlow,
   getKametTime,
   getBayramVisibility,
-  isCumaGunu,
   showWeekendOgleMsg,
   setSabahKametSaati,
   getSabahKametSaati,
   SETTINGS,
+  computeHijri,
   type VakitKey,
 } from "./utils/timeEngine";
 import { DUA_ARCHIVE, EZAN_DUASI } from "./data/duaArchive";
@@ -18,51 +18,38 @@ function fmt2(n: number) {
   return String(Math.max(0, n)).padStart(2, "0");
 }
 
-function toHijri(date: Date, offset = 0): { day: number; month: number; year: number } {
-  const d = new Date(date);
-  d.setDate(d.getDate() + offset);
-  const JD = Math.floor((d.getTime() - new Date(1970, 0, 1).getTime()) / 86400000) + 2440587.5;
-  const Z = Math.floor(JD);
-  const A = Math.floor((Z - 1867216.25) / 36524.25);
-  const AA = Z + 1 + A - Math.floor(A / 4);
-  const B = AA + 1524;
-  const C = Math.floor((B - 122.1) / 365.25);
-  const D2 = Math.floor(365.25 * C);
-  const E = Math.floor((B - D2) / 30.6001);
-  const dayG = B - D2 - Math.floor(30.6001 * E);
-  const monthG = (E < 14 ? E - 1 : E - 13) as number;
-  const yearG = monthG > 2 ? C - 4716 : C - 4715;
-  const JDN = 367 * yearG - Math.floor((7 * (yearG + Math.floor((monthG + 9) / 12))) / 4) + Math.floor((275 * monthG) / 9) + dayG + 17213.5;
-  const l = Math.floor(JDN) - 1948440 + 10632;
-  const n = Math.floor((l - 1) / 10631);
-  const ll = l - 10631 * n + 354;
-  const j = Math.floor((10985 - ll) / 5316) * Math.floor((50 * ll) / 17719) + Math.floor(ll / 5670) * Math.floor((43 * ll) / 15238);
-  const lll = ll - Math.floor((30 - j) / 15) * Math.floor((17719 * j) / 50) - Math.floor(j / 16) * Math.floor((15238 * j) / 43) + 29;
-  const month = Math.floor((24 * lll) / 709);
-  const day = lll - Math.floor((709 * month) / 24);
-  const year = 30 * n + j - 30;
-  return { day, month, year };
+function miladiTRStr(d: Date) {
+  return `${["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"][d.getDay()]}, ${d.getDate()} ${["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"][d.getMonth()]} ${d.getFullYear()}`;
+}
+function miladiDEStr(d: Date) {
+  return `${["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"][d.getDay()]}, ${d.getDate()}. ${["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"][d.getMonth()]} ${d.getFullYear()}`;
 }
 
-const HICRI_AYLAR_TR = ["", "Muharrem", "Safer", "Rebiülevvel", "Rebiülahir", "Cemâziyelevvel", "Cemâziyelahir", "Recep", "Şaban", "Ramazan", "Şevval", "Zilkade", "Zilhicce"];
-const HICRI_AYLAR_DE = ["", "Muharram", "Safar", "Rabi al-Awwal", "Rabi al-Thani", "Dschumada al-Ula", "Dschumada al-Thaniya", "Radschab", "Scha'ban", "Ramadan", "Schawwal", "Dhu al-Qa'da", "Dhu al-Hijja"];
-function hicriStrTR(h: { day: number; month: number; year: number }) { return `${h.day} ${HICRI_AYLAR_TR[h.month]} ${h.year}`; }
-function hicriStrDE(h: { day: number; month: number; year: number }) { return `${h.day}. ${HICRI_AYLAR_DE[h.month]} ${h.year}`; }
+const VAKIT_NAMES: Record<string, Record<VakitKey, string>> = {
+  tr: { sabah: "SABAH", gunes: "GÜNEŞ", ogle: "ÖĞLE", ikindi: "İKİNDİ", aksam: "AKŞAM", yatsi: "YATSI" },
+  de: { sabah: "FAJR", gunes: "SCHURUQ", ogle: "DHUHR", ikindi: "ASSR", aksam: "MAGHRIB", yatsi: "ISCHAA" },
+};
+const VAKIT_LABEL: Record<string, Record<VakitKey, string>> = {
+  tr: { sabah: "Sabah", gunes: "Güneş", ogle: "Öğle", ikindi: "İkindi", aksam: "Akşam", yatsi: "Yatsı" },
+  de: { sabah: "Fajr", gunes: "Schuruq", ogle: "Dhuhr", ikindi: "Assr", aksam: "Maghrib", yatsi: "Ischaa" },
+};
+const HICRI_AYLAR = ["", "Muharrem", "Safer", "Rebiülevvel", "Rebiülahir", "Cemâziyelevvel", "Cemâziyelahir", "Recep", "Şaban", "Ramazan", "Şevval", "Zilkade", "Zilhicce"];
 
-const GUNLER_TR = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
-const GUNLER_DE = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
-const AYLAR_TR = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
-const AYLAR_DE = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
-function miladiTRStr(d: Date) { return `${GUNLER_TR[d.getDay()]}, ${d.getDate()} ${AYLAR_TR[d.getMonth()]} ${d.getFullYear()}`; }
-function miladiDEStr(d: Date) { return `${GUNLER_DE[d.getDay()]}, ${d.getDate()}. ${AYLAR_DE[d.getMonth()]} ${d.getFullYear()}`; }
+function getDailyDua(date: Date) { return DUA_ARCHIVE[date.getDate() % DUA_ARCHIVE.length]; }
 
-const VAKIT_NAMES: Record<string, Record<VakitKey, string>> = { tr: { sabah: "SABAH", gunes: "GÜNEŞ", ogle: "ÖĞLE", ikindi: "İKİNDİ", aksam: "AKŞAM", yatsi: "YATSI" }, de: { sabah: "FAJR", gunes: "SCHURUQ", ogle: "DHUHR", ikindi: "ASSR", aksam: "MAGHRIB", yatsi: "ISCHAA" } };
-const VAKIT_LABEL: Record<string, Record<VakitKey, string>> = { tr: { sabah: "Sabah", gunes: "Güneş", ogle: "Öğle", ikindi: "İkindi", aksam: "Akşam", yatsi: "Yatsı" }, de: { sabah: "Fajr", gunes: "Schuruq", ogle: "Dhuhr", ikindi: "Assr", aksam: "Maghrib", yatsi: "Ischaa" } };
+function applyAutoScale() {
+  const el = document.querySelector(".tv-safe-area");
+  if (!el) return;
+  const w = window.innerWidth || 1920;
+  let s = w / 1920;
+  if (!s || s <= 0 || s > 2) s = 1;
+  s *= 0.95;
+  (el as HTMLElement).style.transform = `translateX(-50%) scale(${s})`;
+  (el as HTMLElement).style.transformOrigin = "top center";
+}
 
-function getDailyDua(date: Date) { const i = date.getDate() % DUA_ARCHIVE.length; return DUA_ARCHIVE[i]; }
-function applyAutoScale() { const el = document.querySelector(".tv-safe-area"); if (!el) return; const w = window.innerWidth || 1920; let s = w / 1920; if (!s || s <= 0 || s > 2) s = 1; s *= 0.95; (el as HTMLElement).style.transform = `translateX(-50%) scale(${s})`; (el as HTMLElement).style.transformOrigin = "top center"; }
-
-function L({ children }: { children: React.ReactNode }) {
+export default function App() {
+  const [now, setNow] = useState(() => new Date());
   const [lang, setLang] = useState<"tr" | "de">("tr");
   const [hicriOffset, setHicriOffset] = useState(0);
   const [sabahKametInput, setSabahKametInput] = useState("05:15");
@@ -74,55 +61,98 @@ function L({ children }: { children: React.ReactNode }) {
   const [duyuruDE, setDuyuruDE] = useState("");
   const [showDuyuruForm, setShowDuyuruForm] = useState(false);
   const [configLoaded, setConfigLoaded] = useState(false);
+
   const settingsClickCount = useRef(0);
   const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const now = useState(() => new Date())[0];
-  const [nowState, setNowState] = useState(now);
 
   useEffect(() => {
     const savedKamet = localStorage.getItem("manuelSabahKamet");
     if (savedKamet) setSabahKametInput(savedKamet);
-    const savedDuyuruTR = localStorage.getItem("duyurular_metni");
-    if (savedDuyuruTR) { try { const p = JSON.parse(savedDuyuruTR); if (p.tr) setDuyuruTR(p.tr); if (p.de) setDuyuruDE(p.de); } catch { setDuyuruTR(savedDuyuruTR); } }
+    const savedDuyuru = localStorage.getItem("duyurular_metni");
+    if (savedDuyuru) {
+      try {
+        const p = JSON.parse(savedDuyuru);
+        if (p.tr) setDuyuruTR(p.tr);
+        if (p.de) setDuyuruDE(p.de);
+      } catch { setDuyuruTR(savedDuyuru); }
+    }
     const savedBayram = localStorage.getItem("ridvan_bayram_inputs");
     if (savedBayram) { try { setBayramInputs(JSON.parse(savedBayram)); } catch { console.error(savedBayram); } }
     setConfigLoaded(true);
   }, []);
 
-  useEffect(() => { if (configLoaded) { localStorage.setItem("manuelSabahKamet", sabahKametInput); setDuyurular({ tr: duyuruTR, de: duyuruDE }); localStorage.setItem("ridvan_bayram_inputs", JSON.stringify(bayramInputs)); } }, [sabahKametInput, duyuruTR, duyuruDE, bayramInputs, configLoaded]);
-  useEffect(() => { setSabahKametSaati(sabahKametInput); }, [sabahKametInput]);
-  useEffect(() => { const t = setTimeout(() => applyAutoScale(), 50); window.addEventListener("resize", applyAutoScale); return () => { clearTimeout(t); window.removeEventListener("resize", applyAutoScale); }; }, []);
-  useEffect(() => { const id = setInterval(() => setLang((l) => (l === "tr" ? "de" : "tr")), 20000); return () => clearInterval(id); }, []);
-  useEffect(() => { const id = setInterval(() => setNowState(new Date()), 1000); return () => clearInterval(id); }, []);
+  useEffect(() => {
+    if (configLoaded) {
+      localStorage.setItem("manuelSabahKamet", sabahKametInput);
+      setDuyurular({ tr: duyuruTR, de: duyuruDE });
+      localStorage.setItem("ridvan_bayram_inputs", JSON.stringify(bayramInputs));
+    }
+  }, [sabahKametInput, duyuruTR, duyuruDE, bayramInputs, configLoaded]);
 
-  const times = getTodayTimes(nowState);
-  const flow = computeFlow(nowState, times);
-  const bayram = getBayramVisibility(nowState);
-  const weekendMsg = showWeekendOgleMsg(nowState);
-  const dailyDua = getDailyDua(nowState);
-  const hicri = toHijri(nowState, hicriOffset);
-  const hicriTR = hicriStrTR(hicri);
-  const hicriDE = hicriStrDE(hicri);
-  const miladiTR = miladiTRStr(nowState);
-  const miladiDE = miladiDEStr(nowState);
-  const hh = fmt2(nowState.getHours());
-  const mm = fmt2(nowState.getMinutes());
-  const ss = fmt2(nowState.getSeconds());
+  useEffect(() => { setSabahKametSaati(sabahKametInput); }, [sabahKametInput]);
+
+  useEffect(() => {
+    const t = setTimeout(() => applyAutoScale(), 50);
+    window.addEventListener("resize", applyAutoScale);
+    return () => { clearTimeout(t); window.removeEventListener("resize", applyAutoScale); };
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(() => setLang((l) => (l === "tr" ? "de" : "tr")), 20000);
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const times = getTodayTimes(now);
+  const flow = computeFlow(now, times);
+  const bayram = getBayramVisibility(now);
+  const weekendMsg = showWeekendOgleMsg(now);
+  const dailyDua = getDailyDua(now);
+
+  const hijriDate = computeHijri(now);
+  const hicriTR = `${hijriDate.day} ${HICRI_AYLAR[hijriDate.month]} ${hijriDate.year}`;
+  const hicriDE = `${hijriDate.day}. ${HICRI_AYLAR[hijriDate.month]} ${hijriDate.year}`;
+
+  const miladiTR = miladiTRStr(now);
+  const miladiDE = miladiDEStr(now);
+
+  const hh = fmt2(now.getHours());
+  const mm = fmt2(now.getMinutes());
+  const ss = fmt2(now.getSeconds());
+
   const isEzan = flow.phase === "ezan";
   const isKametCountdown = flow.phase === "kamet_countdown";
   const isKametAlert = flow.phase === "kamet_alert";
   const isBlackout = flow.phase === "blackout";
 
   let cdH = 0, cdM = 0, cdS = 0;
-  if (isKametCountdown) { cdH = Math.floor(flow.kametCountdown / 3600); cdM = Math.floor((flow.kametCountdown % 3600) / 60); cdS = flow.kametCountdown % 60; }
-  else if (!isEzan && !isKametAlert && !isBlackout) { cdH = Math.floor(flow.countdownSeconds / 3600); cdM = Math.floor((flow.countdownSeconds % 3600) / 60); cdS = flow.countdownSeconds % 60; }
+  if (isKametCountdown) {
+    cdH = Math.floor(flow.kametCountdown / 3600);
+    cdM = Math.floor((flow.kametCountdown % 3600) / 60);
+    cdS = flow.kametCountdown % 60;
+  } else if (!isEzan && !isKametAlert && !isBlackout) {
+    cdH = Math.floor(flow.countdownSeconds / 3600);
+    cdM = Math.floor((flow.countdownSeconds % 3600) / 60);
+    cdS = flow.countdownSeconds % 60;
+  }
 
-  const gunesDate = new Date(nowState); const [gh, gm] = times.gunes.split(":").map(Number); gunesDate.setHours(gh, gm, 0, 0);
-  const gunesKalanSec = Math.max(0, Math.floor((gunesDate.getTime() - nowState.getTime()) / 1000));
-  const gunesKalanH = Math.floor(gunesKalanSec / 3600); const gunesKalanM = Math.floor((gunesKalanSec % 3600) / 60); const gunesKalanS = gunesKalanSec % 60;
+  const gunesDate = new Date(now);
+  const [gh, gm] = times.gunes.split(":").map(Number);
+  gunesDate.setHours(gh, gm, 0, 0);
+  const gunesKalanSec = Math.max(0, Math.floor((gunesDate.getTime() - now.getTime()) / 1000));
+  const gunesKalanH = Math.floor(gunesKalanSec / 3600);
+  const gunesKalanM = Math.floor((gunesKalanSec % 3600) / 60);
+  const gunesKalanS = gunesKalanSec % 60;
 
-  const currentLabel = (lang === "tr" || lang === "de") ? (VAKIT_LABEL[lang]?.[flow.currentVakit ?? "sabah"] ?? "—") : "—";
-  const nextLabel = (lang === "tr" || lang === "de") ? (VAKIT_LABEL[lang]?.[flow.nextVakit ?? "sabah"] ?? "—") : "—";
+  const getLabel = (key: VakitKey) => VAKIT_LABEL[lang]?.[key] ?? key;
+  const getName = (key: VakitKey) => VAKIT_NAMES[lang]?.[key] ?? key;
+
+  const currentLabel = flow.currentVakit ? getLabel(flow.currentVakit) : "—";
+  const nextLabel = flow.nextVakit ? getLabel(flow.nextVakit) : "—";
   const nextTime = flow.nextVakitTime;
   const kametVakit = flow.activeEzanVakit;
 
@@ -144,7 +174,9 @@ function L({ children }: { children: React.ReactNode }) {
 
   const handleSaveAndClose = () => setShowSettings(false);
 
-  // 🚨 BLACKOUT 🚨
+  // ============================================
+  // 🚨 BLACKOUT EKRANI (KAMET + 10 DK)
+  // ============================================
   if (isBlackout) {
     return (
       <div style={{ width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }}>
@@ -159,14 +191,18 @@ function L({ children }: { children: React.ReactNode }) {
     );
   }
 
-  const t = (s: string) => s;
+  // ============================================
+  // 📋 AYARLAR PANELİ
+  // ============================================
   const SettingsPanel = () => (
     <div style={{ position: "absolute", inset: 0, background: "#0a3d2e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24, padding: 40, overflowY: "auto", zIndex: 10 }}>
       <div style={{ color: "#c9a66b", fontSize: 22, fontWeight: "bold", marginBottom: 8 }}>& {lang === "tr" ? "Ayarlar" : "Einstellungen"}</div>
+
       <div style={{ display: "flex", alignItems: "center", gap: 16, width: "100%", maxWidth: 600 }}>
         <span style={{ color: "#f5d78e", fontSize: 20, flex: 1 }}>{lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit"}</span>
         <input type="time" value={sabahKametInput} onChange={(e) => setSabahKametInput(e.target.value)} style={{ flex: 1, padding: "8px 12px", borderRadius: 8, border: "2px solid #c9a66b", background: "#1a5c3a", color: "#f5d78e", fontSize: 18 }} />
       </div>
+
       <div style={{ display: "flex", flexDirection: "column", gap: 8, width: "100%", maxWidth: 600 }}>
         <span style={{ color: "#f5d78e", fontSize: 20 }}>{lang === "tr" ? "Hicri Takvim Düzeltmesi" : "Hidschra-Kalender Korrektur"}</span>
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
@@ -176,6 +212,7 @@ function L({ children }: { children: React.ReactNode }) {
         </div>
         <div style={{ color: "#6a9e78", fontSize: 16 }}>{lang === "tr" ? `Şu an: ${hicriTR}` : `Aktuell: ${hicriDE}`}</div>
       </div>
+
       <div style={{ width: "100%", maxWidth: 600 }}>
         <button onClick={() => setShowBayramForm((v) => !v)} style={{ padding: "8px 20px", fontSize: 18, background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer", marginBottom: 12 }}>{lang === "tr" ? "Bayram Saatleri" : "Feiertagszeiten"} ▾</button>
         {showBayramForm && SETTINGS.bayramlar.map((b) => (
@@ -185,6 +222,7 @@ function L({ children }: { children: React.ReactNode }) {
           </div>
         ))}
       </div>
+
       <div style={{ width: "100%", maxWidth: 600 }}>
         <button onClick={() => setShowDuyuruForm((v) => !v)} style={{ padding: "8px 20px", fontSize: 18, background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer", marginBottom: 12 }}>{lang === "tr" ? "Duyurular" : "Ankündigungen"} ▾</button>
         {showDuyuruForm && (<>
@@ -198,6 +236,7 @@ function L({ children }: { children: React.ReactNode }) {
           </div>
         </>)}
       </div>
+
       <div style={{ color: "#6a9e78", fontSize: 22, textAlign: "center", maxWidth: 600, marginTop: 8 }}>
         ! {lang === "tr" ? "TV'den yapılan değişiklikler bu cihazda saklanır. Tüm TV'ler için GitHub'da public/config.json dosyasını güncelleyin." : "Änderungen von TV werden auf diesem Gerät gespeichert. Für alle TVs aktualisieren Sie public/config.json auf GitHub."}
       </div>
@@ -205,14 +244,21 @@ function L({ children }: { children: React.ReactNode }) {
     </div>
   );
 
+  // ============================================
+  // 🎨 ANA EKRAN RENDER
+  // ============================================
   return (
     <div style={{ width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", overflow: "hidden", position: "fixed", top: 0, left: 0, zIndex: 0, userSelect: "none" }}>
       <div className="tv-safe-area">
-        <div className="outer-frame" style={{ display: "flex", flexDirection: "column", position: "relative" }}>
+        <div className="outer-frame" style={{ display: "flex", flexDirection: "column", position: "relative", height: "100%" }}>
+
           {showSettings && <SettingsPanel />}
 
-          <div className="main-panels" style={{ display: "flex", flex: 1 }}>
-            {/* SOL PANEL */}
+          <div className="main-panels" style={{ display: "flex", flex: 1, height: "100%" }}>
+
+            {/* ============================================ */}
+            {/* 🟢 SOL PANEL - NAMAZ VAKİTLERİ              */}
+            {/* ============================================ */}
             <div className="panel" style={{ flex: 1, display: "flex", flexDirection: "column", background: "#0a3d2e" }}>
               <div style={{ background: "#c9a66b", textAlign: "center", padding: "12px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0, lineHeight: 1 }}>{lang === "tr" ? "NAMAZ VAKİTLERİ" : "GEBETSZEITEN"}</div>
               <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", padding: "8px 20px", borderBottom: "2px solid #c9a66b", background: "#072d20", flexShrink: 0 }}>
@@ -220,12 +266,13 @@ function L({ children }: { children: React.ReactNode }) {
                 <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, textAlign: "center", lineHeight: 1 }}>{lang === "tr" ? "EZAN" : "ADHAN"}</span>
                 <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, textAlign: "right", lineHeight: 1 }}>{lang === "tr" ? "KAMET" : "IQÂMAT"}</span>
               </div>
-              <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+              <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
                 {vakitList.map(({ key, ezan, kamet }) => {
-                  const isActive = flow.currentVakit === key; const isNext = flow.nextVakit === key;
+                  const isActive = flow.currentVakit === key;
+                  const isNext = flow.nextVakit === key;
                   return (
                     <div key={key} className={isActive ? "active-vakit-row" : ""} style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", padding: "0 20px", flex: 1, borderBottom: "1px solid #c9a66b33", background: isNext ? "rgba(201,166,107,0.07)" : "transparent", borderLeft: isActive ? "7px solid #c9a66b" : "7px solid transparent", alignItems: "center", transition: "background 0.3s" }}>
-                      <span className={isActive ? "active-vakit-text" : ""} style={{ color: isActive ? "#f5d78e" : "#a8c8b0", fontSize: isActive ? 36 : 32, fontWeight: isActive ? 900 : 600, letterSpacing: 1, lineHeight: 1 }}>{VAKIT_NAMES[lang]?.[key] ?? key}</span>
+                      <span className={isActive ? "active-vakit-text" : ""} style={{ color: isActive ? "#f5d78e" : "#a8c8b0", fontSize: isActive ? 36 : 32, fontWeight: isActive ? 900 : 600, letterSpacing: 1, lineHeight: 1 }}>{getName(key)}</span>
                       <span className={isActive ? "active-vakit-text" : ""} style={{ color: "#f5d78e", fontSize: isActive ? 48 : 44, fontWeight: 700, textAlign: "center", fontFamily: "monospace", lineHeight: 1 }}>{ezan}</span>
                       <span className={isActive ? "active-vakit-text" : ""} style={{ color: isActive ? "#f5d78e" : "#a8c8b0", fontSize: 40, textAlign: "right", fontFamily: "monospace", lineHeight: 1 }}>{kamet ?? "—"}</span>
                     </div>
@@ -247,28 +294,47 @@ function L({ children }: { children: React.ReactNode }) {
               </div>
             </div>
 
-            {/* ORTA PANEL */}
+            {/* ============================================ */}
+            {/* 🟡 ORTA PANEL - DUA & SAAT                  */}
+            {/* ============================================ */}
             <div className="panel" style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#0a3d2e", gap: 20 }}>
               {isKametAlert ? (
                 <div style={{ textAlign: "center" }}>
                   <div style={{ color: "#c9a66b", fontSize: 58, fontWeight: 900, letterSpacing: 6, animation: "pulse 1s infinite", marginBottom: 20, lineHeight: 1 }}>{lang === "tr" ? "KAMET" : "IQÂMAT"}</div>
-                  <div style={{ color: "#f5d78e", fontSize: 108, fontWeight: 900, letterSpacing: 4, animation: "pulse 1s infinite", lineHeight: 1 }}>{kametVakit ? VAKIT_NAMES[lang]?.[kametVakit] ?? "" : ""}</div>
+                  <div style={{ color: "#f5d78e", fontSize: 108, fontWeight: 900, letterSpacing: 4, animation: "pulse 1s infinite", lineHeight: 1 }}>{kametVakit ? getName(kametVakit) : ""}</div>
                 </div>
               ) : (
                 <>
                   <div className="panel-title">{lang === "tr" ? "GÜNÜN VAKTİ" : "AKTUELLE GEBETSZEIT"}</div>
                   <div className={`current-vakit ${isEzan ? "ezan" : ""}`}>{currentLabel}</div>
+
                   {!isKametCountdown && (<>
-                    <div className="panel-title" style={{ marginTop: 8 }}>{lang === "tr" ? "SONRAKI VAKİT" : "NÄCHSTE GEBETSZEIT"}</div>
+                    <div className="panel-title" style={{ marginTop: 8 }}>{lang === "tr" ? "SONRAKİ VAKİT" : "NÄCHSTE GEBETSZEIT"}</div>
                     <div className="next-vakit">{nextLabel} — {nextTime}</div>
                   </>)}
+
                   {isKametCountdown && (<div style={{ textAlign: "center", marginTop: 8 }}>
                     <div className="panel-title">{lang === "tr" ? "KAMETE KALAN SÜRE" : "ZEIT BIS ZUM IQÂMAT"}</div>
-                    <div style={{ color: "#f5d78e", fontSize: 70, fontWeight: 700, marginTop: 16, lineHeight: 1 }}>{kametVakit ? VAKIT_NAMES[lang]?.[kametVakit] ?? "" : ""}</div>
+                    <div style={{ color: "#f5d78e", fontSize: 70, fontWeight: 700, marginTop: 16, lineHeight: 1 }}>{kametVakit ? getName(kametVakit) : ""}</div>
                   </div>)}
+
                   <div className="countdown-row">
-                    {[{ val: fmt2(cdH), label: lang === "tr" ? "Saat" : "Std." }, null, { val: fmt2(cdM), label: lang === "tr" ? "Dakika" : "Min." }, null, { val: fmt2(cdS), label: lang === "tr" ? "Saniye" : "Sek." }].map((item, i) => item === null ? <span key={i} className="countdown-separator">:</span> : <div key={i} className="countdown-box"><span className="countdown-value">{item.val}</span><span className="countdown-label">{item.label}</span></div>)}
+                    {[
+                      { val: fmt2(cdH), label: lang === "tr" ? "Saat" : "Std." },
+                      null,
+                      { val: fmt2(cdM), label: lang === "tr" ? "Dakika" : "Min." },
+                      null,
+                      { val: fmt2(cdS), label: lang === "tr" ? "Saniye" : "Sek." },
+                    ].map((item, i) =>
+                      item === null ? <span key={i} className="countdown-separator">:</span> : (
+                        <div key={i} className="countdown-box">
+                          <span className="countdown-value">{item.val}</span>
+                          <span className="countdown-label">{item.label}</span>
+                        </div>
+                      )
+                    )}
                   </div>
+
                   {flow.currentVakit === "sabah" && !isEzan && !isKametCountdown && (<div style={{ textAlign: "center", marginTop: 16 }}>
                     <div style={{ color: "#c9a66b", fontSize: 36, letterSpacing: 3, lineHeight: 1 }}>{lang === "tr" ? "GÜNEŞE KALAN" : "BIS SCHURUQ"}</div>
                     <div style={{ color: "#a8c8b0", fontSize: 40, fontWeight: 700, lineHeight: 1 }}>{fmt2(gunesKalanH)}:{fmt2(gunesKalanM)}:{fmt2(gunesKalanS)}</div>
@@ -278,10 +344,12 @@ function L({ children }: { children: React.ReactNode }) {
               {bayram.visible && (<div style={{ marginTop: 20, padding: "12px 36px", background: "#c9a66b22", border: "3px solid #c9a66b", borderRadius: 12, color: "#f5d78e", fontSize: 35, fontWeight: 700, textAlign: "center", lineHeight: 1 }}>🎉 {lang === "tr" ? bayram.bayram?.ad_tr : bayram.bayram?.ad_de}</div>)}
             </div>
 
-            {/* SAĞ PANEL */}
+            {/* ============================================ */}
+            {/* 🔵 SAĞ PANEL - DUYURULAR                    */}
+            {/* ============================================ */}
             <div className="panel" style={{ flex: 1, display: "flex", flexDirection: "column", background: "#0a3d2e" }}>
               <div style={{ flex: 1, display: "flex", flexDirection: "column", borderBottom: "3px solid #c9a66b" }}>
-                <div style={{ background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3 }}>{isEzan ? duaLang === "tr" ? "EZAN DUASI" : "ADHAN-GEBET" : lang === "tr" ? "GÜNÜN DUASI" : "DUA DES TAGES"}</div>
+                <div style={{ background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3 }}>{isEzan ? (duaLang === "tr" ? "EZAN DUASI" : "ADHAN-GEBET") : (lang === "tr" ? "GÜNÜN DUASI" : "DUA DES TAGES")}</div>
                 <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px 16px", gap: 16 }}>
                   {isEzan ? (<>
                     <div style={{ color: "#f5d78e", fontSize: 36, textAlign: "right", lineHeight: 1.8, direction: "rtl", fontFamily: "serif", width: "100%" }}>{EZAN_DUASI.arabic}</div>
@@ -300,22 +368,52 @@ function L({ children }: { children: React.ReactNode }) {
                 </div>
               </div>
             </div>
+
           </div>
 
-          {/* ALT BAR */}
-          <div className="bottom-bar" style={{ background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)", borderTop: "4px solid #c9a66b", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", cursor: "default", position: "relative" }}>
+          {/* ============================================ */}
+          {/* 🟤 ÜST BAR (HEADER) - Tarih & Saat          */}
+          {/* ============================================ */}
+          <div style={{
+            background: "linear-gradient(180deg, #0a3d2e 0%, #072d20 100%)",
+            borderBottom: "4px solid #c9a66b",
+            padding: "10px 32px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexShrink: 0
+          }}>
+            <div>
+              <div style={{ color: "#c9a66b", fontSize: 14, letterSpacing: 1, lineHeight: 1 }}>{miladiTR}</div>
+              <div style={{ color: "#c9a66b", fontSize: 14, letterSpacing: 1, lineHeight: 1, marginTop: 2 }}>{hicriTR}</div>
+            </div>
+            <div style={{ textAlign: "center" }}>
+              <div style={{ color: "#f5d78e", fontSize: 48, fontWeight: 900, fontFamily: "monospace", lineHeight: 1 }}>{hh}:{mm}</div>
+              <div style={{ color: "#f5d78e", fontSize: 24, fontWeight: 700, fontFamily: "monospace", lineHeight: 1, marginTop: 2 }}>{ss}</div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <div style={{ color: "#c9a66b", fontSize: 14, letterSpacing: 1, lineHeight: 1 }}>{miladiDE}</div>
+              <div style={{ color: "#c9a66b", fontSize: 14, letterSpacing: 1, lineHeight: 1, marginTop: 2 }}>{hicriDE}</div>
+            </div>
+          </div>
+
+          {/* ============================================ */}
+          {/* ⚫ ALT BAR (FOOTER) - Logo & Ayarlar Butonu  */}
+          {/* ============================================ */}
+          <div className="bottom-bar" style={{ background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)", borderTop: "4px solid #c9a66b", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", cursor: "default", position: "relative", flexShrink: 0 }}>
             <div style={{ color: "#c9a66b", fontSize: 14, letterSpacing: 1 }} onClick={handleBottomClick}>Bu uygulama <strong>AyTa®</strong> tarafından hazırlanmıştır</div>
             <button onClick={() => setShowSettings(true)} title="Ayarlar" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", background: "transparent", border: "1px solid #c9a66b44", borderRadius: 6, padding: "4px 10px", color: "#c9a66b77", fontSize: 16, cursor: "pointer", display: "flex", alignItems: "center", gap: 4, transition: "all 0.2s", lineHeight: 1 }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#c9a66b"; (e.currentTarget as HTMLButtonElement).style.borderColor = "#c9a66b"; (e.currentTarget as HTMLButtonElement).style.background = "#c9a66b11"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#c9a66b77"; (e.currentTarget as HTMLButtonElement).style.borderColor = "#c9a66b44"; (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}>&</button>
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#c9a66b77"; (e.currentTarget as HTMLButtonElement).style.borderColor = "#c9a66b44"; (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}>
+              &
+            </button>
             <div style={{ border: "3px solid #c9a66b", borderRadius: 8, padding: "6px 12px", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#ffffff", boxShadow: "0 0 0 1px #c9a66b" }}>
               <img src="img/logo.png?v=5" alt="Logo" style={{ height: 52, objectFit: "contain" }} />
             </div>
           </div>
+
         </div>
       </div>
     </div>
   );
 }
-
-export default L;
