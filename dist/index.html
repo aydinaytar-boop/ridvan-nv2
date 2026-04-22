@@ -13360,27 +13360,6 @@ function App() {
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#f5d78e", fontSize: 20, flex: 1 }, children: lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "time", value: sabahKametInput, onChange: (e) => setSabahKametInput(e.target.value), style: { flex: 1, padding: "8px 12px", borderRadius: 8, border: "2px solid #c9a66b", background: "#1a5c3a", color: "#f5d78e", fontSize: 18 } })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column", gap: 8, width: "100%", maxWidth: 600 }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#f5d78e", fontSize: 20 }, children: lang === "tr" ? "Hicri Takvim Düzeltmesi" : "Hidschra-Kalender Korrektur" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: 12, alignItems: "center" }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setHicriOffset((o) => o - 1), style: { padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }, children: "−" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#f5d78e", fontSize: 22 }, children: hicriOffset > 0 ? `+${hicriOffset}` : hicriOffset }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setHicriOffset((o) => o + 1), style: { padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }, children: "+" })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: () => setShowBayramForm(!showBayramForm), style: { padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8 }, children: [
-        lang === "tr" ? "Bayram Saatleri" : "Feiertagszeiten",
-        " ▾"
-      ] }),
-      showBayramForm && SETTINGS.bayramlar.map((b) => /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "time", value: bayramInputs[b.tarih] || "09:00", onChange: (e) => setBayramInputs((prev) => ({ ...prev, [b.tarih]: e.target.value })) }, b.tarih)),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: () => setShowDuyuruForm(!showDuyuruForm), style: { padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8 }, children: [
-        lang === "tr" ? "Duyurular" : "Ankündigungen",
-        " ▾"
-      ] }),
-      showDuyuruForm && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("textarea", { value: duyuruTR, onChange: (e) => setDuyuruTR(e.target.value) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("textarea", { value: duyuruDE, onChange: (e) => setDuyuruDE(e.target.value) })
-      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: () => setShowSettings(false), style: { marginTop: 16, padding: "12px 40px", fontSize: 20, background: "#c9a66b", color: "#0a3d2e", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: "bold" }, children: [
         "✓ ",
         lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"
