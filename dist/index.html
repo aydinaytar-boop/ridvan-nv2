@@ -13218,6 +13218,8 @@ function App() {
   const [duyuruDE, setDuyuruDE] = reactExports.useState("");
   const [showDuyuruForm, setShowDuyuruForm] = reactExports.useState(false);
   const [configLoaded, setConfigLoaded] = reactExports.useState(false);
+  const settingsClickCount = reactExports.useRef(0);
+  const settingsTimer = reactExports.useRef(null);
   reactExports.useEffect(() => {
     const timer = setTimeout(() => applyAutoScale(), 50);
     window.addEventListener("resize", applyAutoScale);
@@ -13292,40 +13294,68 @@ function App() {
   const hh = fmt2(now.getHours());
   const mm = fmt2(now.getMinutes());
   const ss = fmt2(now.getSeconds());
+  const isEzan = flow.phase === "ezan";
+  const isKametCountdown = flow.phase === "kamet_countdown";
+  const isKametAlert = flow.phase === "kamet_alert";
   const isBlackout = flow.phase === "blackout";
+  let cdH = 0, cdM = 0, cdS = 0;
+  if (isKametCountdown) {
+    const total = flow.kametCountdown;
+    cdH = Math.floor(total / 3600);
+    cdM = Math.floor(total % 3600 / 60);
+    cdS = total % 60;
+  } else if (!isEzan && !isKametAlert && !isBlackout) {
+    const total = flow.countdownSeconds;
+    cdH = Math.floor(total / 3600);
+    cdM = Math.floor(total % 3600 / 60);
+    cdS = total % 60;
+  }
+  const gunesKalanSec = Math.max(0, Math.floor((new Date(now).setHours(...times.gunes.split(":").map(Number), 0, 0) - now.getTime()) / 1e3));
+  const gunesKalanH = Math.floor(gunesKalanSec / 3600);
+  const gunesKalanM = Math.floor(gunesKalanSec % 3600 / 60);
+  const gunesKalanS = gunesKalanSec % 60;
   const currentLabel = flow.currentVakit ? VAKIT_LABEL[lang][flow.currentVakit] : "—";
   const nextLabel = flow.nextVakit ? VAKIT_LABEL[lang][flow.nextVakit] : "—";
   const nextTime = flow.nextVakitTime;
   const kametVakit = flow.activeEzanVakit;
+  const vakitList = [
+    { key: "sabah", ezan: times.sabah, kamet: times.sabahKamet },
+    { key: "gunes", ezan: times.gunes, kamet: null },
+    { key: "ogle", ezan: times.ogle, kamet: getKametTime("ogle", times.ogle) },
+    { key: "ikindi", ezan: times.ikindi, kamet: getKametTime("ikindi", times.ikindi) },
+    { key: "aksam", ezan: times.aksam, kamet: getKametTime("aksam", times.aksam) },
+    { key: "yatsi", ezan: times.yatsi, kamet: getKametTime("yatsi", times.yatsi) }
+  ];
+  const handleBottomClick = reactExports.useCallback(() => {
+    settingsClickCount.current += 1;
+    if (settingsTimer.current) clearTimeout(settingsTimer.current);
+    settingsTimer.current = setTimeout(() => {
+      settingsClickCount.current = 0;
+    }, 1e3);
+    if (settingsClickCount.current >= 3) {
+      settingsClickCount.current = 0;
+      setShowSettings(true);
+    }
+  }, []);
   if (!configLoaded) return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100vw", height: "100vh", background: "#0a3d2e", display: "flex", alignItems: "center", justifyContent: "center", color: "#c9a66b", fontSize: 24 }, children: "Yükleniyor..." });
-  if (isBlackout) {
-    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "img/close.png?v=5", alt: "Kapatın", style: { maxWidth: "100%", maxHeight: "95vh", objectFit: "contain" }, onError: (e) => {
-      e.currentTarget.style.display = "none";
-    } }) });
-  }
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100vw", height: "100vh", overflow: "hidden", position: "fixed", top: 0, left: 0, background: "#000", zIndex: 0 }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "tv-safe-area", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "outer-frame", style: { display: "flex", flexDirection: "column", position: "relative" }, children: [
-    showSettings && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { position: "absolute", inset: 0, background: "#0a3d2e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24, padding: 40, overflowY: "auto", zIndex: 10 }, children: [
+  if (isBlackout) return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100vw", height: "100vh", background: "#000", display: "flex", alignItems: "center", justifyContent: "center" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "img/close.png?v=5", style: { maxWidth: "100%", maxHeight: "95vh" } }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100vw", height: "100vh", overflow: "hidden", position: "fixed", top: 0, left: 0, background: "#000" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "tv-safe-area", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "outer-frame", children: [
+    showSettings && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { position: "absolute", inset: 0, background: "#0a3d2e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 20, padding: 40, zIndex: 10 }, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#c9a66b", fontSize: 22, fontWeight: "bold" }, children: "⚙️ Ayarlar" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", alignItems: "center", gap: 16, width: "100%", maxWidth: 600 }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Sabah Kamet Saati" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "time", value: sabahKametInput, onChange: (e) => setSabahKametInput(e.target.value) })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", alignItems: "center", gap: 12 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "time", value: sabahKametInput, onChange: (e) => setSabahKametInput(e.target.value) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: 10 }, children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setHicriOffset((o) => o - 1), children: "-" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
-          "Hicri: ",
-          hicriOffset
-        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: hicriOffset }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setHicriOffset((o) => o + 1), children: "+" })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setShowBayramForm(!showBayramForm), children: "Bayram Saatleri ▾" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setShowBayramForm(!showBayramForm), children: "Bayramlar" }),
       showBayramForm && SETTINGS.bayramlar.map((b) => /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "time", value: bayramInputs[b.tarih] || "09:00", onChange: (e) => setBayramInputs((prev) => ({ ...prev, [b.tarih]: e.target.value })) }, b.tarih)),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setShowDuyuruForm(!showDuyuruForm), children: "Duyurular ▾" }),
-      showDuyuruForm && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column", gap: 8 }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("textarea", { value: duyuruTR, onChange: (e) => setDuyuruTR(e.target.value), placeholder: "TR Duyuru" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("textarea", { value: duyuruDE, onChange: (e) => setDuyuruDE(e.target.value), placeholder: "DE Duyuru" })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setShowDuyuruForm(!showDuyuruForm), children: "Duyurular" }),
+      showDuyuruForm && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("textarea", { value: duyuruTR, onChange: (e) => setDuyuruTR(e.target.value) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("textarea", { value: duyuruDE, onChange: (e) => setDuyuruDE(e.target.value) })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setShowSettings(false), style: { background: "#c9a66b", padding: "10px 20px" }, children: "✓ Kaydet & Kapat" })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setShowSettings(false), children: "✓ Kaydet & Kapat" })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "div",
