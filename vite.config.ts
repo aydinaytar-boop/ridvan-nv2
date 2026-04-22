@@ -9,22 +9,19 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
-  base: "/ridvan-nv2/", 
-
+  base: "/ridvan-nv2/",
   plugins: [
     react(),
     tailwindcss(),
     viteSingleFile()
   ],
-
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
     },
   },
-
-    build: {
-    outDir: "docs", // 'dist' yazan yeri 'docs' yaptık
+  build: {
+    outDir: "docs",
     emptyOutDir: true,
     minify: false,
     cssMinify: false,
@@ -34,13 +31,4 @@ export default defineConfig({
       }
     }
   }
-
-  // ✅ Tarayıcıya asla hiçbir şeyi önbellekte tutma diye kesin kesin söylüyoruz
-  server: {
-    headers: {
-      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-      'Pragma': 'no-cache',
-      'Expires': '0'
-    }
-  }
-})
+});
