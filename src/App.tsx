@@ -11,8 +11,8 @@ import {
 } from "./utils/timeEngine";
 import { DUA_ARCHIVE, EZAN_DUASI } from "./data/duaArchive";
 
-// --- YARDIMCI FONKSİYONLAR ---
 function fmt2(n: number) { return String(Math.max(0, n)).padStart(2, "0"); }
+
 function toHijri(date: Date, offset = 0): { day: number; month: number; year: number } {
   const d = new Date(date); d.setDate(d.getDate() + offset);
   const JD = Math.floor((d.getTime() - new Date(1970, 0, 1).getTime()) / 86400000) + 2440587.5;
@@ -28,6 +28,7 @@ function toHijri(date: Date, offset = 0): { day: number; month: number; year: nu
   const month = Math.floor((24 * lll) / 709); const day = lll - Math.floor((709 * month) / 24); const year = 30 * n + j - 30;
   return { day, month, year };
 }
+
 const HICRI_AYLAR_TR = ["", "Muharrem", "Safer", "Rebiülevvel", "Rebiülahir", "Cemâziyelevvel", "Cemâziyelahir", "Recep", "Şaban", "Ramazan", "Şevval", "Zilkade", "Zilhicce"];
 const HICRI_AYLAR_DE = ["", "Muharram", "Safar", "Rabi al-Awwal", "Rabi al-Thani", "Dschumada al-Ula", "Dschumada al-Thaniya", "Radschab", "Scha'ban", "Ramadan", "Schawwal", "Dhu al-Qa'da", "Dhu al-Hijja"];
 function hicriStrTR(h: { day: number; month: number; year: number }) { return `${h.day} ${HICRI_AYLAR_TR[h.month]} ${h.year}`; }
@@ -63,9 +64,7 @@ export default function App() {
   const [duyuruDE, setDuyuruDE] = useState("");
   const [showDuyuruForm, setShowDuyuruForm] = useState(false);
   const [configLoaded, setConfigLoaded] = useState(false);
-  const settingsClickCount = useRef(0);
-  const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
+  
   useEffect(() => {
     const timer = setTimeout(() => applyAutoScale(), 50);
     window.addEventListener("resize", applyAutoScale);
@@ -113,33 +112,14 @@ export default function App() {
   const hh = fmt2(now.getHours());
   const mm = fmt2(now.getMinutes());
   const ss = fmt2(now.getSeconds());
-  const isEzan = flow.phase === "ezan";
-  const isKametCountdown = flow.phase === "kamet_countdown";
-  const isKametAlert = flow.phase === "kamet_alert";
   const isBlackout = flow.phase === "blackout";
-
-  let cdH = 0, cdM = 0, cdS = 0;
-  if (isKametCountdown) { const total = flow.kametCountdown; cdH = Math.floor(total / 3600); cdM = Math.floor((total % 3600) / 60); cdS = total % 60; }
-  else if (!isEzan && !isKametAlert && !isBlackout) { const total = flow.countdownSeconds; cdH = Math.floor(total / 3600); cdM = Math.floor((total % 3600) / 60); cdS = total % 60; }
-
-  const vakitList: { key: VakitKey; ezan: string; kamet: string | null }[] = [
-    { key: "sabah", ezan: times.sabah, kamet: times.sabahKamet },
-    { key: "gunes", ezan: times.gunes, kamet: null },
-    { key: "ogle", ezan: times.ogle, kamet: getKametTime("ogle", times.ogle) },
-    { key: "ikindi", ezan: times.ikindi, kamet: getKametTime("ikindi", times.ikindi) },
-    { key: "aksam", ezan: times.aksam, kamet: getKametTime("aksam", times.aksam) },
-    { key: "yatsi", ezan: times.yatsi, kamet: getKametTime("yatsi", times.yatsi) },
-  ];
-
-  const handleBottomClick = useCallback(() => {
-    settingsClickCount.current += 1;
-    if (settingsTimer.current) clearTimeout(settingsTimer.current);
-    settingsTimer.current = setTimeout(() => { settingsClickCount.current = 0; }, 1000);
-    if (settingsClickCount.current >= 3) { settingsClickCount.current = 0; setShowSettings(true); }
-  }, []);
+  const currentLabel = flow.currentVakit ? VAKIT_LABEL[lang][flow.currentVakit] : "—";
+  const nextLabel = flow.nextVakit ? VAKIT_LABEL[lang][flow.nextVakit] : "—";
+  const nextTime = flow.nextVakitTime;
+  const kametVakit = flow.activeEzanVakit;
 
   if (!configLoaded) return ( <div style={{ width: "100vw", height: "100vh", background: "#0a3d2e", display: "flex", alignItems: "center", justifyContent: "center", color: "#c9a66b", fontSize: 24 }}>Yükleniyor...</div> );
-  
+
   if (isBlackout) {
     return (
       <div style={{ width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }}>
@@ -155,26 +135,31 @@ export default function App() {
           {showSettings && (
              <div style={{ position: "absolute", inset: 0, background: "#0a3d2e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24, padding: 40, overflowY: "auto", zIndex: 10 }}>
                 <div style={{ color: "#c9a66b", fontSize: 22, fontWeight: "bold" }}>⚙️ Ayarlar</div>
+                
                 <div style={{ display: "flex", alignItems: "center", gap: 16, width: "100%", maxWidth: 600 }}>
-                   <span style={{ color: "#f5d78e", fontSize: 20 }}>Sabah Kamet Saati</span>
+                   <span>Sabah Kamet Saati</span>
                    <input type="time" value={sabahKametInput} onChange={(e) => setSabahKametInput(e.target.value)} />
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                    <button onClick={() => setHicriOffset(o => o - 1)}>-</button>
-                    <span>{hicriOffset} gün</span>
-                    <button onClick={() => setHicriOffset(o => o + 1)}>+</button>
+                
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                   <button onClick={() => setHicriOffset(o => o - 1)}>-</button>
+                   <span>Hicri: {hicriOffset}</span>
+                   <button onClick={() => setHicriOffset(o => o + 1)}>+</button>
                 </div>
+                
                 <button onClick={() => setShowBayramForm(!showBayramForm)}>Bayram Saatleri ▾</button>
                 {showBayramForm && SETTINGS.bayramlar.map(b => (
                    <input key={b.tarih} type="time" value={bayramInputs[b.tarih] || "09:00"} onChange={(e) => setBayramInputs(prev => ({...prev, [b.tarih]: e.target.value}))} />
                 ))}
+                
                 <button onClick={() => setShowDuyuruForm(!showDuyuruForm)}>Duyurular ▾</button>
                 {showDuyuruForm && (
                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                     <textarea value={duyuruTR} onChange={(e) => setDuyuruTR(e.target.value)} placeholder="Türkçe" />
-                     <textarea value={duyuruDE} onChange={(e) => setDuyuruDE(e.target.value)} placeholder="Deutsch" />
+                     <textarea value={duyuruTR} onChange={(e) => setDuyuruTR(e.target.value)} placeholder="TR Duyuru" />
+                     <textarea value={duyuruDE} onChange={(e) => setDuyuruDE(e.target.value)} placeholder="DE Duyuru" />
                    </div>
                 )}
+                
                 <button onClick={() => setShowSettings(false)} style={{ background: "#c9a66b", padding: "10px 20px" }}>✓ Kaydet & Kapat</button>
              </div>
           )}
