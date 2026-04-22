@@ -13040,14 +13040,14 @@ function computeFlow(now, times) {
   };
   let current = null;
   let next = null;
-  let nextTime = "";
+  let nextTime2 = "";
   for (const vakit of vakit_order) {
     const vakitDate = timeToDate(timeMap[vakit], now);
     if (now >= vakitDate) {
       current = vakit;
     } else {
       next = vakit;
-      nextTime = timeMap[vakit];
+      nextTime2 = timeMap[vakit];
       break;
     }
   }
@@ -13056,7 +13056,7 @@ function computeFlow(now, times) {
     const tomorrow = new Date(now);
     tomorrow.setDate(tomorrow.getDate() + 1);
     const tomorrowTimes = getTodayTimes(tomorrow);
-    nextTime = tomorrowTimes.sabah;
+    nextTime2 = tomorrowTimes.sabah;
   }
   const ezanVakitler = ["sabah", "ogle", "ikindi", "aksam", "yatsi"];
   for (const vakit of ezanVakitler) {
@@ -13078,7 +13078,7 @@ function computeFlow(now, times) {
         phase: "ezan",
         currentVakit: vakit,
         nextVakit: next,
-        nextVakitTime: nextTime,
+        nextVakitTime: nextTime2,
         countdownSeconds: 0,
         ezanElapsed: secSinceEzan,
         blackoutRemaining: 0,
@@ -13092,7 +13092,7 @@ function computeFlow(now, times) {
         phase: "kamet_countdown",
         currentVakit: vakit,
         nextVakit: next,
-        nextVakitTime: nextTime,
+        nextVakitTime: nextTime2,
         countdownSeconds: 0,
         ezanElapsed: secSinceEzan,
         blackoutRemaining: 0,
@@ -13106,7 +13106,7 @@ function computeFlow(now, times) {
         phase: "kamet_alert",
         currentVakit: vakit,
         nextVakit: next,
-        nextVakitTime: nextTime,
+        nextVakitTime: nextTime2,
         countdownSeconds: 0,
         ezanElapsed: secSinceEzan,
         blackoutRemaining: 0,
@@ -13120,7 +13120,7 @@ function computeFlow(now, times) {
         phase: "blackout",
         currentVakit: vakit,
         nextVakit: next,
-        nextVakitTime: nextTime,
+        nextVakitTime: nextTime2,
         countdownSeconds: 0,
         ezanElapsed: secSinceEzan,
         blackoutRemaining: diffSeconds(now, blackoutEnd),
@@ -13130,12 +13130,12 @@ function computeFlow(now, times) {
       };
     }
   }
-  const countdown = next ? diffSeconds(now, timeToDate(nextTime, now)) : 0;
+  const countdown = next ? diffSeconds(now, timeToDate(nextTime2, now)) : 0;
   return {
     phase: "normal",
     currentVakit: current,
     nextVakit: next,
-    nextVakitTime: nextTime,
+    nextVakitTime: nextTime2,
     countdownSeconds: Math.max(0, countdown),
     ezanElapsed: 0,
     blackoutRemaining: 0,
@@ -13191,7 +13191,6 @@ function miladiDEStr(d) {
   return `${GUNLER_DE[d.getDay()]}, ${d.getDate()}. ${AYLAR_DE[d.getMonth()]} ${d.getFullYear()}`;
 }
 const VAKIT_NAMES = { tr: { sabah: "SABAH", gunes: "GÜNEŞ", ogle: "ÖĞLE", ikindi: "İKİNDİ", aksam: "AKŞAM", yatsi: "YATSI" }, de: { sabah: "FAJR", gunes: "SCHURUQ", ogle: "DHUHR", ikindi: "ASSR", aksam: "MAGHRIB", yatsi: "ISCHAA" } };
-const VAKIT_LABEL = { tr: { sabah: "Sabah", gunes: "Güneş", ogle: "Öğle", ikindi: "İkindi", aksam: "Akşam", yatsi: "Yatsı" }, de: { sabah: "Fajr", gunes: "Schuruq", ogle: "Dhuhr", ikindi: "Assr", aksam: "Maghrib", yatsi: "Ischaa" } };
 function getDailyDua(date) {
   const dayOfYear = Math.floor((date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 864e5);
   return DUA_ARCHIVE[dayOfYear % DUA_ARCHIVE.length];
@@ -13214,7 +13213,6 @@ function App() {
   const [showSettings, setShowSettings] = reactExports.useState(false);
   const [bayramInputs, setBayramInputs] = reactExports.useState({});
   const [showBayramForm, setShowBayramForm] = reactExports.useState(false);
-  const [duaLang, setDuaLang] = reactExports.useState("tr");
   const [duyuruTR, setDuyuruTR] = reactExports.useState("");
   const [duyuruDE, setDuyuruDE] = reactExports.useState("");
   const [showDuyuruForm, setShowDuyuruForm] = reactExports.useState(false);
@@ -13311,17 +13309,6 @@ function App() {
     cdM = Math.floor(total % 3600 / 60);
     cdS = total % 60;
   }
-  const gunesDate = new Date(now);
-  const [gh, gm] = times.gunes.split(":").map(Number);
-  gunesDate.setHours(gh, gm, 0, 0);
-  const gunesKalanSec = Math.max(0, Math.floor((gunesDate.getTime() - now.getTime()) / 1e3));
-  const gunesKalanH = Math.floor(gunesKalanSec / 3600);
-  const gunesKalanM = Math.floor(gunesKalanSec % 3600 / 60);
-  const gunesKalanS = gunesKalanSec % 60;
-  const currentLabel = flow.currentVakit ? VAKIT_LABEL[lang][flow.currentVakit] : "—";
-  const nextLabel = flow.nextVakit ? VAKIT_LABEL[lang][flow.nextVakit] : "—";
-  const nextTime = flow.nextVakitTime;
-  const kametVakit = flow.activeEzanVakit;
   const vakitList = [
     { key: "sabah", ezan: times.sabah, kamet: times.sabahKamet },
     { key: "gunes", ezan: times.gunes, kamet: null },
@@ -13342,33 +13329,34 @@ function App() {
     }
   }, []);
   if (!configLoaded) return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100vw", height: "100vh", background: "#0a3d2e", display: "flex", alignItems: "center", justifyContent: "center", color: "#c9a66b", fontSize: 24 }, children: "Yükleniyor..." });
+  if (isBlackout) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "img/close.png?v=5", alt: "Kapatın", style: { maxWidth: "100%", maxHeight: "95vh", objectFit: "contain" }, onError: (e) => {
+      e.currentTarget.style.display = "none";
+    } }) });
+  }
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100vw", height: "100vh", overflow: "hidden", position: "fixed", top: 0, left: 0, background: "#000", zIndex: 0 }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "tv-safe-area", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "outer-frame", style: { display: "flex", flexDirection: "column", position: "relative" }, children: [
     showSettings && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { position: "absolute", inset: 0, background: "#0a3d2e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24, padding: 40, overflowY: "auto", zIndex: 10 }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { color: "#c9a66b", fontSize: 22, fontWeight: "bold" }, children: [
-        "⚙️ ",
-        lang === "tr" ? "Ayarlar" : "Einstellungen"
-      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#c9a66b", fontSize: 22, fontWeight: "bold" }, children: "⚙️ Ayarlar" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", alignItems: "center", gap: 16, width: "100%", maxWidth: 600 }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#f5d78e", fontSize: 20, flex: 1 }, children: lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "time", value: sabahKametInput, onChange: (e) => setSabahKametInput(e.target.value), style: { flex: 1, padding: "8px 12px", borderRadius: 8, border: "2px solid #c9a66b", background: "#1a5c3a", color: "#f5d78e", fontSize: 18 } })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#f5d78e", fontSize: 20 }, children: "Sabah Kamet Saati" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "time", value: sabahKametInput, onChange: (e) => setSabahKametInput(e.target.value) })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column", gap: 8, width: "100%", maxWidth: 600 }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#f5d78e", fontSize: 20 }, children: lang === "tr" ? "Hicri Takvim Düzeltmesi" : "Hidschra-Kalender Korrektur" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: 12, alignItems: "center" }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setHicriOffset((o) => o - 1), style: { padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }, children: "−" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#f5d78e", fontSize: 22 }, children: hicriOffset > 0 ? `+${hicriOffset}` : hicriOffset }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setHicriOffset((o) => o + 1), style: { padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }, children: "+" })
-        ] })
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", alignItems: "center", gap: 16 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setHicriOffset((o) => o - 1), children: "-" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+          hicriOffset,
+          " gün"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setHicriOffset((o) => o + 1), children: "+" })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: () => setShowBayramForm(!showBayramForm), style: { padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8 }, children: [
-        lang === "tr" ? "Bayram Saatleri" : "Feiertagszeiten",
-        " ▾"
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setShowBayramForm(!showBayramForm), children: "Bayram Saatleri ▾" }),
+      showBayramForm && SETTINGS.bayramlar.map((b) => /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "time", value: bayramInputs[b.tarih] || "09:00", onChange: (e) => setBayramInputs((prev) => ({ ...prev, [b.tarih]: e.target.value })) }, b.tarih)),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setShowDuyuruForm(!showDuyuruForm), children: "Duyurular ▾" }),
+      showDuyuruForm && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column", gap: 8 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("textarea", { value: duyuruTR, onChange: (e) => setDuyuruTR(e.target.value), placeholder: "Türkçe" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("textarea", { value: duyuruDE, onChange: (e) => setDuyuruDE(e.target.value), placeholder: "Deutsch" })
       ] }),
-      showBayramForm && SETTINGS.bayramlar.map((b) => /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "time", value: bayramInputs[b.tarih] || "09:00", onChange: (e) => setBayramInputs((prev) => ({ ...prev, [b.tarih]: e.target.value })), style: { padding: "8px", borderRadius: 6 } }, b.tarih)),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: () => setShowBayramForm(false), style: { marginTop: 16, padding: "12px 40px", fontSize: 20, background: "#c9a66b", color: "#0a3d2e", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: "bold" }, children: [
-        "✓ ",
-        lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"
-      ] })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setShowSettings(false), style: { background: "#c9a66b", padding: "10px 20px" }, children: "✓ Kaydet & Kapat" })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "div",
