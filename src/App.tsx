@@ -1006,7 +1006,9 @@ export default function App() {
                 style={{ height: 52, objectFit: "contain" }}
               />
             </div>
+            
           </div>
+
         </div>
 
       </div>
