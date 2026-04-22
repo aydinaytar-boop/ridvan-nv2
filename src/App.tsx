@@ -198,6 +198,7 @@ export default function App() {
                 )}
                 <button onClick={() => setShowSettings(false)} style={{ marginTop: 16, padding: "12px 40px", fontSize: 20, background: "#c9a66b", color: "#0a3d2e", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: "bold" }}>✓ {lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"}</button>
              </div>
+          )}
                     <div
             className="top-bar"
             style={{
