@@ -11,8 +11,8 @@ import {
 } from "./utils/timeEngine";
 import { DUA_ARCHIVE, EZAN_DUASI } from "./data/duaArchive";
 
-// --- YARDIMCI FONKSİYONLAR ---
 function fmt2(n: number) { return String(Math.max(0, n)).padStart(2, "0"); }
+
 function toHijri(date: Date, offset = 0): { day: number; month: number; year: number } {
   const d = new Date(date); d.setDate(d.getDate() + offset);
   const JD = Math.floor((d.getTime() - new Date(1970, 0, 1).getTime()) / 86400000) + 2440587.5;
@@ -28,6 +28,7 @@ function toHijri(date: Date, offset = 0): { day: number; month: number; year: nu
   const month = Math.floor((24 * lll) / 709); const day = lll - Math.floor((709 * month) / 24); const year = 30 * n + j - 30;
   return { day, month, year };
 }
+
 const HICRI_AYLAR_TR = ["", "Muharrem", "Safer", "Rebiülevvel", "Rebiülahir", "Cemâziyelevvel", "Cemâziyelahir", "Recep", "Şaban", "Ramazan", "Şevval", "Zilkade", "Zilhicce"];
 const HICRI_AYLAR_DE = ["", "Muharram", "Safar", "Rabi al-Awwal", "Rabi al-Thani", "Dschumada al-Ula", "Dschumada al-Thaniya", "Radschab", "Scha'ban", "Ramadan", "Schawwal", "Dhu al-Qa'da", "Dhu al-Hijja"];
 function hicriStrTR(h: { day: number; month: number; year: number }) { return `${h.day} ${HICRI_AYLAR_TR[h.month]} ${h.year}`; }
@@ -98,7 +99,6 @@ export default function App() {
   useEffect(() => { if (configLoaded) localStorage.setItem("duyuruDE", duyuruDE); }, [duyuruDE, configLoaded]);
   useEffect(() => { if (configLoaded) localStorage.setItem("hicriOffset", String(hicriOffset)); }, [hicriOffset, configLoaded]);
   useEffect(() => { if (configLoaded) localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs)); }, [bayramInputs, configLoaded]);
-  
   useEffect(() => { const id = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(id); }, []);
   useEffect(() => { const id = setInterval(() => { setLang((l) => (l === "tr" ? "de" : "tr")); }, 20000); return () => clearInterval(id); }, []);
   useEffect(() => { setSabahKametSaati(sabahKametInput); }, [sabahKametInput]);
@@ -158,7 +158,7 @@ export default function App() {
   if (isBlackout) {
     return (
       <div style={{ width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }}>
-        <img src="img/close.png?v=5" style={{ maxWidth: "100%", maxHeight: "95vh", objectFit: "contain" }} onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+        <img src="img/close.png?v=5" alt="Kapatın" style={{ maxWidth: "100%", maxHeight: "95vh", objectFit: "contain" }} onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
         <div style={{ color: "#c9a66b", fontSize: 28, fontFamily: "'Segoe UI', Arial, sans-serif", letterSpacing: 2, textAlign: "center" }}>
           {lang === "tr" ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın!" : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus!"}
         </div>
@@ -173,45 +173,29 @@ export default function App() {
           {showSettings && (
              <div style={{ position: "absolute", inset: 0, background: "#0a3d2e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24, padding: 40, overflowY: "auto", zIndex: 10 }}>
                 <div style={{ color: "#c9a66b", fontSize: 22, fontWeight: "bold" }}>⚙️ {lang === "tr" ? "Ayarlar" : "Einstellungen"}</div>
-                
-                {/* 1. Sabah Kamet */}
                 <div style={{ display: "flex", alignItems: "center", gap: 16, width: "100%", maxWidth: 600 }}>
                    <span style={{ color: "#f5d78e", fontSize: 20, flex: 1 }}>{lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit"}</span>
                    <input type="time" value={sabahKametInput} onChange={(e) => setSabahKametInput(e.target.value)} style={{ flex: 1, padding: "8px 12px", borderRadius: 8, border: "2px solid #c9a66b", background: "#1a5c3a", color: "#f5d78e", fontSize: 18 }} />
                 </div>
-
-                {/* 2. Hicri Takvim */}
                 <div style={{ display: "flex", flexDirection: "column", gap: 8, width: "100%", maxWidth: 600 }}>
-                  <span style={{ color: "#f5d78e", fontSize: 20 }}>{lang === "tr" ? "Hicri Takvim Düzeltmesi" : "Hidschra-Kalender Korrektur"}</span>
-                  <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-                    <button onClick={() => setHicriOffset(o => o - 1)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>−</button>
-                    <span style={{ color: "#f5d78e", fontSize: 22 }}>{hicriOffset > 0 ? `+${hicriOffset}` : hicriOffset}</span>
-                    <button onClick={() => setHicriOffset(o => o + 1)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>+</button>
-                  </div>
-                </div>
-
-                {/* 3. Bayram Saatleri */}
-                <div style={{ width: "100%", maxWidth: 600 }}>
-                  <button onClick={() => setShowBayramForm(v => !v)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>{lang === "tr" ? "Bayram Saatleri" : "Feiertagszeiten"} ▾</button>
-                  {showBayramForm && SETTINGS.bayramlar.map(b => (
-                    <div key={b.tarih} style={{ display: "flex", gap: 12, marginTop: 8 }}>
-                      <span style={{ color: "#f5d78e", flex: 1 }}>{lang === "tr" ? b.ad_tr : b.ad_de}</span>
-                      <input type="time" value={bayramInputs[b.tarih] || "09:00"} onChange={(e) => setBayramInputs(prev => ({ ...prev, [b.tarih]: e.target.value }))} style={{ background: "#0a3d2e", color: "#f5d78e", border: "1px solid #c9a66b" }} />
+                    <span style={{ color: "#f5d78e", fontSize: 20 }}>{lang === "tr" ? "Hicri Takvim Düzeltmesi" : "Hidschra-Kalender Korrektur"}</span>
+                    <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                        <button onClick={() => setHicriOffset((o) => o - 1)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>−</button>
+                        <span style={{ color: "#f5d78e", fontSize: 22 }}>{hicriOffset > 0 ? `+${hicriOffset}` : hicriOffset}</span>
+                        <button onClick={() => setHicriOffset((o) => o + 1)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>+</button>
                     </div>
-                  ))}
                 </div>
-
-                {/* 4. Duyurular */}
-                <div style={{ width: "100%", maxWidth: 600 }}>
-                  <button onClick={() => setShowDuyuruForm(v => !v)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>{lang === "tr" ? "Duyurular" : "Ankündigungen"} ▾</button>
-                  {showDuyuruForm && (
-                    <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 8 }}>
-                      <textarea value={duyuruTR} onChange={(e) => setDuyuruTR(e.target.value)} placeholder="TR Duyuru" style={{ background: "#0a3d2e", color: "#f5d78e", width: "100%" }} />
-                      <textarea value={duyuruDE} onChange={(e) => setDuyuruDE(e.target.value)} placeholder="DE Duyuru" style={{ background: "#0a3d2e", color: "#f5d78e", width: "100%" }} />
-                    </div>
-                  )}
-                </div>
-
+                <button onClick={() => setShowBayramForm(!showBayramForm)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8 }}>{lang === "tr" ? "Bayram Saatleri" : "Feiertagszeiten"} ▾</button>
+                {showBayramForm && SETTINGS.bayramlar.map(b => (
+                   <input key={b.tarih} type="time" value={bayramInputs[b.tarih] || "09:00"} onChange={(e) => setBayramInputs(prev => ({...prev, [b.tarih]: e.target.value}))} />
+                ))}
+                <button onClick={() => setShowDuyuruForm(!showDuyuruForm)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8 }}>{lang === "tr" ? "Duyurular" : "Ankündigungen"} ▾</button>
+                {showDuyuruForm && (
+                   <>
+                     <textarea value={duyuruTR} onChange={(e) => setDuyuruTR(e.target.value)} />
+                     <textarea value={duyuruDE} onChange={(e) => setDuyuruDE(e.target.value)} />
+                   </>
+                )}
                 <button onClick={() => setShowSettings(false)} style={{ marginTop: 16, padding: "12px 40px", fontSize: 20, background: "#c9a66b", color: "#0a3d2e", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: "bold" }}>✓ {lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"}</button>
              </div>
                     <div
