@@ -23,23 +23,17 @@ export default defineConfig({
     },
   },
 
-  build: {
-    outDir: "dist",
+    build: {
+    outDir: "docs", // 'dist' yazan yeri 'docs' yaptık
     emptyOutDir: true,
     minify: false,
     cssMinify: false,
-
     rollupOptions: {
       output: {
         inlineDynamicImports: true,
-
-        // ✅ GH Pages önbellek sorunu tamamen sonsuza kadar çözüldü
-        entryFileNames: `assets/[name].[hash].js`,
-        chunkFileNames: `assets/[name].[hash].js`,
-        assetFileNames: `assets/[name].[hash].[ext]`
       }
     }
-  },
+  }
 
   // ✅ Tarayıcıya asla hiçbir şeyi önbellekte tutma diye kesin kesin söylüyoruz
   server: {
