@@ -155,17 +155,6 @@ export default function App() {
 
   if (!configLoaded) return ( <div style={{ width: "100vw", height: "100vh", background: "#0a3d2e", display: "flex", alignItems: "center", justifyContent: "center", color: "#c9a66b", fontSize: 24 }}>Yükleniyor...</div> );
 
-  if (isBlackout) {
-    return (
-      <div style={{ width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }}>
-        <img src="img/close.png?v=5" alt="Kapatın" style={{ maxWidth: "100%", maxHeight: "95vh", objectFit: "contain" }} onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
-        <div style={{ color: "#c9a66b", fontSize: 28, fontFamily: "'Segoe UI', Arial, sans-serif", letterSpacing: 2, textAlign: "center" }}>
-          {lang === "tr" ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın!" : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus!"}
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div style={{ width: "100vw", height: "100vh", overflow: "hidden", position: "fixed", top: 0, left: 0, background: "#000", zIndex: 0 }}>
       <div className="tv-safe-area">
@@ -177,9 +166,25 @@ export default function App() {
                    <span style={{ color: "#f5d78e", fontSize: 20, flex: 1 }}>{lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit"}</span>
                    <input type="time" value={sabahKametInput} onChange={(e) => setSabahKametInput(e.target.value)} style={{ flex: 1, padding: "8px 12px", borderRadius: 8, border: "2px solid #c9a66b", background: "#1a5c3a", color: "#f5d78e", fontSize: 18 }} />
                 </div>
-                <button onClick={() => setShowSettings(false)} style={{ marginTop: 16, padding: "12px 40px", fontSize: 20, background: "#c9a66b", color: "#0a3d2e", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: "bold" }}>✓ {lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"}</button>
-             </div>
-          )}
+                <div style={{ display: "flex", flexDirection: "column", gap: 8, width: "100%", maxWidth: 600 }}>
+                    <span style={{ color: "#f5d78e", fontSize: 20 }}>{lang === "tr" ? "Hicri Takvim Düzeltmesi" : "Hidschra-Kalender Korrektur"}</span>
+                    <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                        <button onClick={() => setHicriOffset((o) => o - 1)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>−</button>
+                        <span style={{ color: "#f5d78e", fontSize: 22 }}>{hicriOffset > 0 ? `+${hicriOffset}` : hicriOffset}</span>
+                        <button onClick={() => setHicriOffset((o) => o + 1)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>+</button>
+                    </div>
+                </div>
+                <button onClick={() => setShowBayramForm(!showBayramForm)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8 }}>{lang === "tr" ? "Bayram Saatleri" : "Feiertagszeiten"} ▾</button>
+                {showBayramForm && SETTINGS.bayramlar.map(b => (
+                   <input key={b.tarih} type="time" value={bayramInputs[b.tarih] || "09:00"} onChange={(e) => setBayramInputs(prev => ({...prev, [b.tarih]: e.target.value}))} style={{ padding: "8px", borderRadius: 6 }} />
+                ))}
+                <button onClick={() => setShowDuyuruForm(!showDuyuruForm)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8 }}>{lang === "tr" ? "Duyurular" : "Ankündigungen"} ▾</button>
+                {showDuyuruForm && (
+                   <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                     <textarea value={duyuruTR} onChange={(e) => setDuyuruTR(e.target.value)} placeholder="Türkçe" />
+                     <textarea value={duyuruDE} onChange={(e) => setDuyuruDE(e.target.value)} placeholder="Deutsch" />
+                   </div>
+                )}
                     <div
             className="top-bar"
             style={{
