@@ -6,8 +6,8 @@ import {
   getBayramVisibility,
   isCumaGunu,
   showWeekendOgleMsg,
-  setSabahKametSaati,
   getSabahKametSaati,
+  saveSetting,
   SETTINGS,
   type VakitKey,
 } from "./utils/timeEngine";
@@ -41,8 +41,7 @@ function toHijri(
     367 * yearG -
     Math.floor((7 * (yearG + Math.floor((monthG + 9) / 12))) / 4) +
     Math.floor((275 * monthG) / 9) +
-    dayG +
-    1721013.5;
+    dayG + 1721013.5;
   const l = Math.floor(JDN) - 1948440 + 10632;
   const n = Math.floor((l - 1) / 10631);
   const ll = l - 10631 * n + 354;
@@ -227,19 +226,32 @@ function applyAutoScale() {
 export default function App() {
   const [now, setNow] = useState(() => new Date());
   const [lang, setLang] = useState<"tr" | "de">("tr");
-  const [hicriOffset, setHicriOffset] = useState(0);
-  const [sabahKametInput, setSabahKametInput] = useState("05:30");
+
+  const [hicriOffset, setHicriOffset] = useState(() => parseInt(localStorage.getItem("hicriOffset") || "0"));
+  const [sabahKametInput, setSabahKametInput] = useState(() => getSabahKametSaati());
+  const [duyuruTR, setDuyuruTR] = useState(() => localStorage.getItem("duyuruTR") || "");
+  const [duyuruDE, setDuyuruDE] = useState(() => localStorage.getItem("duyuruDE") || "");
+  
   const [showSettings, setShowSettings] = useState(false);
-  const [bayramInputs, setBayramInputs] = useState<Record<string, string>>({});
+  const [bayramInputs, setBayramInputs] = useState<Record<string, string>>(() => {
+    try { return JSON.parse(localStorage.getItem("bayramInputs") || "{}") } catch { return {} }
+  });
   const [showBayramForm, setShowBayramForm] = useState(false);
   const [duaLang, setDuaLang] = useState<"tr" | "de">("tr");
-  const [duyuruTR, setDuyuruTR] = useState("");
-  const [duyuruDE, setDuyuruDE] = useState("");
   const [showDuyuruForm, setShowDuyuruForm] = useState(false);
-  const [configLoaded, setConfigLoaded] = useState(false);
+
   const settingsClickCount = useRef(0);
   const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  // 1. EKRAN ÖLÇEKLENDİRME (Aynen duruyor)
+
+
+  const [, forceUpdate] = useState(0);
+  useEffect(() => {
+    const handler = () => forceUpdate(x => x + 1);
+    window.addEventListener('settingsUpdated', handler);
+    return () => window.removeEventListener('settingsUpdated', handler);
+  }, []);
+
+
   useEffect(() => {
     const timer = setTimeout(() => {
       applyAutoScale();
@@ -253,57 +265,33 @@ export default function App() {
     };
   }, []);
 
-  // 2. CONFIG YÜKLEME (Güncellenen kısım - Artık hem config.json'ı hem localStorage'ı kontrol eder)
+
   useEffect(() => {
     async function loadConfig() {
       try {
-        const response = await fetch('./config.json');
+        const response = await fetch(`./config.json?${Date.now()}`);
         const remoteConfig = await response.json();
         const d = remoteConfig.dynamic || {};
 
-        // ÖNCELİK: LocalStorage (kullanıcı değiştirdiyse) > config.json (dosyadaki ayar) > Varsayılan
-        setSabahKametInput(localStorage.getItem("manuelSabahKamet") || d.sabahKamet || "05:15");
-        setDuyuruTR(localStorage.getItem("duyuruTR") || d.duyuruTR || "");
-        setDuyuruDE(localStorage.getItem("duyuruDE") || d.duyuruDE || "");
-      } catch (e) {
-        console.error("Config yüklenemedi, yerel verilerle devam ediliyor:", e);
-        setSabahKametInput(getSabahKametSaati());
-        setDuyuruTR(localStorage.getItem("duyuruTR") || "");
-        setDuyuruDE(localStorage.getItem("duyuruDE") || "");
-      }
-
-      setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
-      const savedBayram = localStorage.getItem("bayramInputs");
-      if (savedBayram) {
-        try {
-          setBayramInputs(JSON.parse(savedBayram));
-        } catch (err) {
-          console.error("Bayram verisi hatası");
-        }
-      }
-      setConfigLoaded(true);
+        setSabahKametInput(d.sabahKamet || localStorage.getItem("manuelSabahKamet") || "");
+        setDuyuruTR(d.duyuruTR || localStorage.getItem("duyuruTR") || "");
+        setDuyuruDE(d.duyuruDE || localStorage.getItem("duyuruDE") || "");
+        
+      } catch (e) {}
     }
+
     loadConfig();
+    const id = setInterval(loadConfig, 3600000);
+    return () => clearInterval(id);
+
   }, []);
 
-  // 3. AUTO-SAVE YAPAN DİĞER KANCALAR (Aynen duruyor)
-  useEffect(() => {
-    if (configLoaded) localStorage.setItem("duyuruTR", duyuruTR);
-  }, [duyuruTR, configLoaded]);
 
-  useEffect(() => {
-    if (configLoaded) localStorage.setItem("duyuruDE", duyuruDE);
-  }, [duyuruDE, configLoaded]);
+  useEffect(() => { localStorage.setItem("duyuruTR", duyuruTR); }, [duyuruTR]);
+  useEffect(() => { localStorage.setItem("duyuruDE", duyuruDE); }, [duyuruDE]);
+  useEffect(() => { localStorage.setItem("hicriOffset", String(hicriOffset)); }, [hicriOffset]);
+  useEffect(() => { localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs)); }, [bayramInputs]);
 
-  useEffect(() => {
-    if (configLoaded)
-      localStorage.setItem("hicriOffset", String(hicriOffset));
-  }, [hicriOffset, configLoaded]);
-
-  useEffect(() => {
-    if (configLoaded)
-      localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs));
-  }, [bayramInputs, configLoaded]);
 
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 1000);
@@ -317,11 +305,7 @@ export default function App() {
     return () => clearInterval(id);
   }, []);
 
-  useEffect(() => {
-    setSabahKametSaati(sabahKametInput);
-  }, [sabahKametInput]);
 
-  // 4. DEĞİŞKEN HESAPLAMALARI (Aynen duruyor)
   const times = getTodayTimes(now);
   const flow = computeFlow(now, times);
   const bayram = getBayramVisibility(now);
@@ -460,6 +444,7 @@ export default function App() {
       </div>
     );
   }
+
   return (
     <div
       style={{
@@ -478,7 +463,6 @@ export default function App() {
           className="outer-frame"
           style={{ display: "flex", flexDirection: "column", position: "relative" }}
         >
-          {/* AYARLAR OVERLAY */}
           {showSettings && (
             <div
               style={{
@@ -775,7 +759,15 @@ export default function App() {
               </div>
 
               <button
-                onClick={() => setShowSettings(false)}
+                onClick={() => {
+                  saveSetting("manuelSabahKamet", sabahKametInput);
+                  saveSetting("duyuruTR", duyuruTR);
+                  saveSetting("duyuruDE", duyuruDE);
+                  saveSetting("hicriOffset", String(hicriOffset));
+                  localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs));
+
+                  setShowSettings(false);
+                }}
                 style={{
                   marginTop: 16,
                   padding: "12px 40px",
@@ -793,7 +785,6 @@ export default function App() {
             </div>
           )}
 
-          {/* ÜST BAR */}
           <div
             className="top-bar"
             style={{
@@ -921,9 +912,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* ANA PANELLER */}
           <div className="main-panels" style={{ display: "flex", flex: 1 }}>
-            {/* SOL PANEL */}
             <div
               className="panel"
               style={{
@@ -1182,7 +1171,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* ORTA PANEL */}
             <div
               className="panel"
               style={{
@@ -1270,7 +1258,6 @@ export default function App() {
                     </div>
                   )}
 
-                  {/* GERİ SAYIM */}
                   <div className="countdown-row">
                     {[
                       {
@@ -1308,7 +1295,6 @@ export default function App() {
                     )}
                   </div>
 
-                  {/* SABAH → GÜNEŞE KALAN */}
                   {flow.currentVakit === "sabah" &&
                     !isEzan &&
                     !isKametCountdown && (
@@ -1367,7 +1353,7 @@ export default function App() {
                 </div>
               )}
             </div>
-            {/* SAĞ PANEL - DUA + DUYURULAR */}
+
             <div
               className="panel"
               style={{
@@ -1377,7 +1363,6 @@ export default function App() {
                 background: "#0a3d2e",
               }}
             >
-              {/* ÜST YARI - DUA */}
               <div
                 style={{
                   flex: 1,
@@ -1492,7 +1477,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* ALT YARI - DUYURULAR */}
               <div
                 style={{
                   flex: 1,
@@ -1541,7 +1525,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* ALT BAR */}
           <div
             className="bottom-bar"
             style={{
