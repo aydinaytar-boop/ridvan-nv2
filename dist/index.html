@@ -12928,6 +12928,9 @@ let _sabahKametSaati = SETTINGS.sabahKamet;
 function getSabahKametSaati() {
   return _sabahKametSaati;
 }
+function setSabahKametSaati(val) {
+  _sabahKametSaati = val;
+}
 function timeToDate(timeStr, baseDate) {
   const [h, m] = timeStr.split(":").map(Number);
   const d = new Date(baseDate);
@@ -13147,9 +13150,7 @@ function fmt2(n) {
 function toHijri(date, offset = 0) {
   const d = new Date(date);
   d.setDate(d.getDate() + offset);
-  const JD = Math.floor(
-    (d.getTime() - new Date(1970, 0, 1).getTime()) / 864e5
-  ) + 24405875e-1;
+  const JD = Math.floor((d.getTime() - new Date(1970, 0, 1).getTime()) / 864e5) + 24405875e-1;
   const Z = Math.floor(JD);
   const A = Math.floor((Z - 186721625e-2) / 36524.25);
   const AA = Z + 1 + A - Math.floor(A / 4);
@@ -13171,134 +13172,28 @@ function toHijri(date, offset = 0) {
   const year = 30 * n + j - 30;
   return { day, month, year };
 }
-const HICRI_AYLAR_TR = [
-  "",
-  "Muharrem",
-  "Safer",
-  "Rebiülevvel",
-  "Rebiülahir",
-  "Cemâziyelevvel",
-  "Cemâziyelahir",
-  "Recep",
-  "Şaban",
-  "Ramazan",
-  "Şevval",
-  "Zilkade",
-  "Zilhicce"
-];
-const HICRI_AYLAR_DE = [
-  "",
-  "Muharram",
-  "Safar",
-  "Rabi al-Awwal",
-  "Rabi al-Thani",
-  "Dschumada al-Ula",
-  "Dschumada al-Thaniya",
-  "Radschab",
-  "Scha'ban",
-  "Ramadan",
-  "Schawwal",
-  "Dhu al-Qa'da",
-  "Dhu al-Hijja"
-];
+const HICRI_AYLAR_TR = ["", "Muharrem", "Safer", "Rebiülevvel", "Rebiülahir", "Cemâziyelevvel", "Cemâziyelahir", "Recep", "Şaban", "Ramazan", "Şevval", "Zilkade", "Zilhicce"];
+const HICRI_AYLAR_DE = ["", "Muharram", "Safar", "Rabi al-Awwal", "Rabi al-Thani", "Dschumada al-Ula", "Dschumada al-Thaniya", "Radschab", "Scha'ban", "Ramadan", "Schawwal", "Dhu al-Qa'da", "Dhu al-Hijja"];
 function hicriStrTR(h) {
   return `${h.day} ${HICRI_AYLAR_TR[h.month]} ${h.year}`;
 }
 function hicriStrDE(h) {
   return `${h.day}. ${HICRI_AYLAR_DE[h.month]} ${h.year}`;
 }
-const GUNLER_TR = [
-  "Pazar",
-  "Pazartesi",
-  "Salı",
-  "Çarşamba",
-  "Perşembe",
-  "Cuma",
-  "Cumartesi"
-];
-const GUNLER_DE = [
-  "Sonntag",
-  "Montag",
-  "Dienstag",
-  "Mittwoch",
-  "Donnerstag",
-  "Freitag",
-  "Samstag"
-];
-const AYLAR_TR = [
-  "Ocak",
-  "Şubat",
-  "Mart",
-  "Nisan",
-  "Mayıs",
-  "Haziran",
-  "Temmuz",
-  "Ağustos",
-  "Eylül",
-  "Ekim",
-  "Kasım",
-  "Aralık"
-];
-const AYLAR_DE = [
-  "Januar",
-  "Februar",
-  "März",
-  "April",
-  "Mai",
-  "Juni",
-  "Juli",
-  "August",
-  "September",
-  "Oktober",
-  "November",
-  "Dezember"
-];
+const GUNLER_TR = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+const GUNLER_DE = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+const AYLAR_TR = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+const AYLAR_DE = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
 function miladiTRStr(d) {
   return `${GUNLER_TR[d.getDay()]}, ${d.getDate()} ${AYLAR_TR[d.getMonth()]} ${d.getFullYear()}`;
 }
 function miladiDEStr(d) {
   return `${GUNLER_DE[d.getDay()]}, ${d.getDate()}. ${AYLAR_DE[d.getMonth()]} ${d.getFullYear()}`;
 }
-const VAKIT_NAMES = {
-  tr: {
-    sabah: "SABAH",
-    gunes: "GÜNEŞ",
-    ogle: "ÖĞLE",
-    ikindi: "İKİNDİ",
-    aksam: "AKŞAM",
-    yatsi: "YATSI"
-  },
-  de: {
-    sabah: "FAJR",
-    gunes: "SCHURUQ",
-    ogle: "DHUHR",
-    ikindi: "ASSR",
-    aksam: "MAGHRIB",
-    yatsi: "ISCHAA"
-  }
-};
-const VAKIT_LABEL = {
-  tr: {
-    sabah: "Sabah",
-    gunes: "Güneş",
-    ogle: "Öğle",
-    ikindi: "İkindi",
-    aksam: "Akşam",
-    yatsi: "Yatsı"
-  },
-  de: {
-    sabah: "Fajr",
-    gunes: "Schuruq",
-    ogle: "Dhuhr",
-    ikindi: "Assr",
-    aksam: "Maghrib",
-    yatsi: "Ischaa"
-  }
-};
+const VAKIT_NAMES = { tr: { sabah: "SABAH", gunes: "GÜNEŞ", ogle: "ÖĞLE", ikindi: "İKİNDİ", aksam: "AKŞAM", yatsi: "YATSI" }, de: { sabah: "FAJR", gunes: "SCHURUQ", ogle: "DHUHR", ikindi: "ASSR", aksam: "MAGHRIB", yatsi: "ISCHAA" } };
+const VAKIT_LABEL = { tr: { sabah: "Sabah", gunes: "Güneş", ogle: "Öğle", ikindi: "İkindi", aksam: "Akşam", yatsi: "Yatsı" }, de: { sabah: "Fajr", gunes: "Schuruq", ogle: "Dhuhr", ikindi: "Assr", aksam: "Maghrib", yatsi: "Ischaa" } };
 function getDailyDua(date) {
-  const dayOfYear = Math.floor(
-    (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 864e5
-  );
+  const dayOfYear = Math.floor((date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 864e5);
   return DUA_ARCHIVE[dayOfYear % DUA_ARCHIVE.length];
 }
 function applyAutoScale() {
@@ -13306,9 +13201,7 @@ function applyAutoScale() {
   if (!safeArea) return;
   const vw = window.innerWidth || 1920;
   let scale = vw / 1920;
-  if (!scale || scale <= 0 || scale > 2) {
-    scale = 1;
-  }
+  if (!scale || scale <= 0 || scale > 2) scale = 1;
   scale = scale * 0.95;
   safeArea.style.transform = `translateX(-50%) scale(${scale})`;
   safeArea.style.transformOrigin = "top center";
@@ -13316,33 +13209,20 @@ function applyAutoScale() {
 function App() {
   const [now, setNow] = reactExports.useState(() => /* @__PURE__ */ new Date());
   const [lang, setLang] = reactExports.useState("tr");
-  const [hicriOffset, setHicriOffset] = reactExports.useState(() => parseInt(localStorage.getItem("hicriOffset") || "0"));
-  const [sabahKametInput, setSabahKametInput] = reactExports.useState(() => getSabahKametSaati());
-  const [duyuruTR, setDuyuruTR] = reactExports.useState(() => localStorage.getItem("duyuruTR") || "");
-  const [duyuruDE, setDuyuruDE] = reactExports.useState(() => localStorage.getItem("duyuruDE") || "");
+  const [hicriOffset, setHicriOffset] = reactExports.useState(0);
+  const [sabahKametInput, setSabahKametInput] = reactExports.useState("");
   const [showSettings, setShowSettings] = reactExports.useState(false);
-  const [bayramInputs, setBayramInputs] = reactExports.useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem("bayramInputs") || "{}");
-    } catch {
-      return {};
-    }
-  });
+  const [bayramInputs, setBayramInputs] = reactExports.useState({});
   const [showBayramForm, setShowBayramForm] = reactExports.useState(false);
   const [duaLang, setDuaLang] = reactExports.useState("tr");
+  const [duyuruTR, setDuyuruTR] = reactExports.useState("");
+  const [duyuruDE, setDuyuruDE] = reactExports.useState("");
   const [showDuyuruForm, setShowDuyuruForm] = reactExports.useState(false);
+  const [configLoaded, setConfigLoaded] = reactExports.useState(false);
   const settingsClickCount = reactExports.useRef(0);
   const settingsTimer = reactExports.useRef(null);
-  const [, forceUpdate] = reactExports.useState(0);
   reactExports.useEffect(() => {
-    const handler = () => forceUpdate((x) => x + 1);
-    window.addEventListener("settingsUpdated", handler);
-    return () => window.removeEventListener("settingsUpdated", handler);
-  }, []);
-  reactExports.useEffect(() => {
-    const timer = setTimeout(() => {
-      applyAutoScale();
-    }, 50);
+    const timer = setTimeout(() => applyAutoScale(), 50);
     window.addEventListener("resize", applyAutoScale);
     return () => {
       clearTimeout(timer);
@@ -13351,32 +13231,44 @@ function App() {
   }, []);
   reactExports.useEffect(() => {
     async function loadConfig() {
+      let remoteD = { sabahKamet: "05:15", duyuruTR: "", duyuruDE: "" };
       try {
-        const response = await fetch(`./config.json?${Date.now()}`);
-        const remoteConfig = await response.json();
-        const d = remoteConfig.dynamic || {};
-        setSabahKametInput(d.sabahKamet || localStorage.getItem("manuelSabahKamet") || "");
-        setDuyuruTR(d.duyuruTR || localStorage.getItem("duyuruTR") || "");
-        setDuyuruDE(d.duyuruDE || localStorage.getItem("duyuruDE") || "");
+        const response = await fetch("./config.json?t=" + (/* @__PURE__ */ new Date()).getTime());
+        const data = await response.json();
+        if (data.dynamic) remoteD = data.dynamic;
       } catch (e) {
+        console.warn("Config yüklenemedi");
       }
+      setSabahKametInput(localStorage.getItem("manuelSabahKamet") || remoteD.sabahKamet);
+      setDuyuruTR(localStorage.getItem("duyuruTR") || remoteD.duyuruTR);
+      setDuyuruDE(localStorage.getItem("duyuruDE") || remoteD.duyuruDE);
+      setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
+      const savedBayram = localStorage.getItem("bayramInputs");
+      if (savedBayram) {
+        try {
+          setBayramInputs(JSON.parse(savedBayram));
+        } catch (err) {
+        }
+      }
+      setConfigLoaded(true);
     }
     loadConfig();
-    const id = setInterval(loadConfig, 36e5);
-    return () => clearInterval(id);
   }, []);
   reactExports.useEffect(() => {
-    localStorage.setItem("duyuruTR", duyuruTR);
-  }, [duyuruTR]);
+    if (configLoaded) localStorage.setItem("manuelSabahKamet", sabahKametInput);
+  }, [sabahKametInput, configLoaded]);
   reactExports.useEffect(() => {
-    localStorage.setItem("duyuruDE", duyuruDE);
-  }, [duyuruDE]);
+    if (configLoaded) localStorage.setItem("duyuruTR", duyuruTR);
+  }, [duyuruTR, configLoaded]);
   reactExports.useEffect(() => {
-    localStorage.setItem("hicriOffset", String(hicriOffset));
-  }, [hicriOffset]);
+    if (configLoaded) localStorage.setItem("duyuruDE", duyuruDE);
+  }, [duyuruDE, configLoaded]);
   reactExports.useEffect(() => {
-    localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs));
-  }, [bayramInputs]);
+    if (configLoaded) localStorage.setItem("hicriOffset", String(hicriOffset));
+  }, [hicriOffset, configLoaded]);
+  reactExports.useEffect(() => {
+    if (configLoaded) localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs));
+  }, [bayramInputs, configLoaded]);
   reactExports.useEffect(() => {
     const id = setInterval(() => setNow(/* @__PURE__ */ new Date()), 1e3);
     return () => clearInterval(id);
@@ -13387,6 +13279,9 @@ function App() {
     }, 2e4);
     return () => clearInterval(id);
   }, []);
+  reactExports.useEffect(() => {
+    setSabahKametSaati(sabahKametInput);
+  }, [sabahKametInput]);
   const times = getTodayTimes(now);
   const flow = computeFlow(now, times);
   const bayram = getBayramVisibility(now);
@@ -13419,10 +13314,7 @@ function App() {
   const gunesDate = new Date(now);
   const [gh, gm] = times.gunes.split(":").map(Number);
   gunesDate.setHours(gh, gm, 0, 0);
-  const gunesKalanSec = Math.max(
-    0,
-    Math.floor((gunesDate.getTime() - now.getTime()) / 1e3)
-  );
+  const gunesKalanSec = Math.max(0, Math.floor((gunesDate.getTime() - now.getTime()) / 1e3));
   const gunesKalanH = Math.floor(gunesKalanSec / 3600);
   const gunesKalanM = Math.floor(gunesKalanSec % 3600 / 60);
   const gunesKalanS = gunesKalanSec % 60;
@@ -13433,26 +13325,10 @@ function App() {
   const vakitList = [
     { key: "sabah", ezan: times.sabah, kamet: times.sabahKamet },
     { key: "gunes", ezan: times.gunes, kamet: null },
-    {
-      key: "ogle",
-      ezan: times.ogle,
-      kamet: getKametTime("ogle", times.ogle)
-    },
-    {
-      key: "ikindi",
-      ezan: times.ikindi,
-      kamet: getKametTime("ikindi", times.ikindi)
-    },
-    {
-      key: "aksam",
-      ezan: times.aksam,
-      kamet: getKametTime("aksam", times.aksam)
-    },
-    {
-      key: "yatsi",
-      ezan: times.yatsi,
-      kamet: getKametTime("yatsi", times.yatsi)
-    }
+    { key: "ogle", ezan: times.ogle, kamet: getKametTime("ogle", times.ogle) },
+    { key: "ikindi", ezan: times.ikindi, kamet: getKametTime("ikindi", times.ikindi) },
+    { key: "aksam", ezan: times.aksam, kamet: getKametTime("aksam", times.aksam) },
+    { key: "yatsi", ezan: times.yatsi, kamet: getKametTime("yatsi", times.yatsi) }
   ];
   const handleBottomClick = reactExports.useCallback(() => {
     settingsClickCount.current += 1;
@@ -13465,459 +13341,281 @@ function App() {
       setShowSettings(true);
     }
   }, []);
+  if (!configLoaded) return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100vw", height: "100vh", background: "#0a3d2e", display: "flex", alignItems: "center", justifyContent: "center", color: "#c9a66b", fontSize: 24 }, children: "Yükleniyor..." });
   if (isBlackout) {
-    return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "img/close.png?v=5", alt: "Kapatın", style: { maxWidth: "100%", maxHeight: "95vh", objectFit: "contain" }, onError: (e) => {
+        e.currentTarget.style.display = "none";
+      } }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#c9a66b", fontSize: 28, fontFamily: "'Segoe UI', Arial, sans-serif", letterSpacing: 2, textAlign: "center" }, children: lang === "tr" ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın!" : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus!" })
+    ] });
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100vw", height: "100vh", overflow: "hidden", position: "fixed", top: 0, left: 0, background: "#000", zIndex: 0 }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "tv-safe-area", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "outer-frame", style: { display: "flex", flexDirection: "column", position: "relative" }, children: [
+    showSettings && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { position: "absolute", inset: 0, background: "#0a3d2e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24, padding: 40, overflowY: "auto", zIndex: 10 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { color: "#c9a66b", fontSize: 22, fontWeight: "bold" }, children: [
+        "⚙️ ",
+        lang === "tr" ? "Ayarlar" : "Einstellungen"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", alignItems: "center", gap: 16, width: "100%", maxWidth: 600 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#f5d78e", fontSize: 20, flex: 1 }, children: lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "time", value: sabahKametInput, onChange: (e) => setSabahKametInput(e.target.value), style: { flex: 1, padding: "8px 12px", borderRadius: 8, border: "2px solid #c9a66b", background: "#1a5c3a", color: "#f5d78e", fontSize: 18 } })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", flexDirection: "column", gap: 8, width: "100%", maxWidth: 600 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#f5d78e", fontSize: 20 }, children: lang === "tr" ? "Hicri Takvim Düzeltmesi" : "Hidschra-Kalender Korrektur" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { display: "flex", gap: 12, alignItems: "center" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setHicriOffset((o) => o - 1), style: { padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }, children: "−" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#f5d78e", fontSize: 22 }, children: hicriOffset > 0 ? `+${hicriOffset}` : hicriOffset }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setHicriOffset((o) => o + 1), style: { padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }, children: "+" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: () => setShowBayramForm(!showBayramForm), style: { padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8 }, children: [
+        lang === "tr" ? "Bayram Saatleri" : "Feiertagszeiten",
+        " ▾"
+      ] }),
+      showBayramForm && SETTINGS.bayramlar.map((b) => /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "time", value: bayramInputs[b.tarih] || "09:00", onChange: (e) => setBayramInputs((prev) => ({ ...prev, [b.tarih]: e.target.value })) }, b.tarih)),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: () => setShowDuyuruForm(!showDuyuruForm), style: { padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8 }, children: [
+        lang === "tr" ? "Duyurular" : "Ankündigungen",
+        " ▾"
+      ] }),
+      showDuyuruForm && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("textarea", { value: duyuruTR, onChange: (e) => setDuyuruTR(e.target.value) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("textarea", { value: duyuruDE, onChange: (e) => setDuyuruDE(e.target.value) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: () => setShowSettings(false), style: { marginTop: 16, padding: "12px 40px", fontSize: 20, background: "#c9a66b", color: "#0a3d2e", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: "bold" }, children: [
+        "✓ ",
+        lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "div",
       {
+        className: "top-bar",
         style: {
-          width: "100vw",
-          height: "100vh",
-          background: "#000",
+          background: "linear-gradient(180deg,#0e5c3a 0%,#0a3d2e 100%)",
+          borderBottom: "4px solid #c9a66b",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
-          gap: 32
+          justifyContent: "space-between",
+          padding: "0 32px"
         },
         children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "img",
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "div",
             {
-              src: "img/close.png?v=5",
-              alt: "Lütfen telefonunuzu kapatın!",
               style: {
-                maxWidth: "100%",
-                maxHeight: "95vh",
-                objectFit: "contain"
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
+                minWidth: 260
               },
-              onError: (e) => {
-                e.currentTarget.style.display = "none";
-              }
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "div",
+                  {
+                    style: {
+                      color: "#c9a66b",
+                      fontSize: 22,
+                      fontWeight: 500,
+                      letterSpacing: 1,
+                      lineHeight: 1
+                    },
+                    children: lang === "tr" ? hicriTR : hicriDE
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "div",
+                  {
+                    style: {
+                      color: "#f5d78e",
+                      fontSize: 28,
+                      fontWeight: 700,
+                      lineHeight: 1
+                    },
+                    children: lang === "tr" ? miladiTR : miladiDE
+                  }
+                )
+              ]
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             "div",
             {
               style: {
-                color: "#c9a66b",
-                fontSize: 28,
-                fontFamily: "'Segoe UI', Arial, sans-serif",
-                letterSpacing: 2,
-                textAlign: "center"
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center"
               },
-              children: lang === "tr" ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın!" : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus!"
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "div",
+                {
+                  style: {
+                    color: "#f5d78e",
+                    fontSize: 52,
+                    fontWeight: 900,
+                    letterSpacing: 6,
+                    textTransform: "uppercase",
+                    textAlign: "center",
+                    lineHeight: 1,
+                    fontFamily: "'Segoe UI', 'Arial', sans-serif"
+                  },
+                  children: lang === "tr" ? "RIDVAN CAMİİ — VİYANA" : "RIDVAN MOSCHEE — WIEN"
+                }
+              )
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { color: "#6a9e78", fontSize: 22 }, children: [
-            lang === "tr" ? "Kalan süre" : "Verbleibende Zeit",
-            ":",
-            " ",
-            fmt2(Math.floor(flow.blackoutRemaining / 60)),
-            ":",
-            fmt2(flow.blackoutRemaining % 60)
-          ] })
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "div",
+            {
+              style: {
+                display: "flex",
+                alignItems: "flex-end",
+                minWidth: 220,
+                justifyContent: "flex-end"
+              },
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "span",
+                  {
+                    style: {
+                      color: "#f5d78e",
+                      fontSize: 68,
+                      fontWeight: 900,
+                      lineHeight: 1,
+                      fontFamily: "monospace"
+                    },
+                    children: hh
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "span",
+                  {
+                    style: {
+                      color: "#c9a66b",
+                      fontSize: 52,
+                      fontWeight: 900,
+                      margin: "0 4px",
+                      fontFamily: "monospace",
+                      animation: "pulse 1s infinite"
+                    },
+                    children: ":"
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "span",
+                  {
+                    style: {
+                      color: "#f5d78e",
+                      fontSize: 68,
+                      fontWeight: 900,
+                      lineHeight: 1,
+                      fontFamily: "monospace"
+                    },
+                    children: mm
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "span",
+                  {
+                    style: {
+                      color: "#c9a66b",
+                      fontSize: 32,
+                      fontWeight: 700,
+                      marginBottom: 6,
+                      marginLeft: 6,
+                      fontFamily: "monospace",
+                      animation: "pulse 1s infinite"
+                    },
+                    children: ss
+                  }
+                )
+              ]
+            }
+          )
         ]
       }
-    );
-  }
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    "div",
-    {
-      style: {
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
-        position: "fixed",
-        top: 0,
-        left: 0,
-        background: "#000",
-        zIndex: 0
-      },
-      children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "tv-safe-area", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "main-panels", style: { display: "flex", flex: 1 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
         "div",
         {
-          className: "outer-frame",
-          style: { display: "flex", flexDirection: "column", position: "relative" },
+          className: "panel",
+          style: {
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            background: "#0a3d2e"
+          },
           children: [
-            showSettings && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
               "div",
               {
                 style: {
-                  position: "absolute",
-                  inset: 0,
-                  background: "#0a3d2e",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 24,
-                  padding: 40,
-                  overflowY: "auto",
-                  zIndex: 10
+                  background: "#c9a66b",
+                  textAlign: "center",
+                  padding: "12px 0",
+                  color: "#0a3d2e",
+                  fontSize: 36,
+                  fontWeight: 900,
+                  letterSpacing: 3,
+                  flexShrink: 0,
+                  lineHeight: 1
+                },
+                children: lang === "tr" ? "NAMAZ VAKİTLERİ" : "GEBETSZEITEN"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "div",
+              {
+                style: {
+                  display: "grid",
+                  gridTemplateColumns: "1.2fr 1fr 1fr",
+                  padding: "8px 20px",
+                  borderBottom: "2px solid #c9a66b",
+                  background: "#072d20",
+                  flexShrink: 0
                 },
                 children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    "div",
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "span",
                     {
                       style: {
                         color: "#c9a66b",
-                        fontSize: 22,
-                        fontWeight: "bold",
-                        marginBottom: 8
+                        fontSize: 24,
+                        fontWeight: 700,
+                        letterSpacing: 2,
+                        lineHeight: 1
                       },
-                      children: [
-                        "⚙️ ",
-                        lang === "tr" ? "Ayarlar" : "Einstellungen"
-                      ]
+                      children: lang === "tr" ? "VAKİT" : "GEBET"
                     }
                   ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    "div",
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "span",
                     {
                       style: {
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 16,
-                        width: "100%",
-                        maxWidth: 600
-                      },
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx(
-                          "span",
-                          {
-                            style: {
-                              color: "#f5d78e",
-                              fontSize: 20,
-                              flex: 1
-                            },
-                            children: lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit"
-                          }
-                        ),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx(
-                          "input",
-                          {
-                            type: "time",
-                            value: sabahKametInput,
-                            onChange: (e) => setSabahKametInput(e.target.value),
-                            style: {
-                              flex: 1,
-                              padding: "8px 12px",
-                              borderRadius: 8,
-                              border: "2px solid #c9a66b",
-                              background: "#1a5c3a",
-                              color: "#f5d78e",
-                              fontSize: 18
-                            }
-                          }
-                        )
-                      ]
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    "div",
-                    {
-                      style: {
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 8,
-                        width: "100%",
-                        maxWidth: 600
-                      },
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx(
-                          "span",
-                          {
-                            style: {
-                              color: "#f5d78e",
-                              fontSize: 20
-                            },
-                            children: lang === "tr" ? "Hicri Takvim Düzeltmesi" : "Hidschra-Kalender Korrektur"
-                          }
-                        ),
-                        /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                          "div",
-                          {
-                            style: {
-                              display: "flex",
-                              gap: 12,
-                              alignItems: "center"
-                            },
-                            children: [
-                              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                "button",
-                                {
-                                  onClick: () => setHicriOffset((o) => o - 1),
-                                  style: {
-                                    padding: "8px 20px",
-                                    fontSize: 22,
-                                    background: "#1a5c3a",
-                                    color: "#c9a66b",
-                                    border: "2px solid #c9a66b",
-                                    borderRadius: 8,
-                                    cursor: "pointer"
-                                  },
-                                  children: "−"
-                                }
-                              ),
-                              /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                                "span",
-                                {
-                                  style: {
-                                    color: "#f5d78e",
-                                    fontSize: 22,
-                                    minWidth: 60,
-                                    textAlign: "center"
-                                  },
-                                  children: [
-                                    hicriOffset > 0 ? `+${hicriOffset}` : hicriOffset,
-                                    " ",
-                                    lang === "tr" ? "gün" : "Tage"
-                                  ]
-                                }
-                              ),
-                              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                "button",
-                                {
-                                  onClick: () => setHicriOffset((o) => o + 1),
-                                  style: {
-                                    padding: "8px 20px",
-                                    fontSize: 24,
-                                    background: "#1a5c3a",
-                                    color: "#c9a66b",
-                                    border: "2px solid #c9a66b",
-                                    borderRadius: 8,
-                                    cursor: "pointer"
-                                  },
-                                  children: "+"
-                                }
-                              )
-                            ]
-                          }
-                        ),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#6a9e78", fontSize: 16 }, children: lang === "tr" ? `Şu an: ${hicriTR}` : `Aktuell: ${hicriDE}` })
-                      ]
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%", maxWidth: 600 }, children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                      "button",
-                      {
-                        onClick: () => setShowBayramForm((v) => !v),
-                        style: {
-                          padding: "8px 20px",
-                          fontSize: 18,
-                          background: "#1a5c3a",
-                          color: "#c9a66b",
-                          border: "2px solid #c9a66b",
-                          borderRadius: 8,
-                          cursor: "pointer",
-                          marginBottom: 12
-                        },
-                        children: [
-                          lang === "tr" ? "Bayram Saatleri" : "Feiertagszeiten",
-                          " ▾"
-                        ]
-                      }
-                    ),
-                    showBayramForm && SETTINGS.bayramlar.map((b) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                      "div",
-                      {
-                        style: {
-                          display: "flex",
-                          gap: 12,
-                          alignItems: "center",
-                          marginBottom: 8
-                        },
-                        children: [
-                          /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                            "span",
-                            {
-                              style: {
-                                color: "#f5d78e",
-                                flex: 1,
-                                fontSize: 16
-                              },
-                              children: [
-                                lang === "tr" ? b.ad_tr : b.ad_de,
-                                " — ",
-                                b.tarih
-                              ]
-                            }
-                          ),
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "input",
-                            {
-                              type: "time",
-                              value: bayramInputs[b.tarih] || "09:00",
-                              onChange: (e) => setBayramInputs((prev) => ({
-                                ...prev,
-                                [b.tarih]: e.target.value
-                              })),
-                              style: {
-                                flex: 1,
-                                padding: "6px 10px",
-                                borderRadius: 6,
-                                border: "2px solid #c9a66b",
-                                background: "#0a3d2e",
-                                color: "#f5d78e",
-                                fontSize: 16
-                              }
-                            }
-                          )
-                        ]
-                      },
-                      b.tarih
-                    ))
-                  ] }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100%", maxWidth: 600 }, children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                      "button",
-                      {
-                        onClick: () => setShowDuyuruForm((v) => !v),
-                        style: {
-                          padding: "8px 20px",
-                          fontSize: 18,
-                          background: "#1a5c3a",
-                          color: "#c9a66b",
-                          border: "2px solid #c9a66b",
-                          borderRadius: 8,
-                          cursor: "pointer",
-                          marginBottom: 12
-                        },
-                        children: [
-                          lang === "tr" ? "Duyurular" : "Ankündigungen",
-                          " ▾"
-                        ]
-                      }
-                    ),
-                    showDuyuruForm && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                        "div",
-                        {
-                          style: {
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 8,
-                            marginBottom: 12
-                          },
-                          children: [
-                            /* @__PURE__ */ jsxRuntimeExports.jsx(
-                              "span",
-                              {
-                                style: {
-                                  color: "#f5d78e",
-                                  fontSize: 22
-                                },
-                                children: lang === "tr" ? "Türkçe Duyuru" : "Türkische Ankündigung"
-                              }
-                            ),
-                            /* @__PURE__ */ jsxRuntimeExports.jsx(
-                              "textarea",
-                              {
-                                value: duyuruTR,
-                                onChange: (e) => setDuyuruTR(e.target.value),
-                                style: {
-                                  width: "100%",
-                                  padding: "8px 12px",
-                                  borderRadius: 6,
-                                  border: "2px solid #c9a66b",
-                                  background: "#0a3d2e",
-                                  color: "#f5d78e",
-                                  fontSize: 22,
-                                  minHeight: 80,
-                                  resize: "vertical"
-                                }
-                              }
-                            )
-                          ]
-                        }
-                      ),
-                      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                        "div",
-                        {
-                          style: {
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 8
-                          },
-                          children: [
-                            /* @__PURE__ */ jsxRuntimeExports.jsx(
-                              "span",
-                              {
-                                style: {
-                                  color: "#f5d78e",
-                                  fontSize: 16
-                                },
-                                children: lang === "tr" ? "Almanca Duyuru" : "Deutsche Ankündigung"
-                              }
-                            ),
-                            /* @__PURE__ */ jsxRuntimeExports.jsx(
-                              "textarea",
-                              {
-                                value: duyuruDE,
-                                onChange: (e) => setDuyuruDE(e.target.value),
-                                style: {
-                                  width: "100%",
-                                  padding: "8px 12px",
-                                  borderRadius: 6,
-                                  border: "2px solid #c9a66b",
-                                  background: "#0a3d2e",
-                                  color: "#f5d78e",
-                                  fontSize: 22,
-                                  minHeight: 80,
-                                  resize: "vertical"
-                                }
-                              }
-                            )
-                          ]
-                        }
-                      )
-                    ] })
-                  ] }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    "div",
-                    {
-                      style: {
-                        color: "#6a9e78",
-                        fontSize: 22,
+                        color: "#c9a66b",
+                        fontSize: 24,
+                        fontWeight: 700,
+                        letterSpacing: 2,
                         textAlign: "center",
-                        maxWidth: 600,
-                        marginTop: 8
+                        lineHeight: 1
                       },
-                      children: [
-                        "ℹ️",
-                        " ",
-                        lang === "tr" ? "TV'den yapılan değişiklikler bu cihazda saklanır. Tüm TV'ler için GitHub'da public/config.json dosyasını güncelleyin." : "Änderungen von TV werden auf diesem Gerät gespeichert. Für alle TVs aktualisieren Sie public/config.json auf GitHub."
-                      ]
+                      children: lang === "tr" ? "EZAN" : "ADHAN"
                     }
                   ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    "button",
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "span",
                     {
-                      onClick: () => {
-                        localStorage.setItem("manuelSabahKamet", sabahKametInput);
-                        localStorage.setItem("duyuruTR", duyuruTR);
-                        localStorage.setItem("duyuruDE", duyuruDE);
-                        localStorage.setItem("hicriOffset", String(hicriOffset));
-                        localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs));
-                        window.dispatchEvent(new Event("settingsUpdated"));
-                        setShowSettings(false);
-                      },
                       style: {
-                        marginTop: 16,
-                        padding: "12px 40px",
-                        fontSize: 20,
-                        background: "#c9a66b",
-                        color: "#0a3d2e",
-                        border: "none",
-                        borderRadius: 10,
-                        cursor: "pointer",
-                        fontWeight: "bold"
+                        color: "#c9a66b",
+                        fontSize: 24,
+                        fontWeight: 700,
+                        letterSpacing: 2,
+                        textAlign: "right",
+                        lineHeight: 1
                       },
-                      children: [
-                        "✓ ",
-                        lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"
-                      ]
+                      children: lang === "tr" ? "KAMET" : "IQÂMAT"
                     }
                   )
                 ]
@@ -13926,52 +13624,409 @@ function App() {
             /* @__PURE__ */ jsxRuntimeExports.jsxs(
               "div",
               {
-                className: "top-bar",
                 style: {
-                  background: "linear-gradient(180deg,#0e5c3a 0%,#0a3d2e 100%)",
-                  borderBottom: "4px solid #c9a66b",
+                  flex: 1,
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "0 32px"
+                  flexDirection: "column"
                 },
                 children: [
+                  vakitList.map(({ key, ezan, kamet }) => {
+                    const isActive = flow.currentVakit === key;
+                    const isNext = flow.nextVakit === key;
+                    return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                      "div",
+                      {
+                        className: isActive ? "active-vakit-row" : "",
+                        style: {
+                          display: "grid",
+                          gridTemplateColumns: "1.2fr 1fr 1fr",
+                          padding: "0 20px",
+                          flex: 1,
+                          borderBottom: "1px solid #c9a66b33",
+                          background: isActive ? void 0 : isNext ? "rgba(201,166,107,0.07)" : "transparent",
+                          borderLeft: isActive ? "7px solid #c9a66b" : "7px solid transparent",
+                          alignItems: "center",
+                          transition: "background 0.3s"
+                        },
+                        children: [
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(
+                            "span",
+                            {
+                              className: isActive ? "active-vakit-text" : "",
+                              style: {
+                                color: isActive ? "#f5d78e" : "#a8c8b0",
+                                fontSize: isActive ? 36 : 32,
+                                fontWeight: isActive ? 900 : 600,
+                                letterSpacing: 1,
+                                lineHeight: 1
+                              },
+                              children: VAKIT_NAMES[lang][key]
+                            }
+                          ),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(
+                            "span",
+                            {
+                              className: isActive ? "active-vakit-text" : "",
+                              style: {
+                                color: "#f5d78e",
+                                fontSize: isActive ? 48 : 44,
+                                fontWeight: 700,
+                                textAlign: "center",
+                                fontFamily: "monospace",
+                                lineHeight: 1
+                              },
+                              children: ezan
+                            }
+                          ),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(
+                            "span",
+                            {
+                              className: isActive ? "active-vakit-text" : "",
+                              style: {
+                                color: isActive ? "#f5d78e" : "#a8c8b0",
+                                fontSize: 40,
+                                textAlign: "right",
+                                fontFamily: "monospace",
+                                lineHeight: 1
+                              },
+                              children: kamet || "—"
+                            }
+                          )
+                        ]
+                      },
+                      key
+                    );
+                  }),
                   /* @__PURE__ */ jsxRuntimeExports.jsxs(
                     "div",
                     {
                       style: {
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 2,
-                        minWidth: 260
+                        display: "grid",
+                        gridTemplateColumns: "1.2fr 1fr 1fr",
+                        padding: "0 20px",
+                        flex: 1,
+                        background: "#c9a66b",
+                        alignItems: "center",
+                        borderLeft: "7px solid #a07d3a",
+                        lineHeight: 1
                       },
                       children: [
                         /* @__PURE__ */ jsxRuntimeExports.jsx(
-                          "div",
+                          "span",
                           {
                             style: {
-                              color: "#c9a66b",
-                              fontSize: 22,
-                              fontWeight: 500,
+                              color: "#0a3d2e",
+                              fontSize: 34,
+                              fontWeight: 900,
                               letterSpacing: 1,
                               lineHeight: 1
                             },
-                            children: lang === "tr" ? hicriTR : hicriDE
+                            children: lang === "tr" ? "CUMA" : "DSCHUM'A"
                           }
                         ),
                         /* @__PURE__ */ jsxRuntimeExports.jsx(
-                          "div",
+                          "span",
                           {
                             style: {
-                              color: "#f5d78e",
-                              fontSize: 28,
+                              color: "#0a3d2e",
+                              fontSize: 46,
                               fontWeight: 700,
+                              textAlign: "center",
+                              fontFamily: "monospace",
                               lineHeight: 1
                             },
-                            children: lang === "tr" ? miladiTR : miladiDE
+                            children: SETTINGS.cuma.ezan
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "span",
+                          {
+                            style: {
+                              color: "#0a3d2e",
+                              fontSize: 40,
+                              textAlign: "right",
+                              fontFamily: "monospace",
+                              lineHeight: 1
+                            },
+                            children: SETTINGS.cuma.kamet
                           }
                         )
                       ]
+                    }
+                  ),
+                  bayram.visible && bayram.bayram && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    "div",
+                    {
+                      style: {
+                        display: "grid",
+                        gridTemplateColumns: "1.2fr 1fr 1fr",
+                        padding: "0 20px",
+                        flex: 1,
+                        background: "rgba(201,166,107,0.15)",
+                        borderTop: "2px solid #c9a66b66",
+                        alignItems: "center",
+                        lineHeight: 1
+                      },
+                      children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "span",
+                          {
+                            style: {
+                              color: "#f5d78e",
+                              fontSize: 26,
+                              fontWeight: 700,
+                              lineHeight: 1
+                            },
+                            children: lang === "tr" ? bayram.bayram.ad_tr : bayram.bayram.ad_de
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "span",
+                          {
+                            style: {
+                              color: "#f5d78e",
+                              fontSize: 40,
+                              fontWeight: 700,
+                              textAlign: "center",
+                              fontFamily: "monospace",
+                              lineHeight: 1
+                            },
+                            children: bayram.saat
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "span",
+                          {
+                            style: {
+                              color: "#a8c8b0",
+                              fontSize: 34,
+                              textAlign: "right",
+                              lineHeight: 1
+                            },
+                            children: "—"
+                          }
+                        )
+                      ]
+                    }
+                  ),
+                  weekendMsg && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "div",
+                    {
+                      style: {
+                        padding: "8px 16px",
+                        color: "#c9a66b",
+                        fontSize: 16,
+                        fontStyle: "italic",
+                        flexShrink: 0,
+                        borderTop: "1px solid #c9a66b33",
+                        lineHeight: 1
+                      },
+                      children: lang === "tr" ? "Haftasonu eğitimi sebebiyle öğle namazı 13:00 olarak ayarlanmıştır." : "Das Mittagsgebet ist aufgrund des Wochenendunterrichts auf 13:00 Uhr festgelegt."
+                    }
+                  )
+                ]
+              }
+            )
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: "panel",
+          style: {
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "#0a3d2e",
+            gap: 20
+          },
+          children: [
+            isKametAlert ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { textAlign: "center" }, children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "div",
+                {
+                  style: {
+                    color: "#c9a66b",
+                    fontSize: 58,
+                    fontWeight: 900,
+                    letterSpacing: 6,
+                    animation: "pulse 1s infinite",
+                    marginBottom: 20,
+                    lineHeight: 1
+                  },
+                  children: lang === "tr" ? "KAMET" : "IQÂMAT"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "div",
+                {
+                  style: {
+                    color: "#f5d78e",
+                    fontSize: 108,
+                    fontWeight: 900,
+                    letterSpacing: 4,
+                    animation: "pulse 1s infinite",
+                    lineHeight: 1
+                  },
+                  children: kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""
+                }
+              )
+            ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", children: lang === "tr" ? "GÜNÜN VAKTİ" : "AKTUELLE GEBETSZEIT" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `current-vakit ${isEzan ? "ezan" : ""}`, children: currentLabel }),
+              !isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", style: { marginTop: 8 }, children: lang === "tr" ? "SONRAKI VAKİT" : "NÄCHSTE GEBETSZEIT" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "next-vakit", children: [
+                  nextLabel,
+                  " — ",
+                  nextTime
+                ] })
+              ] }),
+              isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { textAlign: "center", marginTop: 8 }, children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", children: lang === "tr" ? "KAMETE KALAN SÜRE" : "ZEIT BIS ZUM IQÂMAT" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "div",
+                  {
+                    style: {
+                      color: "#f5d78e",
+                      fontSize: 70,
+                      fontWeight: 700,
+                      marginTop: 16,
+                      lineHeight: 1
+                    },
+                    children: kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "countdown-row", children: [
+                {
+                  val: fmt2(cdH),
+                  label: lang === "tr" ? "Saat" : "Std."
+                },
+                null,
+                {
+                  val: fmt2(cdM),
+                  label: lang === "tr" ? "Dakika" : "Min."
+                },
+                null,
+                {
+                  val: fmt2(cdS),
+                  label: lang === "tr" ? "Saniye" : "Sek."
+                }
+              ].map(
+                (item, i) => item === null ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "span",
+                  {
+                    className: "countdown-separator",
+                    children: ":"
+                  },
+                  i
+                ) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "countdown-box", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "countdown-value", children: item.val }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "countdown-label", children: item.label })
+                ] }, i)
+              ) }),
+              flow.currentVakit === "sabah" && !isEzan && !isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "div",
+                {
+                  style: { textAlign: "center", marginTop: 16 },
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "div",
+                      {
+                        style: {
+                          color: "#c9a66b",
+                          fontSize: 36,
+                          letterSpacing: 3,
+                          lineHeight: 1
+                        },
+                        children: lang === "tr" ? "GÜNEŞE KALAN" : "BIS SCHURUQ"
+                      }
+                    ),
+                    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                      "div",
+                      {
+                        style: {
+                          color: "#a8c8b0",
+                          fontSize: 40,
+                          fontWeight: 700,
+                          lineHeight: 1
+                        },
+                        children: [
+                          fmt2(gunesKalanH),
+                          ":",
+                          fmt2(gunesKalanM),
+                          ":",
+                          fmt2(gunesKalanS)
+                        ]
+                      }
+                    )
+                  ]
+                }
+              )
+            ] }),
+            bayram.visible && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "div",
+              {
+                style: {
+                  marginTop: 20,
+                  padding: "12px 36px",
+                  background: "#c9a66b22",
+                  border: "3px solid #c9a66b",
+                  borderRadius: 12,
+                  color: "#f5d78e",
+                  fontSize: 35,
+                  fontWeight: 700,
+                  textAlign: "center",
+                  lineHeight: 1
+                },
+                children: [
+                  "🎉",
+                  " ",
+                  lang === "tr" ? bayram.bayram?.ad_tr : bayram.bayram?.ad_de
+                ]
+              }
+            )
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: "panel",
+          style: {
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            background: "#0a3d2e"
+          },
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "div",
+              {
+                style: {
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  borderBottom: "3px solid #c9a66b"
+                },
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "div",
+                    {
+                      style: {
+                        background: "#c9a66b",
+                        textAlign: "center",
+                        padding: "10px 0",
+                        color: "#0a3d2e",
+                        fontSize: 36,
+                        fontWeight: 900,
+                        letterSpacing: 3
+                      },
+                      children: isEzan ? duaLang === "tr" ? "EZAN DUASI" : "ADHAN-GEBET" : lang === "tr" ? "GÜNÜN DUASI" : "DUA DES TAGES"
                     }
                   ),
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -13982,822 +14037,134 @@ function App() {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                        justifyContent: "center"
+                        justifyContent: "center",
+                        padding: "20px 16px",
+                        gap: 16
                       },
-                      children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                        "div",
-                        {
-                          style: {
-                            color: "#f5d78e",
-                            fontSize: 52,
-                            fontWeight: 900,
-                            letterSpacing: 6,
-                            textTransform: "uppercase",
-                            textAlign: "center",
-                            lineHeight: 1,
-                            fontFamily: "'Segoe UI', 'Arial', sans-serif"
-                          },
-                          children: lang === "tr" ? "RIDVAN CAMİİ — VİYANA" : "RIDVAN MOSCHEE — WIEN"
-                        }
-                      )
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    "div",
-                    {
-                      style: {
-                        display: "flex",
-                        alignItems: "flex-end",
-                        minWidth: 220,
-                        justifyContent: "flex-end"
-                      },
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx(
-                          "span",
-                          {
-                            style: {
-                              color: "#f5d78e",
-                              fontSize: 68,
-                              fontWeight: 900,
-                              lineHeight: 1,
-                              fontFamily: "monospace"
-                            },
-                            children: hh
-                          }
-                        ),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx(
-                          "span",
-                          {
-                            style: {
-                              color: "#c9a66b",
-                              fontSize: 52,
-                              fontWeight: 900,
-                              margin: "0 4px",
-                              fontFamily: "monospace",
-                              animation: "pulse 1s infinite"
-                            },
-                            children: ":"
-                          }
-                        ),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx(
-                          "span",
-                          {
-                            style: {
-                              color: "#f5d78e",
-                              fontSize: 68,
-                              fontWeight: 900,
-                              lineHeight: 1,
-                              fontFamily: "monospace"
-                            },
-                            children: mm
-                          }
-                        ),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx(
-                          "span",
-                          {
-                            style: {
-                              color: "#c9a66b",
-                              fontSize: 32,
-                              fontWeight: 700,
-                              marginBottom: 6,
-                              marginLeft: 6,
-                              fontFamily: "monospace",
-                              animation: "pulse 1s infinite"
-                            },
-                            children: ss
-                          }
-                        )
-                      ]
-                    }
-                  )
-                ]
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "main-panels", style: { display: "flex", flex: 1 }, children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "div",
-                {
-                  className: "panel",
-                  style: {
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    background: "#0a3d2e"
-                  },
-                  children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(
-                      "div",
-                      {
-                        style: {
-                          background: "#c9a66b",
-                          textAlign: "center",
-                          padding: "12px 0",
-                          color: "#0a3d2e",
-                          fontSize: 36,
-                          fontWeight: 900,
-                          letterSpacing: 3,
-                          flexShrink: 0,
-                          lineHeight: 1
-                        },
-                        children: lang === "tr" ? "NAMAZ VAKİTLERİ" : "GEBETSZEITEN"
-                      }
-                    ),
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                      "div",
-                      {
-                        style: {
-                          display: "grid",
-                          gridTemplateColumns: "1.2fr 1fr 1fr",
-                          padding: "8px 20px",
-                          borderBottom: "2px solid #c9a66b",
-                          background: "#072d20",
-                          flexShrink: 0
-                        },
-                        children: [
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "span",
-                            {
-                              style: {
-                                color: "#c9a66b",
-                                fontSize: 24,
-                                fontWeight: 700,
-                                letterSpacing: 2,
-                                lineHeight: 1
-                              },
-                              children: lang === "tr" ? "VAKİT" : "GEBET"
-                            }
-                          ),
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "span",
-                            {
-                              style: {
-                                color: "#c9a66b",
-                                fontSize: 24,
-                                fontWeight: 700,
-                                letterSpacing: 2,
-                                textAlign: "center",
-                                lineHeight: 1
-                              },
-                              children: lang === "tr" ? "EZAN" : "ADHAN"
-                            }
-                          ),
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "span",
-                            {
-                              style: {
-                                color: "#c9a66b",
-                                fontSize: 24,
-                                fontWeight: 700,
-                                letterSpacing: 2,
-                                textAlign: "right",
-                                lineHeight: 1
-                              },
-                              children: lang === "tr" ? "KAMET" : "IQÂMAT"
-                            }
-                          )
-                        ]
-                      }
-                    ),
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                      "div",
-                      {
-                        style: {
-                          flex: 1,
-                          display: "flex",
-                          flexDirection: "column"
-                        },
-                        children: [
-                          vakitList.map(({ key, ezan, kamet }) => {
-                            const isActive = flow.currentVakit === key;
-                            const isNext = flow.nextVakit === key;
-                            return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                              "div",
-                              {
-                                className: isActive ? "active-vakit-row" : "",
-                                style: {
-                                  display: "grid",
-                                  gridTemplateColumns: "1.2fr 1fr 1fr",
-                                  padding: "0 20px",
-                                  flex: 1,
-                                  borderBottom: "1px solid #c9a66b33",
-                                  background: isActive ? void 0 : isNext ? "rgba(201,166,107,0.07)" : "transparent",
-                                  borderLeft: isActive ? "7px solid #c9a66b" : "7px solid transparent",
-                                  alignItems: "center",
-                                  transition: "background 0.3s"
-                                },
-                                children: [
-                                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                    "span",
-                                    {
-                                      className: isActive ? "active-vakit-text" : "",
-                                      style: {
-                                        color: isActive ? "#f5d78e" : "#a8c8b0",
-                                        fontSize: isActive ? 36 : 32,
-                                        fontWeight: isActive ? 900 : 600,
-                                        letterSpacing: 1,
-                                        lineHeight: 1
-                                      },
-                                      children: VAKIT_NAMES[lang][key]
-                                    }
-                                  ),
-                                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                    "span",
-                                    {
-                                      className: isActive ? "active-vakit-text" : "",
-                                      style: {
-                                        color: "#f5d78e",
-                                        fontSize: isActive ? 48 : 44,
-                                        fontWeight: 700,
-                                        textAlign: "center",
-                                        fontFamily: "monospace",
-                                        lineHeight: 1
-                                      },
-                                      children: ezan
-                                    }
-                                  ),
-                                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                    "span",
-                                    {
-                                      className: isActive ? "active-vakit-text" : "",
-                                      style: {
-                                        color: isActive ? "#f5d78e" : "#a8c8b0",
-                                        fontSize: 40,
-                                        textAlign: "right",
-                                        fontFamily: "monospace",
-                                        lineHeight: 1
-                                      },
-                                      children: kamet || "—"
-                                    }
-                                  )
-                                ]
-                              },
-                              key
-                            );
-                          }),
-                          /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                            "div",
-                            {
-                              style: {
-                                display: "grid",
-                                gridTemplateColumns: "1.2fr 1fr 1fr",
-                                padding: "0 20px",
-                                flex: 1,
-                                background: "#c9a66b",
-                                alignItems: "center",
-                                borderLeft: "7px solid #a07d3a",
-                                lineHeight: 1
-                              },
-                              children: [
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "span",
-                                  {
-                                    style: {
-                                      color: "#0a3d2e",
-                                      fontSize: 34,
-                                      fontWeight: 900,
-                                      letterSpacing: 1,
-                                      lineHeight: 1
-                                    },
-                                    children: lang === "tr" ? "CUMA" : "DSCHUM'A"
-                                  }
-                                ),
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "span",
-                                  {
-                                    style: {
-                                      color: "#0a3d2e",
-                                      fontSize: 46,
-                                      fontWeight: 700,
-                                      textAlign: "center",
-                                      fontFamily: "monospace",
-                                      lineHeight: 1
-                                    },
-                                    children: SETTINGS.cuma.ezan
-                                  }
-                                ),
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "span",
-                                  {
-                                    style: {
-                                      color: "#0a3d2e",
-                                      fontSize: 40,
-                                      textAlign: "right",
-                                      fontFamily: "monospace",
-                                      lineHeight: 1
-                                    },
-                                    children: SETTINGS.cuma.kamet
-                                  }
-                                )
-                              ]
-                            }
-                          ),
-                          bayram.visible && bayram.bayram && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                            "div",
-                            {
-                              style: {
-                                display: "grid",
-                                gridTemplateColumns: "1.2fr 1fr 1fr",
-                                padding: "0 20px",
-                                flex: 1,
-                                background: "rgba(201,166,107,0.15)",
-                                borderTop: "2px solid #c9a66b66",
-                                alignItems: "center",
-                                lineHeight: 1
-                              },
-                              children: [
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "span",
-                                  {
-                                    style: {
-                                      color: "#f5d78e",
-                                      fontSize: 26,
-                                      fontWeight: 700,
-                                      lineHeight: 1
-                                    },
-                                    children: lang === "tr" ? bayram.bayram.ad_tr : bayram.bayram.ad_de
-                                  }
-                                ),
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "span",
-                                  {
-                                    style: {
-                                      color: "#f5d78e",
-                                      fontSize: 40,
-                                      fontWeight: 700,
-                                      textAlign: "center",
-                                      fontFamily: "monospace",
-                                      lineHeight: 1
-                                    },
-                                    children: bayram.saat
-                                  }
-                                ),
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "span",
-                                  {
-                                    style: {
-                                      color: "#a8c8b0",
-                                      fontSize: 34,
-                                      textAlign: "right",
-                                      lineHeight: 1
-                                    },
-                                    children: "—"
-                                  }
-                                )
-                              ]
-                            }
-                          ),
-                          weekendMsg && /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "div",
-                            {
-                              style: {
-                                padding: "8px 16px",
-                                color: "#c9a66b",
-                                fontSize: 16,
-                                fontStyle: "italic",
-                                flexShrink: 0,
-                                borderTop: "1px solid #c9a66b33",
-                                lineHeight: 1
-                              },
-                              children: lang === "tr" ? "Haftasonu eğitimi sebebiyle öğle namazı 13:00 olarak ayarlanmıştır." : "Das Mittagsgebet ist aufgrund des Wochenendunterrichts auf 13:00 Uhr festgelegt."
-                            }
-                          )
-                        ]
-                      }
-                    )
-                  ]
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "div",
-                {
-                  className: "panel",
-                  style: {
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    background: "#0a3d2e",
-                    gap: 20
-                  },
-                  children: [
-                    isKametAlert ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { textAlign: "center" }, children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx(
-                        "div",
-                        {
-                          style: {
-                            color: "#c9a66b",
-                            fontSize: 58,
-                            fontWeight: 900,
-                            letterSpacing: 6,
-                            animation: "pulse 1s infinite",
-                            marginBottom: 20,
-                            lineHeight: 1
-                          },
-                          children: lang === "tr" ? "KAMET" : "IQÂMAT"
-                        }
-                      ),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx(
-                        "div",
-                        {
-                          style: {
-                            color: "#f5d78e",
-                            fontSize: 108,
-                            fontWeight: 900,
-                            letterSpacing: 4,
-                            animation: "pulse 1s infinite",
-                            lineHeight: 1
-                          },
-                          children: kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""
-                        }
-                      )
-                    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", children: lang === "tr" ? "GÜNÜN VAKTİ" : "AKTUELLE GEBETSZEIT" }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `current-vakit ${isEzan ? "ezan" : ""}`, children: currentLabel }),
-                      !isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", style: { marginTop: 8 }, children: lang === "tr" ? "SONRAKI VAKİT" : "NÄCHSTE GEBETSZEIT" }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "next-vakit", children: [
-                          nextLabel,
-                          " — ",
-                          nextTime
-                        ] })
-                      ] }),
-                      isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { textAlign: "center", marginTop: 8 }, children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", children: lang === "tr" ? "KAMETE KALAN SÜRE" : "ZEIT BIS ZUM IQÂMAT" }),
+                      children: isEzan ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
                         /* @__PURE__ */ jsxRuntimeExports.jsx(
                           "div",
                           {
                             style: {
                               color: "#f5d78e",
-                              fontSize: 70,
-                              fontWeight: 700,
-                              marginTop: 16,
-                              lineHeight: 1
+                              fontSize: 36,
+                              textAlign: "right",
+                              lineHeight: 1.8,
+                              direction: "rtl",
+                              fontFamily: "serif",
+                              width: "100%"
                             },
-                            children: kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""
+                            children: EZAN_DUASI.arabic
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "div",
+                          {
+                            style: {
+                              color: "#a8c8b0",
+                              fontSize: 22,
+                              textAlign: "center",
+                              lineHeight: 1.6
+                            },
+                            children: duaLang === "tr" ? EZAN_DUASI.tr : EZAN_DUASI.de
                           }
                         )
-                      ] }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "countdown-row", children: [
-                        {
-                          val: fmt2(cdH),
-                          label: lang === "tr" ? "Saat" : "Std."
-                        },
-                        null,
-                        {
-                          val: fmt2(cdM),
-                          label: lang === "tr" ? "Dakika" : "Min."
-                        },
-                        null,
-                        {
-                          val: fmt2(cdS),
-                          label: lang === "tr" ? "Saniye" : "Sek."
-                        }
-                      ].map(
-                        (item, i) => item === null ? /* @__PURE__ */ jsxRuntimeExports.jsx(
-                          "span",
+                      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                        dailyDua.source && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "div",
                           {
-                            className: "countdown-separator",
-                            children: ":"
-                          },
-                          i
-                        ) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "countdown-box", children: [
-                          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "countdown-value", children: item.val }),
-                          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "countdown-label", children: item.label })
-                        ] }, i)
-                      ) }),
-                      flow.currentVakit === "sabah" && !isEzan && !isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                        "div",
-                        {
-                          style: { textAlign: "center", marginTop: 16 },
-                          children: [
-                            /* @__PURE__ */ jsxRuntimeExports.jsx(
-                              "div",
-                              {
-                                style: {
-                                  color: "#c9a66b",
-                                  fontSize: 36,
-                                  letterSpacing: 3,
-                                  lineHeight: 1
-                                },
-                                children: lang === "tr" ? "GÜNEŞE KALAN" : "BIS SCHURUQ"
-                              }
-                            ),
-                            /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                              "div",
-                              {
-                                style: {
-                                  color: "#a8c8b0",
-                                  fontSize: 40,
-                                  fontWeight: 700,
-                                  lineHeight: 1
-                                },
-                                children: [
-                                  fmt2(gunesKalanH),
-                                  ":",
-                                  fmt2(gunesKalanM),
-                                  ":",
-                                  fmt2(gunesKalanS)
-                                ]
-                              }
-                            )
-                          ]
-                        }
-                      )
-                    ] }),
-                    bayram.visible && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                      "div",
-                      {
-                        style: {
-                          marginTop: 20,
-                          padding: "12px 36px",
-                          background: "#c9a66b22",
-                          border: "3px solid #c9a66b",
-                          borderRadius: 12,
-                          color: "#f5d78e",
-                          fontSize: 35,
-                          fontWeight: 700,
-                          textAlign: "center",
-                          lineHeight: 1
-                        },
-                        children: [
-                          "🎉",
-                          " ",
-                          lang === "tr" ? bayram.bayram?.ad_tr : bayram.bayram?.ad_de
-                        ]
-                      }
-                    )
-                  ]
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "div",
-                {
-                  className: "panel",
-                  style: {
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    background: "#0a3d2e"
-                  },
-                  children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                      "div",
-                      {
-                        style: {
-                          flex: 1,
-                          display: "flex",
-                          flexDirection: "column",
-                          borderBottom: "3px solid #c9a66b"
-                        },
-                        children: [
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "div",
-                            {
-                              style: {
-                                background: "#c9a66b",
-                                textAlign: "center",
-                                padding: "10px 0",
-                                color: "#0a3d2e",
-                                fontSize: 36,
-                                fontWeight: 900,
-                                letterSpacing: 3
-                              },
-                              children: isEzan ? duaLang === "tr" ? "EZAN DUASI" : "ADHAN-GEBET" : lang === "tr" ? "GÜNÜN DUASI" : "DUA DES TAGES"
-                            }
-                          ),
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "div",
-                            {
-                              style: {
-                                flex: 1,
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                padding: "20px 16px",
-                                gap: 16
-                              },
-                              children: isEzan ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "div",
-                                  {
-                                    style: {
-                                      color: "#f5d78e",
-                                      fontSize: 36,
-                                      textAlign: "right",
-                                      lineHeight: 1.8,
-                                      direction: "rtl",
-                                      fontFamily: "serif",
-                                      width: "100%"
-                                    },
-                                    children: EZAN_DUASI.arabic
-                                  }
-                                ),
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "div",
-                                  {
-                                    style: {
-                                      color: "#a8c8b0",
-                                      fontSize: 22,
-                                      textAlign: "center",
-                                      lineHeight: 1.6
-                                    },
-                                    children: duaLang === "tr" ? EZAN_DUASI.tr : EZAN_DUASI.de
-                                  }
-                                )
-                              ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                                dailyDua.source && /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "div",
-                                  {
-                                    style: {
-                                      background: "transparent",
-                                      border: "2px solid #c9a66b",
-                                      borderRadius: 8,
-                                      padding: "4px 16px",
-                                      color: "#c9a66b",
-                                      fontSize: 22,
-                                      fontWeight: 700,
-                                      letterSpacing: 3
-                                    },
-                                    children: dailyDua.source
-                                  }
-                                ),
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "div",
-                                  {
-                                    style: {
-                                      color: "#f5d78e",
-                                      fontSize: 22,
-                                      textAlign: "right",
-                                      lineHeight: 1.8,
-                                      direction: "rtl",
-                                      fontFamily: "serif",
-                                      width: "100%"
-                                    },
-                                    children: dailyDua.ar
-                                  }
-                                ),
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                  "div",
-                                  {
-                                    style: {
-                                      color: "#a8c8b0",
-                                      fontSize: 22,
-                                      textAlign: "center",
-                                      lineHeight: 1.6
-                                    },
-                                    children: lang === "tr" ? dailyDua.tr : dailyDua.de
-                                  }
-                                )
-                              ] })
-                            }
-                          )
-                        ]
-                      }
-                    ),
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                      "div",
-                      {
-                        style: {
-                          flex: 1,
-                          display: "flex",
-                          flexDirection: "column"
-                        },
-                        children: [
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "div",
-                            {
-                              style: {
-                                background: "#c9a66b",
-                                textAlign: "center",
-                                padding: "10px 0",
-                                color: "#0a3d2e",
-                                fontSize: 36,
-                                fontWeight: 900,
-                                letterSpacing: 3
-                              },
-                              children: lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"
-                            }
-                          ),
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "div",
-                            {
-                              style: {
-                                flex: 1,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                padding: "20px 16px"
-                              },
-                              children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                "div",
-                                {
-                                  style: {
-                                    color: "#f5d78e",
-                                    fontSize: 22,
-                                    textAlign: "center",
-                                    lineHeight: 1.6,
-                                    width: "100%",
-                                    whiteSpace: "pre-wrap"
-                                  },
-                                  children: lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"
-                                }
-                              )
-                            }
-                          )
-                        ]
-                      }
-                    )
-                  ]
-                }
-              )
-            ] }),
+                            style: {
+                              background: "transparent",
+                              border: "2px solid #c9a66b",
+                              borderRadius: 8,
+                              padding: "4px 16px",
+                              color: "#c9a66b",
+                              fontSize: 22,
+                              fontWeight: 700,
+                              letterSpacing: 3
+                            },
+                            children: dailyDua.source
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "div",
+                          {
+                            style: {
+                              color: "#f5d78e",
+                              fontSize: 22,
+                              textAlign: "right",
+                              lineHeight: 1.8,
+                              direction: "rtl",
+                              fontFamily: "serif",
+                              width: "100%"
+                            },
+                            children: dailyDua.ar
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "div",
+                          {
+                            style: {
+                              color: "#a8c8b0",
+                              fontSize: 22,
+                              textAlign: "center",
+                              lineHeight: 1.6
+                            },
+                            children: lang === "tr" ? dailyDua.tr : dailyDua.de
+                          }
+                        )
+                      ] })
+                    }
+                  )
+                ]
+              }
+            ),
             /* @__PURE__ */ jsxRuntimeExports.jsxs(
               "div",
               {
-                className: "bottom-bar",
                 style: {
-                  background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)",
-                  borderTop: "4px solid #c9a66b",
+                  flex: 1,
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "0 32px",
-                  cursor: "default",
-                  position: "relative"
+                  flexDirection: "column"
                 },
                 children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
                     "div",
                     {
                       style: {
-                        color: "#c9a66b",
-                        fontSize: 14,
-                        letterSpacing: 1
+                        background: "#c9a66b",
+                        textAlign: "center",
+                        padding: "10px 0",
+                        color: "#0a3d2e",
+                        fontSize: 36,
+                        fontWeight: 900,
+                        letterSpacing: 3
                       },
-                      onClick: handleBottomClick,
-                      children: [
-                        "Bu uygulama ",
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "AyTa®" }),
-                        " tarafından hazırlanmıştır"
-                      ]
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "button",
-                    {
-                      onClick: () => setShowSettings(true),
-                      title: "Ayarlar",
-                      style: {
-                        position: "absolute",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        background: "transparent",
-                        border: "1px solid #c9a66b44",
-                        borderRadius: 6,
-                        padding: "4px 10px",
-                        color: "#c9a66b77",
-                        fontSize: 16,
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 4,
-                        transition: "all 0.2s",
-                        lineHeight: 1
-                      },
-                      onMouseEnter: (e) => {
-                        e.currentTarget.style.color = "#c9a66b";
-                        e.currentTarget.style.borderColor = "#c9a66b";
-                        e.currentTarget.style.background = "#c9a66b11";
-                      },
-                      onMouseLeave: (e) => {
-                        e.currentTarget.style.color = "#c9a66b77";
-                        e.currentTarget.style.borderColor = "#c9a66b44";
-                        e.currentTarget.style.background = "transparent";
-                      },
-                      children: "⚙️"
+                      children: lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"
                     }
                   ),
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
                     "div",
                     {
                       style: {
-                        border: "3px solid #c9a66b",
-                        borderRadius: 8,
-                        padding: "6px 12px",
+                        flex: 1,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        backgroundColor: "#ffffff",
-                        boxShadow: "0 0 0 1px #c9a66b"
+                        padding: "20px 16px"
                       },
                       children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                        "img",
+                        "div",
                         {
-                          src: "img/logo.png?v=5",
-                          alt: "Ridvan Camii Logo",
-                          style: { height: 52, objectFit: "contain" }
+                          style: {
+                            color: "#f5d78e",
+                            fontSize: 22,
+                            textAlign: "center",
+                            lineHeight: 1.6,
+                            width: "100%",
+                            whiteSpace: "pre-wrap"
+                          },
+                          children: lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"
                         }
                       )
                     }
@@ -14807,9 +14174,101 @@ function App() {
             )
           ]
         }
-      ) })
-    }
-  );
+      )
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "div",
+      {
+        className: "bottom-bar",
+        style: {
+          background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)",
+          borderTop: "4px solid #c9a66b",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0 32px",
+          cursor: "default",
+          position: "relative"
+        },
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "div",
+            {
+              style: {
+                color: "#c9a66b",
+                fontSize: 14,
+                letterSpacing: 1
+              },
+              onClick: handleBottomClick,
+              children: [
+                "Bu uygulama ",
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "AyTa®" }),
+                " tarafından hazırlanmıştır"
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: () => setShowSettings(true),
+              title: "Ayarlar",
+              style: {
+                position: "absolute",
+                left: "50%",
+                transform: "translateX(-50%)",
+                background: "transparent",
+                border: "1px solid #c9a66b44",
+                borderRadius: 6,
+                padding: "4px 10px",
+                color: "#c9a66b77",
+                fontSize: 16,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                transition: "all 0.2s",
+                lineHeight: 1
+              },
+              onMouseEnter: (e) => {
+                e.currentTarget.style.color = "#c9a66b";
+                e.currentTarget.style.borderColor = "#c9a66b";
+                e.currentTarget.style.background = "#c9a66b11";
+              },
+              onMouseLeave: (e) => {
+                e.currentTarget.style.color = "#c9a66b77";
+                e.currentTarget.style.borderColor = "#c9a66b44";
+                e.currentTarget.style.background = "transparent";
+              },
+              children: "⚙️"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "div",
+            {
+              style: {
+                border: "3px solid #c9a66b",
+                borderRadius: 8,
+                padding: "6px 12px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#ffffff",
+                boxShadow: "0 0 0 1px #c9a66b"
+              },
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "img",
+                {
+                  src: "img/logo.png?v=5",
+                  alt: "Ridvan Camii Logo",
+                  style: { height: 52, objectFit: "contain" }
+                }
+              )
+            }
+          )
+        ]
+      }
+    )
+  ] }) }) });
 }
 clientExports.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
