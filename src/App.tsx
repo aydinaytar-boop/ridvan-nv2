@@ -1,4 +1,3 @@
-import { useState, useEffect, useRef, useCallback } from "react";
 import {
   getTodayTimes,
   computeFlow,
@@ -7,7 +6,6 @@ import {
   isCumaGunu,
   showWeekendOgleMsg,
   getSabahKametSaati,
-  saveSetting,
   SETTINGS,
   type VakitKey,
 } from "./utils/timeEngine";
@@ -760,14 +758,15 @@ export default function App() {
 
               <button
                 onClick={() => {
-                  saveSetting("manuelSabahKamet", sabahKametInput);
-                  saveSetting("duyuruTR", duyuruTR);
-                  saveSetting("duyuruDE", duyuruDE);
-                  saveSetting("hicriOffset", String(hicriOffset));
-                  localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs));
+  localStorage.setItem("manuelSabahKamet", sabahKametInput);
+  localStorage.setItem("duyuruTR", duyuruTR);
+  localStorage.setItem("duyuruDE", duyuruDE);
+  localStorage.setItem("hicriOffset", String(hicriOffset));
+  localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs));
 
-                  setShowSettings(false);
-                }}
+  window.dispatchEvent(new Event('settingsUpdated'));
+  setShowSettings(false);
+}}
                 style={{
                   marginTop: 16,
                   padding: "12px 40px",
