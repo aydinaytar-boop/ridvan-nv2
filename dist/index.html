@@ -14275,8 +14275,6 @@ html, body, #root {
   position: absolute;
   left: 50%;
   top: 0;
-
-  /* B SİSTEMİ DÜZELTMESİ → scale(1) kaldırıldı */
   transform: translateX(-50%);
   transform-origin: top center;
 }
@@ -14292,26 +14290,29 @@ html, body, #root {
 .outer-frame {
   width: 100%;
   height: 100%;
-
-  /* Arka plan rengi */
   background-color: #0a3d2e;
-
-  /* ÇERÇEVEYİ GERİ GETİREN KODLAR */
-  border: 10px solid #c9a66b; /* Çerçevenin kalınlığı ve rengi */
-  border-radius: 12px;        /* Köşelerin hafif yuvarlatılması */
-
+  border: 10px solid #c9a66b;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-/* ====================== ÜST BAR ====================== */
+/* ====================== ÜST BAR (GÜNCEL) ====================== */
 .top-bar {
   height: 82px;
   padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+/* Hicri ve Miladi yazıları büyütüp belirginleştirdik */
+.top-bar > div:first-child div {
+  font-size: 30px !important;
+  font-weight: 800 !important;
+  color: #f5d78e !important;
+  text-shadow: 2px 2px 4px #000; 
 }
 
 /* ====================== ALT BAR ====================== */
@@ -14323,7 +14324,7 @@ html, body, #root {
   justify-content: center;
 }
 
-/* ====================== ANA 3 PANEL ====================== */
+/* ====================== ANA 3 PANEL (GÜNCEL) ====================== */
 .main-panels {
   flex: 1;
   display: flex;
@@ -14341,8 +14342,15 @@ html, body, #root {
   flex-direction: column;
 }
 
-/* ====================== ORTA PANEL – FINAL ====================== */
+/* Sol Paneldeki yazıların belirginleşmesi için */
+.panel span {
+  text-shadow: 1px 1px 2px #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
+/* ====================== ORTA PANEL – FINAL ====================== */
 .panel-title {
   background: #c9a66b;
   text-align: center;
@@ -14382,19 +14390,12 @@ html, body, #root {
   margin-top: 20px;
 }
 
-/* ====================== SADECE DİKEY %15 BÜYÜTME ====================== */
 .countdown-box {
   background: #0e5c3a;
   border: 4px solid #c9a66b;
   border-radius: 16px;
-
-  padding-top: 23px;
-  padding-bottom: 23px;
-
-  padding-left: 24px;
-  padding-right: 24px;
+  padding: 23px 24px;
   min-width: 100px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
