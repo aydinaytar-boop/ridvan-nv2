@@ -239,7 +239,7 @@ export default function App() {
   const [configLoaded, setConfigLoaded] = useState(false);
   const settingsClickCount = useRef(0);
   const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
+  // 1. EKRAN ÖLÇEKLENDİRME (Aynen duruyor)
   useEffect(() => {
     const timer = setTimeout(() => {
       applyAutoScale();
@@ -253,19 +253,40 @@ export default function App() {
     };
   }, []);
 
-  // config.json yerine localStorage'dan yükle
-useEffect(() => {
-  setSabahKametInput(getSabahKametSaati());
-  setDuyuruTR(localStorage.getItem("duyuruTR") || "");
-  setDuyuruDE(localStorage.getItem("duyuruDE") || "");
-  setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
+  // 2. CONFIG YÜKLEME (Güncellenen kısım - Artık hem config.json'ı hem localStorage'ı kontrol eder)
+  useEffect(() => {
+    async function loadConfig() {
+      try {
+        const response = await fetch('./config.json');
+        const remoteConfig = await response.json();
+        const d = remoteConfig.dynamic || {};
 
-  const savedBayram = localStorage.getItem("bayramInputs");
-  if (savedBayram) setBayramInputs(JSON.parse(savedBayram));
+        // ÖNCELİK: LocalStorage (kullanıcı değiştirdiyse) > config.json (dosyadaki ayar) > Varsayılan
+        setSabahKametInput(localStorage.getItem("manuelSabahKamet") || d.sabahKamet || "05:15");
+        setDuyuruTR(localStorage.getItem("duyuruTR") || d.duyuruTR || "");
+        setDuyuruDE(localStorage.getItem("duyuruDE") || d.duyuruDE || "");
+      } catch (e) {
+        console.error("Config yüklenemedi, yerel verilerle devam ediliyor:", e);
+        setSabahKametInput(getSabahKametSaati());
+        setDuyuruTR(localStorage.getItem("duyuruTR") || "");
+        setDuyuruDE(localStorage.getItem("duyuruDE") || "");
+      }
 
-  setConfigLoaded(true);
-}, []);
+      setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
+      const savedBayram = localStorage.getItem("bayramInputs");
+      if (savedBayram) {
+        try {
+          setBayramInputs(JSON.parse(savedBayram));
+        } catch (err) {
+          console.error("Bayram verisi hatası");
+        }
+      }
+      setConfigLoaded(true);
+    }
+    loadConfig();
+  }, []);
 
+  // 3. AUTO-SAVE YAPAN DİĞER KANCALAR (Aynen duruyor)
   useEffect(() => {
     if (configLoaded) localStorage.setItem("duyuruTR", duyuruTR);
   }, [duyuruTR, configLoaded]);
@@ -300,6 +321,7 @@ useEffect(() => {
     setSabahKametSaati(sabahKametInput);
   }, [sabahKametInput]);
 
+  // 4. DEĞİŞKEN HESAPLAMALARI (Aynen duruyor)
   const times = getTodayTimes(now);
   const flow = computeFlow(now, times);
   const bayram = getBayramVisibility(now);
