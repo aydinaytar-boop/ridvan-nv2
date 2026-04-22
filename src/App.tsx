@@ -177,6 +177,14 @@ export default function App() {
                    <span style={{ color: "#f5d78e", fontSize: 20, flex: 1 }}>{lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit"}</span>
                    <input type="time" value={sabahKametInput} onChange={(e) => setSabahKametInput(e.target.value)} style={{ flex: 1, padding: "8px 12px", borderRadius: 8, border: "2px solid #c9a66b", background: "#1a5c3a", color: "#f5d78e", fontSize: 18 }} />
                 </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8, width: "100%", maxWidth: 600 }}>
+                  <span style={{ color: "#f5d78e", fontSize: 20 }}>{lang === "tr" ? "Hicri Takvim Düzeltmesi" : "Hidschra-Kalender Korrektur"}</span>
+                  <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                    <button onClick={() => setHicriOffset((o) => o - 1)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>−</button>
+                    <span style={{ color: "#f5d78e", fontSize: 22 }}>{hicriOffset > 0 ? `+${hicriOffset}` : hicriOffset}</span>
+                    <button onClick={() => setHicriOffset((o) => o + 1)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>+</button>
+                  </div>
+                </div>
                 <button onClick={() => setShowSettings(false)} style={{ marginTop: 16, padding: "12px 40px", fontSize: 20, background: "#c9a66b", color: "#0a3d2e", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: "bold" }}>✓ {lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"}</button>
              </div>
           )}
