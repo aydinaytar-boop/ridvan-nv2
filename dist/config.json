@@ -1,17 +1,18 @@
-// src/config/settings.ts
-export const SETTINGS = {
-  // Sabitler (Bunlar config.json'a taşınabilir ama burada kalmaları da sorun değil)
-  kametSureleri: { ogle: 9, ikindi: 9, aksam: 3, yatsi: 9, cuma: 20 },
-  kametOffsets: { sabah: 0, ogle: 9, ikindi: 9, aksam: 3, yatsi: 9, cuma: 20 },
-  cuma: { ezan: "13:10", kamet: "13:30" },
-  blackoutSuresi: 600,
-  
-  // Bayramlar (Değişken oldukları için bunlar burada kalabilir)
-  bayramlar: [
-    { ad_tr: "Ramazan Bayramı", ad_de: "Bayram", tarih: "2026-03-20", tarih2: "2026-03-22", saat: "06:30" },
-    { ad_tr: "Kurban Bayramı", ad_de: "Opferfest", tarih: "2026-05-27", tarih2: "2026-05-30", saat: "05:35" },
-  ]
-};
-
-// getSabahKametSaati, setDuyurular vs. gibi fonksiyonları buradan silebilirsin. 
-// Çünkü onları artık App.tsx içinde direkt yönetiyoruz.
+{
+  "mosqueName": "RIDVAN CAMİİ — VİYANA",
+  "showLogo": true,
+  "logo": "/logo.png",
+  "panels": { "left": true, "center": true, "right": true },
+  "safeArea": { "scale": 0.90, "overscan": true },
+  "theme": { "frameColor": "#c9a66b", "backgroundColor": "#0a3d2e", "textColor": "#e5e7eb" },
+  "prayerTimes": { "showSeconds": true, "highlightActive": true },
+  "announcements": { "enabled": true, "scrollSpeed": 1 },
+  "dynamic": {
+    "sabahKamet": "05:15",
+    "hicriTakvim": "1447",
+    "duyuruTR": "İzine erken gidecek olanlar LÜTFEN Kurban bağışlarınızı yapmış olarak gidin! İyi Tatiller!!",
+    "duyuruDE": "Wer früher in den Urlaub fährt, wird gebeten, seine Kurban-Spenden bereits im Voraus geleistet zu haben.",
+    "ramazanBayrami": "2026-03-20",
+    "kurbanBayrami": "2026-05-27"
+  }
+}
