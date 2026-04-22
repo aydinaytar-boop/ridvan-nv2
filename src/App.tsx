@@ -4,219 +4,48 @@ import {
   computeFlow,
   getKametTime,
   getBayramVisibility,
-  isCumaGunu,
   showWeekendOgleMsg,
-  getSabahKametSaati,
+  setSabahKametSaati,
   SETTINGS,
   type VakitKey,
 } from "./utils/timeEngine";
 import { DUA_ARCHIVE, EZAN_DUASI } from "./data/duaArchive";
 
-function fmt2(n: number) {
-  return String(Math.max(0, n)).padStart(2, "0");
-}
-
-function toHijri(
-  date: Date,
-  offset = 0
-): { day: number; month: number; year: number } {
-  const d = new Date(date);
-  d.setDate(d.getDate() + offset);
-  const JD =
-    Math.floor(
-      (d.getTime() - new Date(1970, 0, 1).getTime()) / 86400000
-    ) + 2440587.5;
-  const Z = Math.floor(JD);
-  const A = Math.floor((Z - 1867216.25) / 36524.25);
-  const AA = Z + 1 + A - Math.floor(A / 4);
-  const B = AA + 1524;
-  const C = Math.floor((B - 122.1) / 365.25);
-  const D2 = Math.floor(365.25 * C);
-  const E = Math.floor((B - D2) / 30.6001);
-  const dayG = B - D2 - Math.floor(30.6001 * E);
-  const monthG = (E < 14 ? E - 1 : E - 13) as number;
-  const yearG = monthG > 2 ? C - 4716 : C - 4715;
-  const JDN =
-    367 * yearG -
-    Math.floor((7 * (yearG + Math.floor((monthG + 9) / 12))) / 4) +
-    Math.floor((275 * monthG) / 9) +
-    dayG + 1721013.5;
-  const l = Math.floor(JDN) - 1948440 + 10632;
-  const n = Math.floor((l - 1) / 10631);
-  const ll = l - 10631 * n + 354;
-  const j =
-    Math.floor((10985 - ll) / 5316) *
-      Math.floor((50 * ll) / 17719) +
-    Math.floor(ll / 5670) *
-      Math.floor((43 * ll) / 15238);
-  const lll =
-    ll -
-    Math.floor((30 - j) / 15) *
-      Math.floor((17719 * j) / 50) -
-    Math.floor(j / 16) *
-      Math.floor((15238 * j) / 43) +
-    29;
-  const month = Math.floor((24 * lll) / 709);
-  const day = lll - Math.floor((709 * month) / 24);
-  const year = 30 * n + j - 30;
+// --- YARDIMCI FONKSİYONLAR ---
+function fmt2(n: number) { return String(Math.max(0, n)).padStart(2, "0"); }
+function toHijri(date: Date, offset = 0): { day: number; month: number; year: number } {
+  const d = new Date(date); d.setDate(d.getDate() + offset);
+  const JD = Math.floor((d.getTime() - new Date(1970, 0, 1).getTime()) / 86400000) + 2440587.5;
+  const Z = Math.floor(JD); const A = Math.floor((Z - 1867216.25) / 36524.25);
+  const AA = Z + 1 + A - Math.floor(A / 4); const B = AA + 1524;
+  const C = Math.floor((B - 122.1) / 365.25); const D2 = Math.floor(365.25 * C);
+  const E = Math.floor((B - D2) / 30.6001); const dayG = B - D2 - Math.floor(30.6001 * E);
+  const monthG = (E < 14 ? E - 1 : E - 13) as number; const yearG = monthG > 2 ? C - 4716 : C - 4715;
+  const JDN = 367 * yearG - Math.floor((7 * (yearG + Math.floor((monthG + 9) / 12))) / 4) + Math.floor((275 * monthG) / 9) + dayG + 1721013.5;
+  const l = Math.floor(JDN) - 1948440 + 10632; const n = Math.floor((l - 1) / 10631);
+  const ll = l - 10631 * n + 354; const j = Math.floor((10985 - ll) / 5316) * Math.floor((50 * ll) / 17719) + Math.floor(ll / 5670) * Math.floor((43 * ll) / 15238);
+  const lll = ll - Math.floor((30 - j) / 15) * Math.floor((17719 * j) / 50) - Math.floor(j / 16) * Math.floor((15238 * j) / 43) + 29;
+  const month = Math.floor((24 * lll) / 709); const day = lll - Math.floor((709 * month) / 24); const year = 30 * n + j - 30;
   return { day, month, year };
 }
-
-const HICRI_AYLAR_TR = [
-  "",
-  "Muharrem",
-  "Safer",
-  "Rebiülevvel",
-  "Rebiülahir",
-  "Cemâziyelevvel",
-  "Cemâziyelahir",
-  "Recep",
-  "Şaban",
-  "Ramazan",
-  "Şevval",
-  "Zilkade",
-  "Zilhicce",
-];
-const HICRI_AYLAR_DE = [
-  "",
-  "Muharram",
-  "Safar",
-  "Rabi al-Awwal",
-  "Rabi al-Thani",
-  "Dschumada al-Ula",
-  "Dschumada al-Thaniya",
-  "Radschab",
-  "Scha'ban",
-  "Ramadan",
-  "Schawwal",
-  "Dhu al-Qa'da",
-  "Dhu al-Hijja",
-];
-
-function hicriStrTR(h: { day: number; month: number; year: number }) {
-  return `${h.day} ${HICRI_AYLAR_TR[h.month]} ${h.year}`;
-}
-
-function hicriStrDE(h: { day: number; month: number; year: number }) {
-  return `${h.day}. ${HICRI_AYLAR_DE[h.month]} ${h.year}`;
-}
-
-const GUNLER_TR = [
-  "Pazar",
-  "Pazartesi",
-  "Salı",
-  "Çarşamba",
-  "Perşembe",
-  "Cuma",
-  "Cumartesi",
-];
-const GUNLER_DE = [
-  "Sonntag",
-  "Montag",
-  "Dienstag",
-  "Mittwoch",
-  "Donnerstag",
-  "Freitag",
-  "Samstag",
-];
-const AYLAR_TR = [
-  "Ocak",
-  "Şubat",
-  "Mart",
-  "Nisan",
-  "Mayıs",
-  "Haziran",
-  "Temmuz",
-  "Ağustos",
-  "Eylül",
-  "Ekim",
-  "Kasım",
-  "Aralık",
-];
-const AYLAR_DE = [
-  "Januar",
-  "Februar",
-  "März",
-  "April",
-  "Mai",
-  "Juni",
-  "Juli",
-  "August",
-  "September",
-  "Oktober",
-  "November",
-  "Dezember",
-];
-
-function miladiTRStr(d: Date) {
-  return `${GUNLER_TR[d.getDay()]}, ${d.getDate()} ${
-    AYLAR_TR[d.getMonth()]
-  } ${d.getFullYear()}`;
-}
-
-function miladiDEStr(d: Date) {
-  return `${GUNLER_DE[d.getDay()]}, ${d.getDate()}. ${
-    AYLAR_DE[d.getMonth()]
-  } ${d.getFullYear()}`;
-}
-
-const VAKIT_NAMES: Record<string, Record<VakitKey, string>> = {
-  tr: {
-    sabah: "SABAH",
-    gunes: "GÜNEŞ",
-    ogle: "ÖĞLE",
-    ikindi: "İKİNDİ",
-    aksam: "AKŞAM",
-    yatsi: "YATSI",
-  },
-  de: {
-    sabah: "FAJR",
-    gunes: "SCHURUQ",
-    ogle: "DHUHR",
-    ikindi: "ASSR",
-    aksam: "MAGHRIB",
-    yatsi: "ISCHAA",
-  },
-};
-
-const VAKIT_LABEL: Record<string, Record<VakitKey, string>> = {
-  tr: {
-    sabah: "Sabah",
-    gunes: "Güneş",
-    ogle: "Öğle",
-    ikindi: "İkindi",
-    aksam: "Akşam",
-    yatsi: "Yatsı",
-  },
-  de: {
-    sabah: "Fajr",
-    gunes: "Schuruq",
-    ogle: "Dhuhr",
-    ikindi: "Assr",
-    aksam: "Maghrib",
-    yatsi: "Ischaa",
-  },
-};
-
-function getDailyDua(date: Date) {
-  const dayOfYear = Math.floor(
-    (date.getTime() -
-      new Date(date.getFullYear(), 0, 0).getTime()) /
-      86400000
-  );
-  return DUA_ARCHIVE[dayOfYear % DUA_ARCHIVE.length];
-}
-
+const HICRI_AYLAR_TR = ["", "Muharrem", "Safer", "Rebiülevvel", "Rebiülahir", "Cemâziyelevvel", "Cemâziyelahir", "Recep", "Şaban", "Ramazan", "Şevval", "Zilkade", "Zilhicce"];
+const HICRI_AYLAR_DE = ["", "Muharram", "Safar", "Rabi al-Awwal", "Rabi al-Thani", "Dschumada al-Ula", "Dschumada al-Thaniya", "Radschab", "Scha'ban", "Ramadan", "Schawwal", "Dhu al-Qa'da", "Dhu al-Hijja"];
+function hicriStrTR(h: { day: number; month: number; year: number }) { return `${h.day} ${HICRI_AYLAR_TR[h.month]} ${h.year}`; }
+function hicriStrDE(h: { day: number; month: number; year: number }) { return `${h.day}. ${HICRI_AYLAR_DE[h.month]} ${h.year}`; }
+const GUNLER_TR = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+const GUNLER_DE = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+const AYLAR_TR = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+const AYLAR_DE = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+function miladiTRStr(d: Date) { return `${GUNLER_TR[d.getDay()]}, ${d.getDate()} ${AYLAR_TR[d.getMonth()]} ${d.getFullYear()}`; }
+function miladiDEStr(d: Date) { return `${GUNLER_DE[d.getDay()]}, ${d.getDate()}. ${AYLAR_DE[d.getMonth()]} ${d.getFullYear()}`; }
+const VAKIT_NAMES: Record<string, Record<VakitKey, string>> = { tr: { sabah: "SABAH", gunes: "GÜNEŞ", ogle: "ÖĞLE", ikindi: "İKİNDİ", aksam: "AKŞAM", yatsi: "YATSI" }, de: { sabah: "FAJR", gunes: "SCHURUQ", ogle: "DHUHR", ikindi: "ASSR", aksam: "MAGHRIB", yatsi: "ISCHAA" } };
+const VAKIT_LABEL: Record<string, Record<VakitKey, string>> = { tr: { sabah: "Sabah", gunes: "Güneş", ogle: "Öğle", ikindi: "İkindi", aksam: "Akşam", yatsi: "Yatsı" }, de: { sabah: "Fajr", gunes: "Schuruq", ogle: "Dhuhr", ikindi: "Assr", aksam: "Maghrib", yatsi: "Ischaa" } };
+function getDailyDua(date: Date) { const dayOfYear = Math.floor((date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 86400000); return DUA_ARCHIVE[dayOfYear % DUA_ARCHIVE.length]; }
 function applyAutoScale() {
   const safeArea = document.querySelector(".tv-safe-area");
   if (!safeArea) return;
-
-  const vw = window.innerWidth || 1920;
-  let scale = vw / 1920;
-
-  if (!scale || scale <= 0 || scale > 2) {
-    scale = 1;
-  }
+  const vw = window.innerWidth || 1920; let scale = vw / 1920;
+  if (!scale || scale <= 0 || scale > 2) scale = 1;
   scale = scale * 0.95;
   (safeArea as HTMLElement).style.transform = `translateX(-50%) scale(${scale})`;
   (safeArea as HTMLElement).style.transformOrigin = "top center";
@@ -225,85 +54,54 @@ function applyAutoScale() {
 export default function App() {
   const [now, setNow] = useState(() => new Date());
   const [lang, setLang] = useState<"tr" | "de">("tr");
-
-  const [hicriOffset, setHicriOffset] = useState(() => parseInt(localStorage.getItem("hicriOffset") || "0"));
-  const [sabahKametInput, setSabahKametInput] = useState(() => getSabahKametSaati());
-  const [duyuruTR, setDuyuruTR] = useState(() => localStorage.getItem("duyuruTR") || "");
-  const [duyuruDE, setDuyuruDE] = useState(() => localStorage.getItem("duyuruDE") || "");
-  
+  const [hicriOffset, setHicriOffset] = useState(0);
+  const [sabahKametInput, setSabahKametInput] = useState("");
   const [showSettings, setShowSettings] = useState(false);
-  const [bayramInputs, setBayramInputs] = useState<Record<string, string>>(() => {
-    try { return JSON.parse(localStorage.getItem("bayramInputs") || "{}") } catch { return {} }
-  });
+  const [bayramInputs, setBayramInputs] = useState<Record<string, string>>({});
   const [showBayramForm, setShowBayramForm] = useState(false);
   const [duaLang, setDuaLang] = useState<"tr" | "de">("tr");
+  const [duyuruTR, setDuyuruTR] = useState("");
+  const [duyuruDE, setDuyuruDE] = useState("");
   const [showDuyuruForm, setShowDuyuruForm] = useState(false);
-
+  const [configLoaded, setConfigLoaded] = useState(false);
   const settingsClickCount = useRef(0);
   const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-
-  const [, forceUpdate] = useState(0);
   useEffect(() => {
-    const handler = () => forceUpdate(x => x + 1);
-    window.addEventListener('settingsUpdated', handler);
-    return () => window.removeEventListener('settingsUpdated', handler);
-  }, []);
-
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      applyAutoScale();
-    }, 50);
-
+    const timer = setTimeout(() => applyAutoScale(), 50);
     window.addEventListener("resize", applyAutoScale);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("resize", applyAutoScale);
-    };
+    return () => { clearTimeout(timer); window.removeEventListener("resize", applyAutoScale); };
   }, []);
-
 
   useEffect(() => {
     async function loadConfig() {
+      let remoteD = { sabahKamet: "05:15", duyuruTR: "", duyuruDE: "" };
       try {
-        const response = await fetch(`./config.json?${Date.now()}`);
-        const remoteConfig = await response.json();
-        const d = remoteConfig.dynamic || {};
+        const response = await fetch('./config.json?t=' + new Date().getTime());
+        const data = await response.json();
+        if (data.dynamic) remoteD = data.dynamic;
+      } catch (e) { console.warn("Config yüklenemedi"); }
 
-        setSabahKametInput(d.sabahKamet || localStorage.getItem("manuelSabahKamet") || "");
-        setDuyuruTR(d.duyuruTR || localStorage.getItem("duyuruTR") || "");
-        setDuyuruDE(d.duyuruDE || localStorage.getItem("duyuruDE") || "");
-        
-      } catch (e) {}
+      setSabahKametInput(localStorage.getItem("manuelSabahKamet") || remoteD.sabahKamet);
+      setDuyuruTR(localStorage.getItem("duyuruTR") || remoteD.duyuruTR);
+      setDuyuruDE(localStorage.getItem("duyuruDE") || remoteD.duyuruDE);
+      setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
+      const savedBayram = localStorage.getItem("bayramInputs");
+      if (savedBayram) { try { setBayramInputs(JSON.parse(savedBayram)); } catch (err) {} }
+      setConfigLoaded(true);
     }
-
     loadConfig();
-    const id = setInterval(loadConfig, 3600000);
-    return () => clearInterval(id);
-
   }, []);
 
-
-  useEffect(() => { localStorage.setItem("duyuruTR", duyuruTR); }, [duyuruTR]);
-  useEffect(() => { localStorage.setItem("duyuruDE", duyuruDE); }, [duyuruDE]);
-  useEffect(() => { localStorage.setItem("hicriOffset", String(hicriOffset)); }, [hicriOffset]);
-  useEffect(() => { localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs)); }, [bayramInputs]);
-
-
-  useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setLang((l) => (l === "tr" ? "de" : "tr"));
-    }, 20000);
-    return () => clearInterval(id);
-  }, []);
-
+  useEffect(() => { if (configLoaded) localStorage.setItem("manuelSabahKamet", sabahKametInput); }, [sabahKametInput, configLoaded]);
+  useEffect(() => { if (configLoaded) localStorage.setItem("duyuruTR", duyuruTR); }, [duyuruTR, configLoaded]);
+  useEffect(() => { if (configLoaded) localStorage.setItem("duyuruDE", duyuruDE); }, [duyuruDE, configLoaded]);
+  useEffect(() => { if (configLoaded) localStorage.setItem("hicriOffset", String(hicriOffset)); }, [hicriOffset, configLoaded]);
+  useEffect(() => { if (configLoaded) localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs)); }, [bayramInputs, configLoaded]);
+  
+  useEffect(() => { const id = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(id); }, []);
+  useEffect(() => { const id = setInterval(() => { setLang((l) => (l === "tr" ? "de" : "tr")); }, 20000); return () => clearInterval(id); }, []);
+  useEffect(() => { setSabahKametSaati(sabahKametInput); }, [sabahKametInput]);
 
   const times = getTodayTimes(now);
   const flow = computeFlow(now, times);
@@ -323,469 +121,100 @@ export default function App() {
   const isKametAlert = flow.phase === "kamet_alert";
   const isBlackout = flow.phase === "blackout";
 
-  let cdH = 0,
-    cdM = 0,
-    cdS = 0;
-  if (isKametCountdown) {
-    const total = flow.kametCountdown;
-    cdH = Math.floor(total / 3600);
-    cdM = Math.floor((total % 3600) / 60);
-    cdS = total % 60;
-  } else if (!isEzan && !isKametAlert && !isBlackout) {
-    const total = flow.countdownSeconds;
-    cdH = Math.floor(total / 3600);
-    cdM = Math.floor((total % 3600) / 60);
-    cdS = total % 60;
-  }
-
+  let cdH = 0, cdM = 0, cdS = 0;
+  if (isKametCountdown) { const total = flow.kametCountdown; cdH = Math.floor(total / 3600); cdM = Math.floor((total % 3600) / 60); cdS = total % 60; }
+  else if (!isEzan && !isKametAlert && !isBlackout) { const total = flow.countdownSeconds; cdH = Math.floor(total / 3600); cdM = Math.floor((total % 3600) / 60); cdS = total % 60; }
+  
   const gunesDate = new Date(now);
   const [gh, gm] = times.gunes.split(":").map(Number);
   gunesDate.setHours(gh, gm, 0, 0);
-  const gunesKalanSec = Math.max(
-    0,
-    Math.floor((gunesDate.getTime() - now.getTime()) / 1000)
-  );
+  const gunesKalanSec = Math.max(0, Math.floor((gunesDate.getTime() - now.getTime()) / 1000));
   const gunesKalanH = Math.floor(gunesKalanSec / 3600);
   const gunesKalanM = Math.floor((gunesKalanSec % 3600) / 60);
   const gunesKalanS = gunesKalanSec % 60;
 
-  const currentLabel = flow.currentVakit
-    ? VAKIT_LABEL[lang][flow.currentVakit]
-    : "—";
-  const nextLabel = flow.nextVakit
-    ? VAKIT_LABEL[lang][flow.nextVakit]
-    : "—";
+  const currentLabel = flow.currentVakit ? VAKIT_LABEL[lang][flow.currentVakit] : "—";
+  const nextLabel = flow.nextVakit ? VAKIT_LABEL[lang][flow.nextVakit] : "—";
   const nextTime = flow.nextVakitTime;
   const kametVakit = flow.activeEzanVakit;
-
-  const vakitList: { key: VakitKey; ezan: string; kamet: string | null }[] =
-    [
-      { key: "sabah", ezan: times.sabah, kamet: times.sabahKamet },
-      { key: "gunes", ezan: times.gunes, kamet: null },
-      {
-        key: "ogle",
-        ezan: times.ogle,
-        kamet: getKametTime("ogle", times.ogle),
-      },
-      {
-        key: "ikindi",
-        ezan: times.ikindi,
-        kamet: getKametTime("ikindi", times.ikindi),
-      },
-      {
-        key: "aksam",
-        ezan: times.aksam,
-        kamet: getKametTime("aksam", times.aksam),
-      },
-      {
-        key: "yatsi",
-        ezan: times.yatsi,
-        kamet: getKametTime("yatsi", times.yatsi),
-      },
-    ];
+  const vakitList: { key: VakitKey; ezan: string; kamet: string | null }[] = [
+    { key: "sabah", ezan: times.sabah, kamet: times.sabahKamet },
+    { key: "gunes", ezan: times.gunes, kamet: null },
+    { key: "ogle", ezan: times.ogle, kamet: getKametTime("ogle", times.ogle) },
+    { key: "ikindi", ezan: times.ikindi, kamet: getKametTime("ikindi", times.ikindi) },
+    { key: "aksam", ezan: times.aksam, kamet: getKametTime("aksam", times.aksam) },
+    { key: "yatsi", ezan: times.yatsi, kamet: getKametTime("yatsi", times.yatsi) },
+  ];
 
   const handleBottomClick = useCallback(() => {
     settingsClickCount.current += 1;
     if (settingsTimer.current) clearTimeout(settingsTimer.current);
-    settingsTimer.current = setTimeout(() => {
-      settingsClickCount.current = 0;
-    }, 1000);
-    if (settingsClickCount.current >= 3) {
-      settingsClickCount.current = 0;
-      setShowSettings(true);
-    }
+    settingsTimer.current = setTimeout(() => { settingsClickCount.current = 0; }, 1000);
+    if (settingsClickCount.current >= 3) { settingsClickCount.current = 0; setShowSettings(true); }
   }, []);
+
+  if (!configLoaded) return ( <div style={{ width: "100vw", height: "100vh", background: "#0a3d2e", display: "flex", alignItems: "center", justifyContent: "center", color: "#c9a66b", fontSize: 24 }}>Yükleniyor...</div> );
 
   if (isBlackout) {
     return (
-      <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-          background: "#000",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 32,
-        }}
-      >
-        <img
-          src="img/close.png?v=5"
-          alt="Lütfen telefonunuzu kapatın!"
-          style={{
-            maxWidth: "100%",
-            maxHeight: "95vh",
-            objectFit: "contain",
-          }}
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).style.display = "none";
-          }}
-        />
-        <div
-          style={{
-            color: "#c9a66b",
-            fontSize: 28,
-            fontFamily: "'Segoe UI', Arial, sans-serif",
-            letterSpacing: 2,
-            textAlign: "center",
-          }}
-        >
-          {lang === "tr"
-            ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın!"
-            : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus!"}
-        </div>
-        <div style={{ color: "#6a9e78", fontSize: 22 }}>
-          {lang === "tr" ? "Kalan süre" : "Verbleibende Zeit"}:{" "}
-          {fmt2(Math.floor(flow.blackoutRemaining / 60))}:
-          {fmt2(flow.blackoutRemaining % 60)}
+      <div style={{ width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }}>
+        <img src="img/close.png?v=5" style={{ maxWidth: "100%", maxHeight: "95vh", objectFit: "contain" }} onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+        <div style={{ color: "#c9a66b", fontSize: 28, fontFamily: "'Segoe UI', Arial, sans-serif", letterSpacing: 2, textAlign: "center" }}>
+          {lang === "tr" ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın!" : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus!"}
         </div>
       </div>
     );
   }
 
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
-        position: "fixed",
-        top: 0,
-        left: 0,
-        background: "#000",
-        zIndex: 0,
-      }}
-    >
+    <div style={{ width: "100vw", height: "100vh", overflow: "hidden", position: "fixed", top: 0, left: 0, background: "#000", zIndex: 0 }}>
       <div className="tv-safe-area">
-        <div
-          className="outer-frame"
-          style={{ display: "flex", flexDirection: "column", position: "relative" }}
-        >
+        <div className="outer-frame" style={{ display: "flex", flexDirection: "column", position: "relative" }}>
           {showSettings && (
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background: "#0a3d2e",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 24,
-                padding: 40,
-                overflowY: "auto",
-                zIndex: 10,
-              }}
-            >
-              <div
-                style={{
-                  color: "#c9a66b",
-                  fontSize: 22,
-                  fontWeight: "bold",
-                  marginBottom: 8,
-                }}
-              >
-                ⚙️ {lang === "tr" ? "Ayarlar" : "Einstellungen"}
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 16,
-                  width: "100%",
-                  maxWidth: 600,
-                }}
-              >
-                <span
-                  style={{
-                    color: "#f5d78e",
-                    fontSize: 20,
-                    flex: 1,
-                  }}
-                >
-                  {lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit"}
-                </span>
-                <input
-                  type="time"
-                  value={sabahKametInput}
-                  onChange={(e) => setSabahKametInput(e.target.value)}
-                  style={{
-                    flex: 1,
-                    padding: "8px 12px",
-                    borderRadius: 8,
-                    border: "2px solid #c9a66b",
-                    background: "#1a5c3a",
-                    color: "#f5d78e",
-                    fontSize: 18,
-                  }}
-                />
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                  width: "100%",
-                  maxWidth: 600,
-                }}
-              >
-                <span
-                  style={{
-                    color: "#f5d78e",
-                    fontSize: 20,
-                  }}
-                >
-                  {lang === "tr"
-                    ? "Hicri Takvim Düzeltmesi"
-                    : "Hidschra-Kalender Korrektur"}
-                </span>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: 12,
-                    alignItems: "center",
-                  }}
-                >
-                  <button
-                    onClick={() => setHicriOffset((o) => o - 1)}
-                    style={{
-                      padding: "8px 20px",
-                      fontSize: 22,
-                      background: "#1a5c3a",
-                      color: "#c9a66b",
-                      border: "2px solid #c9a66b",
-                      borderRadius: 8,
-                      cursor: "pointer",
-                    }}
-                  >
-                    −
-                  </button>
-                  <span
-                    style={{
-                      color: "#f5d78e",
-                      fontSize: 22,
-                      minWidth: 60,
-                      textAlign: "center",
-                    }}
-                  >
-                    {hicriOffset > 0 ? `+${hicriOffset}` : hicriOffset}{" "}
-                    {lang === "tr" ? "gün" : "Tage"}
-                  </span>
-                  <button
-                    onClick={() => setHicriOffset((o) => o + 1)}
-                    style={{
-                      padding: "8px 20px",
-                      fontSize: 24,
-                      background: "#1a5c3a",
-                      color: "#c9a66b",
-                      border: "2px solid #c9a66b",
-                      borderRadius: 8,
-                      cursor: "pointer",
-                    }}
-                  >
-                    +
-                  </button>
+             <div style={{ position: "absolute", inset: 0, background: "#0a3d2e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24, padding: 40, overflowY: "auto", zIndex: 10 }}>
+                <div style={{ color: "#c9a66b", fontSize: 22, fontWeight: "bold" }}>⚙️ {lang === "tr" ? "Ayarlar" : "Einstellungen"}</div>
+                
+                {/* 1. Sabah Kamet */}
+                <div style={{ display: "flex", alignItems: "center", gap: 16, width: "100%", maxWidth: 600 }}>
+                   <span style={{ color: "#f5d78e", fontSize: 20, flex: 1 }}>{lang === "tr" ? "Sabah Kamet Saati" : "Fajr Iqâmat-Zeit"}</span>
+                   <input type="time" value={sabahKametInput} onChange={(e) => setSabahKametInput(e.target.value)} style={{ flex: 1, padding: "8px 12px", borderRadius: 8, border: "2px solid #c9a66b", background: "#1a5c3a", color: "#f5d78e", fontSize: 18 }} />
                 </div>
-                <div style={{ color: "#6a9e78", fontSize: 16 }}>
-                  {lang === "tr" ? `Şu an: ${hicriTR}` : `Aktuell: ${hicriDE}`}
-                </div>
-              </div>
 
-              <div style={{ width: "100%", maxWidth: 600 }}>
-                <button
-                  onClick={() => setShowBayramForm((v) => !v)}
-                  style={{
-                    padding: "8px 20px",
-                    fontSize: 18,
-                    background: "#1a5c3a",
-                    color: "#c9a66b",
-                    border: "2px solid #c9a66b",
-                    borderRadius: 8,
-                    cursor: "pointer",
-                    marginBottom: 12,
-                  }}
-                >
-                  {lang === "tr" ? "Bayram Saatleri" : "Feiertagszeiten"} ▾
-                </button>
-                {showBayramForm &&
-                  SETTINGS.bayramlar.map((b) => (
-                    <div
-                      key={b.tarih}
-                      style={{
-                        display: "flex",
-                        gap: 12,
-                        alignItems: "center",
-                        marginBottom: 8,
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: "#f5d78e",
-                          flex: 1,
-                          fontSize: 16,
-                        }}
-                      >
-                        {lang === "tr" ? b.ad_tr : b.ad_de} — {b.tarih}
-                      </span>
-                      <input
-                        type="time"
-                        value={bayramInputs[b.tarih] || "09:00"}
-                        onChange={(e) =>
-                          setBayramInputs((prev) => ({
-                            ...prev,
-                            [b.tarih]: e.target.value,
-                          }))
-                        }
-                        style={{
-                          flex: 1,
-                          padding: "6px 10px",
-                          borderRadius: 6,
-                          border: "2px solid #c9a66b",
-                          background: "#0a3d2e",
-                          color: "#f5d78e",
-                          fontSize: 16,
-                        }}
-                      />
+                {/* 2. Hicri Takvim */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 8, width: "100%", maxWidth: 600 }}>
+                  <span style={{ color: "#f5d78e", fontSize: 20 }}>{lang === "tr" ? "Hicri Takvim Düzeltmesi" : "Hidschra-Kalender Korrektur"}</span>
+                  <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                    <button onClick={() => setHicriOffset(o => o - 1)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>−</button>
+                    <span style={{ color: "#f5d78e", fontSize: 22 }}>{hicriOffset > 0 ? `+${hicriOffset}` : hicriOffset}</span>
+                    <button onClick={() => setHicriOffset(o => o + 1)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>+</button>
+                  </div>
+                </div>
+
+                {/* 3. Bayram Saatleri */}
+                <div style={{ width: "100%", maxWidth: 600 }}>
+                  <button onClick={() => setShowBayramForm(v => !v)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>{lang === "tr" ? "Bayram Saatleri" : "Feiertagszeiten"} ▾</button>
+                  {showBayramForm && SETTINGS.bayramlar.map(b => (
+                    <div key={b.tarih} style={{ display: "flex", gap: 12, marginTop: 8 }}>
+                      <span style={{ color: "#f5d78e", flex: 1 }}>{lang === "tr" ? b.ad_tr : b.ad_de}</span>
+                      <input type="time" value={bayramInputs[b.tarih] || "09:00"} onChange={(e) => setBayramInputs(prev => ({ ...prev, [b.tarih]: e.target.value }))} style={{ background: "#0a3d2e", color: "#f5d78e", border: "1px solid #c9a66b" }} />
                     </div>
                   ))}
-              </div>
+                </div>
 
-              <div style={{ width: "100%", maxWidth: 600 }}>
-                <button
-                  onClick={() => setShowDuyuruForm((v) => !v)}
-                  style={{
-                    padding: "8px 20px",
-                    fontSize: 18,
-                    background: "#1a5c3a",
-                    color: "#c9a66b",
-                    border: "2px solid #c9a66b",
-                    borderRadius: 8,
-                    cursor: "pointer",
-                    marginBottom: 12,
-                  }}
-                >
-                  {lang === "tr" ? "Duyurular" : "Ankündigungen"} ▾
-                </button>
-                {showDuyuruForm && (
-                  <>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 8,
-                        marginBottom: 12,
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: "#f5d78e",
-                          fontSize: 22,
-                        }}
-                      >
-                        {lang === "tr"
-                          ? "Türkçe Duyuru"
-                          : "Türkische Ankündigung"}
-                      </span>
-                      <textarea
-                        value={duyuruTR}
-                        onChange={(e) => setDuyuruTR(e.target.value)}
-                        style={{
-                          width: "100%",
-                          padding: "8px 12px",
-                          borderRadius: 6,
-                          border: "2px solid #c9a66b",
-                          background: "#0a3d2e",
-                          color: "#f5d78e",
-                          fontSize: 22,
-                          minHeight: 80,
-                          resize: "vertical",
-                        }}
-                      />
+                {/* 4. Duyurular */}
+                <div style={{ width: "100%", maxWidth: 600 }}>
+                  <button onClick={() => setShowDuyuruForm(v => !v)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>{lang === "tr" ? "Duyurular" : "Ankündigungen"} ▾</button>
+                  {showDuyuruForm && (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 8 }}>
+                      <textarea value={duyuruTR} onChange={(e) => setDuyuruTR(e.target.value)} placeholder="TR Duyuru" style={{ background: "#0a3d2e", color: "#f5d78e", width: "100%" }} />
+                      <textarea value={duyuruDE} onChange={(e) => setDuyuruDE(e.target.value)} placeholder="DE Duyuru" style={{ background: "#0a3d2e", color: "#f5d78e", width: "100%" }} />
                     </div>
+                  )}
+                </div>
+
+                <button onClick={() => setShowSettings(false)} style={{ marginTop: 16, padding: "12px 40px", fontSize: 20, background: "#c9a66b", color: "#0a3d2e", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: "bold" }}>✓ {lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"}</button>
+             </div>
                     <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 8,
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: "#f5d78e",
-                          fontSize: 16,
-                        }}
-                      >
-                        {lang === "tr"
-                          ? "Almanca Duyuru"
-                          : "Deutsche Ankündigung"}
-                      </span>
-                      <textarea
-                        value={duyuruDE}
-                        onChange={(e) => setDuyuruDE(e.target.value)}
-                        style={{
-                          width: "100%",
-                          padding: "8px 12px",
-                          borderRadius: 6,
-                          border: "2px solid #c9a66b",
-                          background: "#0a3d2e",
-                          color: "#f5d78e",
-                          fontSize: 22,
-                          minHeight: 80,
-                          resize: "vertical",
-                        }}
-                      />
-                    </div>
-                  </>
-                )}
-              </div>
-
-              <div
-                style={{
-                  color: "#6a9e78",
-                  fontSize: 22,
-                  textAlign: "center",
-                  maxWidth: 600,
-                  marginTop: 8,
-                }}
-              >
-                ℹ️{" "}
-                {lang === "tr"
-                  ? "TV'den yapılan değişiklikler bu cihazda saklanır. Tüm TV'ler için GitHub'da public/config.json dosyasını güncelleyin."
-                  : "Änderungen von TV werden auf diesem Gerät gespeichert. Für alle TVs aktualisieren Sie public/config.json auf GitHub."}
-              </div>
-
-              <button
-                onClick={() => {
-                  localStorage.setItem("manuelSabahKamet", sabahKametInput);
-                  localStorage.setItem("duyuruTR", duyuruTR);
-                  localStorage.setItem("duyuruDE", duyuruDE);
-                  localStorage.setItem("hicriOffset", String(hicriOffset));
-                  localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs));
-
-                  window.dispatchEvent(new Event('settingsUpdated'));
-                  setShowSettings(false);
-                }}
-                style={{
-                  marginTop: 16,
-                  padding: "12px 40px",
-                  fontSize: 20,
-                  background: "#c9a66b",
-                  color: "#0a3d2e",
-                  border: "none",
-                  borderRadius: 10,
-                  cursor: "pointer",
-                  fontWeight: "bold",
-                }}
-              >
-                ✓ {lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"}
-              </button>
-            </div>
-          )}
-
-          <div
             className="top-bar"
             style={{
               background: "linear-gradient(180deg,#0e5c3a 0%,#0a3d2e 100%)",
