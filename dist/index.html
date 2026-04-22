@@ -12928,9 +12928,6 @@ let _sabahKametSaati = SETTINGS.sabahKamet;
 function getSabahKametSaati() {
   return _sabahKametSaati;
 }
-function setSabahKametSaati(val) {
-  _sabahKametSaati = val;
-}
 function timeToDate(timeStr, baseDate) {
   const [h, m] = timeStr.split(":").map(Number);
   const d = new Date(baseDate);
@@ -13317,21 +13314,32 @@ function applyAutoScale() {
   safeArea.style.transformOrigin = "top center";
 }
 function App() {
-  const [now, setNow] = reactExports.useState(() => /* @__PURE__ */ new Date());
-  const [lang, setLang] = reactExports.useState("tr");
-  const [hicriOffset, setHicriOffset] = reactExports.useState(0);
-  const [sabahKametInput, setSabahKametInput] = reactExports.useState("05:30");
-  const [showSettings, setShowSettings] = reactExports.useState(false);
-  const [bayramInputs, setBayramInputs] = reactExports.useState({});
-  const [showBayramForm, setShowBayramForm] = reactExports.useState(false);
-  const [duaLang, setDuaLang] = reactExports.useState("tr");
-  const [duyuruTR, setDuyuruTR] = reactExports.useState("");
-  const [duyuruDE, setDuyuruDE] = reactExports.useState("");
-  const [showDuyuruForm, setShowDuyuruForm] = reactExports.useState(false);
-  const [configLoaded, setConfigLoaded] = reactExports.useState(false);
-  const settingsClickCount = reactExports.useRef(0);
-  const settingsTimer = reactExports.useRef(null);
-  reactExports.useEffect(() => {
+  const [now, setNow] = useState(() => /* @__PURE__ */ new Date());
+  const [lang, setLang] = useState("tr");
+  const [hicriOffset, setHicriOffset] = useState(() => parseInt(localStorage.getItem("hicriOffset") || "0"));
+  const [sabahKametInput, setSabahKametInput] = useState(() => getSabahKametSaati());
+  const [duyuruTR, setDuyuruTR] = useState(() => localStorage.getItem("duyuruTR") || "");
+  const [duyuruDE, setDuyuruDE] = useState(() => localStorage.getItem("duyuruDE") || "");
+  const [showSettings, setShowSettings] = useState(false);
+  const [bayramInputs, setBayramInputs] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("bayramInputs") || "{}");
+    } catch {
+      return {};
+    }
+  });
+  const [showBayramForm, setShowBayramForm] = useState(false);
+  const [duaLang, setDuaLang] = useState("tr");
+  const [showDuyuruForm, setShowDuyuruForm] = useState(false);
+  const settingsClickCount = useRef(0);
+  const settingsTimer = useRef(null);
+  const [, forceUpdate] = useState(0);
+  useEffect(() => {
+    const handler = () => forceUpdate((x) => x + 1);
+    window.addEventListener("settingsUpdated", handler);
+    return () => window.removeEventListener("settingsUpdated", handler);
+  }, []);
+  useEffect(() => {
     const timer = setTimeout(() => {
       applyAutoScale();
     }, 50);
@@ -13341,61 +13349,44 @@ function App() {
       window.removeEventListener("resize", applyAutoScale);
     };
   }, []);
-  reactExports.useEffect(() => {
+  useEffect(() => {
     async function loadConfig() {
       try {
-        const response = await fetch("./config.json");
+        const response = await fetch(`./config.json?${Date.now()}`);
         const remoteConfig = await response.json();
         const d = remoteConfig.dynamic || {};
-        setSabahKametInput(localStorage.getItem("manuelSabahKamet") || d.sabahKamet || "05:15");
-        setDuyuruTR(localStorage.getItem("duyuruTR") || d.duyuruTR || "");
-        setDuyuruDE(localStorage.getItem("duyuruDE") || d.duyuruDE || "");
+        setSabahKametInput(d.sabahKamet || localStorage.getItem("manuelSabahKamet") || "");
+        setDuyuruTR(d.duyuruTR || localStorage.getItem("duyuruTR") || "");
+        setDuyuruDE(d.duyuruDE || localStorage.getItem("duyuruDE") || "");
       } catch (e) {
-        console.error("Config yüklenemedi, yerel verilerle devam ediliyor:", e);
-        setSabahKametInput(getSabahKametSaati());
-        setDuyuruTR(localStorage.getItem("duyuruTR") || "");
-        setDuyuruDE(localStorage.getItem("duyuruDE") || "");
       }
-      setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
-      const savedBayram = localStorage.getItem("bayramInputs");
-      if (savedBayram) {
-        try {
-          setBayramInputs(JSON.parse(savedBayram));
-        } catch (err) {
-          console.error("Bayram verisi hatası");
-        }
-      }
-      setConfigLoaded(true);
     }
     loadConfig();
+    const id = setInterval(loadConfig, 36e5);
+    return () => clearInterval(id);
   }, []);
-  reactExports.useEffect(() => {
-    if (configLoaded) localStorage.setItem("duyuruTR", duyuruTR);
-  }, [duyuruTR, configLoaded]);
-  reactExports.useEffect(() => {
-    if (configLoaded) localStorage.setItem("duyuruDE", duyuruDE);
-  }, [duyuruDE, configLoaded]);
-  reactExports.useEffect(() => {
-    if (configLoaded)
-      localStorage.setItem("hicriOffset", String(hicriOffset));
-  }, [hicriOffset, configLoaded]);
-  reactExports.useEffect(() => {
-    if (configLoaded)
-      localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs));
-  }, [bayramInputs, configLoaded]);
-  reactExports.useEffect(() => {
+  useEffect(() => {
+    localStorage.setItem("duyuruTR", duyuruTR);
+  }, [duyuruTR]);
+  useEffect(() => {
+    localStorage.setItem("duyuruDE", duyuruDE);
+  }, [duyuruDE]);
+  useEffect(() => {
+    localStorage.setItem("hicriOffset", String(hicriOffset));
+  }, [hicriOffset]);
+  useEffect(() => {
+    localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs));
+  }, [bayramInputs]);
+  useEffect(() => {
     const id = setInterval(() => setNow(/* @__PURE__ */ new Date()), 1e3);
     return () => clearInterval(id);
   }, []);
-  reactExports.useEffect(() => {
+  useEffect(() => {
     const id = setInterval(() => {
       setLang((l) => l === "tr" ? "de" : "tr");
     }, 2e4);
     return () => clearInterval(id);
   }, []);
-  reactExports.useEffect(() => {
-    setSabahKametSaati(sabahKametInput);
-  }, [sabahKametInput]);
   const times = getTodayTimes(now);
   const flow = computeFlow(now, times);
   const bayram = getBayramVisibility(now);
@@ -13463,7 +13454,7 @@ function App() {
       kamet: getKametTime("yatsi", times.yatsi)
     }
   ];
-  const handleBottomClick = reactExports.useCallback(() => {
+  const handleBottomClick = useCallback(() => {
     settingsClickCount.current += 1;
     if (settingsTimer.current) clearTimeout(settingsTimer.current);
     settingsTimer.current = setTimeout(() => {
@@ -13903,7 +13894,15 @@ function App() {
                   /* @__PURE__ */ jsxRuntimeExports.jsxs(
                     "button",
                     {
-                      onClick: () => setShowSettings(false),
+                      onClick: () => {
+                        localStorage.setItem("manuelSabahKamet", sabahKametInput);
+                        localStorage.setItem("duyuruTR", duyuruTR);
+                        localStorage.setItem("duyuruDE", duyuruDE);
+                        localStorage.setItem("hicriOffset", String(hicriOffset));
+                        localStorage.setItem("bayramInputs", JSON.stringify(bayramInputs));
+                        window.dispatchEvent(new Event("settingsUpdated"));
+                        setShowSettings(false);
+                      },
                       style: {
                         marginTop: 16,
                         padding: "12px 40px",
