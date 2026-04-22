@@ -13342,13 +13342,32 @@ function App() {
     };
   }, []);
   reactExports.useEffect(() => {
-    setSabahKametInput(getSabahKametSaati());
-    setDuyuruTR(localStorage.getItem("duyuruTR") || "");
-    setDuyuruDE(localStorage.getItem("duyuruDE") || "");
-    setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
-    const savedBayram = localStorage.getItem("bayramInputs");
-    if (savedBayram) setBayramInputs(JSON.parse(savedBayram));
-    setConfigLoaded(true);
+    async function loadConfig() {
+      try {
+        const response = await fetch("./config.json");
+        const remoteConfig = await response.json();
+        const d = remoteConfig.dynamic || {};
+        setSabahKametInput(localStorage.getItem("manuelSabahKamet") || d.sabahKamet || "05:15");
+        setDuyuruTR(localStorage.getItem("duyuruTR") || d.duyuruTR || "");
+        setDuyuruDE(localStorage.getItem("duyuruDE") || d.duyuruDE || "");
+      } catch (e) {
+        console.error("Config yüklenemedi, yerel verilerle devam ediliyor:", e);
+        setSabahKametInput(getSabahKametSaati());
+        setDuyuruTR(localStorage.getItem("duyuruTR") || "");
+        setDuyuruDE(localStorage.getItem("duyuruDE") || "");
+      }
+      setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
+      const savedBayram = localStorage.getItem("bayramInputs");
+      if (savedBayram) {
+        try {
+          setBayramInputs(JSON.parse(savedBayram));
+        } catch (err) {
+          console.error("Bayram verisi hatası");
+        }
+      }
+      setConfigLoaded(true);
+    }
+    loadConfig();
   }, []);
   reactExports.useEffect(() => {
     if (configLoaded) localStorage.setItem("duyuruTR", duyuruTR);
