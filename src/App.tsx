@@ -64,7 +64,9 @@ export default function App() {
   const [duyuruDE, setDuyuruDE] = useState("");
   const [showDuyuruForm, setShowDuyuruForm] = useState(false);
   const [configLoaded, setConfigLoaded] = useState(false);
-  
+  const settingsClickCount = useRef(0);
+  const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
     const timer = setTimeout(() => applyAutoScale(), 50);
     window.addEventListener("resize", applyAutoScale);
@@ -79,6 +81,7 @@ export default function App() {
         const data = await response.json();
         if (data.dynamic) remoteD = data.dynamic;
       } catch (e) { console.warn("Config yüklenemedi"); }
+
       setSabahKametInput(localStorage.getItem("manuelSabahKamet") || remoteD.sabahKamet);
       setDuyuruTR(localStorage.getItem("duyuruTR") || remoteD.duyuruTR);
       setDuyuruDE(localStorage.getItem("duyuruDE") || remoteD.duyuruDE);
@@ -112,55 +115,69 @@ export default function App() {
   const hh = fmt2(now.getHours());
   const mm = fmt2(now.getMinutes());
   const ss = fmt2(now.getSeconds());
+  const isEzan = flow.phase === "ezan";
+  const isKametCountdown = flow.phase === "kamet_countdown";
+  const isKametAlert = flow.phase === "kamet_alert";
   const isBlackout = flow.phase === "blackout";
+
+  let cdH = 0, cdM = 0, cdS = 0;
+  if (isKametCountdown) { const total = flow.kametCountdown; cdH = Math.floor(total / 3600); cdM = Math.floor((total % 3600) / 60); cdS = total % 60; }
+  else if (!isEzan && !isKametAlert && !isBlackout) { const total = flow.countdownSeconds; cdH = Math.floor(total / 3600); cdM = Math.floor((total % 3600) / 60); cdS = total % 60; }
+  
+  const gunesKalanSec = Math.max(0, Math.floor(((new Date(now).setHours(...times.gunes.split(":").map(Number),0,0)) - now.getTime()) / 1000));
+  const gunesKalanH = Math.floor(gunesKalanSec / 3600);
+  const gunesKalanM = Math.floor((gunesKalanSec % 3600) / 60);
+  const gunesKalanS = gunesKalanSec % 60;
+
   const currentLabel = flow.currentVakit ? VAKIT_LABEL[lang][flow.currentVakit] : "—";
   const nextLabel = flow.nextVakit ? VAKIT_LABEL[lang][flow.nextVakit] : "—";
   const nextTime = flow.nextVakitTime;
   const kametVakit = flow.activeEzanVakit;
+  
+  const vakitList: { key: VakitKey; ezan: string; kamet: string | null }[] = [
+    { key: "sabah", ezan: times.sabah, kamet: times.sabahKamet },
+    { key: "gunes", ezan: times.gunes, kamet: null },
+    { key: "ogle", ezan: times.ogle, kamet: getKametTime("ogle", times.ogle) },
+    { key: "ikindi", ezan: times.ikindi, kamet: getKametTime("ikindi", times.ikindi) },
+    { key: "aksam", ezan: times.aksam, kamet: getKametTime("aksam", times.aksam) },
+    { key: "yatsi", ezan: times.yatsi, kamet: getKametTime("yatsi", times.yatsi) },
+  ];
+
+  const handleBottomClick = useCallback(() => {
+    settingsClickCount.current += 1;
+    if (settingsTimer.current) clearTimeout(settingsTimer.current);
+    settingsTimer.current = setTimeout(() => { settingsClickCount.current = 0; }, 1000);
+    if (settingsClickCount.current >= 3) { settingsClickCount.current = 0; setShowSettings(true); }
+  }, []);
 
   if (!configLoaded) return ( <div style={{ width: "100vw", height: "100vh", background: "#0a3d2e", display: "flex", alignItems: "center", justifyContent: "center", color: "#c9a66b", fontSize: 24 }}>Yükleniyor...</div> );
-
-  if (isBlackout) {
-    return (
-      <div style={{ width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }}>
-        <img src="img/close.png?v=5" alt="Kapatın" style={{ maxWidth: "100%", maxHeight: "95vh", objectFit: "contain" }} onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
-      </div>
-    );
-  }
+  if (isBlackout) return ( <div style={{ width: "100vw", height: "100vh", background: "#000", display: "flex", alignItems: "center", justifyContent: "center" }}><img src="img/close.png?v=5" style={{ maxWidth: "100%", maxHeight: "95vh" }} /></div> );
 
   return (
-    <div style={{ width: "100vw", height: "100vh", overflow: "hidden", position: "fixed", top: 0, left: 0, background: "#000", zIndex: 0 }}>
+    <div style={{ width: "100vw", height: "100vh", overflow: "hidden", position: "fixed", top: 0, left: 0, background: "#000" }}>
       <div className="tv-safe-area">
-        <div className="outer-frame" style={{ display: "flex", flexDirection: "column", position: "relative" }}>
+        <div className="outer-frame">
           {showSettings && (
-             <div style={{ position: "absolute", inset: 0, background: "#0a3d2e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24, padding: 40, overflowY: "auto", zIndex: 10 }}>
+             <div style={{ position: "absolute", inset: 0, background: "#0a3d2e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 20, padding: 40, zIndex: 10 }}>
                 <div style={{ color: "#c9a66b", fontSize: 22, fontWeight: "bold" }}>⚙️ Ayarlar</div>
-                
-                <div style={{ display: "flex", alignItems: "center", gap: 16, width: "100%", maxWidth: 600 }}>
-                   <span>Sabah Kamet Saati</span>
-                   <input type="time" value={sabahKametInput} onChange={(e) => setSabahKametInput(e.target.value)} />
+                <input type="time" value={sabahKametInput} onChange={(e) => setSabahKametInput(e.target.value)} />
+                <div style={{ display: "flex", gap: 10 }}>
+                    <button onClick={() => setHicriOffset(o => o - 1)}>-</button>
+                    <span>{hicriOffset}</span>
+                    <button onClick={() => setHicriOffset(o => o + 1)}>+</button>
                 </div>
-                
-                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                   <button onClick={() => setHicriOffset(o => o - 1)}>-</button>
-                   <span>Hicri: {hicriOffset}</span>
-                   <button onClick={() => setHicriOffset(o => o + 1)}>+</button>
-                </div>
-                
-                <button onClick={() => setShowBayramForm(!showBayramForm)}>Bayram Saatleri ▾</button>
+                <button onClick={() => setShowBayramForm(!showBayramForm)}>Bayramlar</button>
                 {showBayramForm && SETTINGS.bayramlar.map(b => (
                    <input key={b.tarih} type="time" value={bayramInputs[b.tarih] || "09:00"} onChange={(e) => setBayramInputs(prev => ({...prev, [b.tarih]: e.target.value}))} />
                 ))}
-                
-                <button onClick={() => setShowDuyuruForm(!showDuyuruForm)}>Duyurular ▾</button>
+                <button onClick={() => setShowDuyuruForm(!showDuyuruForm)}>Duyurular</button>
                 {showDuyuruForm && (
-                   <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                     <textarea value={duyuruTR} onChange={(e) => setDuyuruTR(e.target.value)} placeholder="TR Duyuru" />
-                     <textarea value={duyuruDE} onChange={(e) => setDuyuruDE(e.target.value)} placeholder="DE Duyuru" />
+                   <div style={{ display: "flex", flexDirection: "column" }}>
+                     <textarea value={duyuruTR} onChange={(e) => setDuyuruTR(e.target.value)} />
+                     <textarea value={duyuruDE} onChange={(e) => setDuyuruDE(e.target.value)} />
                    </div>
                 )}
-                
-                <button onClick={() => setShowSettings(false)} style={{ background: "#c9a66b", padding: "10px 20px" }}>✓ Kaydet & Kapat</button>
+                <button onClick={() => setShowSettings(false)}>✓ Kaydet & Kapat</button>
              </div>
           )}
                     <div
