@@ -178,13 +178,9 @@ export default function App() {
                 {showBayramForm && SETTINGS.bayramlar.map(b => (
                    <input key={b.tarih} type="time" value={bayramInputs[b.tarih] || "09:00"} onChange={(e) => setBayramInputs(prev => ({...prev, [b.tarih]: e.target.value}))} style={{ padding: "8px", borderRadius: 6 }} />
                 ))}
-                <button onClick={() => setShowDuyuruForm(!showDuyuruForm)} style={{ padding: "8px 20px", background: "#1a5c3a", color: "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8 }}>{lang === "tr" ? "Duyurular" : "Ankündigungen"} ▾</button>
-                {showDuyuruForm && (
-                   <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                     <textarea value={duyuruTR} onChange={(e) => setDuyuruTR(e.target.value)} placeholder="Türkçe" />
-                     <textarea value={duyuruDE} onChange={(e) => setDuyuruDE(e.target.value)} placeholder="Deutsch" />
-                   </div>
-                )}
+                <button onClick={() => setShowBayramForm(false)} style={{ marginTop: 16, padding: "12px 40px", fontSize: 20, background: "#c9a66b", color: "#0a3d2e", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: "bold" }}>✓ {lang === "tr" ? "Kaydet & Kapat" : "Speichern & Schließen"}</button>
+             </div>
+          )}
                     <div
             className="top-bar"
             style={{
@@ -1006,13 +1002,9 @@ export default function App() {
                 style={{ height: 52, objectFit: "contain" }}
               />
             </div>
-            
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 }
