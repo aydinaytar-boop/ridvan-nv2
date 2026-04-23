@@ -1410,34 +1410,30 @@ export default function App() {
                     flexShrink: 0,
                   }}
                 >
-                                    {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
+                                   {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
                 </div>
-
                 <div
                   style={{
                     flex: 1,
-                    minHeight: 0,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     padding: "20px 16px",
-                    overflow: "hidden",
                   }}
                 >
                   <div
                     style={{
                       color: "#f5d78e",
-                      fontSize: 40,
+                      fontSize: 22,
                       textAlign: "center",
                       lineHeight: 1.6,
                       width: "100%",
                       whiteSpace: "pre-wrap",
-                      overflowWrap: "break-word",
-                      wordBreak: "break-word",
-                      textShadow: "1px 1px 2px #000",
                     }}
                   >
-                    {lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"}
+                    {lang === "tr"
+                      ? duyuruTR || "—"
+                      : duyuruDE || "—"}
                   </div>
                 </div>
               </div>
@@ -1460,14 +1456,14 @@ export default function App() {
             <div
               style={{
                 color: "#c9a66b",
-                fontSize: 14,
+                fontSize: 40,
                 letterSpacing: 1,
               }}
               onClick={handleBottomClick}
             >
-              Bu uygulama <strong>AyTa®</strong> tarafından hazırlanmıştır
+              Bu uygulama <strong>AyTa®</strong> tarafından
+              hazırlanmıştır
             </div>
-
             <button
               onClick={() => setShowSettings(true)}
               title="Ayarlar"
@@ -1489,7 +1485,8 @@ export default function App() {
                 lineHeight: 1,
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.color = "#c9a66b";
+                (e.currentTarget as HTMLButtonElement).style.color =
+                  "#c9a66b";
                 (e.currentTarget as HTMLButtonElement).style.borderColor =
                   "#c9a66b";
                 (e.currentTarget as HTMLButtonElement).style.background =
