@@ -59,7 +59,6 @@ function toHijri(
 
   return { day, month, year };
 }
-
 const HICRI_AYLAR_TR = [
   "",
   "Muharrem",
