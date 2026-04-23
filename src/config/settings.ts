@@ -4,7 +4,7 @@
 export const SETTINGS = {
   // Sabah Kamet Varsayılanı
   get manuelSabahKamet(): string {
-    return localStorage.getItem("manuelSabahKamet") || "05:15";
+    return localStorage.getItem("manuelSabahKamet") || "05:10";
   },
   
   // Kamet Süreleri
@@ -29,7 +29,7 @@ export const SETTINGS = {
       
       // 1. Durum: Kayıt yoksa varsayılanı ver
       if (!saved) {
-        return { tr: "İzine erken gidecek olanlar LÜTFEN Kurban bağışlarınızı yapmış olarak gidin! İyi Tatiller!!", de: "“Wer früher in den Urlaub fährt, wird gebeten, seine Kurban-Spenden bereits im Voraus geleistet zu haben. Schöne Feiertage!!”" };
+        return { tr: "İzine erken gidecek olanlar LÜTFEN Kurban bağışlarınızı yapmış olarak gidin! İyi Tatiller!!!", de: "“Wer früher in den Urlaub fährt, wird gebeten, seine Kurban-Spenden bereits im Voraus geleistet zu haben. Schöne Feiertage!!!”" };
       }
 
       // 2. Durum: Veri zaten bir Obje ise (Doğru format)
