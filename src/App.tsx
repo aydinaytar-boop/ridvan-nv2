@@ -1500,6 +1500,7 @@ export default function App() {
                 (e.currentTarget as HTMLButtonElement).style.background =
                   "transparent";
               }}
+
             >
               ⚙️
             </button>
