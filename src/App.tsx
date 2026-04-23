@@ -1502,31 +1502,7 @@ export default function App() {
               }}
 
             >
-              ⚙️
-            </button>
-
-            <div
-              style={{
-                border: "3px solid #c9a66b",
-                borderRadius: 8,
-                padding: "6px 12px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#ffffff",
-                boxShadow: "0 0 0 1px #c9a66b",
-              }}
-            >
-              <img
-                src="img/logo.png?v=5"
-                alt="Ridvan Camii Logo"
-                style={{ height: 52, objectFit: "contain" }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+         
               ⚙️
             </button>
 
