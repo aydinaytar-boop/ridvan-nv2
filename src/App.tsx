@@ -1410,7 +1410,7 @@ export default function App() {
                     flexShrink: 0,
                   }}
                 >
-                  {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
+                                    {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
                 </div>
 
                 <div
@@ -1427,7 +1427,7 @@ export default function App() {
                   <div
                     style={{
                       color: "#f5d78e",
-                      fontSize: 22,
+                      fontSize: 40,
                       textAlign: "center",
                       lineHeight: 1.6,
                       width: "100%",
@@ -1504,6 +1504,31 @@ export default function App() {
                   "transparent";
               }}
             >
+              ⚙️
+            </button>
+
+            <div
+              style={{
+                border: "3px solid #c9a66b",
+                borderRadius: 8,
+                padding: "6px 12px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#ffffff",
+                boxShadow: "0 0 0 1px #c9a66b",
+              }}
+            >
+              <img
+                src="img/logo.png?v=5"
+                alt="Ridvan Camii Logo"
+                style={{ height: 52, objectFit: "contain" }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
               ⚙️
             </button>
 
