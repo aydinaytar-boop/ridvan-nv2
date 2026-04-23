@@ -3,8 +3,20 @@
 import { prayerTimes2026, fallbackTimes } from "../data/prayerTimes2026";
 import { DUA_ARCHIVE } from "../data/duaArchive";
 
-export type VakitKey = "sabah" | "gunes" | "ogle" | "ikindi" | "aksam" | "yatsi";
-export type Phase = "normal" | "ezan" | "kamet_countdown" | "kamet_alert" | "blackout";
+export type VakitKey =
+  | "sabah"
+  | "gunes"
+  | "ogle"
+  | "ikindi"
+  | "aksam"
+  | "yatsi";
+
+export type Phase =
+  | "normal"
+  | "ezan"
+  | "kamet_countdown"
+  | "kamet_alert"
+  | "blackout";
 
 export interface TodayTimes {
   sabah: string;
@@ -29,14 +41,40 @@ export interface FlowState {
   kametAlertActive: boolean;
 }
 
-export const SETTINGS = {
-  sabahKamet: "06:15",
+export interface BayramItem {
+  ad_tr: string;
+  ad_de: string;
+  tarih: string;
+  tarih2: string;
+  saat?: string;
+}
+
+export interface RuntimeSettings {
+  sabahKamet: string;
   kametSureleri: {
-    ogle: 8,
-    ikindi: 8,
+    ogle: number;
+    ikindi: number;
+    aksam: number;
+    yatsi: number;
+    cuma: number;
+  };
+  blackoutSuresi: number;
+  cuma: {
+    ezan: string;
+    kamet: string;
+  };
+  bayramlar: BayramItem[];
+}
+
+export const SETTINGS: RuntimeSettings = {
+  sabahKamet: "05:15",
+  kametSureleri: {
+    ogle: 9,
+    ikindi: 9,
     aksam: 3,
-    yatsi: 8,
-  } as Record<string, number>,
+    yatsi: 9,
+    cuma: 20,
+  },
   blackoutSuresi: 600,
   cuma: {
     ezan: "13:10",
@@ -45,20 +83,55 @@ export const SETTINGS = {
   bayramlar: [
     {
       ad_tr: "Ramazan Bayramı",
-      ad_de: "Eid al-Fitr",
+      ad_de: "Bayram",
       tarih: "2026-03-20",
       tarih2: "2026-03-22",
+      saat: "06:30",
     },
     {
       ad_tr: "Kurban Bayramı",
-      ad_de: "Eid al-Adha",
+      ad_de: "Opferfest",
       tarih: "2026-05-27",
       tarih2: "2026-05-30",
+      saat: "05:35",
     },
   ],
 };
 
 let _sabahKametSaati = SETTINGS.sabahKamet;
+let _bayramSaatleri: Record<string, string> = {};
+
+export function applyRuntimeSettings(next: Partial<RuntimeSettings>) {
+  if (typeof next.sabahKamet === "string" && next.sabahKamet.trim()) {
+    SETTINGS.sabahKamet = next.sabahKamet;
+    _sabahKametSaati = next.sabahKamet;
+  }
+
+  if (next.kametSureleri) {
+    SETTINGS.kametSureleri = {
+      ...SETTINGS.kametSureleri,
+      ...next.kametSureleri,
+    };
+  }
+
+  if (
+    typeof next.blackoutSuresi === "number" &&
+    !Number.isNaN(next.blackoutSuresi)
+  ) {
+    SETTINGS.blackoutSuresi = next.blackoutSuresi;
+  }
+
+  if (next.cuma) {
+    SETTINGS.cuma = {
+      ...SETTINGS.cuma,
+      ...next.cuma,
+    };
+  }
+
+  if (Array.isArray(next.bayramlar)) {
+    SETTINGS.bayramlar = next.bayramlar.map((b) => ({ ...b }));
+  }
+}
 
 export function getSabahKametSaati(): string {
   return _sabahKametSaati;
@@ -66,6 +139,13 @@ export function getSabahKametSaati(): string {
 
 export function setSabahKametSaati(val: string) {
   _sabahKametSaati = val;
+  if (val && val.trim()) {
+    SETTINGS.sabahKamet = val;
+  }
+}
+
+export function setBayramSaatleri(values: Record<string, string>) {
+  _bayramSaatleri = { ...values };
 }
 
 export function timeToDate(timeStr: string, baseDate: Date): Date {
@@ -92,12 +172,16 @@ export function isWinterTime(date: Date): boolean {
 
   const mar31 = new Date(year, 2, 31);
   const marLastSun = new Date(mar31);
-  marLastSun.setDate(31 - ((mar31.getDay() + 7) % 7 === 0 ? 0 : mar31.getDay()));
+  marLastSun.setDate(
+    31 - ((mar31.getDay() + 7) % 7 === 0 ? 0 : mar31.getDay())
+  );
   marLastSun.setHours(2, 0, 0, 0);
 
   const oct31 = new Date(year, 9, 31);
   const octLastSun = new Date(oct31);
-  octLastSun.setDate(31 - ((oct31.getDay() + 7) % 7 === 0 ? 0 : oct31.getDay()));
+  octLastSun.setDate(
+    31 - ((oct31.getDay() + 7) % 7 === 0 ? 0 : oct31.getDay())
+  );
   octLastSun.setHours(3, 0, 0, 0);
 
   return date >= octLastSun || date < marLastSun;
@@ -165,7 +249,9 @@ export function getKametTime(vakit: VakitKey, ezanTime: string): string | null {
   if (vakit === "gunes") return null;
   if (vakit === "sabah") return getSabahKametSaati();
 
-  const kametDk = SETTINGS.kametSureleri[vakit as keyof typeof SETTINGS.kametSureleri];
+  const kametDk =
+    SETTINGS.kametSureleri[vakit as keyof typeof SETTINGS.kametSureleri];
+
   if (kametDk === undefined) return null;
 
   return addMinutes(ezanTime, kametDk);
@@ -173,7 +259,7 @@ export function getKametTime(vakit: VakitKey, ezanTime: string): string | null {
 
 export function getBayramVisibility(now: Date): {
   visible: boolean;
-  bayram?: (typeof SETTINGS.bayramlar)[0];
+  bayram?: BayramItem;
   saat?: string;
 } {
   for (const b of SETTINGS.bayramlar) {
@@ -183,7 +269,8 @@ export function getBayramVisibility(now: Date): {
     showStart.setDate(showStart.getDate() - 7);
 
     if (now >= showStart && now < bayramEnd) {
-      return { visible: true, bayram: b, saat: "09:00" };
+      const saat = _bayramSaatleri[b.tarih] || b.saat || "09:00";
+      return { visible: true, bayram: b, saat };
     }
   }
 
@@ -196,7 +283,15 @@ export function getDailyDua(date: Date) {
 }
 
 export function computeFlow(now: Date, times: TodayTimes): FlowState {
-  const vakit_order: VakitKey[] = ["sabah", "gunes", "ogle", "ikindi", "aksam", "yatsi"];
+  const vakit_order: VakitKey[] = [
+    "sabah",
+    "gunes",
+    "ogle",
+    "ikindi",
+    "aksam",
+    "yatsi",
+  ];
+
   const isCuma = isCumaGunu(now);
   const cumaEzan = SETTINGS.cuma.ezan;
   const cumaKamet = SETTINGS.cuma.kamet;
@@ -250,10 +345,11 @@ export function computeFlow(now: Date, times: TodayTimes): FlowState {
 
     const kametDate = timeToDate(kametStr, now);
     const kametAlertEnd = new Date(kametDate.getTime() + 60 * 1000);
-    const blackoutEnd = new Date(kametAlertEnd.getTime() + SETTINGS.blackoutSuresi * 1000);
+    const blackoutEnd = new Date(
+      kametAlertEnd.getTime() + SETTINGS.blackoutSuresi * 1000
+    );
     const secSinceEzan = diffSeconds(ezanDate, now);
 
-    // EZAN OKUNUYOR (ilk 60 saniye)
     if (secSinceEzan >= 0 && secSinceEzan < 60) {
       return {
         phase: "ezan",
@@ -269,7 +365,6 @@ export function computeFlow(now: Date, times: TodayTimes): FlowState {
       };
     }
 
-    // KAMET SAYIMI (Ezan 60sn geçti, Kamet başlamadı)
     if (now >= ezanDate && secSinceEzan >= 60 && now < kametDate) {
       return {
         phase: "kamet_countdown",
@@ -285,7 +380,6 @@ export function computeFlow(now: Date, times: TodayTimes): FlowState {
       };
     }
 
-    // KAMET OKUNUYOR (ilk 60 saniye)
     if (now >= kametDate && now < kametAlertEnd) {
       return {
         phase: "kamet_alert",
@@ -301,7 +395,6 @@ export function computeFlow(now: Date, times: TodayTimes): FlowState {
       };
     }
 
-    // BLACKOUT (Kamet 60sn geçti, 10dk boyunca ekran kararır)
     if (now >= kametAlertEnd && now < blackoutEnd) {
       return {
         phase: "blackout",
