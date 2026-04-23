@@ -12897,12 +12897,13 @@ const DUA_ARCHIVE = [
   { source: "HADIS", ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ", tr: "Allah'ım! Senin sevgini ve Seni sevenlerin sevgisini isterim.", de: "O Allah, ich bitte Dich um Deine Liebe und die Liebe derer, die Dich lieben." }
 ];
 const SETTINGS = {
-  sabahKamet: "06:15",
+  sabahKamet: "05:15",
   kametSureleri: {
-    ogle: 8,
-    ikindi: 8,
+    ogle: 9,
+    ikindi: 9,
     aksam: 3,
-    yatsi: 8
+    yatsi: 9,
+    cuma: 20
   },
   blackoutSuresi: 600,
   cuma: {
@@ -12912,24 +12913,30 @@ const SETTINGS = {
   bayramlar: [
     {
       ad_tr: "Ramazan Bayramı",
-      ad_de: "Eid al-Fitr",
+      ad_de: "Bayram",
       tarih: "2026-03-20",
-      tarih2: "2026-03-22"
+      tarih2: "2026-03-22",
+      saat: "06:30"
     },
     {
       ad_tr: "Kurban Bayramı",
-      ad_de: "Eid al-Adha",
+      ad_de: "Opferfest",
       tarih: "2026-05-27",
-      tarih2: "2026-05-30"
+      tarih2: "2026-05-30",
+      saat: "05:35"
     }
   ]
 };
 let _sabahKametSaati = SETTINGS.sabahKamet;
+let _bayramSaatleri = {};
 function getSabahKametSaati() {
   return _sabahKametSaati;
 }
 function setSabahKametSaati(val) {
   _sabahKametSaati = val;
+  if (val && val.trim()) {
+    SETTINGS.sabahKamet = val;
+  }
 }
 function timeToDate(timeStr, baseDate) {
   const [h, m] = timeStr.split(":").map(Number);
@@ -12951,11 +12958,15 @@ function isWinterTime(date) {
   const year = date.getFullYear();
   const mar31 = new Date(year, 2, 31);
   const marLastSun = new Date(mar31);
-  marLastSun.setDate(31 - ((mar31.getDay() + 7) % 7 === 0 ? 0 : mar31.getDay()));
+  marLastSun.setDate(
+    31 - ((mar31.getDay() + 7) % 7 === 0 ? 0 : mar31.getDay())
+  );
   marLastSun.setHours(2, 0, 0, 0);
   const oct31 = new Date(year, 9, 31);
   const octLastSun = new Date(oct31);
-  octLastSun.setDate(31 - ((oct31.getDay() + 7) % 7 === 0 ? 0 : oct31.getDay()));
+  octLastSun.setDate(
+    31 - ((oct31.getDay() + 7) % 7 === 0 ? 0 : oct31.getDay())
+  );
   octLastSun.setHours(3, 0, 0, 0);
   return date >= octLastSun || date < marLastSun;
 }
@@ -13020,13 +13031,21 @@ function getBayramVisibility(now) {
     const showStart = new Date(bayramStart);
     showStart.setDate(showStart.getDate() - 7);
     if (now >= showStart && now < bayramEnd) {
-      return { visible: true, bayram: b, saat: "09:00" };
+      const saat = _bayramSaatleri[b.tarih] || b.saat || "09:00";
+      return { visible: true, bayram: b, saat };
     }
   }
   return { visible: false };
 }
 function computeFlow(now, times) {
-  const vakit_order = ["sabah", "gunes", "ogle", "ikindi", "aksam", "yatsi"];
+  const vakit_order = [
+    "sabah",
+    "gunes",
+    "ogle",
+    "ikindi",
+    "aksam",
+    "yatsi"
+  ];
   const isCuma = isCumaGunu(now);
   const cumaEzan = SETTINGS.cuma.ezan;
   const cumaKamet = SETTINGS.cuma.kamet;
@@ -13071,7 +13090,9 @@ function computeFlow(now, times) {
     if (!kametStr) continue;
     const kametDate = timeToDate(kametStr, now);
     const kametAlertEnd = new Date(kametDate.getTime() + 60 * 1e3);
-    const blackoutEnd = new Date(kametAlertEnd.getTime() + SETTINGS.blackoutSuresi * 1e3);
+    const blackoutEnd = new Date(
+      kametAlertEnd.getTime() + SETTINGS.blackoutSuresi * 1e3
+    );
     const secSinceEzan = diffSeconds(ezanDate, now);
     if (secSinceEzan >= 0 && secSinceEzan < 60) {
       return {
