@@ -2,8 +2,8 @@
   "version": 1,
   "dynamic": {
     "sabahKamet": "05:10",
-    "duyuruTR": "İzine erken gidecek olanlar LÜTFEN Kurban bağışlarınızı yapmış olarak gidin! İyi Tatiller!!!",
-    "duyuruDE": "Wer früher in den Urlaub fährt, wird gebeten, seine Kurban-Spenden bereits im Voraus geleistet zu haben. Schöne Feiertage!!!",
+    "duyuruTR": "Kurban bayramından önce izine gidecek olanlar, LÜTFEN KURBAN BAĞIŞLARINIZI YAPMAYI UNUTMAYIN! İYİ TATİLLER!!!",
+    "duyuruDE": "Wer vor dem Opferfest in den Urlaub fährt, wird gebeten, seine Kurban-Spenden nicht zu vergessen. Möge Ihr Opfer angenommen werden. Schöne Feiertage!!!",
     "hicriOffset": 0,
     "kametSureleri": {
       "ogle": 9,
