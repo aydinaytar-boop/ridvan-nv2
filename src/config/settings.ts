@@ -29,7 +29,7 @@ export const SETTINGS = {
       
       // 1. Durum: Kayıt yoksa varsayılanı ver
       if (!saved) {
-        return { tr: "İzine erken gidecek olanlar LÜTFEN Kurban bağışlarınızı yapmış olarak gidin! İyi Tatiller!!!", de: "“Wer früher in den Urlaub fährt, wird gebeten, seine Kurban-Spenden bereits im Voraus geleistet zu haben. Schöne Feiertage!!!”" };
+        return { tr: "Kurban bayramından önce izine gidecek olanlar, LÜTFEN KURBAN BAĞIŞLARINIZI YAPMAYI UNUTMAYIN! İYİ TATİLLER!!!", de: "“Wer vor dem Opferfest in den Urlaub fährt, wird gebeten, seine Kurban-Spenden nicht zu vergessen. Möge Ihr Opfer angenommen werden. Schöne Feiertage!!!”" };
       }
 
       // 2. Durum: Veri zaten bir Obje ise (Doğru format)
