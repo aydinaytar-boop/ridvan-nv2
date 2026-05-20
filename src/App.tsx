@@ -206,36 +206,19 @@ function getDailyDua(date: Date) {
   return DUA_ARCHIVE[dayOfYear % DUA_ARCHIVE.length];
 }
 
-function applyAutoScale() {
-  const safeArea = document.querySelector(".tv-safe-area");
-  if (!safeArea) return;
-
-  const vw = window.innerWidth || 1920;
-  let scale = vw / 1920;
-
-  if (!scale || scale <= 0 || scale > 2) scale = 1;
-  scale = scale * 0.95;
-
-  (safeArea as HTMLElement).style.transform = `translateX(-50%) scale(${scale})`;
-  (safeArea as HTMLElement).style.transformOrigin = "top center";
-}
-
 function getDuaTypography(arabic: string, text: string, isEzan: boolean) {
   const totalLength = `${arabic} ${text}`.trim().length;
-
   if (isEzan) {
-    if (totalLength <= 170) return { ar: 54, text: 34, gap: 18 };
-    if (totalLength <= 260) return { ar: 48, text: 30, gap: 16 };
-    if (totalLength <= 360) return { ar: 42, text: 26, gap: 12 };
-    return { ar: 36, text: 22, gap: 10 };
+    if (totalLength <= 170) return { ar: "3.5vw", text: "2.2vw", gap: "1.2vh" };
+    if (totalLength <= 260) return { ar: "3.1vw", text: "1.9vw", gap: "1.0vh" };
+    if (totalLength <= 360) return { ar: "2.7vw", text: "1.7vw", gap: "0.8vh" };
+    return { ar: "2.3vw", text: "1.4vw", gap: "0.6vh" };
   }
-
-  if (totalLength <= 120) return { ar: 46, text: 38, gap: 18 };
-  if (totalLength <= 200) return { ar: 40, text: 32, gap: 16 };
-  if (totalLength <= 300) return { ar: 34, text: 26, gap: 12 };
-  return { ar: 28, text: 22, gap: 10 };
+  if (totalLength <= 120) return { ar: "3.0vw", text: "2.5vw", gap: "1.2vh" };
+  if (totalLength <= 200) return { ar: "2.6vw", text: "2.1vw", gap: "1.0vh" };
+  if (totalLength <= 300) return { ar: "2.2vw", text: "1.7vw", gap: "0.8vh" };
+  return { ar: "1.8vw", text: "1.4vw", gap: "0.6vh" };
 }
-
 export default function App() {
   const [now, setNow] = useState(() => new Date());
   const [lang, setLang] = useState<"tr" | "de">("tr");
@@ -248,20 +231,16 @@ export default function App() {
   const [duyuruDE, setDuyuruDE] = useState("");
   const [showDuyuruForm, setShowDuyuruForm] = useState(false);
   const [configLoaded, setConfigLoaded] = useState(false);
-
   const settingsClickCount = useRef(0);
   const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   useEffect(() => {
-    const timer = setTimeout(() => applyAutoScale(), 50);
-    window.addEventListener("resize", applyAutoScale);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("resize", applyAutoScale);
-    };
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    const meta = document.querySelector('meta[name="viewport"]');
+    if (meta) {
+      meta.setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no");
+    }
   }, []);
-
   useEffect(() => {
     async function loadConfig() {
       let remoteD = { sabahKamet: "05:15", duyuruTR: "", duyuruDE: "" };
