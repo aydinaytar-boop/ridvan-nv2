@@ -2,8 +2,29 @@
 <html lang="tr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1920, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ridvan NV</title>
+    <script>
+      (function() {
+        var lastConfig = null;
+        function checkConfig() {
+          fetch('./config.json?t=' + Date.now())
+            .then(function(res) { return res.text(); })
+            .then(function(text) {
+              if (lastConfig === null) { lastConfig = text; return; }
+              if (text !== lastConfig) {
+                console.log('[RidvanNV] Config degisti, yenileniyor...');
+                location.reload();
+              }
+            })
+            .catch(function() {});
+        }
+        setTimeout(function() {
+          checkConfig();
+          setInterval(checkConfig, 15 * 60 * 1000);
+        }, 30000);
+      })();
+    </script>
     <script type="module" crossorigin>(function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -56,8 +77,7 @@ function requireReactJsxRuntime_production() {
       key,
       ref: void 0 !== config ? config : null,
       props: maybeKey
-    };
-  }
+    };  }
   reactJsxRuntime_production.Fragment = REACT_FRAGMENT_TYPE;
   reactJsxRuntime_production.jsx = jsxProd;
   reactJsxRuntime_production.jsxs = jsxProd;
@@ -14947,6 +14967,6 @@ select {
 }</style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
   </body>
 </html>
