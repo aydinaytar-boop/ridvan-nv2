@@ -9,6 +9,6 @@ blackoutSuresi: 600,
 // Bayramlar (Değişken oldukları için bunlar burada kalabilir)
 bayramlar: [
 { ad_tr: "Ramazan Bayramı", ad_de: "Bayram", tarih: "2026-03-20", tarih2: "2026-03-22", saat: "06:30" },
-{ ad_tr: "Kurban Bayramı", ad_de: "Opferfest", tarih: "2026-05-27", tarih2: "2026-05-30", saat: "05:35" },
+{ ad_tr: "Kurban Bayramı", ad_de: "Opferfest", tarih: "2026-05-27", tarih2: "2026-05-30", saat: "05:40" },
 ]
 };
