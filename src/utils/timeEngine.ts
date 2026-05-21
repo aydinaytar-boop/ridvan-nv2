@@ -93,7 +93,7 @@ export const SETTINGS: RuntimeSettings = {
       ad_de: "Opferfest",
       tarih: "2026-05-27",
       tarih2: "2026-05-30",
-      saat: "05:35",
+      saat: "05:40",
     },
   ],
 };
