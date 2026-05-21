@@ -2,8 +2,8 @@
   "version": 1,
   "dynamic": {
     "sabahKamet": "05:00",
-    "duyuruTR": "Kurban bayramından önce izine gidecek olanlar, LÜTFEN KURBAN BAĞIŞLARINIZI YAPMAYI UNUTMAYIN! İYİ TATİLLER!!!",
-    "duyuruDE": "Wer vor dem Opferfest in den Urlaub fährt, wird gebeten, seine Kurban-Spenden nicht zu vergessen. Möge Ihr Opfer angenommen werden. Schöne Feiertage!!!",
+    "duyuruTR": "Kurban Bayramı 27.05.2027 Çarşamba Günüdür. Bayramınızı Tebrik Ederiz!",
+    "duyuruDE": "Eid al-Adha ist am Mittwoch, dem 27. Mai 2027. Frohes Eid!",
     "hicriOffset": 0,
     "kametSureleri": {
       "ogle": 9,
@@ -30,7 +30,7 @@
         "ad_de": "Opferfest",
         "tarih": "2026-05-27",
         "tarih2": "2026-05-30",
-        "saat": "05:35"
+        "saat": "05:40"
       }
     ]
   }
