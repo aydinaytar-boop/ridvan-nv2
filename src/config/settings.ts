@@ -18,7 +18,7 @@ export const SETTINGS = {
   // Bayramlar
   bayramlar: [
     { ad_tr: "Ramazan Bayramı", ad_de: "Bayram", tarih: "2026-03-20", tarih2: "2026-03-22", saat: "06:30" },
-    { ad_tr: "Kurban Bayramı", ad_de: "Opferfest", tarih: "2026-05-27", tarih2: "2026-05-30", saat: "05:35" },
+    { ad_tr: "Kurban Bayramı", ad_de: "Opferfest", tarih: "2026-05-27", tarih2: "2026-05-30", saat: "05:40" },
   ],
 
   // ✨ DUYURULAR (TR ve DE olarak iki dil)
@@ -29,7 +29,7 @@ export const SETTINGS = {
       
       // 1. Durum: Kayıt yoksa varsayılanı ver
       if (!saved) {
-        return { tr: "Kurban bayramından önce izine gidecek olanlar, LÜTFEN KURBAN BAĞIŞLARINIZI YAPMAYI UNUTMAYIN! İYİ TATİLLER!!!", de: "“Wer vor dem Opferfest in den Urlaub fährt, wird gebeten, seine Kurban-Spenden nicht zu vergessen. Möge Ihr Opfer angenommen werden. Schöne Feiertage!!!”" };
+        return { tr: "Kurban Bayramı 27.05.2027 Çarşamba Günüdür. Bayramınızı Tebrik Ederiz!", de: "Eid al-Adha ist am Mittwoch, dem 27. Mai 2027. Frohes Eid!" };
       }
 
       // 2. Durum: Veri zaten bir Obje ise (Doğru format)
