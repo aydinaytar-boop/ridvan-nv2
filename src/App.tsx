@@ -704,28 +704,28 @@ export default function App() {
           )}
 
           <div
-            className="top-bar"
+           className="top-bar"
             style={{
               background: "linear-gradient(180deg,#0e5c3a 0%,#0a3d2e 100%)",
-              borderBottom: "4px solid #c9a66b",
+              borderBottom: "clamp(2px, 0.37vh, 4px) solid #c9a66b",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              padding: "0 32px",
+              padding: "0 clamp(12px, 1.7vw, 32px)",
             }}
           >
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: 2,
-                minWidth: 260,
+                gap: "clamp(1px, 0.28vh, 4px)",
+                minWidth: "clamp(140px, 13vw, 220px)",
               }}
             >
               <div
                 style={{
                   color: "#c9a66b",
-                  fontSize: 22,
+                  fontSize: "clamp(12px, 1.3vw, 22px)",
                   fontWeight: 500,
                   letterSpacing: 1,
                   lineHeight: 1,
