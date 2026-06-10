@@ -14685,101 +14685,157 @@ function App() {
 clientExports.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
 );</script>
-    <style rel="stylesheet" crossorigin>/* ====================== GENEL RESET ====================== */
-*,
-*::before,
-*::after {
+    <style rel="stylesheet" crossorigin>/* =====================================================================
+   RIDVAN CAMİİ — NAMAZ VAKİTLERİ
+   Hedef: Samsung TU43DU7105 4K 43" + Xiaomi TV Box S (Chrome/WebView)
+   Çözünürlük: 3840×2160 (4K) — ama TV Box 1080p çıkış yapabilir
+   Strateji: vw/vh + clamp() tabanlı fluid layout, 
+             applyAutoScale() JS'e ihtiyaç KALMAZ
+   ===================================================================== */
+
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html,
-body,
-#root {
+html, body, #root {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   background: #000;
   user-select: none;
   touch-action: none;
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: "Noto Sans", "Roboto", "Segoe UI", "Arial", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-body {
-  margin: 0;
-}
+body { margin: 0; }
 
-img {
-  display: block;
-  max-width: 100%;
-}
+img { display: block; max-width: 100%; }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
+button, input, textarea, select { font: inherit; }
 
-/* ====================== SAFE AREA ====================== */
 .tv-safe-area {
-  width: 1920px;
-  height: 1080px;
-  position: absolute;
-  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
   top: 0;
-  transform: translateX(-50%);
-  transform-origin: top center;
-  will-change: transform;
+  left: 0;
+  transform: none !important;
+  will-change: auto;
+  padding: 0.4vh 0.4vw;
 }
 
-/* ====================== ÇERÇEVE ====================== */
 .outer-frame {
   width: 100%;
   height: 100%;
   background-color: #0a3d2e;
-  border: 10px solid #c9a66b;
-  border-radius: 12px;
+  border: clamp(4px, 0.52vw, 10px) solid #c9a66b;
+  border-radius: clamp(6px, 0.63vw, 12px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-/* ====================== ÜST BAR ====================== */
 .top-bar {
-  height: 82px;
-  padding: 0 20px;
+  height: clamp(60px, 7.6vh, 90px);
+  padding: 0 clamp(12px, 1.7vw, 32px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-shrink: 0;
+  background: linear-gradient(180deg, #0e5c3a 0%, #0a3d2e 100%);
+  border-bottom: clamp(2px, 0.37vh, 4px) solid #c9a66b;
 }
 
-/* Hicri ve Miladi yazılar */
-.top-bar > div:first-child div {
-  font-size: 30px !important;
-  font-weight: 800 !important;
-  color: #f5d78e !important;
+.top-bar .date-col {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1px, 0.28vh, 4px);
+  min-width: clamp(180px, 16vw, 280px);
+}
+
+.top-bar .date-hijri {
+  color: #c9a66b;
+  font-size: clamp(14px, 1.4vw, 22px);
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.top-bar .date-miladi {
+  color: #f5d78e;
+  font-size: clamp(16px, 1.9vw, 30px);
+  font-weight: 800;
+  line-height: 1;
   text-shadow: 2px 2px 4px #000;
 }
 
-/* ====================== ALT BAR ====================== */
+.top-bar .mosque-title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f5d78e;
+  font-size: clamp(22px, 2.9vw, 52px);
+  font-weight: 900;
+  letter-spacing: clamp(2px, 0.4vw, 6px);
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
+}
+
+.top-bar .clock-area {
+  display: flex;
+  align-items: flex-end;
+  min-width: clamp(140px, 13vw, 240px);
+  justify-content: flex-end;
+}
+
+.top-bar .clock-hh,
+.top-bar .clock-mm {
+  color: #f5d78e;
+  font-size: clamp(36px, 4.7vw, 80px);
+  font-weight: 900;
+  line-height: 1;
+  font-family: "Courier New", monospace;
+}
+
+.top-bar .clock-sep {
+  color: #c9a66b;
+  font-size: clamp(28px, 3.7vw, 60px);
+  font-weight: 900;
+  margin: 0 clamp(2px, 0.3vw, 6px);
+  font-family: "Courier New", monospace;
+  animation: pulse 1s infinite;
+}
+
+.top-bar .clock-ss {
+  color: #c9a66b;
+  font-size: clamp(16px, 2.2vw, 36px);
+  font-weight: 700;
+  margin-bottom: clamp(2px, 0.5vh, 8px);
+  margin-left: clamp(2px, 0.4vw, 6px);
+  font-family: "Courier New", monospace;
+  animation: pulse 1s infinite;
+}
+
 .bottom-bar {
-  height: 80px;
-  padding: 0 20px;
+  height: clamp(50px, 7.4vh, 80px);
+  padding: 0 clamp(10px, 1.5vw, 20px);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 
-/* ====================== ANA 3 PANEL ====================== */
 .main-panels {
   flex: 1;
   display: flex;
-  gap: 8px;
-  padding: 6px 8px;
+  gap: clamp(4px, 0.52vw, 10px);
+  padding: clamp(3px, 0.55vh, 8px) clamp(4px, 0.52vw, 10px);
   overflow: hidden;
   min-height: 0;
   align-items: stretch;
@@ -14789,19 +14845,16 @@ select {
   flex: 1 1 0;
   min-width: 0;
   min-height: 0;
-  border: 4px solid #c9a66b;
-  border-radius: 10px;
+  border: clamp(2px, 0.37vw, 5px) solid #c9a66b;
+  border-radius: clamp(6px, 0.63vw, 12px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   background: #0a3d2e;
 }
 
-.panel > div {
-  min-width: 0;
-}
+.panel > div { min-width: 0; }
 
-/* Sol ve orta panelde span tabanlı metinler için */
 .panel span {
   text-shadow: 1px 1px 2px #000;
   white-space: nowrap;
@@ -14809,37 +14862,104 @@ select {
   text-overflow: ellipsis;
 }
 
-/* ====================== ORTA PANEL ====================== */
+.panel-header-vakitler {
+  background: #c9a66b;
+  text-align: center;
+  padding: clamp(6px, 1.1vh, 14px) 0;
+  color: #0a3d2e;
+  font-size: clamp(18px, 2.5vw, 38px);
+  font-weight: 900;
+  letter-spacing: 3px;
+  flex-shrink: 0;
+  line-height: 1;
+  text-shadow: 1px 1px 1px rgba(255,255,255,0.15);
+}
+
+.vakit-table-header {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  padding: clamp(4px, 0.74vh, 10px) clamp(10px, 1.25vw, 22px);
+  border-bottom: 2px solid #c9a66b;
+  background: #072d20;
+  flex-shrink: 0;
+}
+
+.vakit-table-header span {
+  color: #c9a66b;
+  font-size: clamp(13px, 1.5vw, 26px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.vakit-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  padding: 0 clamp(10px, 1.25vw, 22px);
+  flex: 1;
+  border-bottom: 1px solid #c9a66b33;
+  border-left: 7px solid transparent;
+  align-items: center;
+  transition: background 0.3s;
+}
+
+.vakit-row-next { background: rgba(201,166,107,0.07); }
+
+.vakit-row .vakit-name {
+  color: #a8c8b0;
+  font-size: clamp(14px, 2.1vw, 34px);
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.vakit-row .vakit-ezan {
+  color: #f5d78e;
+  font-size: clamp(18px, 2.9vw, 48px);
+  font-weight: 700;
+  text-align: center;
+  font-family: "Courier New", monospace;
+  line-height: 1;
+}
+
+.vakit-row .vakit-kamet {
+  color: #a8c8b0;
+  font-size: clamp(16px, 2.6vw, 42px);
+  text-align: right;
+  font-family: "Courier New", monospace;
+  line-height: 1;
+}
+
 .panel-title {
   background: #c9a66b;
   text-align: center;
-  padding: 14px 40px;
+  padding: clamp(8px, 1.3vh, 16px) clamp(20px, 2vw, 44px);
   color: #0a3d2e;
-  font-size: 40px;
+  font-size: clamp(18px, 2.6vw, 42px);
   font-weight: 900;
-  letter-spacing: 3;
+  letter-spacing: 3px;
   border-radius: 8px;
   line-height: 1;
-  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.15);
+  text-shadow: 1px 1px 1px rgba(255,255,255,0.15);
 }
 
 .current-vakit {
   color: #f5d78e;
-  font-size: 94px;
+  font-size: clamp(42px, 6.5vw, 110px);
   font-weight: 900;
-  letter-spacing: 3;
+  letter-spacing: 3px;
   line-height: 1;
   text-shadow: 2px 2px 4px #000;
 }
 
 .current-vakit.ezan {
-  font-size: 103px;
+  font-size: clamp(46px, 7.2vw, 120px);
   animation: pulse 1s infinite;
 }
 
 .next-vakit {
   color: #f5d78e;
-  font-size: 64px;
+  font-size: clamp(28px, 4.4vw, 76px);
   font-weight: 700;
   line-height: 1;
   text-shadow: 2px 2px 4px #000;
@@ -14849,80 +14969,73 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  margin-top: 20px;
+  gap: clamp(6px, 1vw, 18px);
+  margin-top: clamp(8px, 1.9vh, 24px);
   flex-wrap: nowrap;
   min-width: 0;
 }
 
 .countdown-box {
   background: #0e5c3a;
-  border: 4px solid #c9a66b;
-  border-radius: 16px;
-  padding: 23px 24px;
-  min-width: 100px;
+  border: clamp(2px, 0.37vw, 5px) solid #c9a66b;
+  border-radius: clamp(8px, 1vw, 18px);
+  padding: clamp(10px, 2.1vh, 26px) clamp(10px, 1.5vw, 28px);
+  min-width: clamp(60px, 7.3vw, 120px);
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.18);
 }
 
 .countdown-value {
   color: #f5d78e;
-  font-size: 88px;
+  font-size: clamp(38px, 6vw, 100px);
   font-weight: 900;
-  font-family: monospace;
+  font-family: "Courier New", monospace;
   line-height: 1;
   text-shadow: 2px 2px 4px #000;
 }
 
 .countdown-label {
   color: #c9a66b;
-  font-size: 24.6px;
-  margin-top: 8px;
-  letter-spacing: 1;
+  font-size: clamp(12px, 1.7vw, 28px);
+  margin-top: clamp(4px, 0.74vh, 10px);
+  letter-spacing: 1px;
   line-height: 1;
   text-shadow: 1px 1px 2px #000;
 }
 
 .countdown-separator {
   color: #f5d78e;
-  font-size: 69px;
+  font-size: clamp(30px, 4.7vw, 80px);
   font-weight: 900;
   line-height: 1;
   animation: pulse 1s infinite;
   text-shadow: 2px 2px 4px #000;
 }
 
-/* ====================== SAĞ PANEL METİN GÜVENLİĞİ ====================== */
 .announcement-text {
   white-space: pre-wrap;
   overflow-wrap: break-word;
   word-break: break-word;
 }
 
-/* ====================== ANİMASYONLAR ====================== */
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
+.dua-arabic { font-size: clamp(18px, 2.8vw, 48px); }
+.dua-text { font-size: clamp(14px, 2.2vw, 36px); }
 
-  50% {
-    opacity: 0.3;
-  }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
 }
 
 @keyframes rowPulse {
-  0%,
-  100% {
-    background: rgba(201, 166, 107, 0.22);
+  0%, 100% {
+    background: rgba(201,166,107,0.22);
     border-left-color: #c9a66b;
   }
-
   50% {
-    background: rgba(201, 166, 107, 0.55);
+    background: rgba(201,166,107,0.55);
     border-left-color: #f5d78e;
   }
 }
@@ -14932,8 +15045,94 @@ select {
   border-left: 6px solid #c9a66b !important;
 }
 
-.active-vakit-text {
-  animation: pulse 1.6s ease-in-out infinite;
+.active-vakit-text { animation: pulse 1.6s ease-in-out infinite; }
+
+.active-vakit-row,
+.active-vakit-text,
+.countdown-value,
+.current-vakit,
+.clock-sep,
+.clock-ss {
+  will-change: opacity;
+}
+
+html {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.settings-overlay {
+  position: absolute;
+  inset: 0;
+  background: #0a3d2e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 2.2vh, 26px);
+  padding: clamp(20px, 3.7vh, 44px);
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.settings-overlay input[type="time"],
+.settings-overlay textarea {
+  padding: clamp(6px, 1.1vh, 10px) clamp(10px, 1.25vw, 14px);
+  border-radius: 8px;
+  border: 2px solid #c9a66b;
+  background: #1a5c3a;
+  color: #f5d78e;
+  font-size: clamp(16px, 1.8vw, 22px);
+}
+
+.settings-overlay button {
+  padding: clamp(6px, 1.1vh, 10px) clamp(16px, 2vw, 22px);
+  background: #1a5c3a;
+  color: #c9a66b;
+  border: 2px solid #c9a66b;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: clamp(14px, 1.5vw, 18px);
+}
+
+.settings-save-btn {
+  margin-top: clamp(8px, 1.5vh, 18px);
+  padding: clamp(10px, 1.9vh, 14px) clamp(28px, 3vw, 44px) !important;
+  font-size: clamp(16px, 1.8vw, 22px) !important;
+  background: #c9a66b !important;
+  color: #0a3d2e !important;
+  border: none !important;
+  font-weight: bold;
+}
+
+.loading-screen {
+  width: 100vw;
+  height: 100vh;
+  background: #0a3d2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c9a66b;
+  font-size: clamp(18px, 2vw, 28px);
+}
+
+.blackout-screen {
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 3vh, 36px);
+}
+
+.blackout-text {
+  color: #c9a66b;
+  font-size: clamp(16px, 2vw, 30px);
+  font-family: "Segoe UI", Arial, sans-serif;
+  letter-spacing: 2px;
+  text-align: center;
 }</style>
   </head>
   <body>
