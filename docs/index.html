@@ -2,8 +2,36 @@
 <html lang="tr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1920, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=1024, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>html { font-size: 42% !important; }</style>
     <title>Ridvan NV</title>
+    <script>
+      (function() {
+        var lastConfig = null;
+        function checkConfig() {
+          fetch('./config.json?t=' + Date.now())
+            .then(function(res) { return res.text(); })
+            .then(function(text) {
+              if (lastConfig === null) { lastConfig = text; return; }
+              if (text !== lastConfig) {
+                console.log('[RidvanNV] Config degisti, yenileniyor...');
+                location.reload();
+              }
+            })
+            .catch(function() {});
+        }
+        setTimeout(function() {
+          checkConfig();
+          setInterval(checkConfig, 15 * 60 * 1000);
+        }, 30000);
+      })();
+      // Otomatik tam ekran
+      setTimeout(function() {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        }
+      }, 1000);
+    </script>
     <script type="module" crossorigin>(function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -12,8 +40,7 @@
     for (const mutation of mutations) {
       if (mutation.type !== "childList") continue;
       for (const node of mutation.addedNodes) if (node.tagName === "LINK" && node.rel === "modulepreload") processPreload(node);
-    }
-  }).observe(document, {
+    }  }).observe(document, {
     childList: true,
     subtree: true
   });
