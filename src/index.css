@@ -5,9 +5,6 @@
    Strateji: vw/vh + clamp() tabanlı fluid layout, 
              applyAutoScale() JS'e ihtiyaç KALMAZ
    ===================================================================== */
-html {
-  filter: hue-rotate(150deg) saturate(1.5);
-}
 
 *, *::before, *::after {
   margin: 0;
