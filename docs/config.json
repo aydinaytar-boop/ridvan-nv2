@@ -1,37 +1,14 @@
-{
-  "version": 1,
-  "dynamic": {
-    "sabahKamet": "05:00",
-    "duyuruTR": "Kurban Bayramı 27.05.2027 Çarşamba Günüdür. Bayramınızı Tebrik Ederiz!",
-    "duyuruDE": "Eid al-Adha ist am Mittwoch, dem 27. Mai 2027. Frohes Eid!",
-    "hicriOffset": 0,
-    "kametSureleri": {
-      "ogle": 9,
-      "ikindi": 9,
-      "aksam": 3,
-      "yatsi": 9,
-      "cuma": 20
-    },
-    "cuma": {
-      "ezan": "13:10",
-      "kamet": "13:30"
-    },
-    "blackoutSuresi": 600,
-    "bayramlar": [
-      {
-        "ad_tr": "Ramazan Bayramı",
-        "ad_de": "Bayram",
-        "tarih": "2026-03-20",
-        "tarih2": "2026-03-22",
-        "saat": "06:30"
-      },
-      {
-        "ad_tr": "Kurban Bayramı",
-        "ad_de": "Opferfest",
-        "tarih": "2026-05-27",
-        "tarih2": "2026-05-30",
-        "saat": "05:40"
-      }
-    ]
-  }
-}
+// src/config/settings.ts
+export const SETTINGS = {
+// Sabitler (Bunlar config.json'a taşınabilir ama burada kalmaları da sorun değil)
+kametSureleri: { ogle: 9, ikindi: 9, aksam: 3, yatsi: 9, cuma: 20 },
+kametOffsets: { sabah: 0, ogle: 9, ikindi: 9, aksam: 3, yatsi: 9, cuma: 20 },
+cuma: { ezan: "13:10", kamet: "13:30" },
+blackoutSuresi: 600,
+
+// Bayramlar (Değişken oldukları için bunlar burada kalabilir)
+bayramlar: [
+{ ad_tr: "Ramazan Bayramı", ad_de: "Bayram", tarih: "2026-03-20", tarih2: "2026-03-22", saat: "06:30" },
+{ ad_tr: "Kurban Bayramı", ad_de: "Opferfest", tarih: "2026-05-27", tarih2: "2026-05-30", saat: "05:40" },
+]
+};
