@@ -2,8 +2,8 @@
   "version": 1,
   "dynamic": {
     "sabahKamet": "05:00",
-    "duyuruTR": "Kurban Bayramı 27.05.2027 Çarşamba Günüdür. Bayramınızı Tebrik Ederiz!",
-    "duyuruDE": "Eid al-Adha ist am Mittwoch, dem 27. Mai 2027. Frohes Eid!",
+    "duyuruTR": "Hicri Yıbaşını Tebrik eder Hayırlara vesile olmasını Dileriz!",
+    "duyuruDE": "Wir wünschen Ihnen ein gesegnetes und erfolgreiches islamisches Neujahr!",
     "hicriOffset": 0,
     "kametSureleri": {
       "ogle": 9,
