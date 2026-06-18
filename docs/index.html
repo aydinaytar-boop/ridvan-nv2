@@ -15137,25 +15137,5 @@ html {
   </head>
   <body>
     <div id="root"></div>
-  <div id="root"></div>
-    <script>
-    (function() {
-      var TARGET_W = 1920;
-      var TARGET_H = 1080;
-      function applyScale() {
-        var scaleX = window.innerWidth  / TARGET_W;
-        var scaleY = window.innerHeight / TARGET_H;
-        var scale  = Math.min(scaleX, scaleY);
-        var el = document.body;
-        el.style.transformOrigin = '0 0';
-        el.style.transform = 'scale(' + scale + ')';
-        el.style.width  = TARGET_W + 'px';
-        el.style.height = TARGET_H + 'px';
-        el.style.overflow = 'hidden';
-      }
-      applyScale();
-      window.addEventListener('resize', applyScale);
-    })();
-    </script>
-  </body>
+    </body>
 </html>
