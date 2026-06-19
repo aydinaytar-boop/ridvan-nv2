@@ -2,8 +2,24 @@
 <html lang="tr" style="color-scheme: light; forced-colors: none;">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=1280, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ridvan NV</title>
+    <style>
+      /* TV renk düzeltme — WebView YCbCr sorununu bypass et */
+      html {
+        -webkit-filter: none !important;
+        filter: none !important;
+        image-rendering: auto;
+      }
+      /* Kenar boşluklarını kapat */
+      html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: #000 !important;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
