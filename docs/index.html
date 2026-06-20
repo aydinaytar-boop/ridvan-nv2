@@ -14703,7 +14703,7 @@ clientExports.createRoot(document.getElementById("root")).render(
 );</script>
     <style rel="stylesheet" crossorigin>/* =====================================================================
    RIDVAN CAMİİ — NAMAZ VAKİTLERİ
-   TV COLOR FIX: background yerine box-shadow ile altın renk zorlanıyor
+   TV COLOR FIX: hue-rotate + saturate filter ile renk düzeltmesi
    ===================================================================== */
 
 *, *::before, *::after {
@@ -14739,6 +14739,9 @@ button, input, textarea, select { font: inherit; }
   transform: none !important;
   will-change: auto;
   padding: 0.4vh 0.4vw;
+  /* TV renk düzeltmesi: hue -33 derece, saturation azalt */
+  filter: hue-rotate(-33deg) saturate(0.72);
+  -webkit-filter: hue-rotate(-33deg) saturate(0.72);
 }
 
 .outer-frame {
@@ -14759,7 +14762,7 @@ button, input, textarea, select { font: inherit; }
   align-items: center;
   justify-content: space-between;
   flex-shrink: 0;
-  background: #0e5c3a;
+  background: linear-gradient(180deg, #0e5c3a 0%, #0a3d2e 100%);
   border-bottom: clamp(2px, 0.37vh, 4px) solid #c9a66b;
 }
 
@@ -14875,10 +14878,8 @@ button, input, textarea, select { font: inherit; }
   text-overflow: ellipsis;
 }
 
-/* ALTIN ARKA PLAN — background yerine border+inset shadow ile */
 .panel-header-vakitler {
-  border-bottom: clamp(4px, 0.6vw, 10px) solid #c9a66b;
-  box-shadow: inset 0 0 0 100vw #c9a66b;
+  background: #c9a66b;
   text-align: center;
   padding: clamp(4px, 1.1vh, 14px) 0;
   color: #0a3d2e;
@@ -14887,6 +14888,7 @@ button, input, textarea, select { font: inherit; }
   letter-spacing: 3px;
   flex-shrink: 0;
   line-height: 1;
+  text-shadow: 1px 1px 1px rgba(255,255,255,0.15);
 }
 
 .vakit-table-header {
@@ -14944,10 +14946,8 @@ button, input, textarea, select { font: inherit; }
   line-height: 1;
 }
 
-/* ALTIN PANEL BAŞLIĞI */
 .panel-title {
-  border: clamp(2px, 0.4vw, 6px) solid #c9a66b;
-  box-shadow: inset 0 0 0 100vw #c9a66b;
+  background: #c9a66b;
   text-align: center;
   padding: clamp(6px, 1.3vh, 16px) clamp(10px, 2vw, 44px);
   color: #0a3d2e;
@@ -14956,6 +14956,7 @@ button, input, textarea, select { font: inherit; }
   letter-spacing: 3px;
   border-radius: 8px;
   line-height: 1;
+  text-shadow: 1px 1px 1px rgba(255,255,255,0.15);
 }
 
 .current-vakit {
