@@ -1,8 +1,8 @@
 {
   "version": 1,
   "dynamic": {
-    "sabahKamet": "05:00",
-    "duyuruTR": "Hicri Yıbaşını ve Aşure gününüzü Tebrik ederiz!",
+    "sabahKamet": "04:20",
+    "duyuruTR": "Hicri Yıbaşı ve Aşure gününüzü Tebrik ederiz!",
     "duyuruDE": "Frohes islamisches Neujahr und einen gesegneten Aschura-Tag!",
     "hicriOffset": 0,
     "kametSureleri": {
@@ -16,14 +16,14 @@
       "ezan": "13:10",
       "kamet": "13:30"
     },
-    "blackoutSuresi": 600,
-    "bayramlar": [
+    "blackoutSuresi": 600,    "bayramlar": [
       {
         "ad_tr": "Ramazan Bayramı",
         "ad_de": "Bayram",
         "tarih": "2026-03-20",
         "tarih2": "2026-03-22",
         "saat": "06:30"
+
       },
       {
         "ad_tr": "Kurban Bayramı",
