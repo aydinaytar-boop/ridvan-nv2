@@ -15158,8 +15158,27 @@ html {
   letter-spacing: 2px;
   text-align: center;
 }</style>
-  </head>
+  
+  <style>
+    .tv-safe-area {
+      filter: hue-rotate(-15deg) saturate(0.85) !important;
+      -webkit-filter: hue-rotate(-15deg) saturate(0.85) !important;
+    }
+  </style>
+</head>
   <body>
     <div id="root"></div>
+<script>
+  function goFull() {
+    var el = document.documentElement;
+    if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+    document.removeEventListener('click', goFull);
+    document.removeEventListener('touchstart', goFull);
+  }
+  document.addEventListener('click', goFull);
+  document.addEventListener('touchstart', goFull);
+</script>
   </body>
 </html>
