@@ -13386,12 +13386,10 @@ function App() {
       } catch (e) {
         console.warn("Config yüklenemedi");
       }
-      setSabahKametInput(
-        localStorage.getItem("manuelSabahKamet") || remoteD.sabahKamet
-      );
-      setDuyuruTR(localStorage.getItem("duyuruTR") || remoteD.duyuruTR);
-      setDuyuruDE(localStorage.getItem("duyuruDE") || remoteD.duyuruDE);
-      setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
+      setSabahKametInput(remoteD.sabahKamet || localStorage.getItem("manuelSabahKamet") || "05:15");
+      setDuyuruTR(remoteD.duyuruTR || localStorage.getItem("duyuruTR") || "");
+      setDuyuruDE(remoteD.duyuruDE || localStorage.getItem("duyuruDE") || "");
+      setHicriOffset(parseInt(String(remoteD.hicriOffset ?? localStorage.getItem("hicriOffset") ?? "0")));
       const savedBayram = localStorage.getItem("bayramInputs");
       if (savedBayram) {
         try {
