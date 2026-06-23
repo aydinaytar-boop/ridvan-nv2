@@ -253,12 +253,11 @@ export default function App() {
         console.warn("Config yüklenemedi");
       }
 
-      setSabahKametInput(
-        localStorage.getItem("manuelSabahKamet") || remoteD.sabahKamet
-      );
-      setDuyuruTR(localStorage.getItem("duyuruTR") || remoteD.duyuruTR);
-      setDuyuruDE(localStorage.getItem("duyuruDE") || remoteD.duyuruDE);
-      setHicriOffset(parseInt(localStorage.getItem("hicriOffset") || "0"));
+      // config.json her zaman öncelikli — localStorage sadece config boşsa yedek
+      setSabahKametInput(remoteD.sabahKamet || localStorage.getItem("manuelSabahKamet") || "05:15");
+      setDuyuruTR(remoteD.duyuruTR || localStorage.getItem("duyuruTR") || "");
+      setDuyuruDE(remoteD.duyuruDE || localStorage.getItem("duyuruDE") || "");
+      setHicriOffset(parseInt(String(remoteD.hicriOffset ?? localStorage.getItem("hicriOffset") ?? "0")));
 
       const savedBayram = localStorage.getItem("bayramInputs");
       if (savedBayram) {
@@ -319,6 +318,7 @@ export default function App() {
   useEffect(() => {
     setSabahKametSaati(sabahKametInput);
   }, [sabahKametInput]);
+
 
   const times = getTodayTimes(now);
   const flow = computeFlow(now, times);
