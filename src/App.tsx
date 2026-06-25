@@ -319,7 +319,6 @@ export default function App() {
     setSabahKametSaati(sabahKametInput);
   }, [sabahKametInput]);
 
-
   const times = getTodayTimes(now);
   const flow = computeFlow(now, times);
   const bayram = getBayramVisibility(now);
