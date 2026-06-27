@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "dynamic": {
+    "sabahKamet": "04:20",
+    "duyuruTR": "Gündüzlü Kurslarımız: 06.07.-31.07.2026  haftaiçi hergün.Yatılı kursumuz: 05.07.-14.07.2026 erkeklere/ 19.07.-31.07.2026 kızlara olacaktır. İnfo:06601362928 / tatil.kurslari@ifwbildung.at",
+    "duyuruDE": "Tageskurse: 6.–31. Juli 2026, wochentags. Intensivkurs: 5.–14. Juli 2026 für Jungen / 19.–31. Juli 2026 für Mädchen. Info: 06601362928 / tatil.kurslari@ifwbildung.at",
+    "hicriOffset": 0,
+    "kametSureleri": {
+      "ogle": 9,
+      "ikindi": 9,
+      "aksam": 3,
+      "yatsi": 9,
+      "cuma": 20
+    },
+    "cuma": {
+      "ezan": "13:10",
+      "kamet": "13:30"
+    },
+    "blackoutSuresi": 600,
+    "bayramlar": [
+      {
+        "ad_tr": "Ramazan Bayramı",
+        "ad_de": "Bayram",
+        "tarih": "2026-03-20",
+        "tarih2": "2026-03-22",
+        "saat": "06:30"
+      },
+      {
+        "ad_tr": "Kurban Bayramı",
+        "ad_de": "Opferfest",
+        "tarih": "2026-05-27",
+        "tarih2": "2026-05-30",
+        "saat": "05:40"
+      }
+    ]
+  }
+}
