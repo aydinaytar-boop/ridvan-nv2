@@ -1,9 +1,13 @@
 {
   "version": 1,
   "dynamic": {
-    "sabahKamet": "05:00",
-    "duyuruTR": "Hicri Yıbaşını ve Aşure gününüzü Tebrik ederiz!",
-    "duyuruDE": "Frohes islamisches Neujahr und einen gesegneten Aschura-Tag!",
+    "sabahKamet": "04:20",
+    "duyuruTR": "Gündüzlü Kurslarımız: 06.07.-31.07.2026  haftaiçi hergün.
+Yatılı kursumuz: 05.07.-14.07.2026 erkeklere/ 19.07.-31.07.2026 kızlara olacaktır.  
+İnfo:06601362928 / tatil.kurslari@ifwbildung.at",
+    "duyuruDE": "Tageskurse: 6.–31. Juli 2026, wochentags.
+Intensivkurs: 5.–14. Juli 2026 für Jungen / 19.–31. Juli 2026 für Mädchen.
+Info: 06601362928 / tatil.kurslari@ifwbildung.at",
     "hicriOffset": 0,
     "kametSureleri": {
       "ogle": 9,
