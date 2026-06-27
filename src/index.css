@@ -1,14 +1,17 @@
 /* =====================================================================
    RIDVAN CAMİİ — NAMAZ VAKİTLERİ
-   TV COLOR FIX v3: hue-rotate -15deg saturate 0.85
+   Hedef: Samsung TU43DU7105 4K 43" + Xiaomi TV Box S (Chrome/WebView)
+   Çözünürlük: 3840×2160 (4K) — ama TV Box 1080p çıkış yapabilir
+   Strateji: vw/vh + clamp() tabanlı fluid layout, 
+             applyAutoScale() JS'e ihtiyaç KALMAZ
    ===================================================================== */
- 
+
 *, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
- 
+
 html, body, #root {
   width: 100vw;
   height: 100vh;
@@ -20,11 +23,13 @@ html, body, #root {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
- 
+
 body { margin: 0; }
+
 img { display: block; max-width: 100%; }
+
 button, input, textarea, select { font: inherit; }
- 
+
 .tv-safe-area {
   width: 100vw;
   height: 100vh;
@@ -34,24 +39,22 @@ button, input, textarea, select { font: inherit; }
   transform: none !important;
   will-change: auto;
   padding: 0.4vh 0.4vw;
-  filter: hue-rotate(-15deg) saturate(0.85);
-  -webkit-filter: hue-rotate(-15deg) saturate(0.85);
 }
- 
+
 .outer-frame {
   width: 100%;
   height: 100%;
   background-color: #0a3d2e;
-  border: clamp(3px, 0.52vw, 10px) solid #c9a66b;
-  border-radius: clamp(4px, 0.63vw, 12px);
+  border: clamp(4px, 0.52vw, 10px) solid #c9a66b;
+  border-radius: clamp(6px, 0.63vw, 12px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
- 
+
 .top-bar {
   height: clamp(44px, 7.6vh, 90px);
-  padding: 0 clamp(8px, 1.7vw, 32px);
+  padding: 0 clamp(12px, 1.7vw, 32px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -59,14 +62,14 @@ button, input, textarea, select { font: inherit; }
   background: linear-gradient(180deg, #0e5c3a 0%, #0a3d2e 100%);
   border-bottom: clamp(2px, 0.37vh, 4px) solid #c9a66b;
 }
- 
+
 .top-bar .date-col {
   display: flex;
   flex-direction: column;
   gap: clamp(1px, 0.28vh, 4px);
-  min-width: clamp(120px, 16vw, 280px);
+  min-width: clamp(180px, 16vw, 280px);
 }
- 
+
 .top-bar .date-hijri {
   color: #c9a66b;
   font-size: clamp(10px, 1.4vw, 22px);
@@ -74,7 +77,7 @@ button, input, textarea, select { font: inherit; }
   letter-spacing: 1px;
   line-height: 1;
 }
- 
+
 .top-bar .date-miladi {
   color: #f5d78e;
   font-size: clamp(12px, 1.9vw, 30px);
@@ -82,7 +85,7 @@ button, input, textarea, select { font: inherit; }
   line-height: 1;
   text-shadow: 2px 2px 4px #000;
 }
- 
+
 .top-bar .mosque-title {
   flex: 1;
   display: flex;
@@ -91,19 +94,19 @@ button, input, textarea, select { font: inherit; }
   color: #f5d78e;
   font-size: clamp(16px, 2.9vw, 52px);
   font-weight: 900;
-  letter-spacing: clamp(1px, 0.4vw, 6px);
+  letter-spacing: clamp(2px, 0.4vw, 6px);
   text-transform: uppercase;
   text-align: center;
   line-height: 1;
 }
- 
+
 .top-bar .clock-area {
   display: flex;
   align-items: flex-end;
-  min-width: clamp(100px, 13vw, 240px);
+  min-width: clamp(140px, 13vw, 240px);
   justify-content: flex-end;
 }
- 
+
 .top-bar .clock-hh,
 .top-bar .clock-mm {
   color: #f5d78e;
@@ -112,7 +115,7 @@ button, input, textarea, select { font: inherit; }
   line-height: 1;
   font-family: "Courier New", monospace;
 }
- 
+
 .top-bar .clock-sep {
   color: #c9a66b;
   font-size: clamp(20px, 3.7vw, 60px);
@@ -121,7 +124,7 @@ button, input, textarea, select { font: inherit; }
   font-family: "Courier New", monospace;
   animation: pulse 1s infinite;
 }
- 
+
 .top-bar .clock-ss {
   color: #c9a66b;
   font-size: clamp(11px, 2.2vw, 36px);
@@ -131,53 +134,52 @@ button, input, textarea, select { font: inherit; }
   font-family: "Courier New", monospace;
   animation: pulse 1s infinite;
 }
- 
+
 .bottom-bar {
   height: clamp(36px, 7.4vh, 80px);
-  padding: 0 clamp(8px, 1.5vw, 20px);
+  padding: 0 clamp(10px, 1.5vw, 20px);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
- 
+
 .main-panels {
   flex: 1;
   display: flex;
-  gap: clamp(3px, 0.52vw, 10px);
-  padding: clamp(3px, 0.55vh, 8px) clamp(3px, 0.52vw, 10px);
+  gap: clamp(4px, 0.52vw, 10px);
+  padding: clamp(3px, 0.55vh, 8px) clamp(4px, 0.52vw, 10px);
   overflow: hidden;
   min-height: 0;
   align-items: stretch;
 }
- 
+
 .panel {
   flex: 1 1 0;
   min-width: 0;
   min-height: 0;
   border: clamp(2px, 0.37vw, 5px) solid #c9a66b;
-  border-radius: clamp(4px, 0.63vw, 12px);
+  border-radius: clamp(6px, 0.63vw, 12px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   background: #0a3d2e;
 }
- 
+
 .panel > div { min-width: 0; }
- 
+
 .panel span {
   text-shadow: 1px 1px 2px #000;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
- 
+
 .panel-header-vakitler {
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23c9a66b'/%3E%3C/svg%3E");
-  background-color: #c9a66b;
+  background: #c9a66b;
   text-align: center;
-  padding: clamp(4px, 1.1vh, 14px) 0;
-  color: #000000;
+  padding: clamp(6px, 1.1vh, 14px) 0;
+  color: #0a3d2e;
   font-size: clamp(13px, 2.5vw, 38px);
   font-weight: 900;
   letter-spacing: 3px;
@@ -185,16 +187,16 @@ button, input, textarea, select { font: inherit; }
   line-height: 1;
   text-shadow: 1px 1px 1px rgba(255,255,255,0.15);
 }
- 
+
 .vakit-table-header {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr;
-  padding: clamp(3px, 0.74vh, 10px) clamp(6px, 1.25vw, 22px);
+  padding: clamp(4px, 0.74vh, 10px) clamp(10px, 1.25vw, 22px);
   border-bottom: 2px solid #c9a66b;
   background: #072d20;
   flex-shrink: 0;
 }
- 
+
 .vakit-table-header span {
   color: #c9a66b;
   font-size: clamp(9px, 1.5vw, 26px);
@@ -202,20 +204,20 @@ button, input, textarea, select { font: inherit; }
   letter-spacing: 2px;
   line-height: 1;
 }
- 
+
 .vakit-row {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr;
-  padding: 0 clamp(6px, 1.25vw, 22px);
+  padding: 0 clamp(10px, 1.25vw, 22px);
   flex: 1;
   border-bottom: 1px solid #c9a66b33;
   border-left: 7px solid transparent;
   align-items: center;
   transition: background 0.3s;
 }
- 
+
 .vakit-row-next { background: rgba(201,166,107,0.07); }
- 
+
 .vakit-row .vakit-name {
   color: #a8c8b0;
   font-size: clamp(10px, 2.1vw, 34px);
@@ -223,7 +225,7 @@ button, input, textarea, select { font: inherit; }
   letter-spacing: 1px;
   line-height: 1;
 }
- 
+
 .vakit-row .vakit-ezan {
   color: #f5d78e;
   font-size: clamp(13px, 2.9vw, 48px);
@@ -232,7 +234,7 @@ button, input, textarea, select { font: inherit; }
   font-family: "Courier New", monospace;
   line-height: 1;
 }
- 
+
 .vakit-row .vakit-kamet {
   color: #a8c8b0;
   font-size: clamp(11px, 2.6vw, 42px);
@@ -240,13 +242,12 @@ button, input, textarea, select { font: inherit; }
   font-family: "Courier New", monospace;
   line-height: 1;
 }
- 
+
 .panel-title {
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%23c9a66b'/%3E%3C/svg%3E");
-  background-color: #c9a66b;
+  background: #c9a66b;
   text-align: center;
-  padding: clamp(6px, 1.3vh, 16px) clamp(10px, 2vw, 44px);
-  color: #000000;
+  padding: clamp(8px, 1.3vh, 16px) clamp(20px, 2vw, 44px);
+  color: #0a3d2e;
   font-size: clamp(13px, 2.6vw, 42px);
   font-weight: 900;
   letter-spacing: 3px;
@@ -254,7 +255,7 @@ button, input, textarea, select { font: inherit; }
   line-height: 1;
   text-shadow: 1px 1px 1px rgba(255,255,255,0.15);
 }
- 
+
 .current-vakit {
   color: #f5d78e;
   font-size: clamp(28px, 6.5vw, 110px);
@@ -263,93 +264,93 @@ button, input, textarea, select { font: inherit; }
   line-height: 1;
   text-shadow: 2px 2px 4px #000;
 }
- 
+
 .current-vakit.ezan {
   font-size: clamp(30px, 7.2vw, 120px);
   animation: pulse 1s infinite;
 }
- 
+
 .next-vakit {
   color: #f5d78e;
   font-size: clamp(18px, 4.4vw, 76px);
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   text-shadow: 2px 2px 4px #000;
 }
- 
+
 .countdown-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(3px, 0.8vw, 14px);
-  margin-top: clamp(6px, 1.9vh, 24px);
+  gap: clamp(4px, 0.8vw, 14px);
+  margin-top: clamp(8px, 1.9vh, 24px);
   flex-wrap: nowrap;
-  min-width: 0;
   width: 100%;
-  overflow: hidden;
-  padding: 0 clamp(4px, 1vw, 16px);
+  padding: 0 clamp(8px, 1.5vw, 24px);
+  box-sizing: border-box;
 }
- 
+
 .countdown-box {
   background: #0e5c3a;
   border: clamp(2px, 0.37vw, 5px) solid #c9a66b;
-  border-radius: clamp(6px, 1vw, 18px);
-  padding: clamp(4px, 1.5vh, 20px) clamp(4px, 1vw, 16px);
+  border-radius: clamp(8px, 1vw, 18px);
+  padding: clamp(8px, 1.8vh, 22px) 0;
+  width: clamp(70px, 9vw, 150px);
   min-width: 0;
-  width: clamp(44px, 7vw, 110px);
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-shrink: 1;
-  flex-grow: 0;
+  flex-grow: 1;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.18);
   overflow: hidden;
 }
- 
+
 .countdown-value {
   color: #f5d78e;
-  font-size: clamp(22px, 5.5vw, 100px);
+  font-size: clamp(22px, 5vw, 90px);
   font-weight: 900;
   font-family: "Courier New", monospace;
   line-height: 1;
   text-shadow: 2px 2px 4px #000;
+  white-space: nowrap;
 }
- 
+
 .countdown-label {
   color: #c9a66b;
-  font-size: clamp(8px, 1.5vw, 28px);
-  margin-top: clamp(2px, 0.74vh, 10px);
+  font-size: clamp(8px, 1.4vw, 24px);
+  margin-top: clamp(4px, 0.74vh, 10px);
   letter-spacing: 1px;
   line-height: 1;
   text-shadow: 1px 1px 2px #000;
+  white-space: nowrap;
 }
- 
+
 .countdown-separator {
   color: #f5d78e;
-  font-size: clamp(18px, 4.2vw, 80px);
+  font-size: clamp(18px, 4vw, 72px);
   font-weight: 900;
   line-height: 1;
-  flex-shrink: 0;
   animation: pulse 1s infinite;
   text-shadow: 2px 2px 4px #000;
+  flex-shrink: 0;
 }
- 
+
 .announcement-text {
   white-space: pre-wrap;
   overflow-wrap: break-word;
   word-break: break-word;
 }
- 
+
 .dua-arabic { font-size: clamp(13px, 2.8vw, 48px); }
 .dua-text { font-size: clamp(10px, 2.2vw, 36px); }
- 
+
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.3; }
 }
- 
+
 @keyframes rowPulse {
   0%, 100% {
     background: rgba(201,166,107,0.22);
@@ -360,14 +361,14 @@ button, input, textarea, select { font: inherit; }
     border-left-color: #f5d78e;
   }
 }
- 
+
 .active-vakit-row {
   animation: rowPulse 1.6s ease-in-out infinite;
   border-left: 6px solid #c9a66b !important;
 }
- 
+
 .active-vakit-text { animation: pulse 1.6s ease-in-out infinite; }
- 
+
 .active-vakit-row,
 .active-vakit-text,
 .countdown-value,
@@ -376,12 +377,12 @@ button, input, textarea, select { font: inherit; }
 .clock-ss {
   will-change: opacity;
 }
- 
+
 html {
   overflow: hidden;
   overscroll-behavior: none;
 }
- 
+
 .settings-overlay {
   position: absolute;
   inset: 0;
@@ -395,7 +396,7 @@ html {
   overflow-y: auto;
   z-index: 10;
 }
- 
+
 .settings-overlay input[type="time"],
 .settings-overlay textarea {
   padding: clamp(6px, 1.1vh, 10px) clamp(10px, 1.25vw, 14px);
@@ -405,7 +406,7 @@ html {
   color: #f5d78e;
   font-size: clamp(16px, 1.8vw, 22px);
 }
- 
+
 .settings-overlay button {
   padding: clamp(6px, 1.1vh, 10px) clamp(16px, 2vw, 22px);
   background: #1a5c3a;
@@ -415,7 +416,7 @@ html {
   cursor: pointer;
   font-size: clamp(14px, 1.5vw, 18px);
 }
- 
+
 .settings-save-btn {
   margin-top: clamp(8px, 1.5vh, 18px);
   padding: clamp(10px, 1.9vh, 14px) clamp(28px, 3vw, 44px) !important;
@@ -425,7 +426,7 @@ html {
   border: none !important;
   font-weight: bold;
 }
- 
+
 .loading-screen {
   width: 100vw;
   height: 100vh;
@@ -436,7 +437,7 @@ html {
   color: #c9a66b;
   font-size: clamp(18px, 2vw, 28px);
 }
- 
+
 .blackout-screen {
   width: 100vw;
   height: 100vh;
@@ -447,7 +448,7 @@ html {
   justify-content: center;
   gap: clamp(16px, 3vh, 36px);
 }
- 
+
 .blackout-text {
   color: #c9a66b;
   font-size: clamp(16px, 2vw, 30px);
