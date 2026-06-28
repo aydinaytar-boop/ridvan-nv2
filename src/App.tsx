@@ -81,7 +81,6 @@ function getDuaTypography(arabic: string, text: string, isEzan: boolean) {
   return { ar: "1.8vw", text: "1.4vw", gap: "0.6vh" };
 }
 
-// Saat string'ini dakika cinsine çevirme
 function timeToMinutes(t: string): number {
   const [h, m] = t.split(":").map(Number);
   return h * 60 + m;
@@ -91,7 +90,7 @@ function minutesToTime(mins: number): string {
   return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
 }
 
-// Duyuru karakterleri
+// Duyuru klavye karakterleri — SPACE başta, geniş buton
 const DUYURU_CHARS = [
   " ","a","b","c","ç","d","e","f","g","ğ","h","ı","i","j","k","l","m","n","o","ö",
   "p","r","s","ş","t","u","ü","v","y","z","A","B","C","Ç","D","E","F","G","Ğ","H",
@@ -99,12 +98,11 @@ const DUYURU_CHARS = [
   "0","1","2","3","4","5","6","7","8","9","!",".",",","-",":","/","'","(",")","&","\n"
 ];
 
-// Buton stili
-const btnStyle = (color = "#c9a66b", size = 44): React.CSSProperties => ({
+const btnStyle = (color = "#c9a66b", size = 48): React.CSSProperties => ({
   padding: 0,
   width: size,
   height: size,
-  fontSize: size * 0.5,
+  fontSize: size * 0.45,
   fontWeight: 900,
   background: "#1a5c3a",
   color,
@@ -115,55 +113,51 @@ const btnStyle = (color = "#c9a66b", size = 44): React.CSSProperties => ({
   alignItems: "center",
   justifyContent: "center",
   flexShrink: 0,
-  userSelect: "none" as const,
 });
 
-const labelStyle: React.CSSProperties = {
-  color: "#f5d78e",
-  fontSize: 22,
-  minWidth: 160,
-  fontWeight: 600,
-};
-
 const valueStyle: React.CSSProperties = {
-  color: "#c9a66b",
-  fontSize: 32,
+  color: "#f5d78e",
+  fontSize: 44,
   fontWeight: 900,
-  minWidth: 90,
+  minWidth: 110,
   textAlign: "center",
   fontFamily: "monospace",
-};
-
-const rowStyle: React.CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  gap: 16,
-  width: "100%",
-  maxWidth: 700,
 };
 
 export default function App() {
   const [now, setNow] = useState(() => new Date());
   const [lang, setLang] = useState<"tr" | "de">("tr");
   const [hicriOffset, setHicriOffset] = useState(0);
-  const [sabahKametMins, setSabahKametMins] = useState(300); // 05:00
+  const [sabahKametMins, setSabahKametMins] = useState(300);
   const [showSettings, setShowSettings] = useState(false);
-  const [settingsTab, setSettingsTab] = useState<"genel"|"bayram"|"duyuru">("genel");
+  const [settingsTab, setSettingsTab] = useState<"genel" | "bayram" | "duyuru">("genel");
   const [bayramMins, setBayramMins] = useState<Record<string, number>>({});
   const [duyuruTR, setDuyuruTR] = useState("");
   const [duyuruDE, setDuyuruDE] = useState("");
-  const [duyuruEditLang, setDuyuruEditLang] = useState<"tr"|"de">("tr");
+  const [duyuruEditLang, setDuyuruEditLang] = useState<"tr" | "de">("tr");
   const [duyuruCursorPos, setDuyuruCursorPos] = useState(0);
   const [configLoaded, setConfigLoaded] = useState(false);
   const settingsClickCount = useRef(0);
   const settingsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Duyuru düzenleme
   const currentDuyuru = duyuruEditLang === "tr" ? duyuruTR : duyuruDE;
   const setCurrentDuyuru = (v: string) => {
     if (duyuruEditLang === "tr") setDuyuruTR(v);
     else setDuyuruDE(v);
   };
+
+  const duyuruInsert = (char: string) => {
+    const pos = duyuruCursorPos;
+    setCurrentDuyuru(currentDuyuru.slice(0, pos) + char + currentDuyuru.slice(pos));
+    setDuyuruCursorPos(pos + char.length);
+  };
+  const duyuruBackspace = () => {
+    const pos = duyuruCursorPos;
+    if (pos === 0) return;
+    setCurrentDuyuru(currentDuyuru.slice(0, pos - 1) + currentDuyuru.slice(pos));
+    setDuyuruCursorPos(pos - 1);
+  };
+  const duyuruClear = () => { setCurrentDuyuru(""); setDuyuruCursorPos(0); };
 
   useEffect(() => {
     document.documentElement.style.overflow = "hidden";
@@ -185,20 +179,17 @@ export default function App() {
       setDuyuruDE(remoteD.duyuruDE || localStorage.getItem("duyuruDE") || "");
       setHicriOffset(parseInt(String(remoteD.hicriOffset ?? localStorage.getItem("hicriOffset") ?? "0")));
 
-      // Bayram saatleri
       const initBayram: Record<string, number> = {};
-      SETTINGS.bayramlar.forEach(b => {
+      SETTINGS.bayramlar.forEach((b: any) => {
         const saved = localStorage.getItem("bayram_" + b.tarih);
         initBayram[b.tarih] = saved ? parseInt(saved) : timeToMinutes(b.saat || "09:00");
       });
       setBayramMins(initBayram);
-
       setConfigLoaded(true);
     }
     loadConfig();
   }, []);
 
-  // localStorage kaydet
   useEffect(() => {
     if (!configLoaded) return;
     const sk = minutesToTime(sabahKametMins);
@@ -211,10 +202,9 @@ export default function App() {
   useEffect(() => { if (configLoaded) localStorage.setItem("hicriOffset", String(hicriOffset)); }, [hicriOffset, configLoaded]);
   useEffect(() => {
     if (!configLoaded) return;
-    SETTINGS.bayramlar.forEach(b => {
-      if (bayramMins[b.tarih] !== undefined) {
+    SETTINGS.bayramlar.forEach((b: any) => {
+      if (bayramMins[b.tarih] !== undefined)
         localStorage.setItem("bayram_" + b.tarih, String(bayramMins[b.tarih]));
-      }
     });
   }, [bayramMins, configLoaded]);
 
@@ -286,97 +276,73 @@ export default function App() {
     if (settingsClickCount.current >= 3) { settingsClickCount.current = 0; setShowSettings(true); }
   }, []);
 
-  // Duyuru klavye
-  const duyuruInsert = (char: string) => {
-    const d = currentDuyuru;
-    const pos = duyuruCursorPos;
-    const next = d.slice(0, pos) + char + d.slice(pos);
-    setCurrentDuyuru(next);
-    setDuyuruCursorPos(pos + char.length);
-  };
-  const duyuruBackspace = () => {
-    const d = currentDuyuru;
-    const pos = duyuruCursorPos;
-    if (pos === 0) return;
-    setCurrentDuyuru(d.slice(0, pos - 1) + d.slice(pos));
-    setDuyuruCursorPos(pos - 1);
-  };
-  const duyuruClear = () => { setCurrentDuyuru(""); setDuyuruCursorPos(0); };
-
   if (!configLoaded) {
-    return <div style={{ width:"100vw", height:"100vh", background:"#0a3d2e", display:"flex", alignItems:"center", justifyContent:"center", color:"#c9a66b", fontSize:24 }}>Yükleniyor...</div>;
+    return <div style={{ width: "100vw", height: "100vh", background: "#0a3d2e", display: "flex", alignItems: "center", justifyContent: "center", color: "#c9a66b", fontSize: 24 }}>Yükleniyor...</div>;
   }
 
   if (isBlackout) {
     return (
-      <div style={{ width:"100vw", height:"100vh", background:"#000", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:32 }}>
-        <img src="img/close.png?v=5" alt="Kapatın" style={{ maxWidth:"100%", maxHeight:"95vh", objectFit:"contain" }} onError={e => { (e.currentTarget as HTMLImageElement).style.display="none"; }} />
-        <div style={{ color:"#c9a66b", fontSize:28, fontFamily:"'Segoe UI', Arial, sans-serif", letterSpacing:2, textAlign:"center" }}>
+      <div style={{ width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }}>
+        <img src="img/close.png?v=5" alt="Kapatın" style={{ maxWidth: "100%", maxHeight: "95vh", objectFit: "contain" }} onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+        <div style={{ color: "#c9a66b", fontSize: 28, fontFamily: "'Segoe UI', Arial, sans-serif", letterSpacing: 2, textAlign: "center" }}>
           {lang === "tr" ? "🤲 Namaz vakti — Lütfen telefonlarınızı kapatın!" : "🤲 Gebetszeit — Bitte schalten Sie Ihre Handys aus!"}
         </div>
       </div>
     );
   }
 
-  // ──────────────────────────────────────────────
-  // AYARLAR PANELİ
-  // ──────────────────────────────────────────────
+  // ─── AYARLAR PANELİ ───
   if (showSettings) {
     const tabBtn = (id: typeof settingsTab, label: string) => (
-      <button
-        onClick={() => setSettingsTab(id)}
-        style={{
-          padding: "10px 28px", fontSize: 20, fontWeight: 700,
-          background: settingsTab === id ? "#c9a66b" : "#1a5c3a",
-          color: settingsTab === id ? "#0a3d2e" : "#c9a66b",
-          border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer",
-        }}
-      >{label}</button>
+      <button onClick={() => setSettingsTab(id)} style={{ padding: "12px 32px", fontSize: 20, fontWeight: 700, background: settingsTab === id ? "#c9a66b" : "#1a5c3a", color: settingsTab === id ? "#0a3d2e" : "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>
+        {label}
+      </button>
     );
 
     return (
-      <div style={{ width:"100vw", height:"100vh", background:"#0a3d2e", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"flex-start", padding:"32px 48px", gap:24, overflowY:"auto", boxSizing:"border-box" }}>
+      <div style={{ width: "100vw", height: "100vh", background: "#0a3d2e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", padding: "28px 48px", gap: 22, overflowY: "auto", boxSizing: "border-box" }}>
+
         {/* Başlık */}
-        <div style={{ color:"#c9a66b", fontSize:32, fontWeight:900, letterSpacing:2 }}>
+        <div style={{ color: "#c9a66b", fontSize: 30, fontWeight: 900, letterSpacing: 2 }}>
           ⚙️ {lang === "tr" ? "AYARLAR" : "EINSTELLUNGEN"}
         </div>
 
         {/* Sekmeler */}
-        <div style={{ display:"flex", gap:16 }}>
+        <div style={{ display: "flex", gap: 14 }}>
           {tabBtn("genel", lang === "tr" ? "Genel" : "Allgemein")}
-          {tabBtn("bayram", lang === "tr" ? "Bayram" : "Bayram")}
+          {tabBtn("bayram", "Bayram")}
           {tabBtn("duyuru", lang === "tr" ? "Duyuru" : "Ankündigung")}
         </div>
 
         {/* ─── GENEL ─── */}
         {settingsTab === "genel" && (
-          <div style={{ display:"flex", flexDirection:"column", gap:32, width:"100%", maxWidth:700 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 32, width: "100%", maxWidth: 700 }}>
 
             {/* Sabah Kamet */}
-            <div style={{ ...rowStyle, flexDirection:"column", alignItems:"flex-start", gap:12 }}>
-              <span style={{ color:"#c9a66b", fontSize:20, fontWeight:700, letterSpacing:1 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <span style={{ color: "#c9a66b", fontSize: 20, fontWeight: 700, letterSpacing: 1 }}>
                 {lang === "tr" ? "SABAH KAMET SAATİ" : "FAJR IQÂMAT-ZEIT"}
               </span>
-              <div style={{ display:"flex", alignItems:"center", gap:16 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <button onClick={() => setSabahKametMins(m => m - 5)} style={btnStyle("#c9a66b88", 48)}>−5</button>
                 <button onClick={() => setSabahKametMins(m => m - 1)} style={btnStyle("#c9a66b", 52)}>−</button>
-                <button onClick={() => setSabahKametMins(m => m - 5)} style={btnStyle("#c9a66b88", 44)}>−5</button>
-                <span style={{ ...valueStyle, fontSize:42, minWidth:110 }}>{minutesToTime(sabahKametMins)}</span>
-                <button onClick={() => setSabahKametMins(m => m + 5)} style={btnStyle("#c9a66b88", 44)}>+5</button>
+                <span style={valueStyle}>{minutesToTime(sabahKametMins)}</span>
                 <button onClick={() => setSabahKametMins(m => m + 1)} style={btnStyle("#c9a66b", 52)}>+</button>
+                <button onClick={() => setSabahKametMins(m => m + 5)} style={btnStyle("#c9a66b88", 48)}>+5</button>
               </div>
             </div>
 
             {/* Hicri */}
-            <div style={{ ...rowStyle, flexDirection:"column", alignItems:"flex-start", gap:12 }}>
-              <span style={{ color:"#c9a66b", fontSize:20, fontWeight:700, letterSpacing:1 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <span style={{ color: "#c9a66b", fontSize: 20, fontWeight: 700, letterSpacing: 1 }}>
                 {lang === "tr" ? "HİCRİ TAKVİM DÜZELTMESİ" : "HIDSCHRA-KALENDER KORREKTUR"}
               </span>
-              <div style={{ display:"flex", alignItems:"center", gap:16 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
                 <button onClick={() => setHicriOffset(o => o - 1)} style={btnStyle("#c9a66b", 52)}>−</button>
-                <span style={{ ...valueStyle, fontSize:42, minWidth:60 }}>{hicriOffset > 0 ? `+${hicriOffset}` : hicriOffset}</span>
+                <span style={{ ...valueStyle, minWidth: 70 }}>{hicriOffset > 0 ? `+${hicriOffset}` : hicriOffset}</span>
                 <button onClick={() => setHicriOffset(o => o + 1)} style={btnStyle("#c9a66b", 52)}>+</button>
-                <span style={{ color:"#a8c8b0", fontSize:18, marginLeft:8 }}>
-                  {`${toHijri(now, hicriOffset).day} ${HICRI_AYLAR_TR[toHijri(now, hicriOffset).month]} ${toHijri(now, hicriOffset).year}`}
+                <span style={{ color: "#a8c8b0", fontSize: 18, marginLeft: 8 }}>
+                  {hicriStrTR(toHijri(now, hicriOffset))}
                 </span>
               </div>
             </div>
@@ -385,18 +351,18 @@ export default function App() {
 
         {/* ─── BAYRAM ─── */}
         {settingsTab === "bayram" && (
-          <div style={{ display:"flex", flexDirection:"column", gap:28, width:"100%", maxWidth:700 }}>
-            {SETTINGS.bayramlar.map(b => (
-              <div key={b.tarih} style={{ ...rowStyle, flexDirection:"column", alignItems:"flex-start", gap:12 }}>
-                <span style={{ color:"#c9a66b", fontSize:20, fontWeight:700 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 32, width: "100%", maxWidth: 700 }}>
+            {SETTINGS.bayramlar.map((b: any) => (
+              <div key={b.tarih} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                <span style={{ color: "#c9a66b", fontSize: 20, fontWeight: 700 }}>
                   {lang === "tr" ? b.ad_tr : b.ad_de} ({b.tarih} – {b.tarih2})
                 </span>
-                <div style={{ display:"flex", alignItems:"center", gap:16 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <button onClick={() => setBayramMins(prev => ({ ...prev, [b.tarih]: (prev[b.tarih] ?? 540) - 5 }))} style={btnStyle("#c9a66b88", 48)}>−5</button>
                   <button onClick={() => setBayramMins(prev => ({ ...prev, [b.tarih]: (prev[b.tarih] ?? 540) - 1 }))} style={btnStyle("#c9a66b", 52)}>−</button>
-                  <button onClick={() => setBayramMins(prev => ({ ...prev, [b.tarih]: (prev[b.tarih] ?? 540) - 5 }))} style={btnStyle("#c9a66b88", 44)}>−5</button>
-                  <span style={{ ...valueStyle, fontSize:42, minWidth:110 }}>{minutesToTime(bayramMins[b.tarih] ?? 540)}</span>
-                  <button onClick={() => setBayramMins(prev => ({ ...prev, [b.tarih]: (prev[b.tarih] ?? 540) + 5 }))} style={btnStyle("#c9a66b88", 44)}>+5</button>
+                  <span style={valueStyle}>{minutesToTime(bayramMins[b.tarih] ?? 540)}</span>
                   <button onClick={() => setBayramMins(prev => ({ ...prev, [b.tarih]: (prev[b.tarih] ?? 540) + 1 }))} style={btnStyle("#c9a66b", 52)}>+</button>
+                  <button onClick={() => setBayramMins(prev => ({ ...prev, [b.tarih]: (prev[b.tarih] ?? 540) + 5 }))} style={btnStyle("#c9a66b88", 48)}>+5</button>
                 </div>
               </div>
             ))}
@@ -405,217 +371,225 @@ export default function App() {
 
         {/* ─── DUYURU ─── */}
         {settingsTab === "duyuru" && (
-          <div style={{ display:"flex", flexDirection:"column", gap:16, width:"100%", maxWidth:800 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14, width: "100%", maxWidth: 820 }}>
+
             {/* Dil seç */}
-            <div style={{ display:"flex", gap:12 }}>
-              {(["tr","de"] as const).map(l => (
+            <div style={{ display: "flex", gap: 12 }}>
+              {(["tr", "de"] as const).map(l => (
                 <button key={l} onClick={() => { setDuyuruEditLang(l); setDuyuruCursorPos(0); }}
-                  style={{ padding:"8px 24px", fontSize:18, fontWeight:700,
-                    background: duyuruEditLang === l ? "#c9a66b" : "#1a5c3a",
-                    color: duyuruEditLang === l ? "#0a3d2e" : "#c9a66b",
-                    border:"2px solid #c9a66b", borderRadius:8, cursor:"pointer" }}>
+                  style={{ padding: "10px 28px", fontSize: 18, fontWeight: 700, background: duyuruEditLang === l ? "#c9a66b" : "#1a5c3a", color: duyuruEditLang === l ? "#0a3d2e" : "#c9a66b", border: "2px solid #c9a66b", borderRadius: 8, cursor: "pointer" }}>
                   {l === "tr" ? "🇹🇷 Türkçe" : "🇩🇪 Deutsch"}
                 </button>
               ))}
             </div>
 
-            {/* Mevcut metin göster */}
-            <div style={{ background:"#072d20", border:"2px solid #c9a66b", borderRadius:8, padding:"12px 16px", minHeight:80, color:"#f5d78e", fontSize:22, lineHeight:1.5, wordBreak:"break-word", whiteSpace:"pre-wrap" }}>
+            {/* Mevcut metin */}
+            <div style={{ background: "#072d20", border: "2px solid #c9a66b", borderRadius: 8, padding: "12px 16px", minHeight: 72, color: "#f5d78e", fontSize: 22, lineHeight: 1.5, wordBreak: "break-word", whiteSpace: "pre-wrap" }}>
               {currentDuyuru.slice(0, duyuruCursorPos)}
-              <span style={{ background:"#c9a66b", color:"#0a3d2e", padding:"0 2px" }}>|</span>
+              <span style={{ background: "#c9a66b", color: "#0a3d2e", padding: "0 2px" }}>|</span>
               {currentDuyuru.slice(duyuruCursorPos)}
-              {currentDuyuru === "" && <span style={{ color:"#c9a66b66" }}>{lang === "tr" ? "(boş)" : "(leer)"}</span>}
+              {currentDuyuru === "" && <span style={{ color: "#c9a66b55" }}>{lang === "tr" ? "(boş)" : "(leer)"}</span>}
             </div>
 
-            {/* Cursor hareket */}
-            <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
-              <button onClick={() => setDuyuruCursorPos(p => Math.max(0, p-1))} style={btnStyle("#a8c8b0", 44)}>◀</button>
-              <button onClick={() => setDuyuruCursorPos(p => Math.min(currentDuyuru.length, p+1))} style={btnStyle("#a8c8b0", 44)}>▶</button>
-              <button onClick={() => setDuyuruCursorPos(0)} style={{ ...btnStyle("#a8c8b0", 44), fontSize:14 }}>⏮</button>
-              <button onClick={() => setDuyuruCursorPos(currentDuyuru.length)} style={{ ...btnStyle("#a8c8b0", 44), fontSize:14 }}>⏭</button>
-              <button onClick={duyuruBackspace} style={{ ...btnStyle("#ff6b6b", 44), fontSize:18 }}>⌫</button>
-              <button onClick={duyuruClear} style={{ ...btnStyle("#ff6b6b", 44), fontSize:13 }}>CLR</button>
+            {/* Cursor + sil butonları */}
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              <button onClick={() => setDuyuruCursorPos(p => Math.max(0, p - 1))} style={btnStyle("#a8c8b0", 48)}>◀</button>
+              <button onClick={() => setDuyuruCursorPos(p => Math.min(currentDuyuru.length, p + 1))} style={btnStyle("#a8c8b0", 48)}>▶</button>
+              <button onClick={() => setDuyuruCursorPos(0)} style={{ ...btnStyle("#a8c8b0", 48), fontSize: 16 }}>⏮</button>
+              <button onClick={() => setDuyuruCursorPos(currentDuyuru.length)} style={{ ...btnStyle("#a8c8b0", 48), fontSize: 16 }}>⏭</button>
+              <button onClick={duyuruBackspace} style={{ ...btnStyle("#ff6b6b", 48), fontSize: 20 }}>⌫</button>
+              <button onClick={duyuruClear} style={{ ...btnStyle("#ff6b6b", 48), fontSize: 14 }}>CLR</button>
             </div>
 
             {/* Klavye */}
-            <div style={{ display:"flex", flexWrap:"wrap", gap:6, maxWidth:780 }}>
-              {DUYURU_CHARS.map((ch, i) => (
-                <button key={i} onClick={() => duyuruInsert(ch)}
-                  style={{ padding:"6px 0", width: ch === "\n" ? 70 : 40, height:40, fontSize:16, fontWeight:600,
-                    background:"#1a5c3a", color:"#f5d78e", border:"1px solid #c9a66b55",
-                    borderRadius:6, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>
-                  {ch === "\n" ? "↵" : ch === " " ? "␣" : ch}
-                </button>
-              ))}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, maxWidth: 820 }}>
+              {DUYURU_CHARS.map((ch, i) => {
+                const isSpace = ch === " ";
+                const isEnter = ch === "\n";
+                return (
+                  <button key={i} onClick={() => duyuruInsert(ch)}
+                    style={{
+                      height: 44,
+                      width: isSpace ? 100 : isEnter ? 76 : 42,
+                      fontSize: isSpace ? 13 : 16,
+                      fontWeight: 600,
+                      background: "#1a5c3a",
+                      color: "#f5d78e",
+                      border: "1px solid #c9a66b55",
+                      borderRadius: 6,
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: 0,
+                    }}>
+                    {isEnter ? "↵ ENTER" : isSpace ? "SPACE" : ch}
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
 
         {/* Kapat */}
-        <button
-          onClick={() => setShowSettings(false)}
-          style={{ marginTop:8, padding:"14px 60px", fontSize:22, background:"#c9a66b", color:"#0a3d2e", border:"none", borderRadius:10, cursor:"pointer", fontWeight:900, letterSpacing:2 }}
-        >
+        <button onClick={() => setShowSettings(false)}
+          style={{ marginTop: 8, padding: "14px 64px", fontSize: 22, background: "#c9a66b", color: "#0a3d2e", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: 900, letterSpacing: 2 }}>
           ✓ {lang === "tr" ? "KAYDET & KAPAT" : "SPEICHERN & SCHLIEẞEN"}
         </button>
       </div>
     );
   }
 
-  // ──────────────────────────────────────────────
-  // ANA EKRAN
-  // ──────────────────────────────────────────────
+  // ─── ANA EKRAN ───
   return (
-    <div style={{ width:"100vw", height:"100vh", overflow:"hidden", position:"fixed", top:0, left:0, background:"#000", zIndex:0 }}>
+    <div style={{ width: "100vw", height: "100vh", overflow: "hidden", position: "fixed", top: 0, left: 0, background: "#000", zIndex: 0 }}>
       <div className="tv-safe-area">
-        <div className="outer-frame" style={{ display:"flex", flexDirection:"column", position:"relative" }}>
+        <div className="outer-frame" style={{ display: "flex", flexDirection: "column", position: "relative" }}>
 
           {/* TOP BAR */}
-          <div className="top-bar" style={{ background:"linear-gradient(180deg,#0e5c3a 0%,#0a3d2e 100%)", borderBottom:"clamp(2px,0.37vh,4px) solid #c9a66b", display:"flex", alignItems:"center", justifyContent:"space-between", padding:"0 clamp(12px,1.7vw,32px)" }}>
-            <div style={{ display:"flex", flexDirection:"column", gap:"clamp(1px,0.28vh,4px)", minWidth:"clamp(140px,13vw,220px)" }}>
-              <div style={{ color:"#c9a66b", fontSize:"clamp(12px,1.3vw,22px)", fontWeight:500, letterSpacing:1, lineHeight:1 }}>
-                {lang === "tr" ? hicriStrTR(toHijri(now, hicriOffset)) : hicriStrDE(toHijri(now, hicriOffset))}
+          <div className="top-bar" style={{ background: "linear-gradient(180deg,#0e5c3a 0%,#0a3d2e 100%)", borderBottom: "clamp(2px,0.37vh,4px) solid #c9a66b", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 clamp(12px,1.7vw,32px)" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "clamp(1px,0.28vh,4px)", minWidth: "clamp(140px,13vw,220px)" }}>
+              <div style={{ color: "#c9a66b", fontSize: "clamp(12px,1.3vw,22px)", fontWeight: 500, letterSpacing: 1, lineHeight: 1 }}>
+                {lang === "tr" ? hicriStrTR(hicri) : hicriStrDE(hicri)}
               </div>
-              <div style={{ color:"#f5d78e", fontSize:28, fontWeight:700, lineHeight:1 }}>
+              <div style={{ color: "#f5d78e", fontSize: 28, fontWeight: 700, lineHeight: 1 }}>
                 {lang === "tr" ? miladiTRStr(now) : miladiDEStr(now)}
               </div>
             </div>
 
-            <div style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center" }}>
-              <div style={{ color:"#f5d78e", fontSize:52, fontWeight:900, letterSpacing:6, textTransform:"uppercase", textAlign:"center", lineHeight:1, fontFamily:"'Segoe UI','Arial',sans-serif" }}>
+            <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ color: "#f5d78e", fontSize: 52, fontWeight: 900, letterSpacing: 6, textTransform: "uppercase", textAlign: "center", lineHeight: 1, fontFamily: "'Segoe UI','Arial',sans-serif" }}>
                 {lang === "tr" ? "RIDVAN CAMİİ — VİYANA" : "RIDVAN MOSCHEE — WIEN"}
               </div>
             </div>
 
-            <div style={{ display:"flex", alignItems:"flex-end", minWidth:220, justifyContent:"flex-end" }}>
-              <span style={{ color:"#f5d78e", fontSize:68, fontWeight:900, lineHeight:1, fontFamily:"monospace" }}>{hh}</span>
-              <span style={{ color:"#c9a66b", fontSize:52, fontWeight:900, margin:"0 4px", fontFamily:"monospace", animation:"pulse 1s infinite" }}>:</span>
-              <span style={{ color:"#f5d78e", fontSize:68, fontWeight:900, lineHeight:1, fontFamily:"monospace" }}>{mm}</span>
-              <span style={{ color:"#c9a66b", fontSize:32, fontWeight:700, marginBottom:6, marginLeft:6, fontFamily:"monospace", animation:"pulse 1s infinite" }}>{ss}</span>
+            <div style={{ display: "flex", alignItems: "flex-end", minWidth: 220, justifyContent: "flex-end" }}>
+              <span style={{ color: "#f5d78e", fontSize: 68, fontWeight: 900, lineHeight: 1, fontFamily: "monospace" }}>{hh}</span>
+              <span style={{ color: "#c9a66b", fontSize: 52, fontWeight: 900, margin: "0 4px", fontFamily: "monospace", animation: "pulse 1s infinite" }}>:</span>
+              <span style={{ color: "#f5d78e", fontSize: 68, fontWeight: 900, lineHeight: 1, fontFamily: "monospace" }}>{mm}</span>
+              <span style={{ color: "#c9a66b", fontSize: 32, fontWeight: 700, marginBottom: 6, marginLeft: 6, fontFamily: "monospace", animation: "pulse 1s infinite" }}>{ss}</span>
             </div>
           </div>
 
           {/* MAIN PANELS */}
-          <div className="main-panels" style={{ display:"flex", flex:1 }}>
+          <div className="main-panels" style={{ display: "flex", flex: 1 }}>
 
             {/* SOL — VAKİT LİSTESİ */}
-            <div className="panel" style={{ flex:1, display:"flex", flexDirection:"column", background:"#0a3d2e" }}>
-              <div style={{ background:"#c9a66b", textAlign:"center", padding:"12px 0", color:"#0a3d2e", fontSize:36, fontWeight:900, letterSpacing:3, flexShrink:0, lineHeight:1 }}>
+            <div className="panel" style={{ flex: 1, display: "flex", flexDirection: "column", background: "#0a3d2e" }}>
+              <div style={{ background: "#c9a66b", textAlign: "center", padding: "12px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0, lineHeight: 1 }}>
                 {lang === "tr" ? "NAMAZ VAKİTLERİ" : "GEBETSZEITEN"}
               </div>
-              <div style={{ display:"grid", gridTemplateColumns:"1.2fr 1fr 1fr", padding:"8px 20px", borderBottom:"2px solid #c9a66b", background:"#072d20", flexShrink:0 }}>
-                <span style={{ color:"#c9a66b", fontSize:24, fontWeight:700, letterSpacing:2, lineHeight:1 }}>{lang==="tr"?"VAKİT":"GEBET"}</span>
-                <span style={{ color:"#c9a66b", fontSize:24, fontWeight:700, letterSpacing:2, textAlign:"center", lineHeight:1 }}>{lang==="tr"?"EZAN":"ADHAN"}</span>
-                <span style={{ color:"#c9a66b", fontSize:24, fontWeight:700, letterSpacing:2, textAlign:"right", lineHeight:1 }}>{lang==="tr"?"KAMET":"IQÂMAT"}</span>
+              <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", padding: "8px 20px", borderBottom: "2px solid #c9a66b", background: "#072d20", flexShrink: 0 }}>
+                <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, lineHeight: 1 }}>{lang === "tr" ? "VAKİT" : "GEBET"}</span>
+                <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, textAlign: "center", lineHeight: 1 }}>{lang === "tr" ? "EZAN" : "ADHAN"}</span>
+                <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, textAlign: "right", lineHeight: 1 }}>{lang === "tr" ? "KAMET" : "IQÂMAT"}</span>
               </div>
-              <div style={{ flex:1, display:"flex", flexDirection:"column" }}>
+              <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
                 {vakitList.map(({ key, ezan, kamet }) => {
                   const isActive = flow.currentVakit === key;
                   const isNext = flow.nextVakit === key;
                   return (
                     <div key={key} className={isActive ? "active-vakit-row" : ""}
-                      style={{ display:"grid", gridTemplateColumns:"1.2fr 1fr 1fr", padding:"0 20px", flex:1, borderBottom:"1px solid #c9a66b33",
-                        background: isActive ? undefined : isNext ? "rgba(201,166,107,0.07)" : "transparent",
-                        borderLeft: isActive ? "7px solid #c9a66b" : "7px solid transparent", alignItems:"center", transition:"background 0.3s" }}>
-                      <span className={isActive?"active-vakit-text":""} style={{ color:isActive?"#f5d78e":"#a8c8b0", fontSize:isActive?36:32, fontWeight:isActive?900:600, letterSpacing:1, lineHeight:1 }}>{VAKIT_NAMES[lang][key]}</span>
-                      <span className={isActive?"active-vakit-text":""} style={{ color:"#f5d78e", fontSize:isActive?48:44, fontWeight:700, textAlign:"center", fontFamily:"monospace", lineHeight:1 }}>{ezan}</span>
-                      <span className={isActive?"active-vakit-text":""} style={{ color:isActive?"#f5d78e":"#a8c8b0", fontSize:40, textAlign:"right", fontFamily:"monospace", lineHeight:1 }}>{kamet||"—"}</span>
+                      style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", padding: "0 20px", flex: 1, borderBottom: "1px solid #c9a66b33", background: isActive ? undefined : isNext ? "rgba(201,166,107,0.07)" : "transparent", borderLeft: isActive ? "7px solid #c9a66b" : "7px solid transparent", alignItems: "center", transition: "background 0.3s" }}>
+                      <span className={isActive ? "active-vakit-text" : ""} style={{ color: isActive ? "#f5d78e" : "#a8c8b0", fontSize: isActive ? 36 : 32, fontWeight: isActive ? 900 : 600, letterSpacing: 1, lineHeight: 1 }}>{VAKIT_NAMES[lang][key]}</span>
+                      <span className={isActive ? "active-vakit-text" : ""} style={{ color: "#f5d78e", fontSize: isActive ? 48 : 44, fontWeight: 700, textAlign: "center", fontFamily: "monospace", lineHeight: 1 }}>{ezan}</span>
+                      <span className={isActive ? "active-vakit-text" : ""} style={{ color: isActive ? "#f5d78e" : "#a8c8b0", fontSize: 40, textAlign: "right", fontFamily: "monospace", lineHeight: 1 }}>{kamet || "—"}</span>
                     </div>
                   );
                 })}
-                <div style={{ display:"grid", gridTemplateColumns:"1.2fr 1fr 1fr", padding:"0 20px", flex:1, background:"#c9a66b", alignItems:"center", borderLeft:"7px solid #a07d3a", lineHeight:1 }}>
-                  <span style={{ color:"#0a3d2e", fontSize:34, fontWeight:900, letterSpacing:1, lineHeight:1 }}>{lang==="tr"?"CUMA":"DSCHUM'A"}</span>
-                  <span style={{ color:"#0a3d2e", fontSize:46, fontWeight:700, textAlign:"center", fontFamily:"monospace", lineHeight:1 }}>{SETTINGS.cuma.ezan}</span>
-                  <span style={{ color:"#0a3d2e", fontSize:40, textAlign:"right", fontFamily:"monospace", lineHeight:1 }}>{SETTINGS.cuma.kamet}</span>
+                <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", padding: "0 20px", flex: 1, background: "#c9a66b", alignItems: "center", borderLeft: "7px solid #a07d3a", lineHeight: 1 }}>
+                  <span style={{ color: "#0a3d2e", fontSize: 34, fontWeight: 900, letterSpacing: 1, lineHeight: 1 }}>{lang === "tr" ? "CUMA" : "DSCHUM'A"}</span>
+                  <span style={{ color: "#0a3d2e", fontSize: 46, fontWeight: 700, textAlign: "center", fontFamily: "monospace", lineHeight: 1 }}>{SETTINGS.cuma.ezan}</span>
+                  <span style={{ color: "#0a3d2e", fontSize: 40, textAlign: "right", fontFamily: "monospace", lineHeight: 1 }}>{SETTINGS.cuma.kamet}</span>
                 </div>
                 {bayram.visible && bayram.bayram && (
-                  <div style={{ display:"grid", gridTemplateColumns:"1.2fr 1fr 1fr", padding:"0 20px", flex:1, background:"rgba(201,166,107,0.15)", borderTop:"2px solid #c9a66b66", alignItems:"center", lineHeight:1 }}>
-                    <span style={{ color:"#f5d78e", fontSize:26, fontWeight:700, lineHeight:1 }}>{lang==="tr"?bayram.bayram.ad_tr:bayram.bayram.ad_de}</span>
-                    <span style={{ color:"#f5d78e", fontSize:40, fontWeight:700, textAlign:"center", fontFamily:"monospace", lineHeight:1 }}>{minutesToTime(bayramMins[bayram.bayram.tarih] ?? timeToMinutes(bayram.bayram.saat||"09:00"))}</span>
-                    <span style={{ color:"#a8c8b0", fontSize:34, textAlign:"right", lineHeight:1 }}>—</span>
+                  <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", padding: "0 20px", flex: 1, background: "rgba(201,166,107,0.15)", borderTop: "2px solid #c9a66b66", alignItems: "center", lineHeight: 1 }}>
+                    <span style={{ color: "#f5d78e", fontSize: 26, fontWeight: 700, lineHeight: 1 }}>{lang === "tr" ? bayram.bayram.ad_tr : bayram.bayram.ad_de}</span>
+                    <span style={{ color: "#f5d78e", fontSize: 40, fontWeight: 700, textAlign: "center", fontFamily: "monospace", lineHeight: 1 }}>{minutesToTime(bayramMins[bayram.bayram.tarih] ?? timeToMinutes(bayram.bayram.saat || "09:00"))}</span>
+                    <span style={{ color: "#a8c8b0", fontSize: 34, textAlign: "right", lineHeight: 1 }}>—</span>
                   </div>
                 )}
                 {weekendMsg && (
-                  <div style={{ padding:"8px 16px", color:"#c9a66b", fontSize:16, fontStyle:"italic", flexShrink:0, borderTop:"1px solid #c9a66b33", lineHeight:1 }}>
-                    {lang==="tr"?"Haftasonu eğitimi sebebiyle öğle namazı 13:00 olarak ayarlanmıştır.":"Das Mittagsgebet ist aufgrund des Wochenendunterrichts auf 13:00 Uhr festgelegt."}
+                  <div style={{ padding: "8px 16px", color: "#c9a66b", fontSize: 16, fontStyle: "italic", flexShrink: 0, borderTop: "1px solid #c9a66b33", lineHeight: 1 }}>
+                    {lang === "tr" ? "Haftasonu eğitimi sebebiyle öğle namazı 13:00 olarak ayarlanmıştır." : "Das Mittagsgebet ist aufgrund des Wochenendunterrichts auf 13:00 Uhr festgelegt."}
                   </div>
                 )}
               </div>
             </div>
 
             {/* ORTA — COUNTDOWN */}
-            <div className="panel" style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", background:"#0a3d2e", gap:20 }}>
+            <div className="panel" style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#0a3d2e", gap: 20 }}>
               {isKametAlert ? (
-                <div style={{ textAlign:"center" }}>
-                  <div style={{ color:"#c9a66b", fontSize:58, fontWeight:900, letterSpacing:6, animation:"pulse 1s infinite", marginBottom:20, lineHeight:1 }}>{lang==="tr"?"KAMET":"IQÂMAT"}</div>
-                  <div style={{ color:"#f5d78e", fontSize:108, fontWeight:900, letterSpacing:4, animation:"pulse 1s infinite", lineHeight:1 }}>{kametVakit?VAKIT_NAMES[lang][kametVakit]:""}</div>
+                <div style={{ textAlign: "center" }}>
+                  <div style={{ color: "#c9a66b", fontSize: 58, fontWeight: 900, letterSpacing: 6, animation: "pulse 1s infinite", marginBottom: 20, lineHeight: 1 }}>{lang === "tr" ? "KAMET" : "IQÂMAT"}</div>
+                  <div style={{ color: "#f5d78e", fontSize: 108, fontWeight: 900, letterSpacing: 4, animation: "pulse 1s infinite", lineHeight: 1 }}>{kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}</div>
                 </div>
               ) : (
                 <>
-                  <div className="panel-title">{lang==="tr"?"GÜNÜN VAKTİ":"AKTUELLE GEBETSZEIT"}</div>
-                  <div className={`current-vakit ${isEzan?"ezan":""}`}>{currentLabel}</div>
+                  <div className="panel-title">{lang === "tr" ? "GÜNÜN VAKTİ" : "AKTUELLE GEBETSZEIT"}</div>
+                  <div className={`current-vakit ${isEzan ? "ezan" : ""}`}>{currentLabel}</div>
                   {!isKametCountdown && (
                     <>
-                      <div className="panel-title" style={{ marginTop:8 }}>{lang==="tr"?"SONRAKI VAKİT":"NÄCHSTE GEBETSZEIT"}</div>
+                      <div className="panel-title" style={{ marginTop: 8 }}>{lang === "tr" ? "SONRAKI VAKİT" : "NÄCHSTE GEBETSZEIT"}</div>
                       <div className="next-vakit">{nextLabel} — {flow.nextVakitTime}</div>
                     </>
                   )}
                   {isKametCountdown && (
-                    <div style={{ textAlign:"center", marginTop:8 }}>
-                      <div className="panel-title">{lang==="tr"?"KAMETE KALAN SÜRE":"ZEIT BIS ZUM IQÂMAT"}</div>
-                      <div style={{ color:"#f5d78e", fontSize:70, fontWeight:700, marginTop:16, lineHeight:1 }}>{kametVakit?VAKIT_NAMES[lang][kametVakit]:""}</div>
+                    <div style={{ textAlign: "center", marginTop: 8 }}>
+                      <div className="panel-title">{lang === "tr" ? "KAMETE KALAN SÜRE" : "ZEIT BIS ZUM IQÂMAT"}</div>
+                      <div style={{ color: "#f5d78e", fontSize: 70, fontWeight: 700, marginTop: 16, lineHeight: 1 }}>{kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}</div>
                     </div>
                   )}
                   <div className="countdown-row">
                     {[
-                      { val: fmt2(cdH), label: lang==="tr"?"Saat":"Std." },
+                      { val: fmt2(cdH), label: lang === "tr" ? "Saat" : "Std." },
                       null,
-                      { val: fmt2(cdM), label: lang==="tr"?"Dakika":"Min." },
+                      { val: fmt2(cdM), label: lang === "tr" ? "Dakika" : "Min." },
                       null,
-                      { val: fmt2(cdS), label: lang==="tr"?"Saniye":"Sek." },
+                      { val: fmt2(cdS), label: lang === "tr" ? "Saniye" : "Sek." },
                     ].map((item, i) =>
                       item === null
                         ? <span key={i} className="countdown-separator">:</span>
                         : <div key={i} className="countdown-box">
-                            <span className="countdown-value">{item.val}</span>
-                            <span className="countdown-label">{item.label}</span>
-                          </div>
+                          <span className="countdown-value">{item.val}</span>
+                          <span className="countdown-label">{item.label}</span>
+                        </div>
                     )}
                   </div>
                   {flow.currentVakit === "sabah" && !isEzan && !isKametCountdown && (
-                    <div style={{ textAlign:"center", marginTop:16 }}>
-                      <div style={{ color:"#c9a66b", fontSize:36, letterSpacing:3, lineHeight:1 }}>{lang==="tr"?"GÜNEŞE KALAN":"BIS SCHURUQ"}</div>
-                      <div style={{ color:"#a8c8b0", fontSize:40, fontWeight:700, lineHeight:1 }}>{fmt2(Math.floor(gunesKalanSec/3600))}:{fmt2(Math.floor((gunesKalanSec%3600)/60))}:{fmt2(gunesKalanSec%60)}</div>
+                    <div style={{ textAlign: "center", marginTop: 16 }}>
+                      <div style={{ color: "#c9a66b", fontSize: 36, letterSpacing: 3, lineHeight: 1 }}>{lang === "tr" ? "GÜNEŞE KALAN" : "BIS SCHURUQ"}</div>
+                      <div style={{ color: "#a8c8b0", fontSize: 40, fontWeight: 700, lineHeight: 1 }}>{fmt2(Math.floor(gunesKalanSec / 3600))}:{fmt2(Math.floor((gunesKalanSec % 3600) / 60))}:{fmt2(gunesKalanSec % 60)}</div>
                     </div>
                   )}
                 </>
               )}
               {bayram.visible && (
-                <div style={{ marginTop:20, padding:"12px 36px", background:"#c9a66b22", border:"3px solid #c9a66b", borderRadius:12, color:"#f5d78e", fontSize:35, fontWeight:700, textAlign:"center", lineHeight:1 }}>
-                  🎉 {lang==="tr"?bayram.bayram?.ad_tr:bayram.bayram?.ad_de}
+                <div style={{ marginTop: 20, padding: "12px 36px", background: "#c9a66b22", border: "3px solid #c9a66b", borderRadius: 12, color: "#f5d78e", fontSize: 35, fontWeight: 700, textAlign: "center", lineHeight: 1 }}>
+                  🎉 {lang === "tr" ? bayram.bayram?.ad_tr : bayram.bayram?.ad_de}
                 </div>
               )}
             </div>
 
             {/* SAĞ — DUA + DUYURU */}
-            <div className="panel" style={{ flex:1, display:"flex", flexDirection:"column", background:"#0a3d2e", minHeight:0 }}>
-              <div style={{ flex:1, display:"flex", flexDirection:"column", borderBottom:"3px solid #c9a66b", minHeight:0 }}>
-                <div style={{ background:"#c9a66b", textAlign:"center", padding:"10px 0", color:"#0a3d2e", fontSize:36, fontWeight:900, letterSpacing:3, flexShrink:0 }}>
-                  {isEzan ? (lang==="tr"?"EZAN DUASI":"ADHAN-GEBET") : (lang==="tr"?"GÜNÜN DUASI":"DUA DES TAGES")}
+            <div className="panel" style={{ flex: 1, display: "flex", flexDirection: "column", background: "#0a3d2e", minHeight: 0 }}>
+              <div style={{ flex: 1, display: "flex", flexDirection: "column", borderBottom: "3px solid #c9a66b", minHeight: 0 }}>
+                <div style={{ background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0 }}>
+                  {isEzan ? (lang === "tr" ? "EZAN DUASI" : "ADHAN-GEBET") : (lang === "tr" ? "GÜNÜN DUASI" : "DUA DES TAGES")}
                 </div>
-                <div style={{ flex:1, minHeight:0, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"16px 20px", gap:duaTypography.gap, overflow:"hidden", boxSizing:"border-box" }}>
-                  <div style={{ color:"#f5d78e", fontSize:duaTypography.ar, textAlign:"right", lineHeight:1.65, direction:"rtl", fontFamily:"serif", width:"100%", maxWidth:"100%", overflowWrap:"break-word", wordBreak:"break-word", textShadow:"1px 1px 2px #000", margin:0, overflow:"hidden" }}>{duaArabic}</div>
-                  <div style={{ color:"#a8c8b0", fontSize:duaTypography.text, textAlign:"center", lineHeight:1.45, width:"100%", maxWidth:"100%", overflowWrap:"break-word", wordBreak:"break-word", whiteSpace:"pre-wrap", textShadow:"1px 1px 2px #000", margin:0, overflow:"hidden" }}>{duaText}</div>
+                <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "16px 20px", gap: duaTypography.gap, overflow: "hidden", boxSizing: "border-box" }}>
+                  <div style={{ color: "#f5d78e", fontSize: duaTypography.ar, textAlign: "right", lineHeight: 1.65, direction: "rtl", fontFamily: "serif", width: "100%", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000", overflow: "hidden" }}>{duaArabic}</div>
+                  <div style={{ color: "#a8c8b0", fontSize: duaTypography.text, textAlign: "center", lineHeight: 1.45, width: "100%", overflowWrap: "break-word", wordBreak: "break-word", whiteSpace: "pre-wrap", textShadow: "1px 1px 2px #000", overflow: "hidden" }}>{duaText}</div>
                 </div>
               </div>
 
-              <div style={{ flex:1, display:"flex", flexDirection:"column", minHeight:0 }}>
-                <div style={{ background:"#c9a66b", textAlign:"center", padding:"10px 0", color:"#0a3d2e", fontSize:36, fontWeight:900, letterSpacing:3, flexShrink:0 }}>
-                  {lang==="tr"?"DUYURULAR":"ANKÜNDIGUNGEN"}
+              <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
+                <div style={{ background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0 }}>
+                  {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
                 </div>
-                <div style={{ flex:1, minHeight:0, display:"flex", alignItems:"center", justifyContent:"center", padding:"20px 16px", overflow:"hidden" }}>
-                  <div style={{ color:"#f5d78e", fontSize:40, textAlign:"center", lineHeight:1.6, width:"100%", whiteSpace:"pre-wrap", overflowWrap:"break-word", wordBreak:"break-word", textShadow:"1px 1px 2px #000" }}>
-                    {lang==="tr" ? duyuruTR||"—" : duyuruDE||"—"}
+                <div style={{ flex: 1, minHeight: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "20px 16px", overflow: "hidden" }}>
+                  <div style={{ color: "#f5d78e", fontSize: 40, textAlign: "center", lineHeight: 1.6, width: "100%", whiteSpace: "pre-wrap", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000" }}>
+                    {lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"}
                   </div>
                 </div>
               </div>
@@ -623,21 +597,21 @@ export default function App() {
           </div>
 
           {/* BOTTOM BAR */}
-          <div className="bottom-bar" style={{ background:"linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)", borderTop:"4px solid #c9a66b", display:"flex", alignItems:"center", justifyContent:"space-between", padding:"0 32px", cursor:"default", position:"relative" }}>
-            <div style={{ color:"#c9a66b", fontSize:14, letterSpacing:1 }} onClick={handleBottomClick}>
+          <div className="bottom-bar" style={{ background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)", borderTop: "4px solid #c9a66b", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", position: "relative" }}>
+            <div style={{ color: "#c9a66b", fontSize: 14, letterSpacing: 1 }} onClick={handleBottomClick}>
               Bu uygulama <strong>AyTa®</strong> tarafından hazırlanmıştır
             </div>
-            <button onClick={() => { setShowSettings(true); setSettingsTab("genel"); }}
-              title="Ayarlar"
-              style={{ position:"absolute", left:"50%", transform:"translateX(-50%)", background:"transparent", border:"1px solid #c9a66b44", borderRadius:6, padding:"4px 10px", color:"#c9a66b77", fontSize:16, cursor:"pointer", display:"flex", alignItems:"center", gap:4, transition:"all 0.2s", lineHeight:1 }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color="#c9a66b"; (e.currentTarget as HTMLButtonElement).style.borderColor="#c9a66b"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color="#c9a66b77"; (e.currentTarget as HTMLButtonElement).style.borderColor="#c9a66b44"; }}>
+            <button onClick={() => { setShowSettings(true); setSettingsTab("genel"); }} title="Ayarlar"
+              style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", background: "transparent", border: "1px solid #c9a66b44", borderRadius: 6, padding: "4px 10px", color: "#c9a66b77", fontSize: 16, cursor: "pointer", lineHeight: 1 }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "#c9a66b"; (e.currentTarget as HTMLButtonElement).style.borderColor = "#c9a66b"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = "#c9a66b77"; (e.currentTarget as HTMLButtonElement).style.borderColor = "#c9a66b44"; }}>
               ⚙️
             </button>
-            <div style={{ border:"3px solid #c9a66b", borderRadius:8, padding:"6px 12px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ffffff", boxShadow:"0 0 0 1px #c9a66b" }}>
-              <img src="img/logo.png?v=5" alt="Ridvan Camii Logo" style={{ height:52, objectFit:"contain" }} />
+            <div style={{ border: "3px solid #c9a66b", borderRadius: 8, padding: "6px 12px", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#ffffff", boxShadow: "0 0 0 1px #c9a66b" }}>
+              <img src="img/logo.png?v=5" alt="Ridvan Camii Logo" style={{ height: 52, objectFit: "contain" }} />
             </div>
           </div>
+
         </div>
       </div>
     </div>
