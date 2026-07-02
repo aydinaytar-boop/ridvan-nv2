@@ -2095,5 +2095,3 @@ export const DUA_ARCHIVE: DailyDua[] = [
 ];
 
 
-];
-
