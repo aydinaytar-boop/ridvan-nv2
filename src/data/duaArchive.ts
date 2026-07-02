@@ -133,5 +133,1967 @@ export const DUA_ARCHIVE: DailyDua[] = [
   { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الرِّضَا بَعْدَ الْقَضَاءِ وَالْعَيْشَ الْهَنِيءَ بَعْدَ الْمَوْتِ", tr: "Allah'ım! Hükmünden sonra rıza ve ölümden sonra huzurlu bir hayat isterim.", de: "O Allah, ich bitte Dich um Zufriedenheit nach Deinem Urteil und ein friedliches Leben nach dem Tod." },
   { ar: "رَبَّنَا وَسِعْتَ كُلَّ شَيْءٍ رَّحْمَةً وَعِلْمًا فَاغْفِرْ لِلَّذِينَ تَابُوا وَاتَّبَعُوا سَبِيلَكَ وَقِهِمْ عَذَابَ الْجَحِيمِ", tr: "Rabbimiz! Rahmetin ve ilmin her şeyi kuşatmıştır. Tevbe edip yoluna uyanları bağışla ve onları cehennem azabından koru.", de: "Unser Herr, Deine Barmherzigkeit und Dein Wissen umfassen alles. Vergib denen, die bereuen und Deinen Weg befolgen, und bewahre sie vor der Strafe der Hölle." },
   { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ قَلْبٍ لَا يَخْشَعُ وَمِنْ نَفْسٍ لَا تَشْبَعُ وَمِنْ عِلْمٍ لَا يَنْفَعُ", tr: "Allah'ım! Huşu duymayan kalpten, doymayan nefisten ve fayda vermeyen ilimden Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor einem Herzen, das nicht demütig ist, einer Seele, die nicht satt wird, und einem Wissen, das keinen Nutzen bringt." },
+// 121. Gün — Kur’an (A’râf 89)
+{
+  source: "KURAN",
+  ar: "عَلَى اللَّهِ تَوَكَّلْنَا",
+  tr: "Biz Allah’a tevekkül ettik.",
+  de: "Auf Allah vertrauen wir."
+},
+
+// 122. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
+  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Lichts."
+},
+
+// 123. Gün — Kur’an (Taha 25–28)
+{
+  source: "KURAN",
+  ar: "رَبِّ اشْرَحْ لِي صَدْرِي * وَيَسِّرْ لِي أَمْرِي",
+  tr: "Rabbim! Göğsüme genişlik ver, işimi kolaylaştır.",
+  de: "Mein Herr, öffne mir meine Brust und erleichtere mir meine Angelegenheit."
+},
+
+// 124. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ قَلْبِي",
+  tr: "Allah’ım! Kalbimi nurlandır.",
+  de: "O Allah, erleuchte mein Herz."
+},
+
+// 125. Gün — Kur’an (İsra 80)
+{
+  source: "KURAN",
+  ar: "رَبِّ أَدْخِلْنِي مُدْخَلَ صِدْقٍ",
+  tr: "Rabbim! Beni doğrulukla girdireceğin yere girdir.",
+  de: "Mein Herr, lass mich aufrichtig eintreten."
+},
+
+// 126. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ قَلْبًا خَاشِعًا",
+  tr: "Allah’ım! Huşu sahibi bir kalp isterim.",
+  de: "O Allah, ich bitte Dich um ein demütiges Herz."
+},
+
+// 127. Gün — Kur’an (İsra 24)
+{
+  source: "KURAN",
+  ar: "رَبِّ ارْحَمْهُمَا",
+  tr: "Rabbim! Onlara merhamet et.",
+  de: "Mein Herr, erbarme Dich ihrer."
+},
+
+// 128. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ بَصَرِي",
+  tr: "Allah’ım! Gözümü nurlandır.",
+  de: "O Allah, erleuchte meinen Blick."
+},
+
+// 129. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ لِي وَلِأَخِي",
+  tr: "Rabbim! Beni ve kardeşimi bağışla.",
+  de: "Mein Herr, vergib mir und meinem Bruder."
+},
+
+// 130. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
+  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
+},
+
+// 131. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ وَارْحَمْ",
+  tr: "Rabbim! Bağışla, merhamet et.",
+  de: "Mein Herr, vergib und erbarme Dich."
+},
+
+// 132. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا عَمِلْتُ",
+  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
+},
+
+// 133. Gün — Kur’an (Baqarah 201)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً",
+  tr: "Rabbimiz! Bize dünyada iyilik ver.",
+  de: "Unser Herr, gib uns Gutes im Diesseits."
+},
+
+// 134. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الصِّدْقِ",
+  tr: "Allah’ım! Beni doğruluk ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen der Wahrhaftigkeit."
+},
+
+// 135. Gün — Kur’an (İsra 80)
+{
+  source: "KURAN",
+  ar: "وَأَخْرِجْنِي مُخْرَجَ صِدْقٍ",
+  tr: "Beni doğrulukla çıkaracağın yerden çıkar.",
+  de: "Lass mich aufrichtig hinausgehen."
+},
+
+// 136. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ صَدْرِي",
+  tr: "Allah’ım! Göğsümü nurlandır.",
+  de: "O Allah, erleuchte meine Brust."
+},
+
+// 137. Gün — Kur’an (A’râf 155)
+{
+  source: "KURAN",
+  ar: "أَنتَ وَلِيُّنَا فَاغْفِرْ لَنَا",
+  tr: "Sen bizim velimizsin. Bizi bağışla.",
+  de: "Du bist unser Beschützer. Vergib uns."
+},
+
+// 138. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رَوْحًا وَرَاحَةً",
+  tr: "Allah’ım! Huzur ve ferahlık isterim.",
+  de: "O Allah, ich bitte Dich um Ruhe und Erleichterung."
+},
+
+// 139. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا إِنَّكَ تَعْلَمُ مَا نُخْفِي",
+  tr: "Rabbimiz! Gizlediğimizi Sen bilirsin.",
+  de: "Unser Herr, Du weißt, was wir verbergen."
+},
+
+// 140. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي سَمْعِي",
+  tr: "Allah’ım! İşitmemde nur isterim.",
+  de: "O Allah, gib meinem Gehör Licht."
+},
+
+// 141. Gün — Kur’an (Tahrim 8)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا أَتْمِمْ لَنَا نُورَنَا",
+  tr: "Rabbimiz! Nurumuzu tamamla.",
+  de: "Unser Herr, vollende unser Licht."
+},
+
+// 142. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْقُرْآنِ",
+  tr: "Allah’ım! Beni Kur’an ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Qurans."
+},
+
+// 143. Gün — Kur’an (İsra 24)
+{
+  source: "KURAN",
+  ar: "وَقُل رَّبِّ ارْحَمْهُمَا",
+  tr: "De ki: Rabbim! Onlara merhamet et.",
+  de: "Sprich: Mein Herr, erbarme Dich ihrer."
+},
+
+// 144. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ وَجْهِي",
+  tr: "Allah’ım! Yüzümü nurlandır.",
+  de: "O Allah, erleuchte mein Gesicht."
+},
+
+// 145. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَأَدْخِلْنَا فِي رَحْمَتِكَ",
+  tr: "Bizi rahmetine dahil et.",
+  de: "Nimm uns in Deine Barmherzigkeit auf."
+},
+
+// 146. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ قَلْبًا نَقِيًّا",
+  tr: "Allah’ım! Tertemiz bir kalp isterim.",
+  de: "O Allah, ich bitte Dich um ein reines Herz."
+},
+
+// 147. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ وَارْحَمْ وَأَنتَ خَيْرُ الرَّاحِمِينَ",
+  tr: "Rabbim! Bağışla, merhamet et. Merhametlilerin en hayırlısı Sensin.",
+  de: "Mein Herr, vergib und erbarme Dich. Du bist der Beste der Barmherzigen."
+},
+
+// 148. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي قَلْبِي",
+  tr: "Allah’ım! Kalbime nur ver.",
+  de: "O Allah, gib meinem Herzen Licht."
+},
+
+// 149. Gün — Kur’an (İbrahim 41)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ",
+  tr: "Rabbim! Beni, anne-babamı ve müminleri bağışla.",
+  de: "Mein Herr, vergib mir, meinen Eltern und den Gläubigen."
+},
+
+// 150. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رِضًا بَعْدَ الْقَضَاءِ",
+  tr: "Allah’ım! Hükmünden sonra rızanı isterim.",
+  de: "O Allah, ich bitte Dich um Zufriedenheit nach Deinem Urteil."
+},
+
+// 151. Gün — Kur’an (Taha 25–28)
+{
+  source: "KURAN",
+  ar: "رَبِّ اشْرَحْ لِي صَدْرِي * وَيَسِّرْ لِي أَمْرِي",
+  tr: "Rabbim! Göğsüme genişlik ver, işimi kolaylaştır.",
+  de: "Mein Herr, öffne mir meine Brust und erleichtere mir meine Angelegenheit."
+},
+
+// 152. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ سَمْعِي وَبَصَرِي",
+  tr: "Allah’ım! İşitmemi ve görmemi nurlandır.",
+  de: "O Allah, erleuchte mein Gehör und meinen Blick."
+},
+
+// 153. Gün — Kur’an (A’râf 155)
+{
+  source: "KURAN",
+  ar: "فَاغْفِرْ لَنَا وَارْحَمْنَا",
+  tr: "Bizi bağışla ve bize merhamet et.",
+  de: "Vergib uns und erbarme Dich unser."
+},
+
+// 154. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ صِدْقًا فِي الْقَوْلِ وَالْعَمَلِ",
+  tr: "Allah’ım! Sözde ve amelde doğruluk isterim.",
+  de: "O Allah, ich bitte Dich um Aufrichtigkeit in Wort und Tat."
+},
+
+// 155. Gün — Kur’an (İsra 80)
+{
+  source: "KURAN",
+  ar: "وَاجْعَل لِّي مِن لَّدُنكَ سُلْطَانًا نَّصِيرًا",
+  tr: "Bana katından yardımcı bir güç ver.",
+  de: "Gib mir von Dir eine unterstützende Kraft."
+},
+
+// 156. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رِقَّةَ الْقَلْبِ",
+  tr: "Allah’ım! Kalp yumuşaklığı isterim.",
+  de: "O Allah, ich bitte Dich um Sanftheit des Herzens."
+},
+
+// 157. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا إِنَّكَ تَعْلَمُ مَا نُخْفِي وَمَا نُعْلِنُ",
+  tr: "Rabbimiz! Gizlediğimizi de açıkladığımızı da Sen bilirsin.",
+  de: "Unser Herr, Du weißt, was wir verbergen und was wir offenlegen."
+},
+
+// 158. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
+  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Lichts."
+},
+
+// 159. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ وَارْحَمْ",
+  tr: "Rabbim! Bağışla, merhamet et.",
+  de: "Mein Herr, vergib und erbarme Dich."
+},
+
+// 160. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
+  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
+},
+
+// 161. Gün — Kur’an (Baqarah 286)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَا إِصْرًا",
+  tr: "Rabbimiz! Bize ağır yük yükleme.",
+  de: "Unser Herr, lege uns keine schwere Last auf."
+},
+
+// 162. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رِقَّةَ الْقَلْبِ وَصِدْقَ اللِّسَانِ",
+  tr: "Allah’ım! Kalp yumuşaklığı ve doğru bir dil isterim.",
+  de: "O Allah, ich bitte Dich um Sanftheit des Herzens und Wahrhaftigkeit der Zunge."
+},
+
+// 163. Gün — Kur’an (A’râf 23)
+{
+  source: "KURAN",
+  ar: "وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا",
+  tr: "Eğer bizi bağışlamaz ve bize merhamet etmezsen...",
+  de: "Wenn Du uns nicht vergibst und Dich unser nicht erbarmst..."
+},
+
+// 164. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ قَلْبِي وَصَدْرِي",
+  tr: "Allah’ım! Kalbimi ve göğsümü nurlandır.",
+  de: "O Allah, erleuchte mein Herz und meine Brust."
+},
+
+// 165. Gün — Kur’an (İbrahim 40)
+{
+  source: "KURAN",
+  ar: "وَمِنْ ذُرِّيَّتِي",
+  tr: "Soyumdan gelenleri de (namazı kılanlardan eyle).",
+  de: "Und auch meine Nachkommen (zu Betenden mache)."
+},
+
+// 166. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْإِيمَانِ",
+  tr: "Allah’ım! Beni iman ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Glaubens."
+},
+
+// 167. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَأَنتَ خَيْرُ الرَّاحِمِينَ",
+  tr: "Sen merhametlilerin en hayırlısısın.",
+  de: "Du bist der Beste der Barmherzigen."
+},
+
+// 168. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا فِي النَّفْسِ",
+  tr: "Allah’ım! Nefsimdeki kötülüklerden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel in meiner Seele."
+},
+
+// 169. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْنَا",
+  tr: "Bize merhamet et.",
+  de: "Erbarme Dich unser."
+},
+
+// 170. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا يَهْدِينِي",
+  tr: "Allah’ım! Bana hidayet edecek bir nur isterim.",
+  de: "O Allah, ich bitte Dich um ein Licht, das mich leitet."
+},
+
+// 171. Gün — Kur’an (İsra 24)
+{
+  source: "KURAN",
+  ar: "كَمَا رَبَّيَانِي صَغِيرًا",
+  tr: "Onlar beni küçükken yetiştirdikleri gibi...",
+  de: "Wie sie mich aufzogen, als ich klein war..."
+},
+
+// 172. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ طَهِّرْ نَفْسِي",
+  tr: "Allah’ım! Nefsimi temizle.",
+  de: "O Allah, reinige meine Seele."
+},
+
+// 173. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "وَمَا نُعْلِنُ",
+  tr: "Açıkladığımızı da (Sen bilirsin).",
+  de: "Und was wir offenlegen."
+},
+
+// 174. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
+  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
+},
+
+// 175. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ",
+  tr: "Rabbim! Bağışla.",
+  de: "Mein Herr, vergib."
+},
+
+// 176. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
+  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
+},
+
+// 177. Gün — Kur’an (A’râf 155)
+{
+  source: "KURAN",
+  ar: "أَنتَ وَلِيُّنَا",
+  tr: "Sen bizim velimizsin.",
+  de: "Du bist unser Beschützer."
+},
+
+// 178. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رَوْحًا وَرَاحَةً",
+  tr: "Allah’ım! Huzur ve ferahlık isterim.",
+  de: "O Allah, ich bitte Dich um Ruhe und Erleichterung."
+},
+
+// 179. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا إِنَّكَ تَعْلَمُ",
+  tr: "Rabbimiz! Sen bilirsin.",
+  de: "Unser Herr, Du weißt."
+},
+
+// 180. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ وَجْهِي",
+  tr: "Allah’ım! Yüzümü nurlandır.",
+  de: "O Allah, erleuchte mein Gesicht."
+},
+
+// 181. Gün — Kur’an (Tahrim 8)
+{
+  source: "KURAN",
+  ar: "وَاغْفِرْ لَنَا",
+  tr: "Bizi bağışla.",
+  de: "Vergib uns."
+},
+
+// 182. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْقُرْآنِ",
+  tr: "Allah’ım! Beni Kur’an ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Qurans."
+},
+
+// 183. Gün — Kur’an (İsra 24)
+{
+  source: "KURAN",
+  ar: "وَقُل رَّبِّ ارْحَمْهُمَا",
+  tr: "De ki: Rabbim! Onlara merhamet et.",
+  de: "Sprich: Mein Herr, erbarme Dich ihrer."
+},
+
+// 184. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ صَدْرِي",
+  tr: "Allah’ım! Göğsümü nurlandır.",
+  de: "O Allah, erleuchte meine Brust."
+},
+
+// 185. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَاغْفِرْ لِي",
+  tr: "Beni bağışla.",
+  de: "Vergib mir."
+},
+
+// 186. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ قَلْبًا سَلِيمًا",
+  tr: "Allah’ım! Selim bir kalp isterim.",
+  de: "O Allah, ich bitte Dich um ein reines Herz."
+},
+
+// 187. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْ",
+  tr: "Merhamet et.",
+  de: "Erbarme Dich."
+},
+
+// 188. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي",
+  tr: "Allah’ım! Nefsimin şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel meiner Seele."
+},
+
+// 189. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "مَا نُخْفِي وَمَا نُعْلِنُ",
+  tr: "Gizlediğimizi de açıkladığımızı da (Sen bilirsin).",
+  de: "Was wir verbergen und was wir offenlegen."
+},
+
+// 190. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرِّضَا",
+  tr: "Allah’ım! Beni rıza ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen der Zufriedenheit."
+},
+
+// 191. Gün — Kur’an (A’râf 155)
+{
+  source: "KURAN",
+  ar: "فَاغْفِرْ لَنَا",
+  tr: "Bizi bağışla.",
+  de: "Vergib uns."
+},
+
+// 192. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ قَلْبِي",
+  tr: "Allah’ım! Kalbimi nurlandır.",
+  de: "O Allah, erleuchte mein Herz."
+},
+
+// 193. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا إِنَّكَ تَعْلَمُ",
+  tr: "Rabbimiz! Sen bilirsin.",
+  de: "Unser Herr, Du weißt."
+},
+
+// 194. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رَوْحًا وَرَاحَةً",
+  tr: "Allah’ım! Huzur ve ferahlık isterim.",
+  de: "O Allah, ich bitte Dich um Ruhe und Erleichterung."
+},
+
+// 195. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَأَنتَ خَيْرُ الرَّاحِمِينَ",
+  tr: "Sen merhametlilerin en hayırlısısın.",
+  de: "Du bist der Beste der Barmherzigen."
+},
+
+// 196. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
+  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
+},
+
+// 197. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْنَا",
+  tr: "Bize merhamet et.",
+  de: "Erbarme Dich unser."
+},
+
+// 198. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
+  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Lichts."
+},
+
+// 199. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "مَا نُخْفِي وَمَا نُعْلِنُ",
+  tr: "Gizlediğimizi de açıkladığımızı da Sen bilirsin.",
+  de: "Was wir verbergen und was wir offenlegen."
+},
+
+// 200. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ وَجْهِي وَقَلْبِي",
+  tr: "Allah’ım! Yüzümü ve kalbimi nurlandır.",
+  de: "O Allah, erleuchte mein Gesicht und mein Herz."
+},
+
+// 201. Gün — Kur’an (Baqarah 286)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا لَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ",
+  tr: "Rabbimiz! Gücümüzün yetmediği şeyleri bize yükleme.",
+  de: "Unser Herr, belaste uns nicht mit dem, was wir nicht tragen können."
+},
+
+// 202. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الْإِيمَانِ",
+  tr: "Allah’ım! Beni iman ziynetiyle süsle.",
+  de: "O Allah, schmücke mich mit dem Schmuck des Glaubens."
+},
+
+// 203. Gün — Kur’an (A’râf 23)
+{
+  source: "KURAN",
+  ar: "لَنَكُونَنَّ مِنَ الْخَاسِرِينَ",
+  tr: "Ziyana uğrayanlardan oluruz.",
+  de: "Wir würden zu den Verlierern gehören."
+},
+
+// 204. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ طَهِّرْ قَلْبِي مِنَ النِّفَاقِ",
+  tr: "Allah’ım! Kalbimi nifaktan temizle.",
+  de: "O Allah, reinige mein Herz von Heuchelei."
+},
+
+// 205. Gün — Kur’an (İbrahim 40)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا وَتَقَبَّلْ دُعَاءِ",
+  tr: "Rabbimiz! Duamı kabul buyur.",
+  de: "Unser Herr, nimm mein Gebet an."
+},
+
+// 206. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الصِّدْقِ",
+  tr: "Allah’ım! Beni doğruluk ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen der Wahrhaftigkeit."
+},
+
+// 207. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ",
+  tr: "Rabbim! Bağışla.",
+  de: "Mein Herr, vergib."
+},
+
+// 208. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ كُلِّ دَابَّةٍ",
+  tr: "Allah’ım! Yaratılmış her canlının şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel aller Geschöpfe."
+},
+
+// 209. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْنَا",
+  tr: "Bize merhamet et.",
+  de: "Erbarme Dich unser."
+},
+
+// 210. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي طَرِيقِي",
+  tr: "Allah’ım! Yoluma nur ver.",
+  de: "O Allah, gib meinem Weg Licht."
+},
+
+// 211. Gün — Kur’an (İsra 24)
+{
+  source: "KURAN",
+  ar: "وَقُل رَّبِّ ارْحَمْهُمَا",
+  tr: "De ki: Rabbim! Onlara merhamet et.",
+  de: "Sprich: Mein Herr, erbarme Dich ihrer."
+},
+
+// 212. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ بَصَرِي وَسَمْعِي",
+  tr: "Allah’ım! Gözümü ve kulağımı nurlandır.",
+  de: "O Allah, erleuchte mein Gehör und meinen Blick."
+},
+
+// 213. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "إِنَّكَ تَعْلَمُ مَا نُخْفِي",
+  tr: "Şüphesiz gizlediğimizi Sen bilirsin.",
+  de: "Du weißt, was wir verbergen."
+},
+
+// 214. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
+  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
+},
+
+// 215. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْ",
+  tr: "Merhamet et.",
+  de: "Erbarme Dich."
+},
+
+// 216. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي",
+  tr: "Allah’ım! Nefsimin şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel meiner Seele."
+},
+
+// 217. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَاغْفِرْ لِي",
+  tr: "Beni bağışla.",
+  de: "Vergib mir."
+},
+
+// 218. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ قَلْبًا سَلِيمًا",
+  tr: "Allah’ım! Selim bir kalp isterim.",
+  de: "O Allah, ich bitte Dich um ein reines Herz."
+},
+
+// 219. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "وَمَا نُعْلِنُ",
+  tr: "Açıkladığımızı da Sen bilirsin.",
+  de: "Und was wir offenlegen."
+},
+
+// 220. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ وَجْهِي",
+  tr: "Allah’ım! Yüzümü nurlandır.",
+  de: "O Allah, erleuchte mein Gesicht."
+},
+
+// 221. Gün — Kur’an (Tahrim 8)
+{
+  source: "KURAN",
+  ar: "وَاغْفِرْ لَنَا",
+  tr: "Bizi bağışla.",
+  de: "Vergib uns."
+},
+
+// 222. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْقُرْآنِ",
+  tr: "Allah’ım! Beni Kur’an ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Qurans."
+},
+
+// 223. Gün — Kur’an (İsra 24)
+{
+  source: "KURAN",
+  ar: "كَمَا رَبَّيَانِي صَغِيرًا",
+  tr: "Onlar beni küçükken yetiştirdikleri gibi...",
+  de: "Wie sie mich aufzogen, als ich klein war..."
+},
+
+// 224. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ صَدْرِي",
+  tr: "Allah’ım! Göğsümü nurlandır.",
+  de: "O Allah, erleuchte meine Brust."
+},
+
+// 225. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْنَا",
+  tr: "Bize merhamet et.",
+  de: "Erbarme Dich unser."
+},
+
+// 226. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رِقَّةَ الْقَلْبِ",
+  tr: "Allah’ım! Kalp yumuşaklığı isterim.",
+  de: "O Allah, ich bitte Dich um Sanftheit des Herzens."
+},
+
+// 227. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَأَنتَ خَيْرُ الرَّاحِمِينَ",
+  tr: "Sen merhametlilerin en hayırlısısın.",
+  de: "Du bist der Beste der Barmherzigen."
+},
+
+// 228. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
+  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
+},
+
+// 229. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَاغْفِرْ لِي",
+  tr: "Beni bağışla.",
+  de: "Vergib mir."
+},
+
+// 230. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرِّضَا",
+  tr: "Allah’ım! Beni rıza ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen der Zufriedenheit."
+},
+
+// 231. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا إِنَّكَ تَعْلَمُ",
+  tr: "Rabbimiz! Sen bilirsin.",
+  de: "Unser Herr, Du weißt."
+},
+
+// 232. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ قَلْبِي",
+  tr: "Allah’ım! Kalbimi nurlandır.",
+  de: "O Allah, erleuchte mein Herz."
+},
+
+// 233. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْ",
+  tr: "Merhamet et.",
+  de: "Erbarme Dich."
+},
+
+// 234. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رَوْحًا وَرَاحَةً",
+  tr: "Allah’ım! Huzur ve ferahlık isterim.",
+  de: "O Allah, ich bitte Dich um Ruhe und Erleichterung."
+},
+
+// 235. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْنَا",
+  tr: "Bize merhamet et.",
+  de: "Erbarme Dich unser."
+},
+
+// 236. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي",
+  tr: "Allah’ım! Nefsimin şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel meiner Seele."
+},
+
+// 237. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "مَا نُخْفِي وَمَا نُعْلِنُ",
+  tr: "Gizlediğimizi de açıkladığımızı da Sen bilirsin.",
+  de: "Was wir verbergen und was wir offenlegen."
+},
+
+// 238. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
+  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Lichts."
+},
+
+// 239. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ",
+  tr: "Rabbim! Bağışla.",
+  de: "Mein Herr, vergib."
+},
+
+// 240. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ وَجْهِي وَقَلْبِي",
+  tr: "Allah’ım! Yüzümü ve kalbimi nurlandır.",
+  de: "O Allah, erleuchte mein Gesicht und mein Herz."
+},
+
+// 241. Gün — Kur’an (Baqarah 286)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا",
+  tr: "Rabbimiz! Unutursak bizi sorumlu tutma.",
+  de: "Unser Herr, belaste uns nicht, wenn wir vergessen."
+},
+
+// 242. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الْإِيمَانِ",
+  tr: "Allah’ım! Beni iman ziynetiyle süsle.",
+  de: "O Allah, schmücke mich mit dem Schmuck des Glaubens."
+},
+
+// 243. Gün — Kur’an (A’râf 23)
+{
+  source: "KURAN",
+  ar: "ظَلَمْنَا أَنْفُسَنَا",
+  tr: "Biz kendimize zulmettik.",
+  de: "Wir haben uns selbst Unrecht getan."
+},
+
+// 244. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ طَهِّرْ قَلْبِي",
+  tr: "Allah’ım! Kalbimi temizle.",
+  de: "O Allah, reinige mein Herz."
+},
+
+// 245. Gün — Kur’an (İbrahim 40)
+{
+  source: "KURAN",
+  ar: "وَمِنْ ذُرِّيَّتِي",
+  tr: "Soyumdan gelenleri de (namazı kılanlardan eyle).",
+  de: "Und auch meine Nachkommen (zu Betenden mache)."
+},
+
+// 246. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْإِيمَانِ",
+  tr: "Allah’ım! Beni iman ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Glaubens."
+},
+
+// 247. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْ",
+  tr: "Merhamet et.",
+  de: "Erbarme Dich."
+},
+
+// 248. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ كُلِّ دَابَّةٍ",
+  tr: "Allah’ım! Yaratılmış her canlının şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel aller Geschöpfe."
+},
+
+// 249. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَاغْفِرْ لِي",
+  tr: "Beni bağışla.",
+  de: "Vergib mir."
+},
+
+// 250. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي طَرِيقِي",
+  tr: "Allah’ım! Yoluma nur ver.",
+  de: "O Allah, gib meinem Weg Licht."
+},
+
+// 251. Gün — Kur’an (Baqarah 286)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا لَا تَحْمِلْ عَلَيْنَا إِصْرًا كَمَا حَمَلْتَهُ عَلَى الَّذِينَ مِن قَبْلِنَا",
+  tr: "Rabbimiz! Bizden öncekilere yüklediğin gibi bize ağır yük yükleme.",
+  de: "Unser Herr, lege uns keine Last auf wie denen vor uns."
+},
+
+// 252. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الصَّالِحِينَ",
+  tr: "Allah’ım! Beni salih kullarının ziynetiyle süsle.",
+  de: "O Allah, schmücke mich mit dem Schmuck der Rechtschaffenen."
+},
+
+// 253. Gün — Kur’an (A’râf 23)
+{
+  source: "KURAN",
+  ar: "وَإِن لَّمْ تَغْفِرْ لَنَا",
+  tr: "Eğer bizi bağışlamazsan...",
+  de: "Wenn Du uns nicht vergibst..."
+},
+
+// 254. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ طَهِّرْ نَفْسِي وَقَلْبِي",
+  tr: "Allah’ım! Nefsimi ve kalbimi temizle.",
+  de: "O Allah, reinige meine Seele und mein Herz."
+},
+
+// 255. Gün — Kur’an (İbrahim 40)
+{
+  source: "KURAN",
+  ar: "رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ",
+  tr: "Rabbim! Beni namazı dosdoğru kılanlardan eyle.",
+  de: "Mein Herr, mache mich zu denen, die das Gebet verrichten."
+},
+
+// 256. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْخَيْرِ",
+  tr: "Allah’ım! Beni hayır ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Guten."
+},
+
+// 257. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْ",
+  tr: "Merhamet et.",
+  de: "Erbarme Dich."
+},
+
+// 258. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا فِي النَّفْسِ",
+  tr: "Allah’ım! Nefsimdeki kötülüklerden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel in meiner Seele."
+},
+
+// 259. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَاغْفِرْ لِي",
+  tr: "Beni bağışla.",
+  de: "Vergib mir."
+},
+
+// 260. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي قَلْبِي",
+  tr: "Allah’ım! Kalbime nur ver.",
+  de: "O Allah, gib meinem Herzen Licht."
+},
+
+// 261. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "إِنَّكَ تَعْلَمُ مَا نُخْفِي",
+  tr: "Şüphesiz gizlediğimizi Sen bilirsin.",
+  de: "Du weißt, was wir verbergen."
+},
+
+// 262. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ بَصَرِي",
+  tr: "Allah’ım! Gözümü nurlandır.",
+  de: "O Allah, erleuchte meinen Blick."
+},
+
+// 263. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَأَنتَ خَيْرُ الرَّاحِمِينَ",
+  tr: "Sen merhametlilerin en hayırlısısın.",
+  de: "Du bist der Beste der Barmherzigen."
+},
+
+// 264. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
+  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
+},
+
+// 265. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْنَا",
+  tr: "Bize merhamet et.",
+  de: "Erbarme Dich unser."
+},
+
+// 266. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
+  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
+},
+
+// 267. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "مَا نُعْلِنُ",
+  tr: "Açıkladığımızı da Sen bilirsin.",
+  de: "Und was wir offenlegen."
+},
+
+// 268. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
+  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Lichts."
+},
+
+// 269. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ",
+  tr: "Rabbim! Bağışla.",
+  de: "Mein Herr, vergib."
+},
+
+// 270. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ وَجْهِي",
+  tr: "Allah’ım! Yüzümü nurlandır.",
+  de: "O Allah, erleuchte mein Gesicht."
+},
+
+// 271. Gün — Kur’an (Baqarah 286)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا",
+  tr: "Rabbimiz! Unutursak bizi sorumlu tutma.",
+  de: "Unser Herr, belaste uns nicht, wenn wir vergessen."
+},
+
+// 272. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الْإِيمَانِ",
+  tr: "Allah’ım! Beni iman ziynetiyle süsle.",
+  de: "O Allah, schmücke mich mit dem Schmuck des Glaubens."
+},
+
+// 273. Gün — Kur’an (A’râf 23)
+{
+  source: "KURAN",
+  ar: "ظَلَمْنَا أَنْفُسَنَا",
+  tr: "Biz kendimize zulmettik.",
+  de: "Wir haben uns selbst Unrecht getan."
+},
+
+// 274. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ طَهِّرْ قَلْبِي",
+  tr: "Allah’ım! Kalbimi temizle.",
+  de: "O Allah, reinige mein Herz."
+},
+
+// 275. Gün — Kur’an (İbrahim 40)
+{
+  source: "KURAN",
+  ar: "وَمِنْ ذُرِّيَّتِي",
+  tr: "Soyumdan gelenleri de (namazı kılanlardan eyle).",
+  de: "Und auch meine Nachkommen (zu Betenden mache)."
+},
+
+// 276. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْإِيمَانِ",
+  tr: "Allah’ım! Beni iman ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Glaubens."
+},
+
+// 277. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْ",
+  tr: "Merhamet et.",
+  de: "Erbarme Dich."
+},
+
+// 278. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ كُلِّ دَابَّةٍ",
+  tr: "Allah’ım! Yaratılmış her canlının şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel aller Geschöpfe."
+},
+
+// 279. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَاغْفِرْ لِي",
+  tr: "Beni bağışla.",
+  de: "Vergib mir."
+},
+
+// 280. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي طَرِيقِي",
+  tr: "Allah’ım! Yoluma nur ver.",
+  de: "O Allah, gib meinem Weg Licht."
+},
+
+// 281. Gün — Kur’an (Baqarah 286)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا لَا تَحْمِلْ عَلَيْنَا إِصْرًا",
+  tr: "Rabbimiz! Bize ağır yük yükleme.",
+  de: "Unser Herr, lege uns keine schwere Last auf."
+},
+
+// 282. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الصَّالِحِينَ",
+  tr: "Allah’ım! Beni salih kullarının ziynetiyle süsle.",
+  de: "O Allah, schmücke mich mit dem Schmuck der Rechtschaffenen."
+},
+
+// 283. Gün — Kur’an (A’râf 23)
+{
+  source: "KURAN",
+  ar: "وَإِن لَّمْ تَغْفِرْ لَنَا",
+  tr: "Eğer bizi bağışlamazsan...",
+  de: "Wenn Du uns nicht vergibst..."
+},
+
+// 284. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ طَهِّرْ نَفْسِي",
+  tr: "Allah’ım! Nefsimi temizle.",
+  de: "O Allah, reinige meine Seele."
+},
+
+// 285. Gün — Kur’an (İbrahim 40)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا وَتَقَبَّلْ دُعَاءِ",
+  tr: "Rabbimiz! Duamı kabul buyur.",
+  de: "Unser Herr, nimm mein Gebet an."
+},
+
+// 286. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الصِّدْقِ",
+  tr: "Allah’ım! Beni doğruluk ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen der Wahrhaftigkeit."
+},
+
+// 287. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ",
+  tr: "Rabbim! Bağışla.",
+  de: "Mein Herr, vergib."
+},
+
+// 288. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا فِي النَّفْسِ",
+  tr: "Allah’ım! Nefsimdeki kötülüklerden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel in meiner Seele."
+},
+
+// 289. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْنَا",
+  tr: "Bize merhamet et.",
+  de: "Erbarme Dich unser."
+},
+
+// 290. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي قَلْبِي",
+  tr: "Allah’ım! Kalbime nur ver.",
+  de: "O Allah, gib meinem Herzen Licht."
+},
+
+// 291. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "إِنَّكَ تَعْلَمُ مَا نُخْفِي",
+  tr: "Şüphesiz gizlediğimizi Sen bilirsin.",
+  de: "Du weißt, was wir verbergen."
+},
+
+// 292. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ بَصَرِي وَقَلْبِي",
+  tr: "Allah’ım! Gözümü ve kalbimi nurlandır.",
+  de: "O Allah, erleuchte meinen Blick und mein Herz."
+},
+
+// 293. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَأَنتَ خَيْرُ الرَّاحِمِينَ",
+  tr: "Sen merhametlilerin en hayırlısısın.",
+  de: "Du bist der Beste der Barmherzigen."
+},
+
+// 294. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
+  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
+},
+
+// 295. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَاغْفِرْ لِي",
+  tr: "Beni bağışla.",
+  de: "Vergib mir."
+},
+
+// 296. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
+  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
+},
+
+// 297. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "مَا نُعْلِنُ",
+  tr: "Açıkladığımızı da Sen bilirsin.",
+  de: "Und was wir offenlegen."
+},
+
+// 298. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
+  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Lichts."
+},
+
+// 299. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ",
+  tr: "Rabbim! Bağışla.",
+  de: "Mein Herr, vergib."
+},
+
+// 300. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ وَجْهِي وَقَلْبِي",
+  tr: "Allah’ım! Yüzümü ve kalbimi nurlandır.",
+  de: "O Allah, erleuchte mein Gesicht und mein Herz."
+},
+
+// 301. Gün — Kur’an (Baqarah 286)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا",
+  tr: "Rabbimiz! Unutur veya yanılırsak bizi sorumlu tutma.",
+  de: "Unser Herr, belaste uns nicht, wenn wir vergessen oder einen Fehler machen."
+},
+
+// 302. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الْإِيمَانِ",
+  tr: "Allah’ım! Beni iman ziynetiyle süsle.",
+  de: "O Allah, schmücke mich mit dem Schmuck des Glaubens."
+},
+
+// 303. Gün — Kur’an (A’râf 23)
+{
+  source: "KURAN",
+  ar: "وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا",
+  tr: "Eğer bizi bağışlamaz ve bize merhamet etmezsen...",
+  de: "Wenn Du uns nicht vergibst und Dich unser nicht erbarmst..."
+},
+
+// 304. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ طَهِّرْ قَلْبِي وَنَفْسِي",
+  tr: "Allah’ım! Kalbimi ve nefsimi temizle.",
+  de: "O Allah, reinige mein Herz und meine Seele."
+},
+
+// 305. Gün — Kur’an (İbrahim 40)
+{
+  source: "KURAN",
+  ar: "رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ",
+  tr: "Rabbim! Beni namazı dosdoğru kılanlardan eyle.",
+  de: "Mein Herr, mache mich zu denen, die das Gebet verrichten."
+},
+
+// 306. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْخَيْرِ",
+  tr: "Allah’ım! Beni hayır ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Guten."
+},
+
+// 307. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْ",
+  tr: "Merhamet et.",
+  de: "Erbarme Dich."
+},
+
+// 308. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي",
+  tr: "Allah’ım! Nefsimin şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel meiner Seele."
+},
+
+// 309. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَاغْفِرْ لِي",
+  tr: "Beni bağışla.",
+  de: "Vergib mir."
+},
+
+// 310. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي قَلْبِي",
+  tr: "Allah’ım! Kalbime nur ver.",
+  de: "O Allah, gib meinem Herzen Licht."
+},
+
+// 311. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "إِنَّكَ تَعْلَمُ مَا نُخْفِي",
+  tr: "Şüphesiz gizlediğimizi Sen bilirsin.",
+  de: "Du weißt, was wir verbergen."
+},
+
+// 312. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ بَصَرِي",
+  tr: "Allah’ım! Gözümü nurlandır.",
+  de: "O Allah, erleuchte meinen Blick."
+},
+
+// 313. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَأَنتَ خَيْرُ الرَّاحِمِينَ",
+  tr: "Sen merhametlilerin en hayırlısısın.",
+  de: "Du bist der Beste der Barmherzigen."
+},
+
+// 314. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
+  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
+},
+
+// 315. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْنَا",
+  tr: "Bize merhamet et.",
+  de: "Erbarme Dich unser."
+},
+
+// 316. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
+  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
+},
+
+// 317. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "مَا نُعْلِنُ",
+  tr: "Açıkladığımızı da Sen bilirsin.",
+  de: "Und was wir offenlegen."
+},
+
+// 318. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
+  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Lichts."
+},
+
+// 319. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ",
+  tr: "Rabbim! Bağışla.",
+  de: "Mein Herr, vergib."
+},
+
+// 320. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ وَجْهِي",
+  tr: "Allah’ım! Yüzümü nurlandır.",
+  de: "O Allah, erleuchte mein Gesicht."
+},
+
+// 321. Gün — Kur’an (Baqarah 286)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا",
+  tr: "Rabbimiz! Unutursak bizi sorumlu tutma.",
+  de: "Unser Herr, belaste uns nicht, wenn wir vergessen."
+},
+
+// 322. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الْإِيمَانِ",
+  tr: "Allah’ım! Beni iman ziynetiyle süsle.",
+  de: "O Allah, schmücke mich mit dem Schmuck des Glaubens."
+},
+
+// 323. Gün — Kur’an (A’râf 23)
+{
+  source: "KURAN",
+  ar: "ظَلَمْنَا أَنْفُسَنَا",
+  tr: "Biz kendimize zulmettik.",
+  de: "Wir haben uns selbst Unrecht getan."
+},
+
+// 324. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ طَهِّرْ قَلْبِي",
+  tr: "Allah’ım! Kalbimi temizle.",
+  de: "O Allah, reinige mein Herz."
+},
+
+// 325. Gün — Kur’an (İbrahim 40)
+{
+  source: "KURAN",
+  ar: "وَمِنْ ذُرِّيَّتِي",
+  tr: "Soyumdan gelenleri de (namazı kılanlardan eyle).",
+  de: "Und auch meine Nachkommen (zu Betenden mache)."
+},
+
+// 326. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْإِيمَانِ",
+  tr: "Allah’ım! Beni iman ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Glaubens."
+},
+
+// 327. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْ",
+  tr: "Merhamet et.",
+  de: "Erbarme Dich."
+},
+
+// 328. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ كُلِّ دَابَّةٍ",
+  tr: "Allah’ım! Yaratılmış her canlının şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel aller Geschöpfe."
+},
+
+// 329. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَاغْفِرْ لِي",
+  tr: "Beni bağışla.",
+  de: "Vergib mir."
+},
+
+// 330. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي طَرِيقِي",
+  tr: "Allah’ım! Yoluma nur ver.",
+  de: "O Allah, gib meinem Weg Licht."
+},
+
+// 331. Gün — Kur’an (Baqarah 286)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا لَا تَحْمِلْ عَلَيْنَا إِصْرًا",
+  tr: "Rabbimiz! Bize ağır yük yükleme.",
+  de: "Unser Herr, lege uns keine schwere Last auf."
+},
+
+// 332. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الصَّالِحِينَ",
+  tr: "Allah’ım! Beni salih kullarının ziynetiyle süsle.",
+  de: "O Allah, schmücke mich mit dem Schmuck der Rechtschaffenen."
+},
+
+// 333. Gün — Kur’an (A’râf 23)
+{
+  source: "KURAN",
+  ar: "وَإِن لَّمْ تَغْفِرْ لَنَا",
+  tr: "Eğer bizi bağışlamazsan...",
+  de: "Wenn Du uns nicht vergibst..."
+},
+
+// 334. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ طَهِّرْ نَفْسِي",
+  tr: "Allah’ım! Nefsimi temizle.",
+  de: "O Allah, reinige meine Seele."
+},
+
+// 335. Gün — Kur’an (İbrahim 40)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا وَتَقَبَّلْ دُعَاءِ",
+  tr: "Rabbimiz! Duamı kabul buyur.",
+  de: "Unser Herr, nimm mein Gebet an."
+},
+
+// 336. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الصِّدْقِ",
+  tr: "Allah’ım! Beni doğruluk ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen der Wahrhaftigkeit."
+},
+
+// 337. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ",
+  tr: "Rabbim! Bağışla.",
+  de: "Mein Herr, vergib."
+},
+
+// 338. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا فِي النَّفْسِ",
+  tr: "Allah’ım! Nefsimdeki kötülüklerden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel in meiner Seele."
+},
+
+// 339. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْنَا",
+  tr: "Bize merhamet et.",
+  de: "Erbarme Dich unser."
+},
+
+// 340. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي قَلْبِي",
+  tr: "Allah’ım! Kalbime nur ver.",
+  de: "O Allah, gib meinem Herzen Licht."
+},
+
+// 341. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "إِنَّكَ تَعْلَمُ مَا نُخْفِي",
+  tr: "Şüphesiz gizlediğimizi Sen bilirsin.",
+  de: "Du weißt, was wir verbergen."
+},
+
+// 342. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ بَصَرِي وَقَلْبِي",
+  tr: "Allah’ım! Gözümü ve kalbimi nurlandır.",
+  de: "O Allah, erleuchte meinen Blick und mein Herz."
+},
+
+// 343. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَأَنتَ خَيْرُ الرَّاحِمِينَ",
+  tr: "Sen merhametlilerin en hayırlısısın.",
+  de: "Du bist der Beste der Barmherzigen."
+},
+
+// 344. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
+  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
+},
+
+// 345. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَاغْفِرْ لِي",
+  tr: "Beni bağışla.",
+  de: "Vergib mir."
+},
+
+// 346. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
+  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
+},
+
+// 347. Gün — Kur’an (İbrahim 38)
+{
+  source: "KURAN",
+  ar: "مَا نُعْلِنُ",
+  tr: "Açıkladığımızı da Sen bilirsin.",
+  de: "Und was wir offenlegen."
+},
+
+// 348. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
+  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Lichts."
+},
+
+// 349. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ",
+  tr: "Rabbim! Bağışla.",
+  de: "Mein Herr, vergib."
+},
+
+// 350. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
+  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Lichts."
+},
+
+// 351. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "رَبِّ اغْفِرْ",
+  tr: "Rabbim! Bağışla.",
+  de: "Mein Herr, vergib."
+},
+
+// 352. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ نَوِّرْ وَجْهِي وَقَلْبِي",
+  tr: "Allah’ım! Yüzümü ve kalbimi nurlandır.",
+  de: "O Allah, erleuchte mein Gesicht und mein Herz."
+},
+
+// 353. Gün — Kur’an (Baqarah 286)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا",
+  tr: "Rabbimiz! Unutursak bizi sorumlu tutma.",
+  de: "Unser Herr, belaste uns nicht, wenn wir vergessen."
+},
+
+// 354. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الْإِيمَانِ",
+  tr: "Allah’ım! Beni iman ziynetiyle süsle.",
+  de: "O Allah, schmücke mich mit dem Schmuck des Glaubens."
+},
+
+// 355. Gün — Kur’an (A’râf 23)
+{
+  source: "KURAN",
+  ar: "ظَلَمْنَا أَنْفُسَنَا",
+  tr: "Biz kendimize zulmettik.",
+  de: "Wir haben uns selbst Unrecht getan."
+},
+
+// 356. Gün — Hadis (Müslim)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ طَهِّرْ قَلْبِي",
+  tr: "Allah’ım! Kalbimi temizle.",
+  de: "O Allah, reinige mein Herz."
+},
+
+// 357. Gün — Kur’an (İbrahim 40)
+{
+  source: "KURAN",
+  ar: "وَمِنْ ذُرِّيَّتِي",
+  tr: "Soyumdan gelenleri de (namazı kılanlardan eyle).",
+  de: "Und auch meine Nachkommen (zu Betenden mache)."
+},
+
+// 358. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْإِيمَانِ",
+  tr: "Allah’ım! Beni iman ehli kullarından eyle.",
+  de: "O Allah, mache mich zu den Menschen des Glaubens."
+},
+
+// 359. Gün — Kur’an (Müminun 118)
+{
+  source: "KURAN",
+  ar: "وَارْحَمْ",
+  tr: "Merhamet et.",
+  de: "Erbarme Dich."
+},
+
+// 360. Gün — Hadis (Buhari)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ كُلِّ دَابَّةٍ",
+  tr: "Allah’ım! Yaratılmış her canlının şerrinden Sana sığınırım.",
+  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel aller Geschöpfe."
+},
+
+// 361. Gün — Kur’an (A’râf 151)
+{
+  source: "KURAN",
+  ar: "وَاغْفِرْ لِي",
+  tr: "Beni bağışla.",
+  de: "Vergib mir."
+},
+
+// 362. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي طَرِيقِي",
+  tr: "Allah’ım! Yoluma nur ver.",
+  de: "O Allah, gib meinem Weg Licht."
+},
+
+// 363. Gün — Kur’an (Baqarah 286)
+{
+  source: "KURAN",
+  ar: "رَبَّنَا لَا تَحْمِلْ عَلَيْنَا إِصْرًا",
+  tr: "Rabbimiz! Bize ağır yük yükleme.",
+  de: "Unser Herr, lege uns keine schwere Last auf."
+},
+
+// 364. Gün — Hadis (Tirmizi)
+{
+  source: "HADIS",
+  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الصَّالِحِينَ",
+  tr: "Allah’ım! Beni salih kullarının ziynetiyle süsle.",
+  de: "O Allah, schmücke mich mit dem Schmuck der Rechtschaffenen."
+},
+
+// 365. Gün — Kur’an (A’râf 23)
+{
+  source: "KURAN",
+  ar: "وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ",
+  tr: "Eğer bizi bağışlamaz ve bize merhamet etmezsen, ziyana uğrayanlardan oluruz.",
+  de: "Wenn Du uns nicht vergibst und Dich unser nicht erbarmst, werden wir zu den Verlierern gehören."
+}
+];
+
+
 ];
 
