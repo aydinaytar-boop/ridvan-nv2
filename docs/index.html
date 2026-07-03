@@ -5,7 +5,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="build-time" content="1783004858999">
+  <meta name="build-time" content="1783110258299">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -14009,20 +14009,23 @@ function showWeekendOgleMsg(now) {
   const month = now.getMonth() + 1;
   return isWeekend && winter && month >= 10;
 }
+let _apiPrayerTimes = {};
+function setApiPrayerTimes(times) {
+  _apiPrayerTimes = times;
+}
 function getTodayTimes(date = /* @__PURE__ */ new Date()) {
   const yyyy = date.getFullYear();
   const mm = String(date.getMonth() + 1).padStart(2, "0");
   const dd = String(date.getDate()).padStart(2, "0");
   const key = `${yyyy}-${mm}-${dd}`;
-  const found = prayerTimes2026.find((r) => r.t === key);
-  const times = found ? {
-    sabah: found.i,
-    gunes: found.g,
-    ogle: found.o,
-    ikindi: found.k,
-    aksam: found.a,
-    yatsi: found.y
-  } : fallbackTimes;
+  const apiDay = _apiPrayerTimes[key];
+  let times;
+  if (apiDay && apiDay.sabah) {
+    times = apiDay;
+  } else {
+    const found = prayerTimes2026.find((r) => r.t === key);
+    times = found ? { sabah: found.i, gunes: found.g, ogle: found.o, ikindi: found.k, aksam: found.a, yatsi: found.y } : fallbackTimes;
+  }
   const ogleResolved = resolveOgleTime(times.ogle, date);
   return {
     sabah: times.sabah,
@@ -14413,6 +14416,9 @@ function App() {
         const response = await fetch("./config.json?t=" + (/* @__PURE__ */ new Date()).getTime());
         const data = await response.json();
         if (data.dynamic) remoteD = data.dynamic;
+        if (data.dynamic?.prayerTimes) {
+          setApiPrayerTimes(data.dynamic.prayerTimes);
+        }
       } catch (e) {
       }
       const sk = remoteD.sabahKamet || localStorage.getItem("manuelSabahKamet") || "05:00";
