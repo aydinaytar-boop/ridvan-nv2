@@ -214,23 +214,35 @@ export function showWeekendOgleMsg(now: Date): boolean {
   return isWeekend && winter && month >= 10;
 }
 
+// API'den gelen vakitler (App.tsx tarafından set edilir)
+let _apiPrayerTimes: Record<string, {
+  sabah: string; gunes: string; ogle: string;
+  ikindi: string; aksam: string; yatsi: string;
+}> = {};
+
+export function setApiPrayerTimes(times: typeof _apiPrayerTimes) {
+  _apiPrayerTimes = times;
+}
+
 export function getTodayTimes(date: Date = new Date()): TodayTimes {
   const yyyy = date.getFullYear();
   const mm = String(date.getMonth() + 1).padStart(2, "0");
   const dd = String(date.getDate()).padStart(2, "0");
   const key = `${yyyy}-${mm}-${dd}`;
 
-  const found = prayerTimes2026.find((r) => r.t === key);
-  const times = found
-    ? {
-        sabah: found.i,
-        gunes: found.g,
-        ogle: found.o,
-        ikindi: found.k,
-        aksam: found.a,
-        yatsi: found.y,
-      }
-    : fallbackTimes;
+  // Önce API'den gelen vakitlere bak
+  const apiDay = _apiPrayerTimes[key];
+  let times: { sabah: string; gunes: string; ogle: string; ikindi: string; aksam: string; yatsi: string; };
+
+  if (apiDay && apiDay.sabah) {
+    times = apiDay;
+  } else {
+    // API yoksa statik veriye düş
+    const found = prayerTimes2026.find((r) => r.t === key);
+    times = found
+      ? { sabah: found.i, gunes: found.g, ogle: found.o, ikindi: found.k, aksam: found.a, yatsi: found.y }
+      : fallbackTimes;
+  }
 
   const ogleResolved = resolveOgleTime(times.ogle, date);
 

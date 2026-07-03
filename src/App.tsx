@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import {
+import { useState, useEffect, useRef, useCallback } from "react";import {
   getTodayTimes,
   computeFlow,
   getKametTime,
   getBayramVisibility,
   showWeekendOgleMsg,
   setSabahKametSaati,
+  setApiPrayerTimes,
   SETTINGS,
   type VakitKey,
 } from "./utils/timeEngine";
@@ -171,6 +171,9 @@ export default function App() {
         const response = await fetch("./config.json?t=" + new Date().getTime());
         const data = await response.json();
         if (data.dynamic) remoteD = data.dynamic;
+if (data.dynamic?.prayerTimes) {
+  setApiPrayerTimes(data.dynamic.prayerTimes);
+}
       } catch (e) {}
 
       const sk = remoteD.sabahKamet || localStorage.getItem("manuelSabahKamet") || "05:00";
