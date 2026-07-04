@@ -1,0 +1,16 @@
+Harika! API entegrasyonu tamamlandı.
+Özet olarak ne yaptık:
+
+Diyanet API bağlantısı kuruldu, Viyana id:11618 bulundu
+timeEngine.ts güncellendi — API verisi varsa onu kullanır, yoksa statik 2026 verisine düşer
+Aralık 2026'da fetch-monthly.js ile 2027 vakitlerini çekip config.json'a eklersin, başka bir şey yapmana gerek kalmaz
+
+Sırada başka bir şey var mı?Du hast gesagt: Aralık 2026'da fetch-monthly.Aralık 2026'da fetch-monthly.js ile 2027 vakitlerini çekip config.json'a eklersin, başka bir şey yapmana gerek kalmaz dedin tamam, bunu nasıl yapacağımı detaylandır22:27Claude hat geantwortet: Aralık 2026'da şunu yapacaksın:Aralık 2026'da şunu yapacaksın:
+1. CMD aç, scripti çalıştır:
+node C:\Users\ridva\Desktop\fetch-monthly.js
+Bu script otomatik olarak Diyanet'ten o anki ayın vakitlerini çekip ridvan-nv2\public\config.json dosyasına ekler.
+2. Ama Monthly endpoint sadece o anki ayı verir. 12 aylık veri için scripti 12 kez çalıştırman gerekir — her seferinde API o ayın verisini verir. Rate limit nedeniyle her çalıştırma arasında 1 gün beklemen gerekebilir.
+
+Aslında daha iyi bir çözüm: DateRange endpoint'i var — başlangıç ve bitiş tarihi vererek tüm yılı tek seferde çekebilirsin. Ama bu endpoint aylık 10 istekle sınırlı.
+En pratik yol: Kasım 2026'da bir kere fetch-monthly.js'i çalıştır, Aralık'ta bir kere, Ocak 2027'de bir kere — her ay devam et. Script eski verileri silmeden üstüne ekler, yani her ay biraz daha ilerler.
+Şu an için not et: Kasım 2026'da bir kere çalıştır. O kadar.
