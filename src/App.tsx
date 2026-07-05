@@ -70,10 +70,10 @@ function getDailyDua(date: Date) {
 function getDuaTypography(arabic: string, text: string, isEzan: boolean) {
   const totalLength = `${arabic} ${text}`.trim().length;
   if (isEzan) {
-    if (totalLength <= 170) return { ar: "3.5vw", text: "2.2vw", gap: "1.2vh" };
-    if (totalLength <= 260) return { ar: "3.1vw", text: "1.9vw", gap: "1.0vh" };
-    if (totalLength <= 360) return { ar: "2.7vw", text: "1.7vw", gap: "0.8vh" };
-    return { ar: "2.3vw", text: "1.4vw", gap: "0.6vh" };
+    if (totalLength <= 120) return { ar: "2.6vw", text: "2.1vw", gap: "1.0vh" };
+if (totalLength <= 200) return { ar: "2.2vw", text: "1.8vw", gap: "0.8vh" };
+if (totalLength <= 300) return { ar: "1.9vw", text: "1.5vw", gap: "0.7vh" };
+return { ar: "1.6vw", text: "1.3vw", gap: "0.5vh" };
   }
   if (totalLength <= 120) return { ar: "3.0vw", text: "2.5vw", gap: "1.2vh" };
   if (totalLength <= 200) return { ar: "2.6vw", text: "2.1vw", gap: "1.0vh" };
@@ -576,29 +576,41 @@ if (data.dynamic?.prayerTimes) {
 
             {/* SAĞ — DUA + DUYURU */}
             <div className="panel" style={{ flex: 1, display: "flex", flexDirection: "column", background: "#0a3d2e", minHeight: 0 }}>
-              <div style={{ flex: 1, display: "flex", flexDirection: "column", borderBottom: "3px solid #c9a66b", minHeight: 0 }}>
-                <div style={{ background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0 }}>
-                  {isEzan ? (lang === "tr" ? "EZAN DUASI" : "ADHAN-GEBET") : (lang === "tr" ? "GÜNÜN DUASI" : "DUA DES TAGES")}
-                </div>
-                <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "16px 20px", gap: duaTypography.gap, overflow: "hidden", boxSizing: "border-box" }}>
-                  <div style={{ color: "#f5d78e", fontSize: duaTypography.ar, textAlign: "right", lineHeight: 1.65, direction: "rtl", fontFamily: "serif", width: "100%", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000", overflow: "hidden" }}>{duaArabic}</div>
-                  <div style={{ color: "#a8c8b0", fontSize: duaTypography.text, textAlign: "center", lineHeight: 1.45, width: "100%", overflowWrap: "break-word", wordBreak: "break-word", whiteSpace: "pre-wrap", textShadow: "1px 1px 2px #000", overflow: "hidden" }}>{duaText}</div>
-                </div>
-              </div>
-
-              <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
-                <div style={{ background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0 }}>
-                  {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
-                </div>
-                <div style={{ flex: 1, minHeight: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "20px 16px", overflow: "hidden" }}>
-                  <div style={{ color: "#f5d78e", fontSize: 40, textAlign: "center", lineHeight: 1.6, width: "100%", whiteSpace: "pre-wrap", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000" }}>
-                    {lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"}
+              {isEzan ? (
+                <>
+                  <div style={{ background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0 }}>
+                    {lang === "tr" ? "EZAN DUASI" : "ADHAN-GEBET"}
                   </div>
-                </div>
-              </div>
+                  <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px 24px", gap: duaTypography.gap, overflow: "hidden", boxSizing: "border-box" }}>
+                    <div style={{ color: "#f5d78e", fontSize: duaTypography.ar, textAlign: "right", lineHeight: 1.65, direction: "rtl", fontFamily: "serif", width: "100%", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000", overflow: "hidden" }}>{duaArabic}</div>
+                    <div style={{ color: "#a8c8b0", fontSize: duaTypography.text, textAlign: "center", lineHeight: 1.45, width: "100%", overflowWrap: "break-word", wordBreak: "break-word", whiteSpace: "pre-wrap", textShadow: "1px 1px 2px #000", overflow: "hidden" }}>{duaText}</div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div style={{ flex: 1, display: "flex", flexDirection: "column", borderBottom: "3px solid #c9a66b", minHeight: 0 }}>
+                    <div style={{ background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0 }}>
+                      {lang === "tr" ? "GÜNÜN DUASI" : "DUA DES TAGES"}
+                    </div>
+                    <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "12px 16px", gap: duaTypography.gap, overflow: "hidden", boxSizing: "border-box" }}>
+                      <div style={{ color: "#f5d78e", fontSize: duaTypography.ar, textAlign: "right", lineHeight: 1.55, direction: "rtl", fontFamily: "serif", width: "100%", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000", overflow: "hidden" }}>{duaArabic}</div>
+                      <div style={{ color: "#a8c8b0", fontSize: duaTypography.text, textAlign: "center", lineHeight: 1.35, width: "100%", overflowWrap: "break-word", wordBreak: "break-word", whiteSpace: "pre-wrap", textShadow: "1px 1px 2px #000", overflow: "hidden" }}>{duaText}</div>
+                    </div>
+                  </div>
+                  <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
+                    <div style={{ background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0 }}>
+                      {lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN"}
+                    </div>
+                    <div style={{ flex: 1, minHeight: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px 16px", overflow: "hidden" }}>
+                      <div style={{ color: "#f5d78e", fontSize: 34, textAlign: "center", lineHeight: 1.5, width: "100%", whiteSpace: "pre-wrap", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000" }}>
+                        {lang === "tr" ? duyuruTR || "—" : duyuruDE || "—"}
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
-
           {/* BOTTOM BAR */}
           <div className="bottom-bar" style={{ background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)", borderTop: "4px solid #c9a66b", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", position: "relative" }}>
             <div style={{ color: "#c9a66b", fontSize: 14, letterSpacing: 1 }} onClick={handleBottomClick}>
