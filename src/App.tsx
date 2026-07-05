@@ -567,7 +567,7 @@ if (data.dynamic?.prayerTimes) {
     </>
   )}
 </div>
-
+          </div>
           {/* BOTTOM BAR */}
           <div className="bottom-bar" style={{ background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)", borderTop: "4px solid #c9a66b", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", position: "relative" }}>
             <div style={{ color: "#c9a66b", fontSize: 14, letterSpacing: 1 }} onClick={handleBottomClick}>
