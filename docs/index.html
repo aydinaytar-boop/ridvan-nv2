@@ -5,7 +5,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="build-time" content="1783243116798">
+  <meta name="build-time" content="1783262362895">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -14251,11 +14251,125 @@ function getDuaTypography(arabic, text, isEzan) {
     if (totalLength <= 360) return { ar: "2.7vw", text: "1.7vw", gap: "0.8vh" };
     return { ar: "2.3vw", text: "1.4vw", gap: "0.6vh" };
   }
-  if (totalLength <= 120) return { ar: "2.6vw", text: "2.1vw", gap: "1.0vh" };
-  if (totalLength <= 200) return { ar: "2.2vw", text: "1.8vw", gap: "0.8vh" };
-  if (totalLength <= 300) return { ar: "1.9vw", text: "1.5vw", gap: "0.7vh" };
-  return { ar: "1.6vw", text: "1.3vw", gap: "0.5vh" };
+  if (totalLength <= 120) return { ar: "3.0vw", text: "2.5vw", gap: "1.2vh" };
+  if (totalLength <= 200) return { ar: "2.6vw", text: "2.1vw", gap: "1.0vh" };
+  if (totalLength <= 300) return { ar: "2.2vw", text: "1.7vw", gap: "0.8vh" };
+  return { ar: "1.8vw", text: "1.4vw", gap: "0.6vh" };
 }
+function timeToMinutes(t) {
+  const [h, m] = t.split(":").map(Number);
+  return h * 60 + m;
+}
+function minutesToTime(mins) {
+  const total = (mins % 1440 + 1440) % 1440;
+  return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
+}
+const DUYURU_CHARS = [
+  " ",
+  "a",
+  "b",
+  "c",
+  "ç",
+  "d",
+  "e",
+  "f",
+  "g",
+  "ğ",
+  "h",
+  "ı",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "ö",
+  "p",
+  "r",
+  "s",
+  "ş",
+  "t",
+  "u",
+  "ü",
+  "v",
+  "y",
+  "z",
+  "A",
+  "B",
+  "C",
+  "Ç",
+  "D",
+  "E",
+  "F",
+  "G",
+  "Ğ",
+  "H",
+  "I",
+  "İ",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "Ö",
+  "P",
+  "R",
+  "S",
+  "Ş",
+  "T",
+  "U",
+  "Ü",
+  "V",
+  "Y",
+  "Z",
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "!",
+  ".",
+  ",",
+  "-",
+  ":",
+  "/",
+  "'",
+  "(",
+  ")",
+  "&",
+  "\n"
+];
+const btnStyle = (color = "#c9a66b", size = 48) => ({
+  padding: 0,
+  width: size,
+  height: size,
+  fontSize: size * 0.45,
+  fontWeight: 900,
+  background: "#1a5c3a",
+  color,
+  border: `2px solid ${color}`,
+  borderRadius: 8,
+  cursor: "pointer",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexShrink: 0
+});
+const valueStyle = {
+  color: "#f5d78e",
+  fontSize: 44,
+  fontWeight: 900,
+  minWidth: 110,
+  textAlign: "center",
+  fontFamily: "monospace"
+};
 function App() {
   const [now, setNow] = reactExports.useState(() => /* @__PURE__ */ new Date());
   const [lang, setLang] = reactExports.useState("tr");
@@ -14638,25 +14752,19 @@ function App() {
           lang === "tr" ? bayram.bayram?.ad_tr : bayram.bayram?.ad_de
         ] })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel", style: { flex: 1, display: "flex", flexDirection: "column", background: "#0a3d2e", minHeight: 0 }, children: isEzan ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0 }, children: lang === "tr" ? "EZAN DUASI" : "ADHAN-GEBET" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { flex: 1, minHeight: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px 24px", gap: duaTypography.gap, overflow: "hidden", boxSizing: "border-box" }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#f5d78e", fontSize: duaTypography.ar, textAlign: "right", lineHeight: 1.65, direction: "rtl", fontFamily: "serif", width: "100%", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000", overflow: "hidden" }, children: duaArabic }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#a8c8b0", fontSize: duaTypography.text, textAlign: "center", lineHeight: 1.45, width: "100%", overflowWrap: "break-word", wordBreak: "break-word", whiteSpace: "pre-wrap", textShadow: "1px 1px 2px #000", overflow: "hidden" }, children: duaText })
-        ] })
-      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "panel", style: { flex: 1, display: "flex", flexDirection: "column", background: "#0a3d2e", minHeight: 0 }, children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { flex: 1, display: "flex", flexDirection: "column", borderBottom: "3px solid #c9a66b", minHeight: 0 }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0 }, children: lang === "tr" ? "GÜNÜN DUASI" : "DUA DES TAGES" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { flex: 1, minHeight: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "12px 16px", gap: duaTypography.gap, overflow: "hidden", boxSizing: "border-box" }, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#f5d78e", fontSize: duaTypography.ar, textAlign: "right", lineHeight: 1.55, direction: "rtl", fontFamily: "serif", width: "100%", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000", overflow: "hidden" }, children: duaArabic }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#a8c8b0", fontSize: duaTypography.text, textAlign: "center", lineHeight: 1.35, width: "100%", overflowWrap: "break-word", wordBreak: "break-word", whiteSpace: "pre-wrap", textShadow: "1px 1px 2px #000", overflow: "hidden" }, children: duaText })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0 }, children: isEzan ? lang === "tr" ? "EZAN DUASI" : "ADHAN-GEBET" : lang === "tr" ? "GÜNÜN DUASI" : "DUA DES TAGES" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { flex: 1, minHeight: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "16px 20px", gap: duaTypography.gap, overflow: "hidden", boxSizing: "border-box" }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#f5d78e", fontSize: duaTypography.ar, textAlign: "right", lineHeight: 1.65, direction: "rtl", fontFamily: "serif", width: "100%", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000", overflow: "hidden" }, children: duaArabic }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#a8c8b0", fontSize: duaTypography.text, textAlign: "center", lineHeight: 1.45, width: "100%", overflowWrap: "break-word", wordBreak: "break-word", whiteSpace: "pre-wrap", textShadow: "1px 1px 2px #000", overflow: "hidden" }, children: duaText })
           ] })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0 }, children: lang === "tr" ? "DUYURULAR" : "ANKÜNDIGUNGEN" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { flex: 1, minHeight: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px 16px", overflow: "hidden" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#f5d78e", fontSize: 34, textAlign: "center", lineHeight: 1.5, width: "100%", whiteSpace: "pre-wrap", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000" }, children: lang === "tr" ? duyuruTR || "—" : duyuruDE || "—" }) })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { flex: 1, minHeight: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "20px 16px", overflow: "hidden" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#f5d78e", fontSize: 40, textAlign: "center", lineHeight: 1.6, width: "100%", whiteSpace: "pre-wrap", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000" }, children: lang === "tr" ? duyuruTR || "—" : duyuruDE || "—" }) })
         ] })
-      ] }) })
+      ] })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bottom-bar", style: { background: "linear-gradient(180deg,#0a3d2e 0%,#072d20 100%)", borderTop: "4px solid #c9a66b", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", position: "relative" }, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { color: "#c9a66b", fontSize: 14, letterSpacing: 1 }, onClick: handleBottomClick, children: [
