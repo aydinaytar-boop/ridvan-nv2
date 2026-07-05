@@ -133,7 +133,7 @@ export const DUA_ARCHIVE: DailyDua[] = [
   { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الرِّضَا بَعْدَ الْقَضَاءِ وَالْعَيْشَ الْهَنِيءَ بَعْدَ الْمَوْتِ", tr: "Allah'ım! Hükmünden sonra rıza ve ölümden sonra huzurlu bir hayat isterim.", de: "O Allah, ich bitte Dich um Zufriedenheit nach Deinem Urteil und ein friedliches Leben nach dem Tod." },
   { ar: "رَبَّنَا وَسِعْتَ كُلَّ شَيْءٍ رَّحْمَةً وَعِلْمًا فَاغْفِرْ لِلَّذِينَ تَابُوا وَاتَّبَعُوا سَبِيلَكَ وَقِهِمْ عَذَابَ الْجَحِيمِ", tr: "Rabbimiz! Rahmetin ve ilmin her şeyi kuşatmıştır. Tevbe edip yoluna uyanları bağışla ve onları cehennem azabından koru.", de: "Unser Herr, Deine Barmherzigkeit und Dein Wissen umfassen alles. Vergib denen, die bereuen und Deinen Weg befolgen, und bewahre sie vor der Strafe der Hölle." },
   { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ قَلْبٍ لَا يَخْشَعُ وَمِنْ نَفْسٍ لَا تَشْبَعُ وَمِنْ عِلْمٍ لَا يَنْفَعُ", tr: "Allah'ım! Huşu duymayan kalpten, doymayan nefisten ve fayda vermeyen ilimden Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor einem Herzen, das nicht demütig ist, einer Seele, die nicht satt wird, und einem Wissen, das keinen Nutzen bringt." },
-// 121. Gün — Kur’an (A’râf 89)
+
 {  
   ar: "عَلَى اللَّهِ تَوَكَّلْنَا",
   tr: "Biz Allah’a tevekkül ettik.",
@@ -170,7 +170,6 @@ export const DUA_ARCHIVE: DailyDua[] = [
   de: "O Allah, ich bitte Dich um ein demütiges Herz."
 },
 
-
 {
     ar: "رَبِّ ارْحَمْهُمَا",
   tr: "Rabbim! Onlara merhamet et.",
@@ -182,7 +181,6 @@ export const DUA_ARCHIVE: DailyDua[] = [
   tr: "Allah’ım! Gözümü nurlandır.",
   de: "O Allah, erleuchte meinen Blick."
 },
-
 
 {
     ar: "رَبِّ اغْفِرْ لِي وَلِأَخِي",
@@ -401,12 +399,6 @@ export const DUA_ARCHIVE: DailyDua[] = [
 },
 
 {
-    ar: "وَمِنْ ذُرِّيَّتِي",
-  tr: "Soyumdan gelenleri de (namazı kılanlardan eyle).",
-  de: "Und auch meine Nachkommen (zu Betenden mache)."
-},
-
-{
     ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْإِيمَانِ",
   tr: "Allah’ım! Beni iman ehli kullarından eyle.",
   de: "O Allah, mache mich zu den Menschen des Glaubens."
@@ -424,22 +416,10 @@ export const DUA_ARCHIVE: DailyDua[] = [
   de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel in meiner Seele."
 },
 
-{  
-  ar: "وَارْحَمْنَا",
-  tr: "Bize merhamet et.",
-  de: "Erbarme Dich unser."
-},
-
 {
     ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا يَهْدِينِي",
   tr: "Allah’ım! Bana hidayet edecek bir nur isterim.",
   de: "O Allah, ich bitte Dich um ein Licht, das mich leitet."
-},
-
-{  
-  ar: "كَمَا رَبَّيَانِي صَغِيرًا",
-  tr: "Onlar beni küçükken yetiştirdikleri gibi...",
-  de: "Wie sie mich aufzogen, als ich klein war..."
 },
 
 {
@@ -458,12 +438,6 @@ export const DUA_ARCHIVE: DailyDua[] = [
     ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
   tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
   de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
-},
-
-{  
-  ar: "رَبِّ اغْفِرْ",
-  tr: "Rabbim! Bağışla.",
-  de: "Mein Herr, vergib."
 },
 
 {
@@ -485,33 +459,15 @@ export const DUA_ARCHIVE: DailyDua[] = [
 },
 
 {
-    ar: "رَبَّنَا إِنَّكَ تَعْلَمُ",
-  tr: "Rabbimiz! Sen bilirsin.",
-  de: "Unser Herr, Du weißt."
-},
-
-{
     ar: "اللَّهُمَّ نَوِّرْ وَجْهِي",
   tr: "Allah’ım! Yüzümü nurlandır.",
   de: "O Allah, erleuchte mein Gesicht."
 },
 
 {
-    ar: "وَاغْفِرْ لَنَا",
-  tr: "Bizi bağışla.",
-  de: "Vergib uns."
-},
-
-{
     ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْقُرْآنِ",
   tr: "Allah’ım! Beni Kur’an ehli kullarından eyle.",
   de: "O Allah, mache mich zu den Menschen des Qurans."
-},
-
-{
-    ar: "وَقُل رَّبِّ ارْحَمْهُمَا",
-  tr: "De ki: Rabbim! Onlara merhamet et.",
-  de: "Sprich: Mein Herr, erbarme Dich ihrer."
 },
 
 {  
@@ -532,12 +488,6 @@ export const DUA_ARCHIVE: DailyDua[] = [
   de: "O Allah, ich bitte Dich um ein reines Herz."
 },
 
-{  
-  ar: "وَارْحَمْ",
-  tr: "Merhamet et.",
-  de: "Erbarme Dich."
-},
-
 {
     ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي",
   tr: "Allah’ım! Nefsimin şerrinden Sana sığınırım.",
@@ -556,22 +506,10 @@ export const DUA_ARCHIVE: DailyDua[] = [
   de: "O Allah, mache mich zu den Menschen der Zufriedenheit."
 },
 
-{
-    ar: "فَاغْفِرْ لَنَا",
-  tr: "Bizi bağışla.",
-  de: "Vergib uns."
-},
-
 {  
   ar: "اللَّهُمَّ نَوِّرْ قَلْبِي",
   tr: "Allah’ım! Kalbimi nurlandır.",
   de: "O Allah, erleuchte mein Herz."
-},
-
-{  
-  ar: "رَبَّنَا إِنَّكَ تَعْلَمُ",
-  tr: "Rabbimiz! Sen bilirsin.",
-  de: "Unser Herr, Du weißt."
 },
 
 {  
@@ -593,21 +531,9 @@ export const DUA_ARCHIVE: DailyDua[] = [
 },
 
 {
-    ar: "وَارْحَمْنَا",
-  tr: "Bize merhamet et.",
-  de: "Erbarme Dich unser."
-},
-
-{
     ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
   tr: "Allah’ım! Beni nur ehli kullarından eyle.",
   de: "O Allah, mache mich zu den Menschen des Lichts."
-},
-
-{
-    ar: "مَا نُخْفِي وَمَا نُعْلِنُ",
-  tr: "Gizlediğimizi de açıkladığımızı da Sen bilirsin.",
-  de: "Was wir verbergen und was wir offenlegen."
 },
 
 {  
