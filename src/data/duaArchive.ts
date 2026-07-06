@@ -133,1028 +133,250 @@ export const DUA_ARCHIVE: DailyDua[] = [
   { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الرِّضَا بَعْدَ الْقَضَاءِ وَالْعَيْشَ الْهَنِيءَ بَعْدَ الْمَوْتِ", tr: "Allah'ım! Hükmünden sonra rıza ve ölümden sonra huzurlu bir hayat isterim.", de: "O Allah, ich bitte Dich um Zufriedenheit nach Deinem Urteil und ein friedliches Leben nach dem Tod." },
   { ar: "رَبَّنَا وَسِعْتَ كُلَّ شَيْءٍ رَّحْمَةً وَعِلْمًا فَاغْفِرْ لِلَّذِينَ تَابُوا وَاتَّبَعُوا سَبِيلَكَ وَقِهِمْ عَذَابَ الْجَحِيمِ", tr: "Rabbimiz! Rahmetin ve ilmin her şeyi kuşatmıştır. Tevbe edip yoluna uyanları bağışla ve onları cehennem azabından koru.", de: "Unser Herr, Deine Barmherzigkeit und Dein Wissen umfassen alles. Vergib denen, die bereuen und Deinen Weg befolgen, und bewahre sie vor der Strafe der Hölle." },
   { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ قَلْبٍ لَا يَخْشَعُ وَمِنْ نَفْسٍ لَا تَشْبَعُ وَمِنْ عِلْمٍ لَا يَنْفَعُ", tr: "Allah'ım! Huşu duymayan kalpten, doymayan nefisten ve fayda vermeyen ilimden Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor einem Herzen, das nicht demütig ist, einer Seele, die nicht satt wird, und einem Wissen, das keinen Nutzen bringt." },
-
-{  
-  ar: "عَلَى اللَّهِ تَوَكَّلْنَا",
-  tr: "Biz Allah’a tevekkül ettik.",
-  de: "Auf Allah vertrauen wir."
-},
-
-{  
-  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
-  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Lichts."
-},
-
-{
-    ar: "رَبِّ اشْرَحْ لِي صَدْرِي * وَيَسِّرْ لِي أَمْرِي",
-  tr: "Rabbim! Göğsüme genişlik ver, işimi kolaylaştır.",
-  de: "Mein Herr, öffne mir meine Brust und erleichtere mir meine Angelegenheit."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ قَلْبِي",
-  tr: "Allah’ım! Kalbimi nurlandır.",
-  de: "O Allah, erleuchte mein Herz."
-},
-
-{
-    ar: "رَبِّ أَدْخِلْنِي مُدْخَلَ صِدْقٍ",
-  tr: "Rabbim! Beni doğrulukla girdireceğin yere girdir.",
-  de: "Mein Herr, lass mich aufrichtig eintreten."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ قَلْبًا خَاشِعًا",
-  tr: "Allah’ım! Huşu sahibi bir kalp isterim.",
-  de: "O Allah, ich bitte Dich um ein demütiges Herz."
-},
-
-{
-    ar: "رَبِّ ارْحَمْهُمَا",
-  tr: "Rabbim! Onlara merhamet et.",
-  de: "Mein Herr, erbarme Dich ihrer."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ بَصَرِي",
-  tr: "Allah’ım! Gözümü nurlandır.",
-  de: "O Allah, erleuchte meinen Blick."
-},
-
-{
-    ar: "رَبِّ اغْفِرْ لِي وَلِأَخِي",
-  tr: "Rabbim! Beni ve kardeşimi bağışla.",
-  de: "Mein Herr, vergib mir und meinem Bruder."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
-  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
-},
-
-{  
-  ar: "رَبِّ اغْفِرْ وَارْحَمْ",
-  tr: "Rabbim! Bağışla, merhamet et.",
-  de: "Mein Herr, vergib und erbarme Dich."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا عَمِلْتُ",
-  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
-},
-
-{
-    ar: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً",
-  tr: "Rabbimiz! Bize dünyada iyilik ver.",
-  de: "Unser Herr, gib uns Gutes im Diesseits."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الصِّدْقِ",
-  tr: "Allah’ım! Beni doğruluk ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen der Wahrhaftigkeit."
-},
-
-{
-    ar: "وَأَخْرِجْنِي مُخْرَجَ صِدْقٍ",
-  tr: "Beni doğrulukla çıkaracağın yerden çıkar.",
-  de: "Lass mich aufrichtig hinausgehen."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ صَدْرِي",
-  tr: "Allah’ım! Göğsümü nurlandır.",
-  de: "O Allah, erleuchte meine Brust."
-},
-
-{
-    ar: "أَنتَ وَلِيُّنَا فَاغْفِرْ لَنَا",
-  tr: "Sen bizim velimizsin. Bizi bağışla.",
-  de: "Du bist unser Beschützer. Vergib uns."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رَوْحًا وَرَاحَةً",
-  tr: "Allah’ım! Huzur ve ferahlık isterim.",
-  de: "O Allah, ich bitte Dich um Ruhe und Erleichterung."
-},
-
-{
-    ar: "رَبَّنَا إِنَّكَ تَعْلَمُ مَا نُخْفِي",
-  tr: "Rabbimiz! Gizlediğimizi Sen bilirsin.",
-  de: "Unser Herr, Du weißt, was wir verbergen."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي سَمْعِي",
-  tr: "Allah’ım! İşitmemde nur isterim.",
-  de: "O Allah, gib meinem Gehör Licht."
-},
-
-{
-   ar: "رَبَّنَا أَتْمِمْ لَنَا نُورَنَا",
-  tr: "Rabbimiz! Nurumuzu tamamla.",
-  de: "Unser Herr, vollende unser Licht."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْقُرْآنِ",
-  tr: "Allah’ım! Beni Kur’an ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Qurans."
-},
-
-{
-    ar: "وَقُل رَّبِّ ارْحَمْهُمَا",
-  tr: "De ki: Rabbim! Onlara merhamet et.",
-  de: "Sprich: Mein Herr, erbarme Dich ihrer."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ وَجْهِي",
-  tr: "Allah’ım! Yüzümü nurlandır.",
-  de: "O Allah, erleuchte mein Gesicht."
-},
-
-{
-    ar: "وَأَدْخِلْنَا فِي رَحْمَتِكَ",
-  tr: "Bizi rahmetine dahil et.",
-  de: "Nimm uns in Deine Barmherzigkeit auf."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ قَلْبًا نَقِيًّا",
-  tr: "Allah’ım! Tertemiz bir kalp isterim.",
-  de: "O Allah, ich bitte Dich um ein reines Herz."
-},
-
-{  
-  ar: "رَبِّ اغْفِرْ وَارْحَمْ وَأَنتَ خَيْرُ الرَّاحِمِينَ",
-  tr: "Rabbim! Bağışla, merhamet et. Merhametlilerin en hayırlısı Sensin.",
-  de: "Mein Herr, vergib und erbarme Dich. Du bist der Beste der Barmherzigen."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي قَلْبِي",
-  tr: "Allah’ım! Kalbime nur ver.",
-  de: "O Allah, gib meinem Herzen Licht."
-},
-
-{  
-  ar: "رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ",
-  tr: "Rabbim! Beni, anne-babamı ve müminleri bağışla.",
-  de: "Mein Herr, vergib mir, meinen Eltern und den Gläubigen."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رِضًا بَعْدَ الْقَضَاءِ",
-  tr: "Allah’ım! Hükmünden sonra rızanı isterim.",
-  de: "O Allah, ich bitte Dich um Zufriedenheit nach Deinem Urteil."
-},
-
-{
-    ar: "رَبِّ اشْرَحْ لِي صَدْرِي * وَيَسِّرْ لِي أَمْرِي",
-  tr: "Rabbim! Göğsüme genişlik ver, işimi kolaylaştır.",
-  de: "Mein Herr, öffne mir meine Brust und erleichtere mir meine Angelegenheit."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ سَمْعِي وَبَصَرِي",
-  tr: "Allah’ım! İşitmemi ve görmemi nurlandır.",
-  de: "O Allah, erleuchte mein Gehör und meinen Blick."
-},
-
-{
-    ar: "فَاغْفِرْ لَنَا وَارْحَمْنَا",
-  tr: "Bizi bağışla ve bize merhamet et.",
-  de: "Vergib uns und erbarme Dich unser."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ صِدْقًا فِي الْقَوْلِ وَالْعَمَلِ",
-  tr: "Allah’ım! Sözde ve amelde doğruluk isterim.",
-  de: "O Allah, ich bitte Dich um Aufrichtigkeit in Wort und Tat."
-},
-
-{
-    ar: "وَاجْعَل لِّي مِن لَّدُنكَ سُلْطَانًا نَّصِيرًا",
-  tr: "Bana katından yardımcı bir güç ver.",
-  de: "Gib mir von Dir eine unterstützende Kraft."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رِقَّةَ الْقَلْبِ",
-  tr: "Allah’ım! Kalp yumuşaklığı isterim.",
-  de: "O Allah, ich bitte Dich um Sanftheit des Herzens."
-},
-
-{  
-  ar: "رَبَّنَا إِنَّكَ تَعْلَمُ مَا نُخْفِي وَمَا نُعْلِنُ",
-  tr: "Rabbimiz! Gizlediğimizi de açıkladığımızı da Sen bilirsin.",
-  de: "Unser Herr, Du weißt, was wir verbergen und was wir offenlegen."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
-  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Lichts."
-},
-
-{
-    ar: "رَبِّ اغْفِرْ وَارْحَمْ",
-  tr: "Rabbim! Bağışla, merhamet et.",
-  de: "Mein Herr, vergib und erbarme Dich."
-},
-
-{  
-  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
-  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
-},
-
-{  
-  ar: "رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَا إِصْرًا",
-  tr: "Rabbimiz! Bize ağır yük yükleme.",
-  de: "Unser Herr, lege uns keine schwere Last auf."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رِقَّةَ الْقَلْبِ وَصِدْقَ اللِّسَانِ",
-  tr: "Allah’ım! Kalp yumuşaklığı ve doğru bir dil isterim.",
-  de: "O Allah, ich bitte Dich um Sanftheit des Herzens und Wahrhaftigkeit der Zunge."
-},
-
-{
-    ar: "وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا",
-  tr: "Eğer bizi bağışlamaz ve bize merhamet etmezsen...",
-  de: "Wenn Du uns nicht vergibst und Dich unser nicht erbarmst..."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ قَلْبِي وَصَدْرِي",
-  tr: "Allah’ım! Kalbimi ve göğsümü nurlandır.",
-  de: "O Allah, erleuchte mein Herz und meine Brust."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْإِيمَانِ",
-  tr: "Allah’ım! Beni iman ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Glaubens."
-},
-
-{  
-  ar: "وَأَنتَ خَيْرُ الرَّاحِمِينَ",
-  tr: "Sen merhametlilerin en hayırlısısın.",
-  de: "Du bist der Beste der Barmherzigen."
-},
-
-{  
-  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا فِي النَّفْسِ",
-  tr: "Allah’ım! Nefsimdeki kötülüklerden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel in meiner Seele."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا يَهْدِينِي",
-  tr: "Allah’ım! Bana hidayet edecek bir nur isterim.",
-  de: "O Allah, ich bitte Dich um ein Licht, das mich leitet."
-},
-
-{
-    ar: "اللَّهُمَّ طَهِّرْ نَفْسِي",
-  tr: "Allah’ım! Nefsimi temizle.",
-  de: "O Allah, reinige meine Seele."
-},
-
-{  
-  ar: "وَمَا نُعْلِنُ",
-  tr: "Açıkladığımızı da (Sen bilirsin).",
-  de: "Und was wir offenlegen."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
-  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
-  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
-},
-
-{
-    ar: "أَنتَ وَلِيُّنَا",
-  tr: "Sen bizim velimizsin.",
-  de: "Du bist unser Beschützer."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رَوْحًا وَرَاحَةً",
-  tr: "Allah’ım! Huzur ve ferahlık isterim.",
-  de: "O Allah, ich bitte Dich um Ruhe und Erleichterung."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ وَجْهِي",
-  tr: "Allah’ım! Yüzümü nurlandır.",
-  de: "O Allah, erleuchte mein Gesicht."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْقُرْآنِ",
-  tr: "Allah’ım! Beni Kur’an ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Qurans."
-},
-
-{  
-  ar: "اللَّهُمَّ نَوِّرْ صَدْرِي",
-  tr: "Allah’ım! Göğsümü nurlandır.",
-  de: "O Allah, erleuchte meine Brust."
-},
-
-{
-    ar: "وَاغْفِرْ لِي",
-  tr: "Beni bağışla.",
-  de: "Vergib mir."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ قَلْبًا سَلِيمًا",
-  tr: "Allah’ım! Selim bir kalp isterim.",
-  de: "O Allah, ich bitte Dich um ein reines Herz."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي",
-  tr: "Allah’ım! Nefsimin şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel meiner Seele."
-},
-
-{
-    ar: "مَا نُخْفِي وَمَا نُعْلِنُ",
-  tr: "Gizlediğimizi de açıkladığımızı da (Sen bilirsin).",
-  de: "Was wir verbergen und was wir offenlegen."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرِّضَا",
-  tr: "Allah’ım! Beni rıza ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen der Zufriedenheit."
-},
-
-{  
-  ar: "اللَّهُمَّ نَوِّرْ قَلْبِي",
-  tr: "Allah’ım! Kalbimi nurlandır.",
-  de: "O Allah, erleuchte mein Herz."
-},
-
-{  
-  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رَوْحًا وَرَاحَةً",
-  tr: "Allah’ım! Huzur ve ferahlık isterim.",
-  de: "O Allah, ich bitte Dich um Ruhe und Erleichterung."
-},
-
-{  
-  ar: "وَأَنتَ خَيْرُ الرَّاحِمِينَ",
-  tr: "Sen merhametlilerin en hayırlısısın.",
-  de: "Du bist der Beste der Barmherzigen."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
-  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
-  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Lichts."
-},
-
-{  
-  ar: "اللَّهُمَّ نَوِّرْ وَجْهِي وَقَلْبِي",
-  tr: "Allah’ım! Yüzümü ve kalbimi nurlandır.",
-  de: "O Allah, erleuchte mein Gesicht und mein Herz."
-},
-
-{
-    ar: "رَبَّنَا لَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ",
-  tr: "Rabbimiz! Gücümüzün yetmediği şeyleri bize yükleme.",
-  de: "Unser Herr, belaste uns nicht mit dem, was wir nicht tragen können."
-},
-
-{  
-  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الْإِيمَانِ",
-  tr: "Allah’ım! Beni iman ziynetiyle süsle.",
-  de: "O Allah, schmücke mich mit dem Schmuck des Glaubens."
-},
-
-{
-    ar: "لَنَكُونَنَّ مِنَ الْخَاسِرِينَ",
-  tr: "Ziyana uğrayanlardan oluruz.",
-  de: "Wir würden zu den Verlierern gehören."
-},
-
-{
-    ar: "اللَّهُمَّ طَهِّرْ قَلْبِي مِنَ النِّفَاقِ",
-  tr: "Allah’ım! Kalbimi nifaktan temizle.",
-  de: "O Allah, reinige mein Herz von Heuchelei."
-},
-
-{
-    ar: "رَبَّنَا وَتَقَبَّلْ دُعَاءِ",
-  tr: "Rabbimiz! Duamı kabul buyur.",
-  de: "Unser Herr, nimm mein Gebet an."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الصِّدْقِ",
-  tr: "Allah’ım! Beni doğruluk ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen der Wahrhaftigkeit."
-},
-
-{
-    ar: "رَبِّ اغْفِرْ",
-  tr: "Rabbim! Bağışla.",
-  de: "Mein Herr, vergib."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ كُلِّ دَابَّةٍ",
-  tr: "Allah’ım! Yaratılmış her canlının şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel aller Geschöpfe."
-},
-
-{
-    ar: "وَارْحَمْنَا",
-  tr: "Bize merhamet et.",
-  de: "Erbarme Dich unser."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي طَرِيقِي",
-  tr: "Allah’ım! Yoluma nur ver.",
-  de: "O Allah, gib meinem Weg Licht."
-},
-
-{
-    ar: "وَقُل رَّبِّ ارْحَمْهُمَا",
-  tr: "De ki: Rabbim! Onlara merhamet et.",
-  de: "Sprich: Mein Herr, erbarme Dich ihrer."
-},
-
-{  
-  ar: "اللَّهُمَّ نَوِّرْ بَصَرِي وَسَمْعِي",
-  tr: "Allah’ım! Gözümü ve kulağımı nurlandır.",
-  de: "O Allah, erleuchte mein Gehör und meinen Blick."
-},
-
-{
-    ar: "إِنَّكَ تَعْلَمُ مَا نُخْفِي",
-  tr: "Şüphesiz gizlediğimizi Sen bilirsin.",
-  de: "Du weißt, was wir verbergen."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
-  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي",
-  tr: "Allah’ım! Nefsimin şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel meiner Seele."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ قَلْبًا سَلِيمًا",
-  tr: "Allah’ım! Selim bir kalp isterim.",
-  de: "O Allah, ich bitte Dich um ein reines Herz."
-},
-
-{  
-  ar: "اللَّهُمَّ نَوِّرْ وَجْهِي",
-  tr: "Allah’ım! Yüzümü nurlandır.",
-  de: "O Allah, erleuchte mein Gesicht."
-},
-
-{
-    ar: "وَاغْفِرْ لَنَا",
-  tr: "Bizi bağışla.",
-  de: "Vergib uns."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْقُرْآنِ",
-  tr: "Allah’ım! Beni Kur’an ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Qurans."
-},
-
-{
-    ar: "كَمَا رَبَّيَانِي صَغِيرًا",
-  tr: "Onlar beni küçükken yetiştirdikleri gibi...",
-  de: "Wie sie mich aufzogen, als ich klein war..."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ صَدْرِي",
-  tr: "Allah’ım! Göğsümü nurlandır.",
-  de: "O Allah, erleuchte meine Brust."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رِقَّةَ الْقَلْبِ",
-  tr: "Allah’ım! Kalp yumuşaklığı isterim.",
-  de: "O Allah, ich bitte Dich um Sanftheit des Herzens."
-},
-
-{  
-  ar: "وَأَنتَ خَيْرُ الرَّاحِمِينَ",
-  tr: "Sen merhametlilerin en hayırlısısın.",
-  de: "Du bist der Beste der Barmherzigen."
-},
-
-{  
-  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
-  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرِّضَا",
-  tr: "Allah’ım! Beni rıza ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen der Zufriedenheit."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ قَلْبِي",
-  tr: "Allah’ım! Kalbimi nurlandır.",
-  de: "O Allah, erleuchte mein Herz."
-},
-
-{
-   ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رَوْحًا وَرَاحَةً",
-  tr: "Allah’ım! Huzur ve ferahlık isterim.",
-  de: "O Allah, ich bitte Dich um Ruhe und Erleichterung."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي",
-  tr: "Allah’ım! Nefsimin şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel meiner Seele."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
-  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Lichts."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ وَجْهِي وَقَلْبِي",
-  tr: "Allah’ım! Yüzümü ve kalbimi nurlandır.",
-  de: "O Allah, erleuchte mein Gesicht und mein Herz."
-},
-
-{
-    ar: "رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا",
-  tr: "Rabbimiz! Unutursak bizi sorumlu tutma.",
-  de: "Unser Herr, belaste uns nicht, wenn wir vergessen."
-},
-
-{  
-  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الْإِيمَانِ",
-  tr: "Allah’ım! Beni iman ziynetiyle süsle.",
-  de: "O Allah, schmücke mich mit dem Schmuck des Glaubens."
-},
-
-{
-    ar: "اللَّهُمَّ طَهِّرْ قَلْبِي",
-  tr: "Allah’ım! Kalbimi temizle.",
-  de: "O Allah, reinige mein Herz."
-},
-
-{  
-  ar: "وَمِنْ ذُرِّيَّتِي",
-  tr: "Soyumdan gelenleri de (namazı kılanlardan eyle).",
-  de: "Und auch meine Nachkommen (zu Betenden mache)."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْإِيمَانِ",
-  tr: "Allah’ım! Beni iman ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Glaubens."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ كُلِّ دَابَّةٍ",
-  tr: "Allah’ım! Yaratılmış her canlının şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel aller Geschöpfe."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي طَرِيقِي",
-  tr: "Allah’ım! Yoluma nur ver.",
-  de: "O Allah, gib meinem Weg Licht."
-},
-
-{
-    ar: "رَبَّنَا لَا تَحْمِلْ عَلَيْنَا إِصْرًا كَمَا حَمَلْتَهُ عَلَى الَّذِينَ مِن قَبْلِنَا",
-  tr: "Rabbimiz! Bizden öncekilere yüklediğin gibi bize ağır yük yükleme.",
-  de: "Unser Herr, lege uns keine Last auf wie denen vor uns."
-},
-
-{
-    ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الصَّالِحِينَ",
-  tr: "Allah’ım! Beni salih kullarının ziynetiyle süsle.",
-  de: "O Allah, schmücke mich mit dem Schmuck der Rechtschaffenen."
-},
-
-{  
-  ar: "اللَّهُمَّ طَهِّرْ نَفْسِي وَقَلْبِي",
-  tr: "Allah’ım! Nefsimi ve kalbimi temizle.",
-  de: "O Allah, reinige meine Seele und mein Herz."
-},
-
-{  
-  ar: "رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ",
-  tr: "Rabbim! Beni namazı dosdoğru kılanlardan eyle.",
-  de: "Mein Herr, mache mich zu denen, die das Gebet verrichten."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْخَيْرِ",
-  tr: "Allah’ım! Beni hayır ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Guten."
-},
-
-{
-  
-  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا فِي النَّفْسِ",
-  tr: "Allah’ım! Nefsimdeki kötülüklerden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel in meiner Seele."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي قَلْبِي",
-  tr: "Allah’ım! Kalbime nur ver.",
-  de: "O Allah, gib meinem Herzen Licht."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ بَصَرِي",
-  tr: "Allah’ım! Gözümü nurlandır.",
-  de: "O Allah, erleuchte meinen Blick."
-},
-
-{
-    ar: "وَأَنتَ خَيْرُ الرَّاحِمِينَ",
-  tr: "Sen merhametlilerin en hayırlısısın.",
-  de: "Du bist der Beste der Barmherzigen."
-},
-
-{  
-  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
-  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
-  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
-  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Lichts."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ وَجْهِي",
-  tr: "Allah’ım! Yüzümü nurlandır.",
-  de: "O Allah, erleuchte mein Gesicht."
-},
-
-{
-    ar: "رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا",
-  tr: "Rabbimiz! Unutursak bizi sorumlu tutma.",
-  de: "Unser Herr, belaste uns nicht, wenn wir vergessen."
-},
-
-{
-    ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الْإِيمَانِ",
-  tr: "Allah’ım! Beni iman ziynetiyle süsle.",
-  de: "O Allah, schmücke mich mit dem Schmuck des Glaubens."
-},
-
-{  
-  ar: "ظَلَمْنَا أَنْفُسَنَا",
-  tr: "Biz kendimize zulmettik.",
-  de: "Wir haben uns selbst Unrecht getan."
-},
-
-{
-    ar: "اللَّهُمَّ طَهِّرْ قَلْبِي",
-  tr: "Allah’ım! Kalbimi temizle.",
-  de: "O Allah, reinige mein Herz."
-},
-
-{  
-  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْإِيمَانِ",
-  tr: "Allah’ım! Beni iman ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Glaubens."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ كُلِّ دَابَّةٍ",
-  tr: "Allah’ım! Yaratılmış her canlının şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel aller Geschöpfe."
-},
-
-{  
-  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي طَرِيقِي",
-  tr: "Allah’ım! Yoluma nur ver.",
-  de: "O Allah, gib meinem Weg Licht."
-},
-
-{  
-  ar: "رَبَّنَا لَا تَحْمِلْ عَلَيْنَا إِصْرًا",
-  tr: "Rabbimiz! Bize ağır yük yükleme.",
-  de: "Unser Herr, lege uns keine schwere Last auf."
-},
-
-{
-    ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الصَّالِحِينَ",
-  tr: "Allah’ım! Beni salih kullarının ziynetiyle süsle.",
-  de: "O Allah, schmücke mich mit dem Schmuck der Rechtschaffenen."
-},
-
-{  
-  ar: "اللَّهُمَّ طَهِّرْ نَفْسِي",
-  tr: "Allah’ım! Nefsimi temizle.",
-  de: "O Allah, reinige meine Seele."
-},
-
-{  
-  ar: "رَبَّنَا وَتَقَبَّلْ دُعَاءِ",
-  tr: "Rabbimiz! Duamı kabul buyur.",
-  de: "Unser Herr, nimm mein Gebet an."
-},
-
-{  
-  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الصِّدْقِ",
-  tr: "Allah’ım! Beni doğruluk ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen der Wahrhaftigkeit."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا فِي النَّفْسِ",
-  tr: "Allah’ım! Nefsimdeki kötülüklerden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel in meiner Seele."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي قَلْبِي",
-  tr: "Allah’ım! Kalbime nur ver.",
-  de: "O Allah, gib meinem Herzen Licht."
-},
-
-{  
-  ar: "إِنَّكَ تَعْلَمُ مَا نُخْفِي",
-  tr: "Şüphesiz gizlediğimizi Sen bilirsin.",
-  de: "Du weißt, was wir verbergen."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ بَصَرِي وَقَلْبِي",
-  tr: "Allah’ım! Gözümü ve kalbimi nurlandır.",
-  de: "O Allah, erleuchte meinen Blick und mein Herz."
-},
-
-{  
-  ar: "وَأَنتَ خَيْرُ الرَّاحِمِينَ",
-  tr: "Sen merhametlilerin en hayırlısısın.",
-  de: "Du bist der Beste der Barmherzigen."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
-  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
-},
-
-{  
-  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
-  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
-  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Lichts."
-},
-
-{
-    ar: "اللَّهُمَّ نَوِّرْ وَجْهِي وَقَلْبِي",
-  tr: "Allah’ım! Yüzümü ve kalbimi nurlandır.",
-  de: "O Allah, erleuchte mein Gesicht und mein Herz."
-},
-
-{
-    ar: "رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا",
-  tr: "Rabbimiz! Unutur veya yanılırsak bizi sorumlu tutma.",
-  de: "Unser Herr, belaste uns nicht, wenn wir vergessen oder einen Fehler machen."
-},
-
-{
-    ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الْإِيمَانِ",
-  tr: "Allah’ım! Beni iman ziynetiyle süsle.",
-  de: "O Allah, schmücke mich mit dem Schmuck des Glaubens."
-},
-
-{  
-  ar: "وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا",
-  tr: "Eğer bizi bağışlamaz ve bize merhamet etmezsen...",
-  de: "Wenn Du uns nicht vergibst und Dich unser nicht erbarmst..."
-},
-
-{
-    ar: "اللَّهُمَّ طَهِّرْ قَلْبِي وَنَفْسِي",
-  tr: "Allah’ım! Kalbimi ve nefsimi temizle.",
-  de: "O Allah, reinige mein Herz und meine Seele."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْخَيْرِ",
-  tr: "Allah’ım! Beni hayır ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Guten."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي",
-  tr: "Allah’ım! Nefsimin şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel meiner Seele."
-},
-
-{  
-  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي قَلْبِي",
-  tr: "Allah’ım! Kalbime nur ver.",
-  de: "O Allah, gib meinem Herzen Licht."
-},
-
-{  
-  ar: "إِنَّكَ تَعْلَمُ مَا نُخْفِي",
-  tr: "Şüphesiz gizlediğimizi Sen bilirsin.",
-  de: "Du weißt, was wir verbergen."
-},
-
-
-{  
-  ar: "وَأَنتَ خَيْرُ الرَّاحِمِينَ",
-  tr: "Sen merhametlilerin en hayırlısısın.",
-  de: "Du bist der Beste der Barmherzigen."
-},
-
-{  
-  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
-  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
-},
-
-{  
-  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
-  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
-  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Lichts."
-},
-
-{
-   ar: "اللَّهُمَّ نَوِّرْ وَجْهِي",
-  tr: "Allah’ım! Yüzümü nurlandır.",
-  de: "O Allah, erleuchte mein Gesicht."
-},
-
-{
-    ar: "رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا",
-  tr: "Rabbimiz! Unutursak bizi sorumlu tutma.",
-  de: "Unser Herr, belaste uns nicht, wenn wir vergessen."
-},
-
-{  
-  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الْإِيمَانِ",
-  tr: "Allah’ım! Beni iman ziynetiyle süsle.",
-  de: "O Allah, schmücke mich mit dem Schmuck des Glaubens."
-},
-
-{
-  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْإِيمَانِ",
-  tr: "Allah’ım! Beni iman ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Glaubens."
-},
-
-{  
-  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ كُلِّ دَابَّةٍ",
-  tr: "Allah’ım! Yaratılmış her canlının şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel aller Geschöpfe."
-},
-
-{  
-  ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي طَرِيقِي",
-  tr: "Allah’ım! Yoluma nur ver.",
-  de: "O Allah, gib meinem Weg Licht."
-},
-
-{  
-  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الصَّالِحِينَ",
-  tr: "Allah’ım! Beni salih kullarının ziynetiyle süsle.",
-  de: "O Allah, schmücke mich mit dem Schmuck der Rechtschaffenen."
-},
-
-{  
-  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا فِي النَّفْسِ",
-  tr: "Allah’ım! Nefsimdeki kötülüklerden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel in meiner Seele."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي قَلْبِي",
-  tr: "Allah’ım! Kalbime nur ver.",
-  de: "O Allah, gib meinem Herzen Licht."
-},
-
-{  
-  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الرَّحْمَةِ",
-  tr: "Allah’ım! Beni merhamet ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen der Barmherzigkeit."
-},
-
-{  
-  ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
-  tr: "Allah’ım! Yaptığım kötülüklerin şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe."
-},
-
-{
-    ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
-  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Lichts."
-},
-
-{  
-  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النُّورِ",
-  tr: "Allah’ım! Beni nur ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Lichts."
-},
-
-{
-    ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الْإِيمَانِ",
-  tr: "Allah’ım! Beni iman ziynetiyle süsle.",
-  de: "O Allah, schmücke mich mit dem Schmuck des Glaubens."
-},
-
-{  
-  ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْإِيمَانِ",
-  tr: "Allah’ım! Beni iman ehli kullarından eyle.",
-  de: "O Allah, mache mich zu den Menschen des Glaubens."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ كُلِّ دَابَّةٍ",
-  tr: "Allah’ım! Yaratılmış her canlının şerrinden Sana sığınırım.",
-  de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel aller Geschöpfe."
-},
-
-{
-    ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ نُورًا فِي طَرِيقِي",
-  tr: "Allah’ım! Yoluma nur ver.",
-  de: "O Allah, gib meinem Weg Licht."
-},
-
-{  
-  ar: "اللَّهُمَّ زَيِّنِّي بِزِينَةِ الصَّالِحِينَ",
-  tr: "Allah’ım! Beni salih kullarının ziynetiyle süsle.",
-  de: "O Allah, schmücke mich mit dem Schmuck der Rechtschaffenen."
-},
-
-{
-    ar: "وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ",
-  tr: "Eğer bizi bağışlamaz ve bize merhamet etmezsen, ziyana uğrayanlardan oluruz.",
-  de: "Wenn Du uns nicht vergibst und Dich unser nicht erbarmst, werden wir zu den Verlierern gehören."
-}
+  { ar: "رَبِّ اجْعَلْ هَٰذَا الْبَلَدَ آمِنًا وَارْزُقْ أَهْلَهُ مِنَ الثَّمَرَاتِ", tr: "Rabbim! Bu beldeyi güvenli kıl ve halkını meyvelerle rızıklandır.", de: "Mein Herr, mache diese Stadt sicher und versorge ihre Bewohner mit Früchten." },
+  { ar: "اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ", tr: "Allah'ım! Sen Selam'sın, esenlik Senden gelir. Ey celal ve ikram sahibi, Sen ne yücesin.", de: "O Allah, Du bist der Friede und der Friede kommt von Dir. Gesegnet seist Du, o Herr der Majestät und Ehre." },
+  { ar: "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ", tr: "Allah'ım! Seni zikretmek, Sana şükretmek ve Sana güzelce ibadet etmek için bana yardım et.", de: "O Allah, hilf mir, Deiner zu gedenken, Dir zu danken und Dich auf schönste Weise zu dienen." },
+  { ar: "رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ", tr: "Rabbimiz! Hesap gününde beni, anne-babamı ve tüm müminleri bağışla.", de: "Unser Herr, vergib mir, meinen Eltern und den Gläubigen am Tag der Abrechnung." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْفِرْدَوْسَ الْأَعْلَى مِنَ الْجَنَّةِ", tr: "Allah'ım! Senden cennetin en yüksek makamı olan Firdevs'i isterim.", de: "O Allah, ich bitte Dich um das höchste Paradies, das Firdaus." },
+  { ar: "رَبَّنَا لَا تَجْعَلْنَا مَعَ الْقَوْمِ الظَّالِمِينَ", tr: "Rabbimiz! Bizi zalimler topluluğuyla birlikte kılma.", de: "Unser Herr, zähle uns nicht zu den Ungerechten." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكَسَلِ وَالْهَرَمِ وَالْمَأْثَمِ وَالْمَغْرَمِ", tr: "Allah'ım! Tembellikten, ihtiyarlık güçsüzlüğünden, günahtan ve borç yükünden Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Trägheit, Altersschwäche, Sünde und Schuldenlast." },
+  { ar: "رَبَّنَا آتِنَا مِنْ لَدُنْكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًا", tr: "Rabbimiz! Bize katından rahmet ver ve işimizde bize doğru yolu kolaylaştır.", de: "Unser Herr, gewähre uns von Dir Barmherzigkeit und bereite uns in unserer Sache den rechten Weg." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ", tr: "Allah'ım! Bütün hayrı, acil ve ertelenmiş olanını Senden isterim.", de: "O Allah, ich bitte Dich um alles Gute, das unverzügliche und das aufgeschobene." },
+  { ar: "رَبَّنَا اكْشِفْ عَنَّا الْعَذَابَ إِنَّا مُؤْمِنُونَ", tr: "Rabbimiz! Azabı bizden kaldır, çünkü biz iman edenleriz.", de: "Unser Herr, wende die Strafe von uns ab, denn wir sind Gläubige." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِرِضَاكَ مِنْ سَخَطِكَ وَبِعَفْوِكَ مِنْ عُقُوبَتِكَ", tr: "Allah'ım! Gazabından rızana, cezandan affına sığınırım.", de: "O Allah, ich suche Zuflucht in Deinem Wohlgefallen vor Deinem Zorn und in Deiner Vergebung vor Deiner Strafe." },
+  { ar: "رَبَّنَا أَتْمِمْ لَنَا نُورَنَا وَاغْفِرْ لَنَا إِنَّكَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ", tr: "Rabbimiz! Nurumuzu tamamla ve bizi bağışla. Şüphesiz Sen her şeye kadirsin.", de: "Unser Herr, vervollständige unser Licht und vergib uns. Du hast Macht über alle Dinge." },
+  { ar: "اللَّهُمَّ اجْعَلْ أَوَّلَ هَذَا الْأَمْرِ صَلَاحًا وَأَوْسَطَهُ فَلَاحًا وَآخِرَهُ نَجَاحًا", tr: "Allah'ım! Bu işin başını düzgünlük, ortasını kurtuluş, sonunu başarı kıl.", de: "O Allah, mache den Anfang dieser Sache zur Rechtschaffenheit, ihre Mitte zur Erlösung und ihr Ende zum Erfolg." },
+  { ar: "رَبِّ أَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ وَمِنْ عَذَابِ النَّارِ", tr: "Rabbim! Kabir azabından ve cehennem azabından Sana sığınırım.", de: "Mein Herr, ich suche Zuflucht bei Dir vor der Grabesstrafe und vor der Strafe des Feuers." },
+  { ar: "اللَّهُمَّ حَاسِبْنِي حِسَابًا يَسِيرًا", tr: "Allah'ım! Beni kolay bir hesapla hesaba çek.", de: "O Allah, ziehe mich mit einer leichten Abrechnung zur Rechenschaft." },
+  { ar: "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ", tr: "Rabbimiz! Eşlerimizi ve çocuklarımızı bize göz aydınlığı kıl.", de: "Unser Herr, schenke uns durch unsere Ehepartner und Kinder Freude der Augen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعِلْمَ النَّافِعَ وَالرِّزْقَ الطَّيِّبَ وَالْعَمَلَ الْمُتَقَبَّلَ", tr: "Allah'ım! Faydalı ilim, helal rızık ve kabul gören amel isterim.", de: "O Allah, ich bitte Dich um nützliches Wissen, guten Lebensunterhalt und angenommene Taten." },
+  { ar: "رَبِّ إِنِّي مَغْلُوبٌ فَانتَصِرْ", tr: "Rabbim! Ben yenildim, Sen yardım et.", de: "Mein Herr, ich bin überwältigt, so komm mir zu Hilfe." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْغَمِّ وَالْحَزَنِ وَأَعُوذُ بِكَ مِنَ الْعَجْزِ وَالْكَسَلِ", tr: "Allah'ım! Sıkıntı ve kederden, acizlik ve tembellikten Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Kummer und Trauer, vor Unfähigkeit und Trägheit." },
+  { ar: "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا", tr: "Rabbimiz! Bizi hidayete erdirdikten sonra kalplerimizi eğriltme.", de: "Unser Herr, lass unsere Herzen nicht abirren, nachdem Du uns rechtgeleitet hast." },
+  { ar: "اللَّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ دِقَّهُ وَجِلَّهُ وَأَوَّلَهُ وَآخِرَهُ", tr: "Allah'ım! Tüm günahlarımı, küçüğünü büyüğünü, öncekileri ve sonrakileri bağışla.", de: "O Allah, vergib mir all meine Sünden, die kleinen und die großen, die früheren und die späteren." },
+  { ar: "رَبِّ نَجِّنِي مِنَ الْقَوْمِ الظَّالِمِينَ", tr: "Rabbim! Beni zalimler topluluğundan kurtar.", de: "Mein Herr, rette mich vor dem ungerechten Volk." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُسْنَ الظَّنِّ بِكَ", tr: "Allah'ım! Sana karşı güzel zan beslemeyi isterim.", de: "O Allah, ich bitte Dich um gute Gedanken über Dich." },
+  { ar: "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانصُرْنَا", tr: "Rabbimiz! Üzerimize sabır yağdır, ayaklarımızı sabit kıl ve bize yardım et.", de: "Unser Herr, gieße Geduld über uns, festige unsere Schritte und hilf uns." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ التَّوْفِيقَ لِمَحَابِّكَ مِنَ الْأَعْمَالِ", tr: "Allah'ım! Sana sevgili olan amelleri yapmada başarı isterim.", de: "O Allah, ich bitte Dich um Gelingen bei den Taten, die Dir gefallen." },
+  { ar: "رَبِّ اغْفِرْ لِي خَطِيئَتِي وَجَهْلِي", tr: "Rabbim! Hatamı ve cahilliğimi bağışla.", de: "Mein Herr, vergib mir meinen Fehler und meine Unwissenheit." },
+  { ar: "اللَّهُمَّ أَصْلِحْ لِي دِينِي وَدُنْيَايَ وَآخِرَتِي", tr: "Allah'ım! Dinimi, dünyamı ve ahiretimi ıslah et.", de: "O Allah, bessere mir meine Religion, mein Diesseits und mein Jenseits." },
+  { ar: "رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِّلْقَوْمِ الظَّالِمِينَ", tr: "Rabbimiz! Bizi zalimler için fitne kılma.", de: "Unser Herr, mache uns nicht zur Versuchung für das ungerechte Volk." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْيَقِينَ الَّذِي لَا يُخَالِطُهُ شَكٌّ", tr: "Allah'ım! İçine şüphe karışmayan bir yakın isterim.", de: "O Allah, ich bitte Dich um eine Gewissheit, die kein Zweifel trübt." },
+  { ar: "رَبِّ لَا تَذَرْنِي فَرْدًا وَأَنتَ خَيْرُ الْوَارِثِينَ", tr: "Rabbim! Beni yalnız bırakma. Sen varislerin en hayırlısısın.", de: "Mein Herr, lass mich nicht allein. Du bist der beste der Erben." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مُوجِبَاتِ رَحْمَتِكَ وَعَزَائِمَ مَغْفِرَتِكَ", tr: "Allah'ım! Rahmetini gerektiren şeyleri ve bağışını kaçınılmaz kılan amelleri isterim.", de: "O Allah, ich bitte Dich um das, was Deine Barmherzigkeit auslöst und Deine Vergebung unausweichlich macht." },
+  { ar: "رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ", tr: "Rabbimiz! Bizi ve imanda önümüzde giden kardeşlerimizi bağışla.", de: "Unser Herr, vergib uns und unseren Geschwistern, die uns im Glauben vorangegangen sind." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذِهِ اللَّيْلَةِ وَخَيْرَ مَا بَعْدَهَا", tr: "Allah'ım! Bu gecenin hayrını ve sonrasının hayrını isterim.", de: "O Allah, ich bitte Dich um das Gute dieser Nacht und das Gute dessen, was danach kommt." },
+  { ar: "رَبِّ إِنَّ ابْنِي مِنْ أَهْلِي وَإِنَّ وَعْدَكَ الْحَقُّ وَأَنتَ أَحْكَمُ الْحَاكِمِينَ", tr: "Rabbim! Şüphesiz vaadin haktır ve Sen hükmedenlerin en hakimisisin.", de: "Mein Herr, Dein Versprechen ist wahr, und Du bist der weiseste der Richter." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا عَمِلْتُ وَمِنْ شَرِّ مَا لَمْ أَعْمَلْ", tr: "Allah'ım! Yaptığım ve yapmadığım şeylerin şerrinden Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe, und dem, was ich nicht getan habe." },
+  { ar: "رَبَّنَا آمَنَّا بِمَا أَنزَلْتَ وَاتَّبَعْنَا الرَّسُولَ فَاكْتُبْنَا مَعَ الشَّاهِدِينَ", tr: "Rabbimiz! İndirdiğine inandık ve Rasul'e uyduk. Bizi şahitler arasına yaz.", de: "Unser Herr, wir glauben an das, was Du offenbart hast, und folgen dem Gesandten. Schreibe uns unter die Zeugen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الصَّبْرَ عِنْدَ الْبَلَاءِ وَالشُّكْرَ عِنْدَ النِّعْمَةِ", tr: "Allah'ım! Bela anında sabır, nimet anında şükür isterim.", de: "O Allah, ich bitte Dich um Geduld in der Prüfung und Dankbarkeit in der Gunst." },
+  { ar: "رَبِّ انصُرْنِي بِمَا كَذَّبُونِ", tr: "Rabbim! Yalan saydıklarına karşı bana yardım et.", de: "Mein Herr, hilf mir gegen das, womit sie mich Lügen gestraft haben." },
+  { ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الَّذِينَ إِذَا أَحْسَنُوا اسْتَبْشَرُوا وَإِذَا أَسَاؤُوا اسْتَغْفَرُوا", tr: "Allah'ım! İyilik yapınca sevinen, kötülük yapınca istiğfar eden kullarından eyle.", de: "O Allah, mache mich zu denen, die sich freuen, wenn sie Gutes tun, und Vergebung suchen, wenn sie Böses tun." },
+  { ar: "رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَا إِصْرًا كَمَا حَمَلْتَهُ عَلَى الَّذِينَ مِن قَبْلِنَا", tr: "Rabbimiz! Bizden öncekilere yüklediğin ağır yükü bize yükleme.", de: "Unser Herr, lege uns keine Last auf wie denen vor uns." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَأَعُوذُ بِكَ مِنَ النَّارِ", tr: "Allah'ım! Senden cenneti isterim ve cehennemden Sana sığınırım.", de: "O Allah, ich bitte Dich um das Paradies und suche Zuflucht bei Dir vor dem Feuer." },
+  { ar: "رَبِّ زِدْنِي عِلْمًا وَأَلْحِقْنِي بِالصَّالِحِينَ", tr: "Rabbim! İlmimi artır ve beni salihlerle birleştir.", de: "Mein Herr, mehre mein Wissen und lass mich zu den Rechtschaffenen gehören." },
+  { ar: "اللَّهُمَّ اهْدِنِي وَسَدِّدْنِي", tr: "Allah'ım! Bana hidayet ver ve beni doğruya yönelt.", de: "O Allah, leite mich recht und halte mich auf dem geraden Weg." },
+  { ar: "رَبَّنَا لَا تُعَذِّبْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا", tr: "Rabbimiz! Unutur veya hata edersek bizi azaplandırma.", de: "Unser Herr, bestrafe uns nicht, wenn wir vergessen oder irren." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الرِّضَا بَعْدَ الْقَضَاءِ", tr: "Allah'ım! Hükmünden sonra rıza isterim.", de: "O Allah, ich bitte Dich um Zufriedenheit nach Deinem Urteil." },
+  { ar: "رَبِّ أَدْخِلْنِي فِي رَحْمَتِكَ وَأَنتَ أَرْحَمُ الرَّاحِمِينَ", tr: "Rabbim! Beni rahmetine dahil et. Sen merhametlilerin en merhametlisisin.", de: "Mein Herr, nimm mich in Deine Barmherzigkeit auf. Du bist der Barmherzigste der Barmherzigen." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْفَقْرِ وَالْقِلَّةِ وَالذِّلَّةِ", tr: "Allah'ım! Fakirlikten, azlıktan ve zilleden Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Armut, Mangel und Erniedrigung." },
+  { ar: "رَبَّنَا آتِنَا مِن لَّدُنكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًا", tr: "Rabbimiz! Bize katından rahmet ver, işimizde doğru yolu kolaylaştır.", de: "Unser Herr, schenke uns Barmherzigkeit von Dir und bereite uns in unserer Sache Rechtleitung." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الصِّحَّةَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ", tr: "Allah'ım! Dünya ve ahirette sağlık ve afiyet isterim.", de: "O Allah, ich bitte Dich um Gesundheit und Wohlbefinden im Diesseits und im Jenseits." },
+  { ar: "رَبِّ هَبْ لِي حُكْمًا وَأَلْحِقْنِي بِالصَّالِحِينَ", tr: "Rabbim! Bana hikmet ver ve beni salihler arasına kat.", de: "Mein Herr, schenke mir Weisheit und lass mich zu den Rechtschaffenen gehören." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ وَحُبَّ نَبِيِّكَ مُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ", tr: "Allah'ım! Senin sevgini ve Peygamberin Muhammed'in sevgisini isterim.", de: "O Allah, ich bitte Dich um Deine Liebe und die Liebe zu Deinem Propheten Muhammad." },
+  { ar: "رَبَّنَا اصْرِفْ عَنَّا عَذَابَ جَهَنَّمَ إِنَّ عَذَابَهَا كَانَ غَرَامًا", tr: "Rabbimiz! Cehennem azabını bizden uzaklaştır, çünkü onun azabı çok çetindir.", de: "Unser Herr, wende die Höllenstrafe von uns ab, denn ihre Strafe ist unausweichlich." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الثَّبَاتَ فِي الدِّينِ", tr: "Allah'ım! Din üzere sebat isterim.", de: "O Allah, ich bitte Dich um Standhaftigkeit im Glauben." },
+  { ar: "رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِن ذُرِّيَّتِي", tr: "Rabbim! Beni ve soyumu namazı dosdoğru kılanlardan eyle.", de: "Mein Herr, mache mich und meine Nachkommen zu denen, die das Gebet verrichten." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْجُبْنِ وَأَعُوذُ بِكَ أَنْ أُرَدَّ إِلَى أَرْذَلِ الْعُمُرِ", tr: "Allah'ım! Korkaklıktan ve ömrün en kötü çağına ulaşmaktan Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Feigheit und davor, ins gebrechlichste Alter zurückzufallen." },
+  { ar: "رَبَّنَا وَابْعَثْ فِيهِمْ رَسُولًا مِّنْهُمْ يَتْلُو عَلَيْهِمْ آيَاتِكَ", tr: "Rabbimiz! Onlara içlerinden, Senin ayetlerini okuyan bir rasul gönder.", de: "Unser Herr, sende einen Gesandten aus ihrer Mitte, der ihnen Deine Zeichen vorträgt." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ الْمَسْأَلَةِ وَخَيْرَ الدُّعَاءِ", tr: "Allah'ım! En hayırlı istemeyi ve en hayırlı duayı isterim.", de: "O Allah, ich bitte Dich um das Beste des Bittens und das Beste des Gebets." },
+  { ar: "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ", tr: "Rabbim! Bana verdiğin nimete şükretmeyi bana ilham et.", de: "Mein Herr, inspiriere mich, dankbar zu sein für Deine Gaben an mich." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الشُّحِّ وَأَعُوذُ بِكَ مِنَ الْجُبْنِ", tr: "Allah'ım! Cimrilikten ve korkaklıktan Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Geiz und vor Feigheit." },
+  { ar: "رَبَّنَا وَتَوَفَّنَا مَعَ الْأَبْرَارِ", tr: "Rabbimiz! Bizi iyilerle birlikte vefat ettir.", de: "Unser Herr, lass uns mit den Rechtschaffenen sterben." },
+  { ar: "اللَّهُمَّ أَحْسِنْ عَاقِبَتَنَا فِي الْأُمُورِ كُلِّهَا", tr: "Allah'ım! Tüm işlerimizin sonucunu güzel eyle.", de: "O Allah, mache das Ende all unserer Angelegenheiten gut." },
+  { ar: "رَبِّ إِنِّي أَعُوذُ بِكَ أَنْ أَسْأَلَكَ مَا لَيْسَ لِي بِهِ عِلْمٌ", tr: "Rabbim! Hakkında bilgim olmayan şeyi Senden istemekten Sana sığınırım.", de: "Mein Herr, ich suche Zuflucht bei Dir davor, Dich um etwas zu bitten, wovon ich kein Wissen habe." },
+  { ar: "اللَّهُمَّ آتِ نَفْسِي تَقْوَاهَا وَزَكِّهَا أَنتَ خَيْرُ مَنْ زَكَّاهَا", tr: "Allah'ım! Nefsime takvasını ver ve onu temizle. Onu en iyi temizleyen Sensin.", de: "O Allah, gib meiner Seele ihre Gottesfurcht und reinige sie. Du bist der Beste, der sie reinigt." },
+  { ar: "رَبَّنَا وَأَدْخِلْنَا فِي رَحْمَتِكَ", tr: "Rabbimiz! Bizi rahmetine dahil et.", de: "Unser Herr, nimm uns in Deine Barmherzigkeit auf." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ", tr: "Allah'ım! Dünya ve ahirette afiyet isterim.", de: "O Allah, ich bitte Dich um Wohlbefinden im Diesseits und im Jenseits." },
+  { ar: "رَبِّ لَا تَجْعَلْنِي مَعَ الْقَوْمِ الظَّالِمِينَ", tr: "Rabbim! Beni zalimler topluluğuyla birlikte kılma.", de: "Mein Herr, zähle mich nicht zu den Ungerechten." },
+  { ar: "اللَّهُمَّ أَلِّفْ بَيْنَ قُلُوبِنَا وَأَصْلِحْ ذَاتَ بَيْنِنَا", tr: "Allah'ım! Kalplerimizi birbirine ısındır ve aramızdaki ilişkiyi düzelt.", de: "O Allah, verbinde unsere Herzen und verbessere unsere gegenseitigen Beziehungen." },
+  { ar: "رَبَّنَا لَا تُؤَاخِذْنَا بِمَا فَعَلَ السُّفَهَاءُ مِنَّا", tr: "Rabbimiz! Aramızdaki akılsızların yaptıklarından dolayı bizi sorumlu tutma.", de: "Unser Herr, bestrafe uns nicht für das, was die Törichten unter uns getan haben." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ مَا تَعْلَمُ وَأَعُوذُ بِكَ مِنْ شَرِّ مَا تَعْلَمُ", tr: "Allah'ım! Bildiğin hayırları isterim ve bildiğin kötülüklerden Sana sığınırım.", de: "O Allah, ich bitte Dich um das Gute, das Du kennst, und suche Zuflucht vor dem Schlechten, das Du kennst." },
+  { ar: "رَبِّ اجْعَلْ هَٰذَا بَلَدًا آمِنًا وَارْزُقْنِي مِنَ الثَّمَرَاتِ", tr: "Rabbim! Burasını güvenli bir belde kıl ve beni meyvelerle rızıklandır.", de: "Mein Herr, mache diesen Ort sicher und versorge mich mit Früchten." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ", tr: "Allah'ım! Büyük fazlından isterim.", de: "O Allah, ich bitte Dich um Deine große Gnade." },
+  { ar: "رَبَّنَا إِنَّنَا آمَنَّا فَاغْفِرْ لَنَا ذُنُوبَنَا وَقِنَا عَذَابَ النَّارِ", tr: "Rabbimiz! Biz iman ettik. Günahlarımızı bağışla ve bizi cehennem azabından koru.", de: "Unser Herr, wir haben geglaubt. Vergib uns unsere Sünden und bewahre uns vor der Höllenstrafe." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ وَالْفَقْرِ", tr: "Allah'ım! Küfür ve fakirlikten Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Unglauben und Armut." },
+  { ar: "رَبِّ هَبْ لِي مِن لَّدُنكَ ذُرِّيَّةً طَيِّبَةً إِنَّكَ سَمِيعُ الدُّعَاءِ", tr: "Rabbim! Katından bana temiz bir nesil bağışla. Şüphesiz Sen duayı işitensin.", de: "Mein Herr, schenke mir von Dir rechtschaffene Nachkommen. Du hörst wahrlich das Gebet." },
+  { ar: "اللَّهُمَّ اجْعَلْنَا هُدَاةً مُهْتَدِينَ غَيْرَ ضَالِّينَ وَلَا مُضِلِّينَ", tr: "Allah'ım! Bizi hidayete ermiş ve hidayete erdiren, sapıtmayan ve sapıtmayan kullar eyle.", de: "O Allah, mache uns zu Rechtgeleiteten, die leiten, weder Irrende noch andere in die Irre Führende." },
+  { ar: "رَبَّنَا عَلَيْكَ تَوَكَّلْنَا وَإِلَيْكَ أَنَبْنَا", tr: "Rabbimiz! Sana tevekkül ettik ve Sana yöneldik.", de: "Unser Herr, auf Dich vertrauen wir und zu Dir kehren wir zurück." },
+  { ar: "اللَّهُمَّ أَعِزَّ الْإِسْلَامَ وَالْمُسْلِمِينَ", tr: "Allah'ım! İslam'ı ve Müslümanları yücelt.", de: "O Allah, stärke den Islam und die Muslime." },
+  { ar: "رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي", tr: "Rabbim! Göğsüme genişlik ver ve işimi kolaylaştır.", de: "Mein Herr, weite mir meine Brust und erleichtere mir meine Aufgabe." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الرَّاحَةَ عِنْدَ الْمَوْتِ وَالْعَفْوَ عِنْدَ الْحِسَابِ", tr: "Allah'ım! Ölüm anında huzur ve hesap anında af isterim.", de: "O Allah, ich bitte Dich um Ruhe beim Tod und Vergebung bei der Abrechnung." },
+  { ar: "رَبَّنَا وَابْعَثْنَا يَوْمَ الْقِيَامَةِ مَعَ الْأَبْرَارِ", tr: "Rabbimiz! Bizi kıyamet günü iyilerle birlikte dirilt.", de: "Unser Herr, erwecke uns am Tag der Auferstehung zusammen mit den Rechtschaffenen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ", tr: "Allah'ım! Bildiğim ve bilmediğim tüm hayırları isterim.", de: "O Allah, ich bitte Dich um alles Gute, das ich kenne und das ich nicht kenne." },
+  { ar: "رَبِّ أَنِّي مَسَّنِيَ الضُّرُّ وَأَنتَ أَرْحَمُ الرَّاحِمِينَ", tr: "Rabbim! Bana zarar dokundu, Sen merhametlilerin en merhametlisisin.", de: "Mein Herr, mich hat das Unheil getroffen, und Du bist der Barmherzigste der Barmherzigen." },
+  { ar: "اللَّهُمَّ اجْعَلْ لِي نُورًا فِي قَلْبِي وَنُورًا فِي قَبْرِي", tr: "Allah'ım! Kalbime nur, kabrıma nur kıl.", de: "O Allah, gib meinem Herzen Licht und meinem Grab Licht." },
+  { ar: "رَبَّنَا فَاغْفِرْ لَنَا ذُنُوبَنَا وَكَفِّرْ عَنَّا سَيِّئَاتِنَا", tr: "Rabbimiz! Günahlarımızı bağışla ve kötülüklerimizi ört.", de: "Unser Herr, vergib uns unsere Sünden und tilge unsere schlechten Taten." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْأَرَقِ وَالْحَزَنِ وَضِيقِ الصَّدْرِ", tr: "Allah'ım! Uykusuzluktan, hüzünden ve göğüs sıkıntısından Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Schlaflosigkeit, Trauer und Enge der Brust." },
+  { ar: "رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَتَقَبَّلْ دُعَاءِ", tr: "Rabbim! Beni namazı dosdoğru kılanlardan eyle ve duamı kabul et.", de: "Mein Herr, mache mich zu denen, die das Gebet verrichten, und nimm mein Gebet an." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُسْنَ الْخُلُقِ وَالْوَفَاءَ بِالْعَهْدِ", tr: "Allah'ım! Güzel ahlak ve söze vefa isterim.", de: "O Allah, ich bitte Dich um einen guten Charakter und die Treue zu Versprechen." },
+  { ar: "رَبَّنَا تَقَبَّلْ مِنَّا صِيَامَنَا وَقِيَامَنَا وَرُكُوعَنَا وَسُجُودَنَا", tr: "Rabbimiz! Orucumuzu, namazımızı, rükuumuzu ve secdelerimizi kabul et.", de: "Unser Herr, nimm unser Fasten, unser Gebet, unsere Verbeugungen und unsere Niederwerfungen an." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ التَّوْبَةَ النَّصُوحَ", tr: "Allah'ım! Samimi bir tevbe isterim.", de: "O Allah, ich bitte Dich um aufrichtige Reue." },
+  { ar: "رَبِّ لَا تَذَرْنِي وَحِيدًا وَاجْعَلْنِي مِنَ الصَّالِحِينَ", tr: "Rabbim! Beni yalnız bırakma ve beni salihlerden eyle.", de: "Mein Herr, lass mich nicht allein und mache mich zu den Rechtschaffenen." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْعَجْزِ وَالْكَسَلِ وَالْبُخْلِ وَالْهَرَمِ", tr: "Allah'ım! Acizlikten, tembellikten, cimrilikten ve ihtiyarlık güçsüzlüğünden Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Unfähigkeit, Trägheit, Geiz und Altersschwäche." },
+  { ar: "رَبَّنَا إِنَّكَ تَعْلَمُ مَا تُكِنُّ صُدُورُنَا وَمَا نُعْلِنُ", tr: "Rabbimiz! Göğüslerimizde sakladığımızı da açıkladığımızı da Sen bilirsin.", de: "Unser Herr, Du weißt, was unsere Herzen verbergen und was wir kundtun." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَرْزُقَنِي حَلَالًا طَيِّبًا", tr: "Allah'ım! Bana helal ve temiz rızık vermeni isterim.", de: "O Allah, ich bitte Dich, mir erlaubten und guten Lebensunterhalt zu gewähren." },
+  { ar: "رَبِّ أَعُوذُ بِكَ مِنَ النَّارِ وَمِنْ كُلِّ عَمَلٍ يُقَرِّبُ مِنَ النَّارِ", tr: "Rabbim! Cehennemden ve cehenneme yaklaştıran her amelden Sana sığınırım.", de: "Mein Herr, ich suche Zuflucht bei Dir vor dem Feuer und vor jeder Tat, die dem Feuer näherbringt." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَجْعَلَ خَيْرَ عُمُرِي آخِرَهُ", tr: "Allah'ım! Ömrümün en hayırlısını sonuna kılmanı isterim.", de: "O Allah, ich bitte Dich, das Beste meines Lebens an sein Ende zu stellen." },
+  { ar: "رَبَّنَا آتِنَا مَا وَعَدتَّنَا عَلَىٰ رُسُلِكَ وَلَا تُخْزِنَا يَوْمَ الْقِيَامَةِ", tr: "Rabbimiz! Peygamberlerin vasıtasıyla verdiğin sözü yerine getir ve kıyamet günü bizi rezil etme.", de: "Unser Herr, erfülle, was Du uns durch Deine Gesandten versprochen hast, und beschäme uns nicht am Tag der Auferstehung." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تُبَارِكَ لِي فِي عُمُرِي وَعِلْمِي وَعَمَلِي", tr: "Allah'ım! Ömrümde, ilmimde ve amelimde bereket vermeni isterim.", de: "O Allah, ich bitte Dich, mir in meinem Leben, meinem Wissen und meinen Taten Segen zu schenken." },
+  { ar: "رَبِّ هَبْ لِي مِنَ الصَّالِحِينَ", tr: "Rabbim! Bana salih kullar ihsan et.", de: "Mein Herr, schenke mir rechtschaffene Nachkommen." },
+  { ar: "اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ", tr: "Allah'ım! Beni çok tevbe edenlerden ve çok temizlenenlerden eyle.", de: "O Allah, mache mich zu denen, die oft bereuen, und zu denen, die sich reinigen." },
+  { ar: "رَبَّنَا أَخْرِجْنَا مِنْ هَذِهِ الْقَرْيَةِ الظَّالِمِ أَهْلُهَا", tr: "Rabbimiz! Bizi halkı zalim olan bu şehirden çıkar.", de: "Unser Herr, rette uns aus dieser Stadt, deren Bewohner ungerecht sind." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الشَّكِّ وَالشِّرْكِ وَالنِّفَاقِ", tr: "Allah'ım! Şüphe, şirk ve nifaktan Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Zweifel, Vielgötterei und Heuchelei." },
+  { ar: "رَبِّ اجْعَلْنِي وَذُرِّيَّتِي مِمَّنْ يُقِيمُ الصَّلَاةَ", tr: "Rabbim! Beni ve neslimi namazı dosdoğru kılanlardan eyle.", de: "Mein Herr, mache mich und meine Nachkommen zu denen, die das Gebet verrichten." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عَيْشًا نَقِيًّا وَمَوْتًا سَوِيًّا", tr: "Allah'ım! Temiz bir yaşam ve güzel bir ölüm isterim.", de: "O Allah, ich bitte Dich um ein reines Leben und einen würdigen Tod." },
+  { ar: "رَبَّنَا آتِنَا خَيْرَ الدُّنْيَا وَالْآخِرَةِ وَقِنَا عَذَابَ النَّارِ", tr: "Rabbimiz! Bize dünya ve ahiretin en iyisini ver ve bizi cehennem azabından koru.", de: "Unser Herr, gib uns das Beste des Diesseits und des Jenseits und bewahre uns vor der Höllenstrafe." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الصَّبْرَ عِنْدَ الْمُصِيبَةِ", tr: "Allah'ım! Musibet anında sabır isterim.", de: "O Allah, ich bitte Dich um Geduld bei Unglück." },
+  { ar: "رَبِّ أَنزِلْنِي مُنزَلًا مُّبَارَكًا وَأَنتَ خَيْرُ الْمُنزِلِينَ", tr: "Rabbim! Beni mübarek bir yere indir. Sen indirenlerın en hayırlısısın.", de: "Mein Herr, lass mich an einem gesegneten Ort niederlassen. Du bist der Beste der Gastgeber." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الدَّيْنِ الْمُثْقِلِ وَقَهْرِ الرِّجَالِ", tr: "Allah'ım! Ağır borçtan ve insanların zorbalığından Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor erdrückenden Schulden und der Unterdrückung durch Menschen." },
+  { ar: "رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ وَلَا تَجْعَلْ فِي قُلُوبِنَا غِلًّا", tr: "Rabbimiz! Bizi ve imanda önümüzde giden kardeşlerimizi bağışla. Kalplerimize kin koyma.", de: "Unser Herr, vergib uns und unseren Geschwistern, die uns im Glauben vorangingen, und lass in unseren Herzen keinen Groll." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ", tr: "Allah'ım! Hidayet, takva ve iffet isterim.", de: "O Allah, ich bitte Dich um Rechtleitung, Gottesfurcht und Keuschheit." },
+  { ar: "رَبِّ أَنِّي وَهَنَ الْعَظْمُ مِنِّي وَاشْتَعَلَ الرَّأْسُ شَيْبًا وَلَمْ أَكُن بِدُعَائِكَ رَبِّ شَقِيًّا", tr: "Rabbim! Kemiklerim gevşedi, saçlarım ağardı. Ama ben Sana dua etmekle hiçbir zaman mutsuz olmadım.", de: "Mein Herr, meine Knochen sind schwach geworden und mein Haar ist ergraut, doch ich war durch mein Beten zu Dir niemals unglücklich." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَجْمَعَنِي بِالنَّبِيِّ مُحَمَّدٍ فِي الْجَنَّةِ", tr: "Allah'ım! Cennette Peygamber Muhammed ile birlikte olmayı isterim.", de: "O Allah, ich bitte Dich, mich mit dem Propheten Muhammad im Paradies zu vereinen." },
+  { ar: "رَبَّنَا لَا تَجْعَلْ فِي قُلُوبِنَا غِلًّا لِّلَّذِينَ آمَنُوا", tr: "Rabbimiz! Kalplerimize iman edenlere karşı kin koyma.", de: "Unser Herr, lass in unseren Herzen keinen Groll gegen die Gläubigen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ قَلْبًا سَلِيمًا وَلِسَانًا صَادِقًا وَنِيَّةً صَالِحَةً", tr: "Allah'ım! Selim bir kalp, doğru bir dil ve güzel bir niyet isterim.", de: "O Allah, ich bitte Dich um ein gesundes Herz, eine wahrhaftige Zunge und eine gute Absicht." },
+  { ar: "رَبِّ اجْعَلْ هَذَا الْيَوْمَ خَيْرًا وَاجْعَلْ عَاقِبَتَهُ فَلَاحًا", tr: "Rabbim! Bu günü hayırlı kıl ve sonucunu kurtuluş eyle.", de: "Mein Herr, mache diesen Tag gut und sein Ende zur Erlösung." },
+  { ar: "اللَّهُمَّ اجْعَلْ خَيْرَ عَمَلِي خَوَاتِيمَهُ وَخَيْرَ أَيَّامِي يَوْمَ أَلْقَاكَ", tr: "Allah'ım! Amelimin en hayırlısını sonuna, günlerimin en hayırlısını Sana kavuşacağım güne kıl.", de: "O Allah, mache das Beste meiner Taten zu ihren letzten und den besten meiner Tage zu dem, an dem ich Dir begegne." },
+  { ar: "رَبَّنَا إِنَّكَ رَءُوفٌ رَّحِيمٌ", tr: "Rabbimiz! Şüphesiz Sen çok şefkatli ve merhametlisin.", de: "Unser Herr, Du bist wahrlich voller Güte und Barmherzigkeit." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَرْزُقَنِي شُكْرَ نِعْمَتِكَ", tr: "Allah'ım! Bana nimetine şükretmeyi nasip etmeni isterim.", de: "O Allah, ich bitte Dich, mir das Dankbarkeit für Deine Gaben zu schenken." },
+  { ar: "رَبِّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا", tr: "Rabbim! Senden faydalı bir ilim isterim.", de: "Mein Herr, ich bitte Dich um nützliches Wissen." },
+  { ar: "اللَّهُمَّ اغْفِرْ لِلْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ وَالْمُسْلِمِينَ وَالْمُسْلِمَاتِ", tr: "Allah'ım! Mümin erkeklere, mümin kadınlara, Müslüman erkeklere ve Müslüman kadınlara bağışla.", de: "O Allah, vergib den gläubigen Männern und Frauen, den muslimischen Männern und Frauen." },
+  { ar: "رَبَّنَا وَسِعْتَ كُلَّ شَيْءٍ رَّحْمَةً وَعِلْمًا", tr: "Rabbimiz! Rahmetin ve ilmin her şeyi kuşatmıştır.", de: "Unser Herr, Deine Barmherzigkeit und Dein Wissen umfassen alles." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ قَسْوَةِ الْقَلْبِ", tr: "Allah'ım! Kalp katılığından Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Herzenshärte." },
+  { ar: "رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ", tr: "Rabbim! Bana indireceklerin hayra muhtacım.", de: "Mein Herr, ich bin bedürftig nach jedem Guten, das Du mir zukommen lässt." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ إِيمَانًا كَامِلًا وَيَقِينًا صَادِقًا", tr: "Allah'ım! Tam bir iman ve gerçek bir yakın isterim.", de: "O Allah, ich bitte Dich um vollständigen Glauben und aufrichtige Gewissheit." },
+  { ar: "رَبَّنَا ظَلَمْنَا أَنفُسَنَا وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ", tr: "Rabbimiz! Kendimize zulmettik. Bizi bağışlamaz ve bize merhamet etmezsen ziyana uğrayanlardan oluruz.", de: "Unser Herr, wir haben uns selbst Unrecht getan. Wenn Du uns nicht vergibst und Dich nicht unser erbarmst, werden wir zu den Verlierern gehören." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُسْنَ الْعَاقِبَةِ فِي الدُّنْيَا وَالْآخِرَةِ", tr: "Allah'ım! Dünya ve ahirette güzel bir akıbet isterim.", de: "O Allah, ich bitte Dich um ein gutes Ende im Diesseits und im Jenseits." },
+  { ar: "رَبِّ اغْفِرْ لِي ذُنُوبِي وَخَطَايَايَ", tr: "Rabbim! Günahlarımı ve hatalarımı bağışla.", de: "Mein Herr, vergib mir meine Sünden und Fehler." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْغَفْلَةِ وَالْقَسْوَةِ", tr: "Allah'ım! Gaflet ve kalp katılığından Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Gleichgültigkeit und Herzenshärte." },
+  { ar: "رَبَّنَا آمَنَّا بِكَ فَاغْفِرْ لَنَا ذُنُوبَنَا", tr: "Rabbimiz! Sana inandık, günahlarımızı bağışla.", de: "Unser Herr, wir haben an Dich geglaubt, vergib uns unsere Sünden." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ وَالْمُعَافَاةَ", tr: "Allah'ım! Af, afiyet ve iyilik isterim.", de: "O Allah, ich bitte Dich um Verzeihung, Wohlbefinden und Wohlergehen." },
+  { ar: "رَبِّ أَلْهِمْنِي شُكْرَكَ وَذِكْرَكَ", tr: "Rabbim! Bana şükrünü ve zikrini ilham et.", de: "Mein Herr, inspiriere mich zur Dankbarkeit und zum Gedenken an Dich." },
+  { ar: "اللَّهُمَّ أَلِّفْ بَيْنَ قُلُوبِ الْمُؤْمِنِينَ", tr: "Allah'ım! Müminlerin kalplerini birbirine ısındır.", de: "O Allah, verbinde die Herzen der Gläubigen miteinander." },
+  { ar: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ", tr: "Rabbimiz! Dünyada ve ahirette bize iyilik ver ve bizi cehennem azabından koru.", de: "Unser Herr, gib uns im Diesseits und im Jenseits Gutes und bewahre uns vor der Höllenstrafe." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ الدُّنْيَا وَخَيْرَ الْآخِرَةِ", tr: "Allah'ım! Dünyanın hayrını ve ahiretin hayrını isterim.", de: "O Allah, ich bitte Dich um das Beste des Diesseits und das Beste des Jenseits." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ يَسْمَعُونَ الْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُ", tr: "Rabbim! Beni sözü dinleyip en güzeline uyanlardan eyle.", de: "Mein Herr, mache mich zu denen, die das Wort hören und dem Besten davon folgen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَجْعَلَ الْقُرْآنَ رَبِيعَ قَلْبِي", tr: "Allah'ım! Kur'an'ı kalbimin baharı kılmanı isterim.", de: "O Allah, ich bitte Dich, den Quran zum Frühling meines Herzens zu machen." },
+  { ar: "رَبَّنَا هَبْ لَنَا مِن لَّدُنكَ رَحْمَةً إِنَّكَ أَنتَ الْوَهَّابُ", tr: "Rabbimiz! Bize katından rahmet bağışla. Şüphesiz Sen çok bağışlayansın.", de: "Unser Herr, schenke uns von Dir Barmherzigkeit. Du bist wahrlich der Großzügige Schenker." },
+  { ar: "اللَّهُمَّ اجْعَلْنِي صَبُورًا وَاجْعَلْنِي شَكُورًا", tr: "Allah'ım! Beni çok sabreden ve çok şükreden kullarından eyle.", de: "O Allah, mache mich zu einem Geduldigen und zu einem Dankbaren." },
+  { ar: "رَبِّ أَعِنِّي وَلَا تُعِنْ عَلَيَّ وَانصُرْنِي وَلَا تَنصُرْ عَلَيَّ", tr: "Rabbim! Bana yardım et, aleyhime yardım etme; beni destekle, aleyhime destekleme.", de: "Mein Herr, hilf mir und hilf nicht gegen mich; unterstütze mich und unterstütze nicht gegen mich." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِأَنَّكَ أَنتَ اللَّهُ لَا إِلَٰهَ إِلَّا أَنتَ الْأَحَدُ الصَّمَدُ", tr: "Allah'ım! Sen Allah'sın, Senden başka ilah yoktur. Sen tekssin, hiçbir şeye muhtaç değilsin. Senden isterim.", de: "O Allah, ich bitte Dich, denn Du bist Allah, es gibt keinen Gott außer Dir, dem Einen, dem Unvergänglichen." },
+  { ar: "رَبَّنَا لَا تَجْعَلْنَا مَعَ الْقَوْمِ الْكَافِرِينَ", tr: "Rabbimiz! Bizi inkarcılar topluluğuyla bir tutma.", de: "Unser Herr, zähle uns nicht zu den Ungläubigen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ لِسَانًا ذَاكِرًا وَقَلْبًا خَاشِعًا", tr: "Allah'ım! Zikreden bir dil ve huşu içinde olan bir kalp isterim.", de: "O Allah, ich bitte Dich um eine gedenkende Zunge und ein demütiges Herz." },
+  { ar: "رَبِّ اجْعَلْ هَذَا الْبَيْتَ آمِنًا وَمُبَارَكًا", tr: "Rabbim! Bu evi güvenli ve mübarek kıl.", de: "Mein Herr, mache dieses Haus sicher und gesegnet." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِرَحْمَتِكَ الَّتِي وَسِعَتْ كُلَّ شَيْءٍ", tr: "Allah'ım! Her şeyi kuşatan rahmetinle senden isterim.", de: "O Allah, ich bitte Dich durch Deine Barmherzigkeit, die alles umfasst." },
+  { ar: "رَبَّنَا اغْفِرْ لَنَا وَلِأَهْلِينَا وَلِأَصْحَابِنَا", tr: "Rabbimiz! Bizi, ailemizi ve dostlarımızı bağışla.", de: "Unser Herr, vergib uns, unseren Familien und unseren Gefährten." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الرِّيَاءِ وَالسُّمْعَةِ", tr: "Allah'ım! Riya ve şöhretten Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Heuchelei und Ruhmbegier." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الشَّاكِرِينَ الصَّابِرِينَ", tr: "Rabbim! Beni şükredenlerden ve sabredenlerden eyle.", de: "Mein Herr, mache mich zu den Dankbaren und den Geduldigen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّ الْفُقَرَاءِ وَالتَّوَاضُعَ لَهُمْ", tr: "Allah'ım! Fakirleri sevmeyi ve onlara karşı alçak gönüllü olmayı isterim.", de: "O Allah, ich bitte Dich um die Liebe zu den Armen und Bescheidenheit ihnen gegenüber." },
+  { ar: "رَبَّنَا لَا تُشْمِتْ بِنَا أَعْدَاءَنَا", tr: "Rabbimiz! Düşmanlarımızı bize güldürme.", de: "Unser Herr, lass unsere Feinde nicht über uns triumphieren." },
+  { ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الَّذِينَ يَخَافُونَكَ وَيَرْجُونَ رَحْمَتَكَ", tr: "Allah'ım! Beni Senden korkan ve rahmetini umanlardaneyele.", de: "O Allah, mache mich zu denen, die Dich fürchten und auf Deine Barmherzigkeit hoffen." },
+  { ar: "رَبِّ اجْعَلْنِي مُخْلِصًا فِي الدِّينِ", tr: "Rabbim! Beni dinde ihlaslı eyle.", de: "Mein Herr, mache mich aufrichtig in der Religion." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَرْزُقَنِي الشَّهَادَةَ فِي سَبِيلِكَ", tr: "Allah'ım! Senden yolunda şehitlik isterim.", de: "O Allah, ich bitte Dich um das Martyrium auf Deinem Weg." },
+  { ar: "رَبَّنَا أَنتَ الْعَزِيزُ الْحَكِيمُ", tr: "Rabbimiz! Sen güçlü ve hikmet sahibisin.", de: "Unser Herr, Du bist der Mächtige, der Weise." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الشِّقَاقِ وَالنِّفَاقِ", tr: "Allah'ım! Ayrılık ve münafıklıktan Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Spaltung und Heuchelei." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ يَخْشَوْنَكَ وَيَحْبُونَكَ", tr: "Rabbim! Beni Senden korkan ve Seni sevenlerden eyle.", de: "Mein Herr, mache mich zu denen, die Dich fürchten und Dich lieben." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الشِّفَاءَ مِنْ كُلِّ دَاءٍ", tr: "Allah'ım! Her hastalıktan şifa isterim.", de: "O Allah, ich bitte Dich um Heilung von jeder Krankheit." },
+  { ar: "رَبَّنَا فَاغْفِرْ لَنَا وَارْحَمْنَا وَأَنتَ خَيْرُ الرَّاحِمِينَ", tr: "Rabbimiz! Bizi bağışla ve merhamet et. Sen merhametlilerin en hayırlısısın.", de: "Unser Herr, vergib uns und erbarme Dich unser. Du bist der Beste der Barmherzigen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ صَلَاحَ الْأَهْلِ وَالْوَلَدِ", tr: "Allah'ım! Eşimin ve çocuğumun ıslahını isterim.", de: "O Allah, ich bitte Dich um die Rechtschaffenheit meiner Familie und meiner Kinder." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ", tr: "Rabbim! Beni nimetlendirdiğin kullarından eyle.", de: "Mein Herr, mache mich zu denen, denen Du Deine Gunst erwiesen hast." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذَا الْيَوْمِ وَخَيْرَ مَا فِيهِ", tr: "Allah'ım! Bu günün hayrını ve içindeki hayırları isterim.", de: "O Allah, ich bitte Dich um das Gute dieses Tages und das Gute, was er enthält." },
+  { ar: "رَبَّنَا أَوْزِعْنَا أَنْ نَشْكُرَ نِعْمَتَكَ", tr: "Rabbimiz! Bize nimetine şükretmeyi ilham et.", de: "Unser Herr, inspiriere uns zur Dankbarkeit für Deine Gaben." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكِبْرِ وَالْغُرُورِ", tr: "Allah'ım! Kibir ve gururdan Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Hochmut und Einbildung." },
+  { ar: "رَبِّ زِدْنِي إِيمَانًا وَيَقِينًا", tr: "Rabbim! İmanımı ve yakınımı artır.", de: "Mein Herr, mehre meinen Glauben und meine Gewissheit." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُسْنَ الصُّحْبَةِ فِي السَّفَرِ وَالْحَضَرِ", tr: "Allah'ım! Seferde ve hazerde güzel arkadaşlık isterim.", de: "O Allah, ich bitte Dich um gute Begleitung auf Reisen und zu Hause." },
+  { ar: "رَبَّنَا إِنَّكَ جَامِعُ النَّاسِ لِيَوْمٍ لَّا رَيْبَ فِيهِ", tr: "Rabbimiz! Şüphesiz Sen insanları hakkında şüphe olmayan bir günde toplayacaksın.", de: "Unser Herr, Du wirst die Menschen an einem Tag versammeln, über den kein Zweifel besteht." },
+  { ar: "اللَّهُمَّ اجْعَلْ أَفْضَلَ أَعْمَالِي أَوَاخِرَهَا", tr: "Allah'ım! Amellerimin en faziletlisini sonunda olan kıl.", de: "O Allah, mache die besten meiner Taten zu den letzten." },
+  { ar: "رَبِّ أَعِنِّي عَلَى طَاعَتِكَ وَاجْعَلْنِي مِنَ الصَّالِحِينَ", tr: "Rabbim! Sana itaat etmede bana yardım et ve beni salihlerden eyle.", de: "Mein Herr, hilf mir, Dir zu gehorchen, und mache mich zu den Rechtschaffenen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رِزْقًا وَاسِعًا وَعِلْمًا نَافِعًا وَشِفَاءً مِنْ كُلِّ دَاءٍ", tr: "Allah'ım! Geniş rızık, faydalı ilim ve her hastalıktan şifa isterim.", de: "O Allah, ich bitte Dich um weiten Unterhalt, nützliches Wissen und Heilung von jeder Krankheit." },
+  { ar: "رَبَّنَا إِنَّكَ تَعْلَمُ مَا نُخْفِي وَمَا نُعْلِنُ", tr: "Rabbimiz! Gizlediğimizi de açıkladığımızı da Sen bilirsin.", de: "Unser Herr, Du weißt, was wir verbergen und was wir offenbaren." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الثَّبَاتَ عَلَى دِينِكَ إِلَى الْمَمَاتِ", tr: "Allah'ım! Ölüme kadar dininde sebat isterim.", de: "O Allah, ich bitte Dich um Standhaftigkeit in Deiner Religion bis zum Tod." },
+  { ar: "رَبِّ اجْعَلْنِي مُسْلِمًا خَالِصًا لَكَ", tr: "Rabbim! Beni yalnız Sana halis bir Müslüman kıl.", de: "Mein Herr, mache mich zu einem aufrichtigen Muslim, der nur für Dich ist." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الشَّيْطَانِ وَحِزْبِهِ", tr: "Allah'ım! Şeytandan ve onun grubundan Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor dem Satan und seiner Gruppe." },
+  { ar: "رَبَّنَا اجْعَلْنَا شَاكِرِينَ لِنِعْمَتِكَ", tr: "Rabbimiz! Bizi nimetlerine şükredenlerden eyle.", de: "Unser Herr, mache uns zu denen, die Deine Gaben dankbar anerkennen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْبَرَكَةَ فِي الْعُمُرِ وَالْمَالِ وَالْأَهْلِ", tr: "Allah'ım! Ömrümde, malımda ve ailende bereket isterim.", de: "O Allah, ich bitte Dich um Segen in meinem Leben, meinem Vermögen und meiner Familie." },
+  { ar: "رَبِّ لَا تَجْعَلْنِي مِنَ الضَّالِّينَ", tr: "Rabbim! Beni sapkınlardan eyleme.", de: "Mein Herr, zähle mich nicht zu den Irrenden." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ النَّجَاةَ مِنَ النَّارِ وَالدُّخُولَ فِي الْجَنَّةِ", tr: "Allah'ım! Cehennemden kurtuluş ve cennete giriş isterim.", de: "O Allah, ich bitte Dich um Errettung vom Feuer und Einlass ins Paradies." },
+  { ar: "رَبَّنَا إِنَّكَ لَا تُخْلِفُ الْمِيعَادَ", tr: "Rabbimiz! Şüphesiz Sen vaadinden dönmezsin.", de: "Unser Herr, Du hältst wahrlich Dein Versprechen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَجْعَلَنِي مِنَ الَّذِينَ تَوَكَّلُوا عَلَيْكَ", tr: "Allah'ım! Beni Sana tevekkül edenlerden eylemenı isterim.", de: "O Allah, ich bitte Dich, mich zu denen zu zählen, die auf Dich vertrauen." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ يُصْلِحُونَ فِي الْأَرْضِ", tr: "Rabbim! Beni yeryüzünde ıslah çalışması yapanlardan eyle.", de: "Mein Herr, mache mich zu denen, die auf der Erde Gutes bewirken." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ التَّوَاضُعَ وَأَعُوذُ بِكَ مِنَ الْكِبْرِ", tr: "Allah'ım! Alçak gönüllülük isterim ve kibir den Sana sığınırım.", de: "O Allah, ich bitte Dich um Bescheidenheit und suche Zuflucht bei Dir vor Hochmut." },
+  { ar: "رَبَّنَا اغْفِرْ لَنَا وَلِوَالِدِينَا وَارْحَمْهُمَا كَمَا رَبَّيَانَا صِغَارًا", tr: "Rabbimiz! Bizi, anne-babamızı bağışla ve onlara, bizi küçüklükte yetiştirdikleri gibi merhamet et.", de: "Unser Herr, vergib uns und unseren Eltern und erbarme Dich ihrer, wie sie uns als Kinder erzogen haben." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَرْزُقَنِي الصِّدْقَ وَالْأَمَانَةَ", tr: "Allah'ım! Doğruluk ve emanet isterim.", de: "O Allah, ich bitte Dich, mir Aufrichtigkeit und Vertrauenswürdigkeit zu schenken." },
+  { ar: "رَبِّ أَعِنِّي عَلَى حُسْنِ الظَّنِّ بِالنَّاسِ", tr: "Rabbim! İnsanlara hüsnü zan beslememde bana yardım et.", de: "Mein Herr, hilf mir, gute Gedanken über die Menschen zu hegen." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْحَسَدِ وَالْبَغْضَاءِ", tr: "Allah'ım! Kıskançlık ve kindan Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Neid und Hass." },
+  { ar: "رَبَّنَا أَنزِلْ عَلَيْنَا مَائِدَةً مِّنَ السَّمَاءِ", tr: "Rabbimiz! Üzerimize gökten bir sofra indir.", de: "Unser Herr, sende uns einen Tisch vom Himmel herab." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الرَّاحَةَ فِي الدُّنْيَا وَالْآخِرَةِ", tr: "Allah'ım! Dünya ve ahirette huzur isterim.", de: "O Allah, ich bitte Dich um Ruhe im Diesseits und im Jenseits." },
+  { ar: "رَبِّ لَا تُؤَاخِذْنِي بِجَهَالَتِي", tr: "Rabbim! Cahilliğimden dolayı beni sorumlu tutma.", de: "Mein Herr, bestrafe mich nicht für meine Unwissenheit." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الرِّزْقَ الْحَلَالَ وَالصِّحَّةَ فِي الْجَسَدِ", tr: "Allah'ım! Helal rızık ve beden sağlığı isterim.", de: "O Allah, ich bitte Dich um erlaubten Lebensunterhalt und körperliche Gesundheit." },
+  { ar: "رَبَّنَا لَا تُفَرِّقْ بَيْنَنَا وَبَيْنَ إِخْوَانِنَا الْمُؤْمِنِينَ", tr: "Rabbimiz! Bizi mümin kardeşlerimizden ayırma.", de: "Unser Herr, trenne uns nicht von unseren gläubigen Geschwistern." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَجْعَلَ الدُّنْيَا فِي يَدِي لَا فِي قَلْبِي", tr: "Allah'ım! Dünyayı elimde olmasını, kalbimde olmamasını isterim.", de: "O Allah, ich bitte Dich, die Welt in meiner Hand zu lassen und nicht in meinem Herzen." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ يَتَفَكَّرُونَ فِي خَلْقِكَ", tr: "Rabbim! Beni yaratılışını düşünenlerden eyle.", de: "Mein Herr, mache mich zu denen, die über Deine Schöpfung nachdenken." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُسْنَ الْوَدَاعِ لِلدُّنْيَا", tr: "Allah'ım! Dünyayla güzel bir vedalaşma isterim.", de: "O Allah, ich bitte Dich um einen würdigen Abschied von dieser Welt." },
+  { ar: "رَبَّنَا قِنَا عَذَابَ النَّارِ وَأَدْخِلْنَا الْجَنَّةَ مَعَ الْأَبْرَارِ", tr: "Rabbimiz! Bizi cehennem azabından koru ve iyilerle birlikte cennete koy.", de: "Unser Herr, bewahre uns vor der Höllenstrafe und lass uns mit den Rechtschaffenen ins Paradies eintreten." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الزُّهْدَ فِي الدُّنْيَا وَالرَّغْبَةَ فِي الْآخِرَةِ", tr: "Allah'ım! Dünyadan zühd ve ahirete rağbet isterim.", de: "O Allah, ich bitte Dich um Enthaltsamkeit von der Welt und Verlangen nach dem Jenseits." },
+  { ar: "رَبِّ اجْعَلْنِي أُحِبُّ الصَّالِحِينَ وَأُصَاحِبُهُمْ", tr: "Rabbim! Beni salihlerı seven ve onlarla dost olan birisi kıl.", de: "Mein Herr, mache mich zu einem, der die Rechtschaffenen liebt und ihre Gesellschaft sucht." },
+  { ar: "اللَّهُمَّ اجْعَلْنِي رَاضِيًا بِقَضَائِكَ وَقَدَرِكَ", tr: "Allah'ım! Beni kaza ve kaderine razı eyle.", de: "O Allah, mache mich zufrieden mit Deinem Urteil und Deiner Bestimmung." },
+  { ar: "رَبَّنَا أَنتَ تَحْكُمُ بَيْنَ عِبَادِكَ فِي مَا كَانُوا فِيهِ يَخْتَلِفُونَ", tr: "Rabbimiz! Kulların arasında ihtilaf ettikleri konularda Sen hükmediyorsun.", de: "Unser Herr, Du richtest unter Deinen Dienern über das, worüber sie streiten." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ صِحَّةَ الْبَدَنِ وَسَلَامَةَ الدِّينِ", tr: "Allah'ım! Beden sağlığı ve din selameti isterim.", de: "O Allah, ich bitte Dich um körperliche Gesundheit und Unversehrtheit meiner Religion." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ يَتَّبِعُونَ سُنَّةَ نَبِيِّكَ", tr: "Rabbim! Beni peygamberinin sünnetine uyanlardan eyle.", de: "Mein Herr, mache mich zu denen, die der Sunna Deines Propheten folgen." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الذُّنُوبِ الَّتِي تَقْطَعُ الرِّزْقَ", tr: "Allah'ım! Rızkı kesen günahlardan Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Sünden, die den Lebensunterhalt abschneiden." },
+  { ar: "رَبَّنَا أَعْطِنَا مَا وَعَدتَّنَا وَلَا تُخْزِنَا يَوْمَ الْقِيَامَةِ", tr: "Rabbimiz! Bize vaad ettiklerini ver ve kıyamette bizi rezil etme.", de: "Unser Herr, gib uns, was Du versprochen hast, und beschäme uns nicht am Tag der Auferstehung." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَجْعَلَ الْمَوْتَ رَاحَةً لِي", tr: "Allah'ım! Ölümü benim için bir rahatlama kılmanı isterim.", de: "O Allah, ich bitte Dich, den Tod für mich zur Erleichterung zu machen." },
+  { ar: "رَبِّ ارْزُقْنِي التَّوَاضُعَ وَالرِّفْقَ", tr: "Rabbim! Bana alçak gönüllülük ve yumuşaklık nasip et.", de: "Mein Herr, gewähre mir Bescheidenheit und Sanftmut." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تُحِبَّنِي وَتَجْعَلَ الْخَلْقَ يُحِبُّونِي", tr: "Allah'ım! Beni sevmeni ve insanların beni sevmesini sağlamanı isterim.", de: "O Allah, ich bitte Dich, mich zu lieben und die Menschen dazu zu bringen, mich zu lieben." },
+  { ar: "رَبَّنَا لَا تُقَسِّ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا", tr: "Rabbimiz! Bizi hidayete erdirdikten sonra kalplerimizi katılaştırma.", de: "Unser Herr, verhärte unsere Herzen nicht, nachdem Du uns rechtgeleitet hast." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تُيَسِّرَ أُمُورِي", tr: "Allah'ım! İşlerimi kolaylaştırmanı isterim.", de: "O Allah, ich bitte Dich, meine Angelegenheiten zu erleichtern." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ يُنِيبُونَ إِلَيْكَ", tr: "Rabbim! Beni Sana yönelenlerdeneyle.", de: "Mein Herr, mache mich zu denen, die sich Dir zuwenden." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَجْعَلَ قَلْبِي خَاشِعًا لَكَ", tr: "Allah'ım! Kalbimi Sana karşı huşu sahibi kılmanı isterim.", de: "O Allah, ich bitte Dich, mein Herz Dir gegenüber demütig zu machen." },
+  { ar: "رَبَّنَا اجْعَلْنَا مِنَ الَّذِينَ يَسْتَمِعُونَ الْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُ", tr: "Rabbimiz! Bizi sözü dinleyip en güzeline uyanlardan eyle.", de: "Unser Herr, mache uns zu denen, die das Wort hören und dem Besten davon folgen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ الدَّارَيْنِ", tr: "Allah'ım! Her iki dünyanın hayrını isterim.", de: "O Allah, ich bitte Dich um das Beste beider Welten." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ يَعْبُدُونَكَ إِخْلَاصًا", tr: "Rabbim! Beni Sana ihlasla ibadet edenlerden eyle.", de: "Mein Herr, mache mich zu denen, die Dir aufrichtig dienen." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ النِّسْيَانِ وَالْغَفْلَةِ", tr: "Allah'ım! Unutkanlık ve gaflettan Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Vergesslichkeit und Gleichgültigkeit." },
+  { ar: "رَبَّنَا أَنتَ مَوْلَانَا فَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ", tr: "Rabbimiz! Sen bizim Mevlâmızsın. Bizi inkârcı topluluktan üstün kıl.", de: "Unser Herr, Du bist unser Beschützer, so hilf uns gegen das ungläubige Volk." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَجْعَلَ حُبَّكَ أَحَبَّ الْأَشْيَاءِ إِلَيَّ", tr: "Allah'ım! Senin sevgini bence en sevilen şey kılmanı isterim.", de: "O Allah, ich bitte Dich, Deine Liebe mir zur liebsten aller Dinge zu machen." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ يَعِيشُونَ لِلْآخِرَةِ", tr: "Rabbim! Beni ahiret için yaşayanlardan eyle.", de: "Mein Herr, mache mich zu denen, die für das Jenseits leben." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُسْنَ التَّوَكُّلِ عَلَيْكَ", tr: "Allah'ım! Sana güzel bir tevekkül isterim.", de: "O Allah, ich bitte Dich um ein aufrichtiges Vertrauen auf Dich." },
+  { ar: "رَبَّنَا لَا تُخْزِنَا يَوْمَ الْقِيَامَةِ إِنَّكَ لَا تُخْلِفُ الْمِيعَادَ", tr: "Rabbimiz! Kıyamet gününde bizi utandırma. Şüphesiz Sen vaadinden dönmezsin.", de: "Unser Herr, beschäme uns nicht am Tag der Auferstehung. Du brichst wahrlich Dein Versprechen nicht." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَكُونَ مَعِي فِي كُلِّ أَحْوَالِي", tr: "Allah'ım! Her halimde benimle olmanı isterim.", de: "O Allah, ich bitte Dich, in allen meinen Lagen bei mir zu sein." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ يَحْفَظُونَ الْأَمَانَةَ", tr: "Rabbim! Beni emaneti koruyanlardan eyle.", de: "Mein Herr, mache mich zu denen, die das Vertrauen bewahren." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْفَوْزَ بِرِضْوَانِكَ وَالنَّجَاةَ مِنْ عَذَابِكَ", tr: "Allah'ım! Rızanla kurtuluş ve azabından kurtulmak isterim.", de: "O Allah, ich bitte Dich um den Triumph durch Dein Wohlgefallen und Errettung vor Deiner Strafe." },
+  { ar: "رَبَّنَا آتِنَا مِن لَّدُنكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًا", tr: "Rabbimiz! Katından bize rahmet ver ve işimizde doğru yolu hazırla.", de: "Unser Herr, schenke uns von Dir Barmherzigkeit und bereite uns in unserer Sache Rechtleitung." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَرْزُقَنِي قِرَاءَةَ الْقُرْآنِ وَالْعَمَلَ بِهِ", tr: "Allah'ım! Kur'an okumayı ve onunla amel etmeyi nasip etmeni isterim.", de: "O Allah, ich bitte Dich, mir das Lesen des Qurans und das Handeln nach ihm zu ermöglichen." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ يَرْجُونَ رَحْمَتَكَ وَيَخَافُونَ عَذَابَكَ", tr: "Rabbim! Beni rahmetini umup azabından korkan kullarından eyle.", de: "Mein Herr, mache mich zu denen, die auf Deine Barmherzigkeit hoffen und Deine Strafe fürchten." },
+  { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ التَّكَبُّرِ وَالتَّجَبُّرِ", tr: "Allah'ım! Büyüklenme ve zorbalıktan Sana sığınırım.", de: "O Allah, ich suche Zuflucht bei Dir vor Arroganz und Tyrannei." },
+  { ar: "رَبَّنَا إِنَّكَ تَعْلَمُ مَا نُسِرُّ وَمَا نُعْلِنُ", tr: "Rabbimiz! Gizlediğimizi de açıkladığımızı da bilirsin.", de: "Unser Herr, Du weißt, was wir im Verborgenen halten und was wir offenbaren." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَوْنَ فِي طَاعَتِكَ وَفِي تَرْكِ مَعْصِيَتِكَ", tr: "Allah'ım! Sana itaatte ve isyandan kaçınmada yardım isterim.", de: "O Allah, ich bitte Dich um Hilfe bei Deiner Gehorsamkeit und beim Meiden Deiner Ungehorsamkeit." },
+  { ar: "رَبِّ اجْعَلْنِي مِمَّنْ يَذْكُرُكَ فِي السَّرَّاءِ وَالضَّرَّاءِ", tr: "Rabbim! Beni bollukta da darlıkta da Seni zikredenlerden eyle.", de: "Mein Herr, mache mich zu denen, die Deiner in Glück und Not gedenken." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْإِيمَانَ بِلِقَائِكَ وَالرِّضَا بِقَضَائِكَ", tr: "Allah'ım! Sana kavuşmaya iman ve kaderine rıza isterim.", de: "O Allah, ich bitte Dich um Glauben an Deine Begegnung und Zufriedenheit mit Deinem Urteil." },
+  { ar: "رَبَّنَا أَفِضْ عَلَيْنَا صَبْرًا وَتَوَفَّنَا مُسْلِمِينَ", tr: "Rabbimiz! Üzerimize sabır yağdır ve bizi Müslüman olarak vefat ettir.", de: "Unser Herr, gieße Geduld über uns und lass uns als Muslime sterben." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَجْعَلَ النُّورَ فِي قَلْبِي وَبَصَرِي وَسَمْعِي", tr: "Allah'ım! Kalbimde, gözümde ve kulağımda nur kılmanı isterim.", de: "O Allah, ich bitte Dich, in meinem Herzen, meinen Augen und meinen Ohren Licht zu machen." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ يُقِيمُونَ الصَّلَاةَ وَيُؤْتُونَ الزَّكَاةَ", tr: "Rabbim! Beni namazı kılan ve zekatı verenlerden eyle.", de: "Mein Herr, mache mich zu denen, die das Gebet verrichten und die Almosen geben." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الرِّفْقَ فِي الْأُمُورِ كُلِّهَا", tr: "Allah'ım! Bütün işlerimde yumuşaklık isterim.", de: "O Allah, ich bitte Dich um Sanftheit in allen meinen Angelegenheiten." },
+  { ar: "رَبَّنَا آمَنَّا وَعَلَيْكَ تَوَكَّلْنَا وَإِلَيْكَ الْمَصِيرُ", tr: "Rabbimiz! İman ettik, Sana tevekkül ettik ve dönüş Sanadır.", de: "Unser Herr, wir haben geglaubt, auf Dich vertrauen wir und zu Dir ist die Rückkehr." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَجْعَلَنِي مِنْ عِبَادِكَ الصَّالِحِينَ الْمُخْلَصِينَ", tr: "Allah'ım! Beni salih ve ihlaslı kullarından kılmanı isterim.", de: "O Allah, ich bitte Dich, mich zu Deinen rechtschaffenen und aufrichtigen Dienern zu zählen." },
+{ ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ يَتَقَبَّلُونَ النَّصِيحَةَ", tr: "Rabbim! Beni öğütü kabul edenlerden eyle.", de: "Mein Herr, mache mich zu denen, die Ratschläge annehmen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَكُونَ وَلِيِّي فِي الدُّنْيَا وَالْآخِرَةِ", tr: "Allah'ım! Dünya ve ahirette benim velim olmanı isterim.", de: "O Allah, ich bitte Dich, mein Beschützer im Diesseits und im Jenseits zu sein." },
+  { ar: "رَبَّنَا اجْعَلْنَا مُخْلِصِينَ لَكَ فِي كُلِّ أَمْرٍ", tr: "Rabbimiz! Bizi her işimizde Sana ihlasla bağlı kıl.", de: "Unser Herr, mache uns in allen Dingen aufrichtig für Dich." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَجْعَلَ مَوْتِي خَيْرَ أَيَّامِي", tr: "Allah'ım! Ölümümü günlerimin en hayırlısı kılmanı isterim.", de: "O Allah, ich bitte Dich, meinen Tod zum besten meiner Tage zu machen." },
+  { ar: "رَبِّ اجْعَلْنِي مِنَ الَّذِينَ يَحْمِلُونَ الْأَمَانَةَ حَقَّ حَمْلِهَا", tr: "Rabbim! Beni emaneti hakkıyla taşıyanlardan eyle.", de: "Mein Herr, mache mich zu denen, die das Vertrauen würdig tragen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَرْزُقَنِي الْإِنَابَةَ إِلَيْكَ", tr: "Allah'ım! Sana yönelmeyi nasip etmeni isterim.", de: "O Allah, ich bitte Dich, mir die Hinwendung zu Dir zu schenken." },
+  { ar: "رَبَّنَا اجْعَلْنَا مِنَ الَّذِينَ يَصِلُونَ الْأَرْحَامَ", tr: "Rabbimiz! Bizi akrabalık bağlarını koruyanlardan eyle.", de: "Unser Herr, mache uns zu denen, die familiäre Bande pflegen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَجْعَلَ كُلَّ يَوْمٍ خَيْرًا مِنَ الَّذِي قَبْلَهُ", tr: "Allah'ım! Her günümü öncekinden daha hayırlı kılmanı isterim.", de: "O Allah, ich bitte Dich, jeden Tag besser zu machen als den vorherigen." },
+  { ar: "رَبِّ اجْعَلْنِي مِمَّنْ يَسْتَغْفِرُكَ كَثِيرًا", tr: "Rabbim! Beni çokça istiğfar edenlerden eyle.", de: "Mein Herr, mache mich zu denen, die Dir oft Vergebung suchen." },
+  { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ أَنْ تَجْعَلَ قَلْبِي مُطْمَئِنًّا بِذِكْرِكَ", tr: "Allah'ım! Kalbimi zikirle huzur bulanlardan kılmanı isterim.", de: "O Allah, ich bitte Dich, mein Herz durch Dein Gedenken zur Ruhe kommen zu lassen." },
+  { ar: "رَبَّنَا اخْتِمْ لَنَا بِالْإِيمَانِ وَتَوَفَّنَا مُسْلِمِينَ", tr: "Rabbimiz! Sonumuzu iman üzere bitir ve bizi Müslüman olarak vefat ettir.", de: "Unser Herr, lass uns im Glauben enden und als Muslime sterben." },
 ];
 
 
