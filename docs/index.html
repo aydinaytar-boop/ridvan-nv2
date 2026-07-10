@@ -5,7 +5,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="build-time" content="1783332439353">
+  <meta name="build-time" content="1783675234193">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -13760,7 +13760,8 @@ function App() {
       setDuyuruDE(remoteD.duyuruDE || localStorage.getItem("duyuruDE") || "");
       setHicriOffset(parseInt(String(remoteD.hicriOffset ?? localStorage.getItem("hicriOffset") ?? "0")));
       const initBayram = {};
-      SETTINGS.bayramlar.forEach((b) => {
+      const apiBayramlar = remoteD.bayramlar || SETTINGS.bayramlar;
+      apiBayramlar.forEach((b) => {
         const saved = localStorage.getItem("bayram_" + b.tarih);
         initBayram[b.tarih] = saved ? parseInt(saved) : timeToMinutes(b.saat || "09:00");
       });
@@ -13786,9 +13787,8 @@ function App() {
   }, [hicriOffset, configLoaded]);
   reactExports.useEffect(() => {
     if (!configLoaded) return;
-    SETTINGS.bayramlar.forEach((b) => {
-      if (bayramMins[b.tarih] !== void 0)
-        localStorage.setItem("bayram_" + b.tarih, String(bayramMins[b.tarih]));
+    Object.entries(bayramMins).forEach(([tarih, mins]) => {
+      localStorage.setItem("bayram_" + tarih, String(mins));
     });
   }, [bayramMins, configLoaded]);
   reactExports.useEffect(() => {

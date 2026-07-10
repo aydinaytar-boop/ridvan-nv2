@@ -183,7 +183,8 @@ if (data.dynamic?.prayerTimes) {
       setHicriOffset(parseInt(String(remoteD.hicriOffset ?? localStorage.getItem("hicriOffset") ?? "0")));
 
       const initBayram: Record<string, number> = {};
-      SETTINGS.bayramlar.forEach((b: any) => {
+      const apiBayramlar = remoteD.bayramlar || SETTINGS.bayramlar;
+      apiBayramlar.forEach((b: any) => {
         const saved = localStorage.getItem("bayram_" + b.tarih);
         initBayram[b.tarih] = saved ? parseInt(saved) : timeToMinutes(b.saat || "09:00");
       });
@@ -205,9 +206,8 @@ if (data.dynamic?.prayerTimes) {
   useEffect(() => { if (configLoaded) localStorage.setItem("hicriOffset", String(hicriOffset)); }, [hicriOffset, configLoaded]);
   useEffect(() => {
     if (!configLoaded) return;
-    SETTINGS.bayramlar.forEach((b: any) => {
-      if (bayramMins[b.tarih] !== undefined)
-        localStorage.setItem("bayram_" + b.tarih, String(bayramMins[b.tarih]));
+    Object.entries(bayramMins).forEach(([tarih, mins]) => {
+      localStorage.setItem("bayram_" + tarih, String(mins));
     });
   }, [bayramMins, configLoaded]);
 
