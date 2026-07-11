@@ -15,9 +15,16 @@ function fmt2(n: number) {
   return String(Math.max(0, n)).padStart(2, "0");
 }
 
+// Hesaplama algoritması (tabular/Kuwaiti method) ile gerçek Hicri takvim arasındaki
+// sabit farkı kapatmak için kalibrasyon düzeltmesi. Bu değer, hesaplanan tarih ile
+// Diyanet/gözlem tabanlı gerçek tarih arasındaki sabit kaymayı telafi eder.
+// Not: Ayarlar sekmesindeki +/- (hicriOffset/localStorage) bundan AYRIDIR ve
+// ileride oluşabilecek küçük kaymalar için kullanılmaya devam edecektir.
+const HICRI_CALIBRATION_OFFSET = 3;
+
 function toHijri(date: Date, offset = 0): { day: number; month: number; year: number } {
   const d = new Date(date);
-  d.setDate(d.getDate() + offset);
+  d.setDate(d.getDate() + offset + HICRI_CALIBRATION_OFFSET);
   const JD = Math.floor((d.getTime() - new Date(1970, 0, 1).getTime()) / 86400000) + 2440587.5;
   const Z = Math.floor(JD);
   const A = Math.floor((Z - 1867216.25) / 36524.25);
