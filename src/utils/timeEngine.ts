@@ -16,7 +16,8 @@ export type Phase =
   | "ezan"
   | "kamet_countdown"
   | "kamet_alert"
-  | "blackout";
+  | "blackout"
+  | "dark";
 
 export interface TodayTimes {
   sabah: string;
@@ -332,15 +333,27 @@ export function computeFlow(now: Date, times: TodayTimes): FlowState {
     }
   }
 
+  // nextBaseDate: nextTime string'inin hangi takvim gününe ait olduğunu belirtir.
+  // Normalde "now" ile aynı gün, ama gece yarısını geçip bir sonraki vakit
+  // YARININ sabah vakti olduğunda, "tomorrow" kullanılmalı — aksi halde
+  // timeToDate() saati bugüne uygular ve geçmişte kalmış (negatif) bir tarih
+  // üretir, bu da geri sayacın 00:00:00'da takılı kalmasına yol açardı.
+  let nextBaseDate: Date = now;
+
   if (!next) {
     next = "sabah";
     const tomorrow = new Date(now);
     tomorrow.setDate(tomorrow.getDate() + 1);
     const tomorrowTimes = getTodayTimes(tomorrow);
     nextTime = tomorrowTimes.sabah;
+    nextBaseDate = tomorrow;
   }
 
   const ezanVakitler: VakitKey[] = ["sabah", "ogle", "ikindi", "aksam", "yatsi"];
+
+  // Yatsı'nın blackout bitiş anını döngü dışında da kullanabilmek için saklıyoruz
+  // (gece yarısını geçen "sabah kametine kadar karart" penceresi için gerekli).
+  let yatsiBlackoutEnd: Date | null = null;
 
   for (const vakit of ezanVakitler) {
     const ezanStr = timeMap[vakit];
@@ -360,6 +373,11 @@ export function computeFlow(now: Date, times: TodayTimes): FlowState {
     const blackoutEnd = new Date(
       kametAlertEnd.getTime() + SETTINGS.blackoutSuresi * 1000
     );
+
+    if (vakit === "yatsi") {
+      yatsiBlackoutEnd = blackoutEnd;
+    }
+
     const secSinceEzan = diffSeconds(ezanDate, now);
 
     if (secSinceEzan >= 0 && secSinceEzan < 60) {
@@ -423,7 +441,55 @@ export function computeFlow(now: Date, times: TodayTimes): FlowState {
     }
   }
 
-  const countdown = next ? diffSeconds(now, timeToDate(nextTime, now)) : 0;
+  // Pencere A: Yatsı'nın blackout'u bittikten 5 dakika sonra, sabah ezanına
+  // yarım saat kalana kadar ekranı tamamen karart. (5 dakikalık aralıkta ekran
+  // normal görünür kalır, namazdan çıkanlar sabah kametini görebilsin diye.)
+  if (current === "yatsi" && next === "sabah" && yatsiBlackoutEnd) {
+    const darkStartA = new Date(yatsiBlackoutEnd.getTime() + 5 * 60 * 1000);
+    const darkEndA = new Date(
+      timeToDate(nextTime, nextBaseDate).getTime() - 30 * 60 * 1000
+    );
+    if (now >= darkStartA && now < darkEndA) {
+      return {
+        phase: "dark",
+        currentVakit: current,
+        nextVakit: next,
+        nextVakitTime: nextTime,
+        countdownSeconds: 0,
+        ezanElapsed: 0,
+        blackoutRemaining: 0,
+        activeEzanVakit: null,
+        kametCountdown: 0,
+        kametAlertActive: false,
+      };
+    }
+  }
+
+  // Pencere B: Güneş vaktinden itibaren, öğle ezanına 1 saat kalana kadar
+  // ekranı tamamen karart (bekleme süresi uzun olduğu için).
+  if (current === "gunes") {
+    const gunesDate = timeToDate(timeMap.gunes, now);
+    const ogleDate = timeToDate(timeMap.ogle, now);
+    const darkEndB = new Date(ogleDate.getTime() - 60 * 60 * 1000);
+    if (now >= gunesDate && now < darkEndB) {
+      return {
+        phase: "dark",
+        currentVakit: current,
+        nextVakit: next,
+        nextVakitTime: nextTime,
+        countdownSeconds: 0,
+        ezanElapsed: 0,
+        blackoutRemaining: 0,
+        activeEzanVakit: null,
+        kametCountdown: 0,
+        kametAlertActive: false,
+      };
+    }
+  }
+
+  const countdown = next
+    ? diffSeconds(now, timeToDate(nextTime, nextBaseDate))
+    : 0;
 
   return {
     phase: "normal",
