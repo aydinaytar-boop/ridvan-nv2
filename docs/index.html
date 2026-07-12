@@ -5,7 +5,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="build-time" content="1783799408034">
+  <meta name="build-time" content="1783863861424">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -13423,14 +13423,17 @@ function computeFlow(now, times) {
       break;
     }
   }
+  let nextBaseDate = now;
   if (!next) {
     next = "sabah";
     const tomorrow = new Date(now);
     tomorrow.setDate(tomorrow.getDate() + 1);
     const tomorrowTimes = getTodayTimes(tomorrow);
     nextTime = tomorrowTimes.sabah;
+    nextBaseDate = tomorrow;
   }
   const ezanVakitler = ["sabah", "ogle", "ikindi", "aksam", "yatsi"];
+  let yatsiBlackoutEnd = null;
   for (const vakit of ezanVakitler) {
     const ezanStr = timeMap[vakit];
     const ezanDate = timeToDate(ezanStr, now);
@@ -13446,6 +13449,9 @@ function computeFlow(now, times) {
     const blackoutEnd = new Date(
       kametAlertEnd.getTime() + SETTINGS.blackoutSuresi * 1e3
     );
+    if (vakit === "yatsi") {
+      yatsiBlackoutEnd = blackoutEnd;
+    }
     const secSinceEzan = diffSeconds(ezanDate, now);
     if (secSinceEzan >= 0 && secSinceEzan < 60) {
       return {
@@ -13504,7 +13510,46 @@ function computeFlow(now, times) {
       };
     }
   }
-  const countdown = next ? diffSeconds(now, timeToDate(nextTime, now)) : 0;
+  if (current === "yatsi" && next === "sabah" && yatsiBlackoutEnd) {
+    const darkStartA = new Date(yatsiBlackoutEnd.getTime() + 5 * 60 * 1e3);
+    const darkEndA = new Date(
+      timeToDate(nextTime, nextBaseDate).getTime() - 30 * 60 * 1e3
+    );
+    if (now >= darkStartA && now < darkEndA) {
+      return {
+        phase: "dark",
+        currentVakit: current,
+        nextVakit: next,
+        nextVakitTime: nextTime,
+        countdownSeconds: 0,
+        ezanElapsed: 0,
+        blackoutRemaining: 0,
+        activeEzanVakit: null,
+        kametCountdown: 0,
+        kametAlertActive: false
+      };
+    }
+  }
+  if (current === "gunes") {
+    const gunesDate = timeToDate(timeMap.gunes, now);
+    const ogleDate = timeToDate(timeMap.ogle, now);
+    const darkEndB = new Date(ogleDate.getTime() - 60 * 60 * 1e3);
+    if (now >= gunesDate && now < darkEndB) {
+      return {
+        phase: "dark",
+        currentVakit: current,
+        nextVakit: next,
+        nextVakitTime: nextTime,
+        countdownSeconds: 0,
+        ezanElapsed: 0,
+        blackoutRemaining: 0,
+        activeEzanVakit: null,
+        kametCountdown: 0,
+        kametAlertActive: false
+      };
+    }
+  }
+  const countdown = next ? diffSeconds(now, timeToDate(nextTime, nextBaseDate)) : 0;
   return {
     phase: "normal",
     currentVakit: current,
@@ -13816,6 +13861,7 @@ function App() {
   const isKametCountdown = flow.phase === "kamet_countdown";
   const isKametAlert = flow.phase === "kamet_alert";
   const isBlackout = flow.phase === "blackout";
+  const isDark = flow.phase === "dark";
   const duaArabic = isEzan ? EZAN_DUASI.arabic : dailyDua.ar;
   const duaText = isEzan ? lang === "tr" ? EZAN_DUASI.tr : EZAN_DUASI.de : lang === "tr" ? dailyDua.tr : dailyDua.de;
   const duaTypography = getDuaTypography(duaArabic, duaText, isEzan);
@@ -13825,7 +13871,7 @@ function App() {
     cdH = Math.floor(total / 3600);
     cdM = Math.floor(total % 3600 / 60);
     cdS = total % 60;
-  } else if (!isEzan && !isKametAlert && !isBlackout) {
+  } else if (!isEzan && !isKametAlert && !isBlackout && !isDark) {
     const total = flow.countdownSeconds;
     cdH = Math.floor(total / 3600);
     cdM = Math.floor(total % 3600 / 60);
@@ -13859,6 +13905,9 @@ function App() {
   }, []);
   if (!configLoaded) {
     return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100vw", height: "100vh", background: "#0a3d2e", display: "flex", alignItems: "center", justifyContent: "center", color: "#c9a66b", fontSize: 24 }, children: "Yükleniyor..." });
+  }
+  if (isDark) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { width: "100vw", height: "100vh", background: "#000" } });
   }
   if (isBlackout) {
     return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { width: "100vw", height: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }, children: [
