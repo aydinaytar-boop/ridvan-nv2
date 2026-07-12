@@ -247,6 +247,7 @@ if (data.dynamic?.prayerTimes) {
   const isKametCountdown = flow.phase === "kamet_countdown";
   const isKametAlert = flow.phase === "kamet_alert";
   const isBlackout = flow.phase === "blackout";
+  const isDark = flow.phase === "dark";
 
   const duaArabic = isEzan ? EZAN_DUASI.arabic : dailyDua.ar;
   const duaText = isEzan ? (lang === "tr" ? EZAN_DUASI.tr : EZAN_DUASI.de) : (lang === "tr" ? dailyDua.tr : dailyDua.de);
@@ -256,7 +257,7 @@ if (data.dynamic?.prayerTimes) {
   if (isKametCountdown) {
     const total = flow.kametCountdown;
     cdH = Math.floor(total / 3600); cdM = Math.floor((total % 3600) / 60); cdS = total % 60;
-  } else if (!isEzan && !isKametAlert && !isBlackout) {
+  } else if (!isEzan && !isKametAlert && !isBlackout && !isDark) {
     const total = flow.countdownSeconds;
     cdH = Math.floor(total / 3600); cdM = Math.floor((total % 3600) / 60); cdS = total % 60;
   }
@@ -288,6 +289,10 @@ if (data.dynamic?.prayerTimes) {
 
   if (!configLoaded) {
     return <div style={{ width: "100vw", height: "100vh", background: "#0a3d2e", display: "flex", alignItems: "center", justifyContent: "center", color: "#c9a66b", fontSize: 24 }}>Yükleniyor...</div>;
+  }
+
+  if (isDark) {
+    return <div style={{ width: "100vw", height: "100vh", background: "#000" }} />;
   }
 
   if (isBlackout) {
