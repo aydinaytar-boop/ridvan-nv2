@@ -8,8 +8,8 @@ export const SETTINGS = {
   },
   
   // Kamet Süreleri
-  kametSureleri: { ogle: 9, ikindi: 9, aksam: 3, yatsi: 9, cuma: 20 },
-  kametOffsets: { sabah: 0, ogle: 9, ikindi: 9, aksam: 3, yatsi: 9, cuma: 20 } as Record<string, number>,
+  kametSureleri: { ogle: 8, ikindi: 8, aksam: 2, yatsi: 8, cuma: 20 },
+  kametOffsets: { sabah: 0, ogle: 8, ikindi: 8, aksam: 2, yatsi: 8, cuma: 20 } as Record<string, number>,
   
   // Cuma Saatleri
   cuma: { ezan: "13:10", kamet: "13:30" },
