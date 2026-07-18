@@ -70,10 +70,10 @@ export interface RuntimeSettings {
 export const SETTINGS: RuntimeSettings = {
   sabahKamet: "05:15",
   kametSureleri: {
-    ogle: 9,
-    ikindi: 9,
-    aksam: 3,
-    yatsi: 9,
+    ogle: 8,
+    ikindi: 8,
+    aksam: 2,
+    yatsi: 8,
     cuma: 20,
   },
   blackoutSuresi: 600,
