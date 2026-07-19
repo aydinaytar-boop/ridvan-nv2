@@ -171,6 +171,31 @@ export default function App() {
     document.body.style.overflow = "hidden";
   }, []);
 
+  // Fare imleci: 7 saniye hareketsizlikten sonra gizle, hareket/tıklamada tekrar göster.
+  useEffect(() => {
+    let hideTimer: ReturnType<typeof setTimeout>;
+
+    const showCursor = () => {
+      document.body.style.cursor = "default";
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => {
+        document.body.style.cursor = "none";
+      }, 7000);
+    };
+
+    showCursor();
+    window.addEventListener("mousemove", showCursor);
+    window.addEventListener("mousedown", showCursor);
+    window.addEventListener("click", showCursor);
+
+    return () => {
+      clearTimeout(hideTimer);
+      window.removeEventListener("mousemove", showCursor);
+      window.removeEventListener("mousedown", showCursor);
+      window.removeEventListener("click", showCursor);
+    };
+  }, []);
+
   useEffect(() => {
     async function loadConfig() {
       let remoteD: any = { sabahKamet: "05:00", duyuruTR: "", duyuruDE: "", hicriOffset: 0 };
