@@ -3,7 +3,7 @@ import { saveSettingToFirebase } from "../config/settings";
 
 export default function SettingsPanel({ onClose }) {
   const [manuelSabahKamet, setManuelSabahKamet] = useState(
-    localStorage.getItem("manuelSabahKamet") || "05:00"
+    localStorage.getItem("manuelSabahKamet") || "04:45"
   );
 
   const [hicriOffset, setHicriOffset] = useState(

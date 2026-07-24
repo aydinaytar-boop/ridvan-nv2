@@ -1,0 +1,8 @@
+Sabah kametini veya Duyuruları Bilgisayardan güncelleme
+Yol 1 — TV'deki Ayarlar paneli (hızlı, build/push gerektirmez)
+
+Uygulamanın içinde gizli ayarlar simgesine birkaç kez tıklayarak açtığın panel (genel sekmesi → sabah kamet +/-, duyuru sekmesi → metin). Buradan yaptığın değişiklik o TV'nin localStorage'ına kaydedilir, anında etkili olur — build/push gerekmez.
+
+Yol 2 — config.json dosyasını değiştirip push etmek (kalıcı, tüm cihazlara yayılır)
+
+public/config.json içindeki dynamic.sabahKamet, dynamic.duyuruTR, dynamic.duyuruDE alanlarını değiştirip GitHub'a push edersin (build + fix-docs.cjs + deploy).

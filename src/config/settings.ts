@@ -4,11 +4,11 @@
 export const SETTINGS = {
   // Sabah Kamet Varsayılanı
   get manuelSabahKamet(): string {
-    return localStorage.getItem("manuelSabahKamet") || "05:00";
+    return localStorage.getItem("manuelSabahKamet") || "04:45";
   },
   
   // Kamet Süreleri
-  kametSureleri: { ogle: 8, ikindi: 8, aksam: 2, yatsi: 8, cuma: 20 },
+  kametSureleri: { ogle: 9, ikindi: 8, aksam: 2, yatsi: 8, cuma: 20 },
   kametOffsets: { sabah: 0, ogle: 8, ikindi: 8, aksam: 2, yatsi: 8, cuma: 20 } as Record<string, number>,
   
   // Cuma Saatleri
