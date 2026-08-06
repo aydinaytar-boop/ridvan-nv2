@@ -4,7 +4,7 @@
 export const SETTINGS = {
   // Sabah Kamet Varsayılanı
   get manuelSabahKamet(): string {
-    return localStorage.getItem("manuelSabahKamet") || "04:45";
+    return localStorage.getItem("manuelSabahKamet") || "05:00";
   },
   
   // Kamet Süreleri
