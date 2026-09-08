@@ -1,6 +1,3 @@
-# Bu dosyayı repo'da şuraya koy (üzerine yaz):
-# .github/workflows/deploy.yml
-
 name: Deploy to GitHub Pages
 
 on:
