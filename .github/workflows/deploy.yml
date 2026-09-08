@@ -1,3 +1,6 @@
+# Bu dosyayı repo'da şuraya koy (üzerine yaz):
+# .github/workflows/deploy.yml
+
 name: Deploy to GitHub Pages
 
 on:
@@ -36,7 +39,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './docs'      # ← tek değişiklik: dist yerine docs
+          path: './docs'
 
       - name: Deploy to GitHub Pages
         id: deployment
