@@ -1,1 +1,43 @@
+# Bu dosyayı repo'da şuraya koy (üzerine yaz):
+# .github/workflows/update-prayer-times.yml
 
+name: Update Prayer Times
+
+on:
+  schedule:
+    # Her ayın 25'inde, gece 02:00 UTC'de çalışır
+    - cron: '0 2 25 * *'
+  workflow_dispatch: {}   # Actions sekmesinden elle de tetiklenebilir
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-and-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Fetch monthly prayer times
+        env:
+          DIYANET_EMAIL: ${{ secrets.DIYANET_EMAIL }}
+          DIYANET_PASSWORD: ${{ secrets.DIYANET_PASSWORD }}
+        run: node scripts/fetch-monthly.js
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "prayer-times-bot"
+          git config user.email "actions@github.com"
+          git add public/config.json
+          if git diff --cached --quiet; then
+            echo "Değişiklik yok, commit atılmadı."
+          else
+            git commit -m "chore: otomatik vakit güncellemesi ($(date +'%Y-%m'))"
+            git push
+          fi
