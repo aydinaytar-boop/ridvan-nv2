@@ -28,7 +28,7 @@ jobs:
         env:
           DIYANET_EMAIL: ${{ secrets.DIYANET_EMAIL }}
           DIYANET_PASSWORD: ${{ secrets.DIYANET_PASSWORD }}
-        run: node scripts/fetch-monthly.js
+        run: node scripts/fetch-monthly.cjs
 
       - name: Commit and push if changed
         run: |
