@@ -57,10 +57,21 @@ async function run() {
   const data = JSON.parse(monthly.body);
   const newPrayerTimes = {};
 
+  // timeEngine.ts vakitleri "YYYY-MM-DD" (tire ile, yıl-ay-gün) formatındaki
+  // anahtarla arıyor. Diyanet API'si tarihi "DD.MM.YYYY" (nokta ile) döndürüyor,
+  // bu yüzden mutlaka çevirmemiz gerekiyor — aksi halde apiPrayerTimes hiçbir
+  // zaman eşleşmez ve uygulama sessizce statik/eski veriye düşer.
+  function toIsoDate(raw) {
+    const m = /^(\d{2})\.(\d{2})\.(\d{4})$/.exec(raw);
+    if (m) return `${m[3]}-${m[2]}-${m[1]}`; // DD.MM.YYYY -> YYYY-MM-DD
+    return raw; // zaten ISO formatındaysa dokunma
+  }
+
   if (data.data && Array.isArray(data.data)) {
     data.data.forEach(day => {
-      const date = day.gregorianDateShort || day.gregorianDate || day.date;
-      if (!date) return;
+      const rawDate = day.gregorianDateShort || day.gregorianDate || day.date;
+      if (!rawDate) return;
+      const date = toIsoDate(rawDate);
       newPrayerTimes[date] = {
         sabah: (day.fajr || day.imsak || "").substring(0, 5),
         gunes: (day.sunrise || day.israk || "").substring(0, 5),
