@@ -1,3 +1,6 @@
+# Bu dosyayı repo'da şuraya koy (üzerine yaz):
+# .github/workflows/update-prayer-times.yml
+
 name: Update Prayer Times
 
 on:
@@ -25,7 +28,7 @@ jobs:
         env:
           DIYANET_EMAIL: ${{ secrets.DIYANET_EMAIL }}
           DIYANET_PASSWORD: ${{ secrets.DIYANET_PASSWORD }}
-        run: node scripts/fetch-monthly.cjs
+        run: node scripts/fetch-monthly.js
 
       - name: Commit and push if changed
         run: |
