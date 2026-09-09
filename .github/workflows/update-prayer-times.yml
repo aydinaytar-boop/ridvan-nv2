@@ -1,20 +1,24 @@
-# Bu dosyayı repo'da şuraya koy (üzerine yaz):
-# .github/workflows/update-prayer-times.yml
-
 name: Update Prayer Times
 
 on:
   schedule:
-    # Her ayın 25'inde, gece 02:00 UTC'de çalışır
     - cron: '0 2 25 * *'
-  workflow_dispatch: {}   # Actions sekmesinden elle de tetiklenebilir
+  workflow_dispatch: {}
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   fetch-and-update:
     runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,7 +26,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Fetch monthly prayer times
         env:
@@ -31,13 +35,51 @@ jobs:
         run: node scripts/fetch-monthly.cjs
 
       - name: Commit and push if changed
+        id: commit
         run: |
           git config user.name "prayer-times-bot"
           git config user.email "actions@github.com"
           git add public/config.json
           if git diff --cached --quiet; then
             echo "Değişiklik yok, commit atılmadı."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "chore: otomatik vakit güncellemesi ($(date +'%Y-%m'))"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+  deploy:
+    needs: fetch-and-update
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout (latest main, includes the commit above)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
