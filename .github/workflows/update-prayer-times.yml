@@ -1,6 +1,3 @@
-# Bu dosyayı repo'da şuraya koy (üzerine yaz):
-# .github/workflows/update-prayer-times.yml
-
 name: Update Prayer Times
 
 on:
