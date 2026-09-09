@@ -91,17 +91,25 @@ async function run() {
     process.exit(1);
   }
 
-  // Mevcut config.json'u oku ve KORU — sadece prayerTimes alanını güncelle/genişlet
+  // Mevcut config.json'u oku ve KORU — sadece dynamic.prayerTimes alanını
+  // güncelle/genişlet. Uygulama (timeEngine.ts / App.tsx) vakitleri
+  // config.dynamic.prayerTimes altından okuyor — üst seviyeye değil, mutlaka
+  // "dynamic" objesinin İÇİNE yazılması gerekiyor.
   let config = {};
   if (fs.existsSync(CONFIG_PATH)) {
     config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
   }
 
-  config.prayerTimes = { ...(config.prayerTimes || {}), ...newPrayerTimes };
-  config.lastUpdated = new Date().toISOString();
+  if (!config.dynamic) config.dynamic = {};
+
+  config.dynamic.prayerTimes = {
+    ...(config.dynamic.prayerTimes || {}),
+    ...newPrayerTimes,
+  };
+  config.dynamic.lastApiUpdate = new Date().toISOString();
 
   fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2), 'utf8');
-  console.log(`✅ ${CONFIG_PATH} güncellendi (${dayCount} gün eklendi/güncellendi).`);
+  console.log(`✅ ${CONFIG_PATH} güncellendi (${dayCount} gün eklendi/güncellendi, dynamic.prayerTimes altına).`);
 }
 
 run().catch(e => {
