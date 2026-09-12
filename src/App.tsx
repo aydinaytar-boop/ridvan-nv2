@@ -176,12 +176,14 @@ export default function App() {
     let hideTimer: ReturnType<typeof setTimeout>;
 
     const showCursor = () => {
-      document.body.style.cursor = "default";
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(() => {
-        document.body.style.cursor = "none";
-      }, 7000);
-    };
+  document.body.style.cursor = "default";
+  document.documentElement.style.cursor = "default";
+  clearTimeout(hideTimer);
+  hideTimer = setTimeout(() => {
+    document.body.style.cursor = "none";
+    document.documentElement.style.cursor = "none";
+  }, 7000);
+};
 
     showCursor();
     window.addEventListener("mousemove", showCursor);
