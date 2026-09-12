@@ -5,7 +5,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="build-time" content="1788948397960">
+  <meta name="build-time" content="1789188068368">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -13792,9 +13792,11 @@ function App() {
     let hideTimer;
     const showCursor = () => {
       document.body.style.cursor = "default";
+      document.documentElement.style.cursor = "default";
       clearTimeout(hideTimer);
       hideTimer = setTimeout(() => {
         document.body.style.cursor = "none";
+        document.documentElement.style.cursor = "none";
       }, 7e3);
     };
     showCursor();
