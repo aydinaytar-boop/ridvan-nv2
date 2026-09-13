@@ -5,7 +5,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="build-time" content="1789188068368">
+  <meta name="build-time" content="1789293369137">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -13329,18 +13329,16 @@ function resolveOgleTime(takvimOgle, now) {
   const month = now.getMonth() + 1;
   const isPztPer = day >= 1 && day <= 4;
   const isWeekend = day === 0 || day === 6;
-  if (winter && month >= 10) {
-    if (isPztPer) return "12:00";
-    if (isWeekend) return "13:00";
+  if (isWeekend && takvimOgle < "13:00") return "13:00";
+  if (winter && month >= 10 && isPztPer) {
+    return "12:00";
   }
   return takvimOgle;
 }
-function showWeekendOgleMsg(now) {
+function showWeekendOgleMsg(now, takvimOgle) {
   const day = now.getDay();
   const isWeekend = day === 0 || day === 6;
-  const winter = isWinterTime(now);
-  const month = now.getMonth() + 1;
-  return isWeekend && winter && month >= 10;
+  return isWeekend && takvimOgle < "13:00";
 }
 let _apiPrayerTimes = {};
 function setApiPrayerTimes(times) {
@@ -13364,6 +13362,7 @@ function getTodayTimes(date = /* @__PURE__ */ new Date()) {
     sabah: times.sabah,
     gunes: times.gunes,
     ogle: ogleResolved,
+    ogleTakvim: times.ogle,
     ikindi: times.ikindi,
     aksam: times.aksam,
     yatsi: times.yatsi,
@@ -13750,20 +13749,20 @@ const valueStyle = {
   fontFamily: "monospace"
 };
 function App() {
-  const [now, setNow] = reactExports.useState(() => /* @__PURE__ */ new Date());
-  const [lang, setLang] = reactExports.useState("tr");
-  const [hicriOffset, setHicriOffset] = reactExports.useState(0);
-  const [sabahKametMins, setSabahKametMins] = reactExports.useState(300);
-  const [showSettings, setShowSettings] = reactExports.useState(false);
-  const [settingsTab, setSettingsTab] = reactExports.useState("genel");
-  const [bayramMins, setBayramMins] = reactExports.useState({});
-  const [duyuruTR, setDuyuruTR] = reactExports.useState("");
-  const [duyuruDE, setDuyuruDE] = reactExports.useState("");
-  const [duyuruEditLang, setDuyuruEditLang] = reactExports.useState("tr");
-  const [duyuruCursorPos, setDuyuruCursorPos] = reactExports.useState(0);
-  const [configLoaded, setConfigLoaded] = reactExports.useState(false);
-  const settingsClickCount = reactExports.useRef(0);
-  const settingsTimer = reactExports.useRef(null);
+  const [now, setNow] = useState(() => /* @__PURE__ */ new Date());
+  const [lang, setLang] = useState("tr");
+  const [hicriOffset, setHicriOffset] = useState(0);
+  const [sabahKametMins, setSabahKametMins] = useState(300);
+  const [showSettings, setShowSettings] = useState(false);
+  const [settingsTab, setSettingsTab] = useState("genel");
+  const [bayramMins, setBayramMins] = useState({});
+  const [duyuruTR, setDuyuruTR] = useState("");
+  const [duyuruDE, setDuyuruDE] = useState("");
+  const [duyuruEditLang, setDuyuruEditLang] = useState("tr");
+  const [duyuruCursorPos, setDuyuruCursorPos] = useState(0);
+  const [configLoaded, setConfigLoaded] = useState(false);
+  const settingsClickCount = useRef(0);
+  const settingsTimer = useRef(null);
   const currentDuyuru = duyuruEditLang === "tr" ? duyuruTR : duyuruDE;
   const setCurrentDuyuru = (v) => {
     if (duyuruEditLang === "tr") setDuyuruTR(v);
@@ -13784,11 +13783,11 @@ function App() {
     setCurrentDuyuru("");
     setDuyuruCursorPos(0);
   };
-  reactExports.useEffect(() => {
+  useEffect(() => {
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
   }, []);
-  reactExports.useEffect(() => {
+  useEffect(() => {
     let hideTimer;
     const showCursor = () => {
       document.body.style.cursor = "default";
@@ -13810,7 +13809,7 @@ function App() {
       window.removeEventListener("click", showCursor);
     };
   }, []);
-  reactExports.useEffect(() => {
+  useEffect(() => {
     async function loadConfig() {
       let remoteD = { sabahKamet: "05:00", duyuruTR: "", duyuruDE: "", hicriOffset: 0 };
       try {
@@ -13838,42 +13837,42 @@ function App() {
     }
     loadConfig();
   }, []);
-  reactExports.useEffect(() => {
+  useEffect(() => {
     if (!configLoaded) return;
     const sk = minutesToTime(sabahKametMins);
     localStorage.setItem("manuelSabahKamet", sk);
     setSabahKametSaati(sk);
   }, [sabahKametMins, configLoaded]);
-  reactExports.useEffect(() => {
+  useEffect(() => {
     if (configLoaded) localStorage.setItem("duyuruTR", duyuruTR);
   }, [duyuruTR, configLoaded]);
-  reactExports.useEffect(() => {
+  useEffect(() => {
     if (configLoaded) localStorage.setItem("duyuruDE", duyuruDE);
   }, [duyuruDE, configLoaded]);
-  reactExports.useEffect(() => {
+  useEffect(() => {
     if (configLoaded) localStorage.setItem("hicriOffset", String(hicriOffset));
   }, [hicriOffset, configLoaded]);
-  reactExports.useEffect(() => {
+  useEffect(() => {
     if (!configLoaded) return;
     Object.entries(bayramMins).forEach(([tarih, mins]) => {
       localStorage.setItem("bayram_" + tarih, String(mins));
     });
   }, [bayramMins, configLoaded]);
-  reactExports.useEffect(() => {
+  useEffect(() => {
     setSabahKametSaati(minutesToTime(sabahKametMins));
   }, [sabahKametMins]);
-  reactExports.useEffect(() => {
+  useEffect(() => {
     const id = setInterval(() => setNow(/* @__PURE__ */ new Date()), 1e3);
     return () => clearInterval(id);
   }, []);
-  reactExports.useEffect(() => {
+  useEffect(() => {
     const id = setInterval(() => setLang((l) => l === "tr" ? "de" : "tr"), 2e4);
     return () => clearInterval(id);
   }, []);
   const times = getTodayTimes(now);
   const flow = computeFlow(now, times);
   const bayram = getBayramVisibility(now);
-  const weekendMsg = showWeekendOgleMsg(now);
+  const weekendMsg = showWeekendOgleMsg(now, times.ogleTakvim);
   const dailyDua = getDailyDua(now);
   const hicri = toHijri(now, hicriOffset);
   const hh = fmt2(now.getHours());
@@ -13903,8 +13902,19 @@ function App() {
   const [gh, gm] = times.gunes.split(":").map(Number);
   gunesDate.setHours(gh, gm, 0, 0);
   const gunesKalanSec = Math.max(0, Math.floor((gunesDate.getTime() - now.getTime()) / 1e3));
-  const currentLabel = flow.currentVakit ? VAKIT_LABEL[lang][flow.currentVakit] : "—";
-  const nextLabel = flow.nextVakit ? VAKIT_LABEL[lang][flow.nextVakit] : "—";
+  const isCumaToday = isCumaGunu(now);
+  const labelFor = (vakit) => {
+    if (!vakit) return "—";
+    if (vakit === "ogle" && isCumaToday) return lang === "tr" ? "Cuma" : "Dschum'a";
+    return VAKIT_LABEL[lang][vakit];
+  };
+  const nameFor = (vakit) => {
+    if (!vakit) return "";
+    if (vakit === "ogle" && isCumaToday) return lang === "tr" ? "CUMA" : "DSCHUM'A";
+    return VAKIT_NAMES[lang][vakit];
+  };
+  const currentLabel = labelFor(flow.currentVakit);
+  const nextLabel = labelFor(flow.nextVakit);
   const kametVakit = flow.activeEzanVakit;
   const vakitList = [
     { key: "sabah", ezan: times.sabah, kamet: minutesToTime(sabahKametMins) },
@@ -13914,7 +13924,7 @@ function App() {
     { key: "aksam", ezan: times.aksam, kamet: getKametTime("aksam", times.aksam) },
     { key: "yatsi", ezan: times.yatsi, kamet: getKametTime("yatsi", times.yatsi) }
   ];
-  const handleBottomClick = reactExports.useCallback(() => {
+  const handleBottomClick = useCallback(() => {
     settingsClickCount.current += 1;
     if (settingsTimer.current) clearTimeout(settingsTimer.current);
     settingsTimer.current = setTimeout(() => {
@@ -14113,7 +14123,7 @@ function App() {
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "panel", style: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#0a3d2e", gap: 20 }, children: [
         isKametAlert ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { textAlign: "center" }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#c9a66b", fontSize: 58, fontWeight: 900, letterSpacing: 6, animation: "pulse 1s infinite", marginBottom: 20, lineHeight: 1 }, children: lang === "tr" ? "KAMET" : "IQÂMAT" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#f5d78e", fontSize: 108, fontWeight: 900, letterSpacing: 4, animation: "pulse 1s infinite", lineHeight: 1 }, children: kametVakit ? VAKIT_NAMES[lang][kametVakit] : "" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#f5d78e", fontSize: 108, fontWeight: 900, letterSpacing: 4, animation: "pulse 1s infinite", lineHeight: 1 }, children: kametVakit ? nameFor(kametVakit) : "" })
         ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", children: lang === "tr" ? "GÜNÜN VAKTİ" : "AKTUELLE GEBETSZEIT" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `current-vakit ${isEzan ? "ezan" : ""}`, children: currentLabel }),
@@ -14127,7 +14137,7 @@ function App() {
           ] }),
           isKametCountdown && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { textAlign: "center", marginTop: 8 }, children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-title", children: lang === "tr" ? "KAMETE KALAN SÜRE" : "ZEIT BIS ZUM IQÂMAT" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#f5d78e", fontSize: 70, fontWeight: 700, marginTop: 16, lineHeight: 1 }, children: kametVakit ? VAKIT_NAMES[lang][kametVakit] : "" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { color: "#f5d78e", fontSize: 70, fontWeight: 700, marginTop: 16, lineHeight: 1 }, children: kametVakit ? nameFor(kametVakit) : "" })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "countdown-row", children: [
             { val: fmt2(cdH), label: lang === "tr" ? "Saat" : "Std." },
