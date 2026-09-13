@@ -23,6 +23,7 @@ export interface TodayTimes {
   sabah: string;
   gunes: string;
   ogle: string;
+  ogleTakvim: string;
   ikindi: string;
   aksam: string;
   yatsi: string;
@@ -199,20 +200,27 @@ export function resolveOgleTime(takvimOgle: string, now: Date): string {
   const isPztPer = day >= 1 && day <= 4;
   const isWeekend = day === 0 || day === 6;
 
-  if (winter && month >= 10) {
-    if (isPztPer) return "12:00";
-    if (isWeekend) return "13:00";
+  // Hafta sonu (Cumartesi/Pazar) öğle namazı, hesaplanan (takvim) vakit
+  // 13:00'ün altına düştüğü andan itibaren (Eylül başı civarı) yaz saati
+  // tekrar başlayana kadar (vakit tekrar 13:00'ü geçtiğinde) otomatik
+  // olarak 13:00'e sabitlenir. Sabit bir tarihe bağlı değil, o günün
+  // gerçek hesaplanan vaktine bakar.
+  if (isWeekend && takvimOgle < "13:00") return "13:00";
+
+  // Pazartesi-Perşembe 12:00 sabitlemesi hâlâ sadece kış saati uygulamasında (Ekim ve sonrası) geçerli.
+  if (winter && month >= 10 && isPztPer) {
+    return "12:00";
   }
 
   return takvimOgle;
 }
 
-export function showWeekendOgleMsg(now: Date): boolean {
+export function showWeekendOgleMsg(now: Date, takvimOgle: string): boolean {
   const day = now.getDay();
   const isWeekend = day === 0 || day === 6;
-  const winter = isWinterTime(now);
-  const month = now.getMonth() + 1;
-  return isWeekend && winter && month >= 10;
+  // Mesaj, 13:00 sabitlemesi fiilen uygulandığı günlerde (yani takvimOgle
+  // gerçekten 13:00'ün altındayken) gösterilir — resolveOgleTime ile aynı koşul.
+  return isWeekend && takvimOgle < "13:00";
 }
 
 // API'den gelen vakitler (App.tsx tarafından set edilir)
@@ -251,6 +259,7 @@ export function getTodayTimes(date: Date = new Date()): TodayTimes {
     sabah: times.sabah,
     gunes: times.gunes,
     ogle: ogleResolved,
+    ogleTakvim: times.ogle,
     ikindi: times.ikindi,
     aksam: times.aksam,
     yatsi: times.yatsi,

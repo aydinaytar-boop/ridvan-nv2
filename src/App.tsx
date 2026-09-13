@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";import {
+import {
   getTodayTimes,
   computeFlow,
   getKametTime,
@@ -7,6 +7,7 @@ import { useState, useEffect, useRef, useCallback } from "react";import {
   setSabahKametSaati,
   setApiPrayerTimes,
   SETTINGS,
+  isCumaGunu,
   type VakitKey,
 } from "./utils/timeEngine";
 import { DUA_ARCHIVE, EZAN_DUASI } from "./data/duaArchive";
@@ -262,7 +263,7 @@ if (data.dynamic?.prayerTimes) {
   const times = getTodayTimes(now);
   const flow = computeFlow(now, times);
   const bayram = getBayramVisibility(now);
-  const weekendMsg = showWeekendOgleMsg(now);
+  const weekendMsg = showWeekendOgleMsg(now, times.ogleTakvim);
   const dailyDua = getDailyDua(now);
 
   const hicri = toHijri(now, hicriOffset);
@@ -294,8 +295,19 @@ if (data.dynamic?.prayerTimes) {
   gunesDate.setHours(gh, gm, 0, 0);
   const gunesKalanSec = Math.max(0, Math.floor((gunesDate.getTime() - now.getTime()) / 1000));
 
-  const currentLabel = flow.currentVakit ? VAKIT_LABEL[lang][flow.currentVakit] : "—";
-  const nextLabel = flow.nextVakit ? VAKIT_LABEL[lang][flow.nextVakit] : "—";
+  const isCumaToday = isCumaGunu(now);
+const labelFor = (vakit) => {
+  if (!vakit) return "—";
+  if (vakit === "ogle" && isCumaToday) return lang === "tr" ? "Cuma" : "Dschum'a";
+  return VAKIT_LABEL[lang][vakit];
+};
+const nameFor = (vakit) => {
+  if (!vakit) return "";
+  if (vakit === "ogle" && isCumaToday) return lang === "tr" ? "CUMA" : "DSCHUM'A";
+  return VAKIT_NAMES[lang][vakit];
+};
+const currentLabel = labelFor(flow.currentVakit);
+const nextLabel = labelFor(flow.nextVakit);
   const kametVakit = flow.activeEzanVakit;
 
   const vakitList: { key: VakitKey; ezan: string; kamet: string | null }[] = [
@@ -566,7 +578,7 @@ if (data.dynamic?.prayerTimes) {
               {isKametAlert ? (
                 <div style={{ textAlign: "center" }}>
                   <div style={{ color: "#c9a66b", fontSize: 58, fontWeight: 900, letterSpacing: 6, animation: "pulse 1s infinite", marginBottom: 20, lineHeight: 1 }}>{lang === "tr" ? "KAMET" : "IQÂMAT"}</div>
-                  <div style={{ color: "#f5d78e", fontSize: 108, fontWeight: 900, letterSpacing: 4, animation: "pulse 1s infinite", lineHeight: 1 }}>{kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}</div>
+                  <div style={{ color: "#f5d78e", fontSize: 108, fontWeight: 900, letterSpacing: 4, animation: "pulse 1s infinite", lineHeight: 1 }}>{kametVakit ? nameFor(kametVakit) : ""}</div>
                 </div>
               ) : (
                 <>
@@ -581,7 +593,7 @@ if (data.dynamic?.prayerTimes) {
                   {isKametCountdown && (
                     <div style={{ textAlign: "center", marginTop: 8 }}>
                       <div className="panel-title">{lang === "tr" ? "KAMETE KALAN SÜRE" : "ZEIT BIS ZUM IQÂMAT"}</div>
-                      <div style={{ color: "#f5d78e", fontSize: 70, fontWeight: 700, marginTop: 16, lineHeight: 1 }}>{kametVakit ? VAKIT_NAMES[lang][kametVakit] : ""}</div>
+                      <div style={{ color: "#f5d78e", fontSize: 70, fontWeight: 700, marginTop: 16, lineHeight: 1 }}>{kametVakit ? nameFor(kametVakit) : ""}</div>
                     </div>
                   )}
                   <div className="countdown-row">
