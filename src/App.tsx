@@ -527,18 +527,18 @@ const nextLabel = labelFor(flow.nextVakit);
             </div>
           </div>
 
-          {/* MAIN PANELS */}
+         {/* MAIN PANELS */}
           <div className="main-panels" style={{ display: "flex", flex: 1 }}>
 
             {/* SOL — VAKİT LİSTESİ */}
             <div className="panel" style={{ flex: 1, display: "flex", flexDirection: "column", background: "#0a3d2e" }}>
-              <div style={{ background: "#c9a66b", textAlign: "center", padding: "12px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0, lineHeight: 1 }}>
+              <div style={{ background: "#c9a66b", textAlign: "center", padding: "12px 0", color: "#0a3d2e", fontSize: "clamp(28px, 4.6vh, 48px)", fontWeight: 900, letterSpacing: 3, flexShrink: 0, lineHeight: 1 }}>
                 {lang === "tr" ? "NAMAZ VAKİTLERİ" : "GEBETSZEITEN"}
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", padding: "8px 20px", borderBottom: "2px solid #c9a66b", background: "#072d20", flexShrink: 0 }}>
-                <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, lineHeight: 1 }}>{lang === "tr" ? "VAKİT" : "GEBET"}</span>
-                <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, textAlign: "center", lineHeight: 1 }}>{lang === "tr" ? "EZAN" : "ADHAN"}</span>
-                <span style={{ color: "#c9a66b", fontSize: 24, fontWeight: 700, letterSpacing: 2, textAlign: "right", lineHeight: 1 }}>{lang === "tr" ? "KAMET" : "IQÂMAT"}</span>
+                <span style={{ color: "#c9a66b", fontSize: "clamp(18px, 3vh, 30px)", fontWeight: 700, letterSpacing: 2, lineHeight: 1 }}>{lang === "tr" ? "VAKİT" : "GEBET"}</span>
+                <span style={{ color: "#c9a66b", fontSize: "clamp(18px, 3vh, 30px)", fontWeight: 700, letterSpacing: 2, textAlign: "center", lineHeight: 1 }}>{lang === "tr" ? "EZAN" : "ADHAN"}</span>
+                <span style={{ color: "#c9a66b", fontSize: "clamp(18px, 3vh, 30px)", fontWeight: 700, letterSpacing: 2, textAlign: "right", lineHeight: 1 }}>{lang === "tr" ? "KAMET" : "IQÂMAT"}</span>
               </div>
               <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
                 {vakitList.map(({ key, ezan, kamet }) => {
@@ -547,26 +547,26 @@ const nextLabel = labelFor(flow.nextVakit);
                   return (
                     <div key={key} className={isActive ? "active-vakit-row" : ""}
                       style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", padding: "0 20px", flex: 1, borderBottom: "1px solid #c9a66b33", background: isActive ? undefined : isNext ? "rgba(201,166,107,0.07)" : "transparent", borderLeft: isActive ? "7px solid #c9a66b" : "7px solid transparent", alignItems: "center", transition: "background 0.3s" }}>
-                      <span className={isActive ? "active-vakit-text" : ""} style={{ color: isActive ? "#f5d78e" : "#a8c8b0", fontSize: isActive ? 36 : 32, fontWeight: isActive ? 900 : 600, letterSpacing: 1, lineHeight: 1 }}>{VAKIT_NAMES[lang][key]}</span>
-                      <span className={isActive ? "active-vakit-text" : ""} style={{ color: "#f5d78e", fontSize: isActive ? 48 : 44, fontWeight: 700, textAlign: "center", fontFamily: "monospace", lineHeight: 1 }}>{ezan}</span>
-                      <span className={isActive ? "active-vakit-text" : ""} style={{ color: isActive ? "#f5d78e" : "#a8c8b0", fontSize: 40, textAlign: "right", fontFamily: "monospace", lineHeight: 1 }}>{kamet || "—"}</span>
+                      <span className={isActive ? "active-vakit-text" : ""} style={{ color: isActive ? "#f5d78e" : "#a8c8b0", fontSize: isActive ? "clamp(34px, 5.6vh, 56px)" : "clamp(30px, 5vh, 50px)", fontWeight: isActive ? 900 : 600, letterSpacing: 1, lineHeight: 1 }}>{VAKIT_NAMES[lang][key]}</span>
+                      <span className={isActive ? "active-vakit-text" : ""} style={{ color: "#f5d78e", fontSize: isActive ? "clamp(44px, 7.2vh, 72px)" : "clamp(40px, 6.6vh, 66px)", fontWeight: 700, textAlign: "center", fontFamily: "monospace", lineHeight: 1 }}>{ezan}</span>
+                      <span className={isActive ? "active-vakit-text" : ""} style={{ color: isActive ? "#f5d78e" : "#a8c8b0", fontSize: "clamp(34px, 5.6vh, 58px)", textAlign: "right", fontFamily: "monospace", lineHeight: 1 }}>{kamet || "—"}</span>
                     </div>
                   );
                 })}
                 <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", padding: "0 20px", flex: 1, background: "#c9a66b", alignItems: "center", borderLeft: "7px solid #a07d3a", lineHeight: 1 }}>
-                  <span style={{ color: "#0a3d2e", fontSize: 34, fontWeight: 900, letterSpacing: 1, lineHeight: 1 }}>{lang === "tr" ? "CUMA" : "DSCHUM'A"}</span>
-                  <span style={{ color: "#0a3d2e", fontSize: 46, fontWeight: 700, textAlign: "center", fontFamily: "monospace", lineHeight: 1 }}>{SETTINGS.cuma.ezan}</span>
-                  <span style={{ color: "#0a3d2e", fontSize: 40, textAlign: "right", fontFamily: "monospace", lineHeight: 1 }}>{SETTINGS.cuma.kamet}</span>
+                  <span style={{ color: "#0a3d2e", fontSize: "clamp(32px, 5.2vh, 52px)", fontWeight: 900, letterSpacing: 1, lineHeight: 1 }}>{lang === "tr" ? "CUMA" : "DSCHUM'A"}</span>
+                  <span style={{ color: "#0a3d2e", fontSize: "clamp(42px, 6.8vh, 68px)", fontWeight: 700, textAlign: "center", fontFamily: "monospace", lineHeight: 1 }}>{SETTINGS.cuma.ezan}</span>
+                  <span style={{ color: "#0a3d2e", fontSize: "clamp(36px, 5.8vh, 58px)", textAlign: "right", fontFamily: "monospace", lineHeight: 1 }}>{SETTINGS.cuma.kamet}</span>
                 </div>
                 {bayram.visible && bayram.bayram && (
                   <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", padding: "0 20px", flex: 1, background: "rgba(201,166,107,0.15)", borderTop: "2px solid #c9a66b66", alignItems: "center", lineHeight: 1 }}>
-                    <span style={{ color: "#f5d78e", fontSize: 26, fontWeight: 700, lineHeight: 1 }}>{lang === "tr" ? bayram.bayram.ad_tr : bayram.bayram.ad_de}</span>
-                    <span style={{ color: "#f5d78e", fontSize: 40, fontWeight: 700, textAlign: "center", fontFamily: "monospace", lineHeight: 1 }}>{minutesToTime(bayramMins[bayram.bayram.tarih] ?? timeToMinutes(bayram.bayram.saat || "09:00"))}</span>
-                    <span style={{ color: "#a8c8b0", fontSize: 34, textAlign: "right", lineHeight: 1 }}>—</span>
+                    <span style={{ color: "#f5d78e", fontSize: "clamp(22px, 3.6vh, 32px)", fontWeight: 700, lineHeight: 1 }}>{lang === "tr" ? bayram.bayram.ad_tr : bayram.bayram.ad_de}</span>
+                    <span style={{ color: "#f5d78e", fontSize: "clamp(34px, 5.6vh, 52px)", fontWeight: 700, textAlign: "center", fontFamily: "monospace", lineHeight: 1 }}>{minutesToTime(bayramMins[bayram.bayram.tarih] ?? timeToMinutes(bayram.bayram.saat || "09:00"))}</span>
+                    <span style={{ color: "#a8c8b0", fontSize: "clamp(28px, 4.6vh, 42px)", textAlign: "right", lineHeight: 1 }}>—</span>
                   </div>
                 )}
                 {weekendMsg && (
-                  <div style={{ padding: "8px 16px", color: "#c9a66b", fontSize: 16, fontStyle: "italic", flexShrink: 0, borderTop: "1px solid #c9a66b33", lineHeight: 1 }}>
+                  <div style={{ padding: "8px 16px", color: "#c9a66b", fontSize: "clamp(14px, 2.2vh, 20px)", fontStyle: "italic", flexShrink: 0, borderTop: "1px solid #c9a66b33", lineHeight: 1.3 }}>
                     {lang === "tr" ? "Haftasonu eğitimi sebebiyle öğle namazı 13:00 olarak ayarlanmıştır." : "Das Mittagsgebet ist aufgrund des Wochenendunterrichts auf 13:00 Uhr festgelegt."}
                   </div>
                 )}
