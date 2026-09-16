@@ -5,7 +5,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="build-time" content="1789484783829">
+  <meta name="build-time" content="1789531669076">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -13749,20 +13749,20 @@ const valueStyle = {
   fontFamily: "monospace"
 };
 function App() {
-  const [now, setNow] = useState(() => /* @__PURE__ */ new Date());
-  const [lang, setLang] = useState("tr");
-  const [hicriOffset, setHicriOffset] = useState(0);
-  const [sabahKametMins, setSabahKametMins] = useState(300);
-  const [showSettings, setShowSettings] = useState(false);
-  const [settingsTab, setSettingsTab] = useState("genel");
-  const [bayramMins, setBayramMins] = useState({});
-  const [duyuruTR, setDuyuruTR] = useState("");
-  const [duyuruDE, setDuyuruDE] = useState("");
-  const [duyuruEditLang, setDuyuruEditLang] = useState("tr");
-  const [duyuruCursorPos, setDuyuruCursorPos] = useState(0);
-  const [configLoaded, setConfigLoaded] = useState(false);
-  const settingsClickCount = useRef(0);
-  const settingsTimer = useRef(null);
+  const [now, setNow] = reactExports.useState(() => /* @__PURE__ */ new Date());
+  const [lang, setLang] = reactExports.useState("tr");
+  const [hicriOffset, setHicriOffset] = reactExports.useState(0);
+  const [sabahKametMins, setSabahKametMins] = reactExports.useState(300);
+  const [showSettings, setShowSettings] = reactExports.useState(false);
+  const [settingsTab, setSettingsTab] = reactExports.useState("genel");
+  const [bayramMins, setBayramMins] = reactExports.useState({});
+  const [duyuruTR, setDuyuruTR] = reactExports.useState("");
+  const [duyuruDE, setDuyuruDE] = reactExports.useState("");
+  const [duyuruEditLang, setDuyuruEditLang] = reactExports.useState("tr");
+  const [duyuruCursorPos, setDuyuruCursorPos] = reactExports.useState(0);
+  const [configLoaded, setConfigLoaded] = reactExports.useState(false);
+  const settingsClickCount = reactExports.useRef(0);
+  const settingsTimer = reactExports.useRef(null);
   const currentDuyuru = duyuruEditLang === "tr" ? duyuruTR : duyuruDE;
   const setCurrentDuyuru = (v) => {
     if (duyuruEditLang === "tr") setDuyuruTR(v);
@@ -13783,11 +13783,11 @@ function App() {
     setCurrentDuyuru("");
     setDuyuruCursorPos(0);
   };
-  useEffect(() => {
+  reactExports.useEffect(() => {
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
   }, []);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     let hideTimer;
     const showCursor = () => {
       document.body.style.cursor = "default";
@@ -13809,7 +13809,7 @@ function App() {
       window.removeEventListener("click", showCursor);
     };
   }, []);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     async function loadConfig() {
       let remoteD = { sabahKamet: "05:00", duyuruTR: "", duyuruDE: "", hicriOffset: 0 };
       try {
@@ -13837,35 +13837,35 @@ function App() {
     }
     loadConfig();
   }, []);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     if (!configLoaded) return;
     const sk = minutesToTime(sabahKametMins);
     localStorage.setItem("manuelSabahKamet", sk);
     setSabahKametSaati(sk);
   }, [sabahKametMins, configLoaded]);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     if (configLoaded) localStorage.setItem("duyuruTR", duyuruTR);
   }, [duyuruTR, configLoaded]);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     if (configLoaded) localStorage.setItem("duyuruDE", duyuruDE);
   }, [duyuruDE, configLoaded]);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     if (configLoaded) localStorage.setItem("hicriOffset", String(hicriOffset));
   }, [hicriOffset, configLoaded]);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     if (!configLoaded) return;
     Object.entries(bayramMins).forEach(([tarih, mins]) => {
       localStorage.setItem("bayram_" + tarih, String(mins));
     });
   }, [bayramMins, configLoaded]);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     setSabahKametSaati(minutesToTime(sabahKametMins));
   }, [sabahKametMins]);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     const id = setInterval(() => setNow(/* @__PURE__ */ new Date()), 1e3);
     return () => clearInterval(id);
   }, []);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     const id = setInterval(() => setLang((l) => l === "tr" ? "de" : "tr"), 2e4);
     return () => clearInterval(id);
   }, []);
@@ -13924,7 +13924,7 @@ function App() {
     { key: "aksam", ezan: times.aksam, kamet: getKametTime("aksam", times.aksam) },
     { key: "yatsi", ezan: times.yatsi, kamet: getKametTime("yatsi", times.yatsi) }
   ];
-  const handleBottomClick = useCallback(() => {
+  const handleBottomClick = reactExports.useCallback(() => {
     settingsClickCount.current += 1;
     if (settingsTimer.current) clearTimeout(settingsTimer.current);
     settingsTimer.current = setTimeout(() => {
