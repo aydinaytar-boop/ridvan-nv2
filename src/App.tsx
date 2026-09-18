@@ -548,8 +548,8 @@ const nextLabel = labelFor(flow.nextVakit);
                   return (
                     <div key={key} className={isActive ? "active-vakit-row" : ""}
                       style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", padding: "0 20px", flex: 1, borderBottom: "1px solid #c9a66b33", background: isActive ? undefined : isNext ? "rgba(201,166,107,0.07)" : "transparent", borderLeft: isActive ? "7px solid #c9a66b" : "7px solid transparent", alignItems: "center", transition: "background 0.3s" }}>
+                      <span className={isActive ? "active-vakit-text" : ""} style={{ color: isActive ? "#f5d78e" : "#a8c8b0", fontSize: isActive ? "clamp(34px, 5.6vh, 56px)" : "clamp(30px, 5vh, 50px)", fontWeight: isActive ? 900 : 600, letterSpacing: 1, lineHeight: 1 }}>{VAKIT_NAMES[lang][key]}</span>
                       <span className={isActive ? "active-vakit-text" : ""} style={{ color: "#f5d78e", fontSize: isActive ? "clamp(38px, 6.2vh, 60px)" : "clamp(34px, 5.6vh, 54px)", fontWeight: 700, textAlign: "center", fontFamily: "monospace", lineHeight: 1 }}>{ezan}</span>
-                      <span className={isActive ? "active-vakit-text" : ""} style={{ color: "#f5d78e", fontSize: isActive ? "clamp(44px, 7.2vh, 72px)" : "clamp(40px, 6.6vh, 66px)", fontWeight: 700, textAlign: "center", fontFamily: "monospace", lineHeight: 1 }}>{ezan}</span>
                       <span className={isActive ? "active-vakit-text" : ""} style={{ color: isActive ? "#f5d78e" : "#a8c8b0", fontSize: "clamp(34px, 5.6vh, 58px)", textAlign: "right", fontFamily: "monospace", lineHeight: 1 }}>{kamet || "—"}</span>
                     </div>
                   );
@@ -627,7 +627,6 @@ const nextLabel = labelFor(flow.nextVakit);
                 </div>
               )}
             </div>
-
             {/* SAĞ — DUA + DUYURU */}
             <div className="panel" style={{ flex: 1, display: "flex", flexDirection: "column", background: "#0a3d2e", minHeight: 0 }}>
               {isEzan ? (
