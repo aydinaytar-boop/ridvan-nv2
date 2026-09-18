@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const filePath = path.join(__dirname, 'docs', 'index.html');
+const filePath = path.join(__dirname, 'dist', 'index.html');
 let html = fs.readFileSync(filePath, 'utf8');
 
 // 1. color-scheme ekle
@@ -40,4 +40,4 @@ html = html.replace(/(src|href)="(\.\/assets\/[^"]+)"/g, (match, attr, url) => {
 });
 
 fs.writeFileSync(filePath, html, 'utf8');
-console.log(`✅ docs/index.html TV için düzeltildi. Build: ${new Date(buildTime).toLocaleString('tr-TR')}`);
+console.log(`✅ dist/index.html TV için düzeltildi. Build: ${new Date(buildTime).toLocaleString('tr-TR')}`);
