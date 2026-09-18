@@ -634,9 +634,9 @@ const nextLabel = labelFor(flow.nextVakit);
                   <div style={{ background: "#c9a66b", textAlign: "center", padding: "10px 0", color: "#0a3d2e", fontSize: 36, fontWeight: 900, letterSpacing: 3, flexShrink: 0 }}>
                     {lang === "tr" ? "EZAN DUASI" : "ADHAN-GEBET"}
                   </div>
-                  <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px 24px", gap: duaTypography.gap, overflow: "hidden", boxSizing: "border-box" }}>
-                    <div style={{ color: "#f5d78e", fontSize: duaTypography.ar, textAlign: "right", lineHeight: 1.65, direction: "rtl", fontFamily: "serif", width: "100%", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000", overflow: "hidden" }}>{duaArabic}</div>
-                    <div style={{ color: "#a8c8b0", fontSize: duaTypography.text, textAlign: "center", lineHeight: 1.45, width: "100%", overflowWrap: "break-word", wordBreak: "break-word", whiteSpace: "pre-wrap", textShadow: "1px 1px 2px #000", overflow: "hidden" }}>{duaText}</div>
+                    <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px 24px", gap: duaTypography.gap * 1.7, overflow: "hidden", boxSizing: "border-box" }}>
+                    <div style={{ color: "#f5d78e", fontSize: duaTypography.ar * 1.7, textAlign: "right", lineHeight: 1.65, direction: "rtl", fontFamily: "serif", width: "100%", overflowWrap: "break-word", wordBreak: "break-word", textShadow: "1px 1px 2px #000", overflow: "hidden" }}>{duaArabic}</div>
+                    <div style={{ color: "#a8c8b0", fontSize: duaTypography.text * 1.7, textAlign: "center", lineHeight: 1.45, width: "100%", overflowWrap: "break-word", wordBreak: "break-word", whiteSpace: "pre-wrap", textShadow: "1px 1px 2px #000", overflow: "hidden" }}>{duaText}</div>
                   </div>
                 </>
               ) : (
