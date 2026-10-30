@@ -1,9 +1,9 @@
 {
   "version": 1,
   "dynamic": {
-    "sabahKamet": "06:30",
-    "duyuruTR": "Lütfen DİKAKT! 23-26 Tarihlerinde Cami içi HAYIR ÇARŞIMIZ vardır. Davetlisiniz",
-    "duyuruDE": "Bitte BEACHTEN! Vom 23. bis 26. findet in der Moschee unser Wohltätigkeitsbasar statt. Sie sind herzlich eingeladen!",
+    "sabahKamet": "05:45",
+    "duyuruTR": "Rıdvan Camii Hayır Çarşısına Katkılarınızdan dolayı Teşşekkür ederiz, Allah Razı Olsun!",
+    "duyuruDE": "Wir danken Ihnen für Ihren Beitrag zum Wohltätigkeitsbasar der Rıdvan-Moschee – möge Allah mit Ihnen zufrieden sein!",
     "kametSureleri": {
       "ogle": 9,
       "ikindi": 9,
@@ -680,9 +680,249 @@
         "ikindi": "14:24",
         "aksam": "16:56",
         "yatsi": "18:21"
+      },
+      "2026-10-26": {
+        "sabah": "04:46",
+        "gunes": "06:23",
+        "ogle": "11:44",
+        "ikindi": "14:22",
+        "aksam": "16:54",
+        "yatsi": "18:20"
+      },
+      "2026-10-27": {
+        "sabah": "04:47",
+        "gunes": "06:25",
+        "ogle": "11:44",
+        "ikindi": "14:21",
+        "aksam": "16:52",
+        "yatsi": "18:18"
+      },
+      "2026-10-28": {
+        "sabah": "04:48",
+        "gunes": "06:26",
+        "ogle": "11:43",
+        "ikindi": "14:20",
+        "aksam": "16:51",
+        "yatsi": "18:17"
+      },
+      "2026-10-29": {
+        "sabah": "04:50",
+        "gunes": "06:28",
+        "ogle": "11:43",
+        "ikindi": "14:18",
+        "aksam": "16:49",
+        "yatsi": "18:15"
+      },
+      "2026-10-30": {
+        "sabah": "04:51",
+        "gunes": "06:29",
+        "ogle": "11:43",
+        "ikindi": "14:17",
+        "aksam": "16:47",
+        "yatsi": "18:13"
+      },
+      "2026-10-31": {
+        "sabah": "04:53",
+        "gunes": "06:31",
+        "ogle": "11:43",
+        "ikindi": "14:16",
+        "aksam": "16:46",
+        "yatsi": "18:12"
+      },
+      "2026-11-01": {
+        "sabah": "04:54",
+        "gunes": "06:32",
+        "ogle": "11:43",
+        "ikindi": "14:14",
+        "aksam": "16:44",
+        "yatsi": "18:11"
+      },
+      "2026-11-02": {
+        "sabah": "04:55",
+        "gunes": "06:34",
+        "ogle": "11:43",
+        "ikindi": "14:13",
+        "aksam": "16:42",
+        "yatsi": "18:09"
+      },
+      "2026-11-03": {
+        "sabah": "04:57",
+        "gunes": "06:36",
+        "ogle": "11:43",
+        "ikindi": "14:12",
+        "aksam": "16:41",
+        "yatsi": "18:08"
+      },
+      "2026-11-04": {
+        "sabah": "04:58",
+        "gunes": "06:37",
+        "ogle": "11:43",
+        "ikindi": "14:11",
+        "aksam": "16:39",
+        "yatsi": "18:06"
+      },
+      "2026-11-05": {
+        "sabah": "04:59",
+        "gunes": "06:39",
+        "ogle": "11:43",
+        "ikindi": "14:10",
+        "aksam": "16:38",
+        "yatsi": "18:05"
+      },
+      "2026-11-06": {
+        "sabah": "05:01",
+        "gunes": "06:40",
+        "ogle": "11:43",
+        "ikindi": "14:08",
+        "aksam": "16:36",
+        "yatsi": "18:04"
+      },
+      "2026-11-07": {
+        "sabah": "05:02",
+        "gunes": "06:42",
+        "ogle": "11:43",
+        "ikindi": "14:07",
+        "aksam": "16:35",
+        "yatsi": "18:02"
+      },
+      "2026-11-08": {
+        "sabah": "05:03",
+        "gunes": "06:43",
+        "ogle": "11:43",
+        "ikindi": "14:06",
+        "aksam": "16:33",
+        "yatsi": "18:01"
+      },
+      "2026-11-09": {
+        "sabah": "05:05",
+        "gunes": "06:45",
+        "ogle": "11:43",
+        "ikindi": "14:05",
+        "aksam": "16:32",
+        "yatsi": "18:00"
+      },
+      "2026-11-10": {
+        "sabah": "05:06",
+        "gunes": "06:46",
+        "ogle": "11:43",
+        "ikindi": "14:04",
+        "aksam": "16:31",
+        "yatsi": "17:59"
+      },
+      "2026-11-11": {
+        "sabah": "05:07",
+        "gunes": "06:48",
+        "ogle": "11:44",
+        "ikindi": "14:03",
+        "aksam": "16:29",
+        "yatsi": "17:58"
+      },
+      "2026-11-12": {
+        "sabah": "05:09",
+        "gunes": "06:49",
+        "ogle": "11:44",
+        "ikindi": "14:02",
+        "aksam": "16:28",
+        "yatsi": "17:57"
+      },
+      "2026-11-13": {
+        "sabah": "05:10",
+        "gunes": "06:51",
+        "ogle": "11:44",
+        "ikindi": "14:01",
+        "aksam": "16:27",
+        "yatsi": "17:56"
+      },
+      "2026-11-14": {
+        "sabah": "05:11",
+        "gunes": "06:53",
+        "ogle": "11:44",
+        "ikindi": "14:00",
+        "aksam": "16:25",
+        "yatsi": "17:55"
+      },
+      "2026-11-15": {
+        "sabah": "05:12",
+        "gunes": "06:54",
+        "ogle": "11:44",
+        "ikindi": "13:59",
+        "aksam": "16:24",
+        "yatsi": "17:54"
+      },
+      "2026-11-16": {
+        "sabah": "05:14",
+        "gunes": "06:56",
+        "ogle": "11:44",
+        "ikindi": "13:58",
+        "aksam": "16:23",
+        "yatsi": "17:53"
+      },
+      "2026-11-17": {
+        "sabah": "05:15",
+        "gunes": "06:57",
+        "ogle": "11:44",
+        "ikindi": "13:57",
+        "aksam": "16:22",
+        "yatsi": "17:52"
+      },
+      "2026-11-18": {
+        "sabah": "05:16",
+        "gunes": "06:59",
+        "ogle": "11:45",
+        "ikindi": "13:56",
+        "aksam": "16:21",
+        "yatsi": "17:51"
+      },
+      "2026-11-19": {
+        "sabah": "05:18",
+        "gunes": "07:00",
+        "ogle": "11:45",
+        "ikindi": "13:55",
+        "aksam": "16:20",
+        "yatsi": "17:50"
+      },
+      "2026-11-20": {
+        "sabah": "05:19",
+        "gunes": "07:01",
+        "ogle": "11:45",
+        "ikindi": "13:55",
+        "aksam": "16:19",
+        "yatsi": "17:49"
+      },
+      "2026-11-21": {
+        "sabah": "05:20",
+        "gunes": "07:03",
+        "ogle": "11:45",
+        "ikindi": "13:54",
+        "aksam": "16:18",
+        "yatsi": "17:49"
+      },
+      "2026-11-22": {
+        "sabah": "05:21",
+        "gunes": "07:04",
+        "ogle": "11:46",
+        "ikindi": "13:53",
+        "aksam": "16:17",
+        "yatsi": "17:48"
+      },
+      "2026-11-23": {
+        "sabah": "05:22",
+        "gunes": "07:06",
+        "ogle": "11:46",
+        "ikindi": "13:53",
+        "aksam": "16:16",
+        "yatsi": "17:47"
+      },
+      "2026-11-24": {
+        "sabah": "05:24",
+        "gunes": "07:07",
+        "ogle": "11:46",
+        "ikindi": "13:52",
+        "aksam": "16:15",
+        "yatsi": "17:46"
       }
     },
-    "lastApiUpdate": "2026-09-25T07:09:06.314Z",
+    "lastApiUpdate": "2026-10-25T07:18:07.396Z",
     "refreshToken": "DB93958E4290BD6F16C4829CCA8B42A4"
   }
 }
