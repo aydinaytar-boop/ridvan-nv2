@@ -24,6 +24,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate config.json
+        run: node -e "JSON.parse(require('fs').readFileSync('public/config.json','utf8')); console.log('config.json geçerli')"
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
