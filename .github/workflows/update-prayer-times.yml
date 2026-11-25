@@ -2,7 +2,7 @@ name: Update Prayer Times
 
 on:
   schedule:
-    - cron: '0 2 * * 1'
+    - cron: '0 2 * * 1,4'
   workflow_dispatch: {}
 
 permissions:
@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -45,7 +47,17 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "chore: otomatik vakit güncellemesi ($(date +'%Y-%m'))"
-            git push
+            for attempt in 1 2 3; do
+              git pull --rebase origin main
+              if git push; then
+                break
+              fi
+              if [ "$attempt" = "3" ]; then
+                echo "Push 3 denemede de başarısız oldu."
+                exit 1
+              fi
+              sleep 5
+            done
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
@@ -60,6 +72,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main
+
+      - name: Validate config.json
+        run: node -e "JSON.parse(require('fs').readFileSync('public/config.json','utf8')); console.log('config.json geçerli')"
 
       - name: Setup Node
         uses: actions/setup-node@v4
