@@ -2,7 +2,7 @@ name: Update Prayer Times
 
 on:
   schedule:
-    - cron: '0 2 25 * *'
+    - cron: '0 2 * * 1'
   workflow_dispatch: {}
 
 permissions:
